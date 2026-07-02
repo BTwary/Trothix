@@ -61,7 +61,7 @@
   <div class="eyebrow">ClearClause</div>
   <h1>Usage stats</h1>
   <div class="note">
-    In-memory, per-instance counters — these reset on cold start and aren't a durable all-time total (see <code>api/_stats.js</code>). Good enough to sanity-check traffic and error rates during early usage; swap in a persistent store before relying on this for real reporting.
+    In-memory, per-instance counters — these reset on cold start and aren't a durable all-time total (see <code>api/_stats.js</code>). Good enough to sanity-check traffic and error rates during early usage; swap in a persistent store before relying on this for real reporting. "Page views" counts page loads, not unique visitors — a reload or a repeat visit both add to it.
   </div>
 
   <div id="content"><p class="loading">Loading…</p></div>
@@ -82,6 +82,8 @@ async function load(){
 
     let html = '';
     html += '<div class="grid">';
+    html += cell('Page views', d.pageViews);
+    html += cell('Visit → analysis rate', pct(d.visitToAnalysisRate));
     html += cell('Total requests (used)', d.totalRequests);
     html += cell('Successful analyses', d.completedAnalyses);
     html += cell('Completion rate', pct(d.completionRate));

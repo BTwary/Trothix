@@ -15,26 +15,37 @@ Also included:
   intentionally not linked from the public nav — visit it directly at
   `/stats.html` once deployed.
 
-  **This needs Vercel KV to actually work in production.** `/api/analyze`,
-  `/api/feedback`, and `/api/stats` each run as separate, isolated
-  serverless functions on Vercel — they don't share in-memory state with
-  each other, even though they live in the same `/api` folder. Without a
-  shared store, a count recorded by `/api/analyze` is invisible to
-  `/api/stats`, which is why you'll see all-zero numbers on the dashboard
-  if you skip this step. To fix it:
+  **This needs a real database to actually work in production.**
+  `/api/analyze`, `/api/feedback`, and `/api/stats` each run as separate,
+  isolated serverless functions on Vercel — they don't share in-memory
+  state with each other, even though they live in the same `/api` folder.
+  Without a shared store, a count recorded by `/api/analyze` is invisible
+  to `/api/stats`, which is why you'll see all-zero numbers on the
+  dashboard if you skip this step.
 
-  1. In your Vercel project, go to **Storage → Create Database → KV**
-     (this provisions a small Upstash Redis instance for you).
-  2. Connect it to this project. Vercel will automatically add
-     `KV_REST_API_URL` and `KV_REST_API_TOKEN` as environment variables.
-  3. Redeploy. `/stats.html` will show "✓ Backed by Redis" once it's
-     picked up — no code changes needed, `api/_stats.js` detects the env
-     vars automatically.
+  **If you already have a Supabase project** (recommended — no need to go
+  through Vercel's marketplace or set up separate billing):
+  1. In Supabase → your project → **SQL Editor** → New query, and run the
+     SQL block at the top of `api/_stats.js` (creates two small tables and
+     three helper functions).
+  2. In Supabase → **Project Settings → API**, copy the **Project URL**
+     and the **`service_role`** secret key (not the anon/public key).
+  3. In Vercel → your project → **Settings → Environment Variables**, add:
+     - `SUPABASE_URL` = your Project URL
+     - `SUPABASE_SERVICE_ROLE_KEY` = your service_role key
+  4. Redeploy. `/stats.html` will show "Backed by Supabase" once it picks
+     it up.
 
-  Until you set that up, the app still works fine end-to-end (analysis,
-  feedback buttons, etc.) — it just falls back to in-memory counters on
-  `/stats.html`, which reset on cold start and won't stay in sync across
-  requests. The dashboard tells you which mode it's in.
+  **If you'd rather use Redis instead** (Vercel Storage → Create Database
+  → KV, or connect an Upstash database), just set `KV_REST_API_URL` /
+  `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`)
+  instead — `api/_stats.js` checks for Supabase first, then Redis, so
+  either works without touching code.
+
+  Until one of those is set up, the app still works fine end-to-end
+  (analysis, feedback buttons, etc.) — it just falls back to in-memory
+  counters on `/stats.html`, which reset on cold start and won't stay in
+  sync across requests. The dashboard tells you which mode it's in.
 
 ## 1. Get a free Gemini API key
 
