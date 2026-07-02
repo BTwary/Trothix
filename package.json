@@ -1,0 +1,6 @@
+{
+  "name": "clearclause",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ClearClause — plain-language contract analyzer (Gemini API backend)"
+}

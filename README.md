@@ -1,160 +1,68 @@
 # ClearClause
 
-**Know what you're actually signing.**
+Plain-language contract/lease/ToS analyzer. Frontend is a single static
+`index.html`; the AI call is proxied through `/api/analyze.js` so your API
+key never touches the browser.
 
-ClearClause is an AI-powered web application that translates legal documents into plain English. Paste a contract, lease, or Terms of Service and receive a concise summary, key terms, potential red flags, and practical insights before you sign.
+## 1. Get a free Gemini API key
 
-> **Disclaimer:** ClearClause is an informational tool and does **not** provide legal advice. Always consult a qualified legal professional for important legal decisions.
+1. Go to https://aistudio.google.com/apikey
+2. Create an API key (no credit card required for the free tier)
+3. Copy it — you'll paste it into Vercel in step 3 below
 
----
+**Note:** as of June 2026, Google switched new keys from the old
+`AIzaSy...` format to a new `AQ.Ab...` "auth key" format. Either works with
+this app — the backend authenticates via the `x-goog-api-key` header, which
+supports both.
 
-## ✨ Features
+**Know the free-tier tradeoffs before you launch:**
+- Free-tier requests may be used by Google to improve their models. Since
+  people will paste real leases and contracts here, put this in your privacy
+  copy, or upgrade to a billed project (Gemini's terms treat paid/Vertex
+  traffic differently on data use) once you have real users.
+- Free tier is rate-limited (roughly 10–15 requests/minute and a few hundred
+  to ~1,000 requests/day depending on the model, as of mid-2026 — Google
+  changes this fairly often, so check https://ai.google.dev/gemini-api/docs/rate-limits
+  before you rely on a number here).
+- If you outgrow it, Gemini 2.5 Flash is inexpensive on the paid tier
+  (roughly $0.15 / $0.60 per million input/output tokens as of mid-2026).
 
-* 📄 Plain-English summaries of contracts and legal documents
-* 🚩 Highlights potentially risky clauses
-* 📌 Extracts important terms such as:
-
-  * Duration
-  * Payment
-  * Termination
-  * Penalties
-* ⚖️ Overall risk assessment
-* 📝 Top three things you should know before signing
-* 🔍 Clickable clause highlighting in the original document
-* 🔒 Privacy-first design with no document storage
-* ⚡ Fast analysis powered by Google's Gemini API
-
----
-
-## Tech Stack
-
-* HTML
-* CSS
-* Vanilla JavaScript
-* Vercel Serverless Functions
-* Google Gemini API
-
----
-
-## Project Structure
-
-```text
-clearclause/
-│
-├── api/
-│   └── analyze.js
-├── index.html
-├── package.json
-├── README.md
-└── .gitignore
-```
-
----
-
-## Getting Started
-
-### 1. Clone the repository
+## 2. Push this folder to GitHub
 
 ```bash
-git clone https://github.com/your-username/clearclause.git
-cd clearclause
+git init
+git add .
+git commit -m "ClearClause v1"
+git branch -M main
+git remote add origin <your-empty-github-repo-url>
+git push -u origin main
 ```
 
-### 2. Install dependencies
+## 3. Deploy on Vercel
+
+1. Go to https://vercel.com/new and import the GitHub repo
+2. Before the first deploy (or right after, then redeploy), go to
+   **Project Settings → Environment Variables** and add:
+   - Key: `GEMINI_API_KEY`
+   - Value: the key you copied in step 1
+3. Deploy. Vercel auto-detects `index.html` as a static file and
+   `api/analyze.js` as a serverless function — no build config needed.
+
+## 4. Test it
+
+Open your deployed `*.vercel.app` URL, click one of the sample-document
+chips, and hit Analyze. If you see "The server is missing GEMINI_API_KEY",
+double check the environment variable was added and redeploy (env var
+changes require a redeploy to take effect).
+
+## Local development (optional)
 
 ```bash
-npm install
-```
-
-### 3. Configure your environment
-
-Create a `.env` file:
-
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
----
-
-## Run Locally
-
-```bash
+npm i -g vercel
 vercel dev
 ```
 
-Open:
-
-```
-http://localhost:3000
-```
-
----
-
-## Deploy
-
-This project is designed for **Vercel**.
-
-1. Push the project to GitHub.
-2. Import the repository into Vercel.
-3. Add the environment variable:
-
-```
-GEMINI_API_KEY
-```
-
-4. Deploy.
-
----
-
-## How It Works
-
-1. Paste a contract, lease, or Terms of Service.
-2. Click **Analyze Document**.
-3. The document is securely sent to the backend.
-4. Gemini analyzes the document and returns structured JSON.
-5. ClearClause displays:
-
-   * Overall Risk
-   * Top 3 Things You Should Know
-   * Plain-English Summary
-   * Key Terms
-   * Red Flags
-   * Original Document with highlighted clauses
-   * Consequences of breaking the agreement
-
----
-
-## Privacy
-
-ClearClause does **not** store your documents.
-
-The document is sent securely to the AI model for analysis and is discarded after processing.
-
----
-
-## Roadmap
-
-* PDF and DOCX uploads
-* Document comparison
-* Saved analysis history
-* Multi-language support
-* Contract search
-* Export to PDF
-* User accounts
-* Premium features
-
----
-
-## Contributing
-
-Contributions, feature suggestions, and bug reports are welcome. Feel free to open an issue or submit a pull request.
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-Built with ❤️ to make legal documents easier to understand.
+This runs the frontend and the `/api/analyze` function locally, reading
+`GEMINI_API_KEY` from a `.env` file (create one with
+`GEMINI_API_KEY=your_key_here` — don't commit it, it's already covered by
+the `.gitignore`).
