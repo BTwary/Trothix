@@ -81,14 +81,22 @@ async function load(){
 
     let html = '';
     html += '<div class="grid">';
-    html += cell('Total requests', d.totalRequests);
-    html += cell('Completed analyses', d.completedAnalyses);
+    html += cell('Total requests (used)', d.totalRequests);
+    html += cell('Successful analyses', d.completedAnalyses);
     html += cell('Completion rate', pct(d.completionRate));
     html += cell('Avg. document length', d.averageDocumentLength ? d.averageDocumentLength + ' chars' : '—');
     html += cell('Error rate', pct(d.errorRate));
     html += cell('Rate-limit hit rate', pct(d.rateLimitHitRate));
     html += cell('Not-a-document count', d.notDocumentCount);
     html += cell('Window started', new Date(d.windowStartedAt).toLocaleString());
+    html += '</div>';
+
+    html += '<h2>Feedback</h2>';
+    html += '<div class="grid">';
+    html += cell('👍 Yes', d.feedbackYes);
+    html += cell('👎 No', d.feedbackNo);
+    html += cell('Total feedback', d.totalFeedback);
+    html += cell('Satisfaction rate', pct(d.satisfactionRate));
     html += '</div>';
 
     html += '<h2>Top document types</h2>';

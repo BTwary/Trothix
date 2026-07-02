@@ -618,6 +618,10 @@ analyzeBtn.addEventListener('click', async ()=>{
 });
 
 function renderResults(d){
+  feedbackSent = false;
+  document.querySelectorAll('.fb-btn').forEach(b=>b.classList.remove('chosen'));
+  document.getElementById('fbThanks').textContent = '';
+
   document.getElementById('docType').textContent = d.documentType || 'Document';
 
   const risk = (d.riskLevel || 'medium').toLowerCase();
@@ -713,11 +717,25 @@ function escapeHtmlAttr(s){
   return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+let feedbackSent = false;
 document.querySelectorAll('.fb-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('.fb-btn').forEach(b=>b.classList.remove('chosen'));
     btn.classList.add('chosen');
     document.getElementById('fbThanks').textContent = 'thanks for the feedback';
+
+    // Only count the first choice per result toward stats -- clicking
+    // "yes" then "no" (or back again) just updates which button looks
+    // selected, it doesn't double-count. Fire-and-forget: feedback is a
+    // nice-to-have signal, not something that should block or error the UI.
+    if(!feedbackSent){
+      feedbackSent = true;
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: btn.dataset.v })
+      }).catch(()=>{ /* silently ignore -- feedback is best-effort */ });
+    }
   });
 });
 </script>

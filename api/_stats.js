@@ -24,6 +24,8 @@ const stats = {
   rateLimitHits: 0,
   totalDocumentLength: 0,
   documentTypeCounts: Object.create(null),
+  feedbackYes: 0,
+  feedbackNo: 0,
   windowStartedAt: Date.now(),
 };
 
@@ -40,6 +42,10 @@ export function recordEvent(event, payload = {}) {
       break;
     case "not_document":
       stats.notDocumentCount++;
+      break;
+    case "feedback":
+      if (payload.value === "yes") stats.feedbackYes++;
+      else if (payload.value === "no") stats.feedbackNo++;
       break;
     case "completed": {
       stats.completedAnalyses++;
@@ -66,6 +72,8 @@ export function getStats() {
     rateLimitHits,
     totalDocumentLength,
     documentTypeCounts,
+    feedbackYes,
+    feedbackNo,
     windowStartedAt,
   } = stats;
 
@@ -75,6 +83,7 @@ export function getStats() {
     .map(([type, count]) => ({ type, count }));
 
   const rate = (n) => (totalRequests ? +(n / totalRequests).toFixed(3) : null);
+  const totalFeedback = feedbackYes + feedbackNo;
 
   return {
     windowStartedAt: new Date(windowStartedAt).toISOString(),
@@ -90,6 +99,10 @@ export function getStats() {
       ? Math.round(totalDocumentLength / completedAnalyses)
       : null,
     topDocumentTypes,
+    feedbackYes,
+    feedbackNo,
+    totalFeedback,
+    satisfactionRate: totalFeedback ? +(feedbackYes / totalFeedback).toFixed(3) : null,
     note: "In-memory, per-instance counters — resets on cold start, not a durable all-time total. See api/_stats.js for details.",
   };
 }
