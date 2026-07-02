@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearClause — Know what you're signing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC;
+    --paper-dark:#EDE8DB;
+    --ink:#211E1B;
+    --ink-soft:#4A453E;
+    --muted:#8A8377;
+    --rule:#D8D0BF;
+    --red:#B23A2E;
+    --red-soft:#F3E3DF;
+    --gold:#9A7B3F;
+    --green:#4B6B4F;
+    --green-soft:#E7EDE3;
+    --amber:#9C6B1F;
+    --amber-soft:#F3E9D6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--red-soft);}
+
+  /* ---------- layout shell ---------- */
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 120px;}
+  @media (max-width:600px){.wrap{padding:0 16px 90px;}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--rule);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;background:var(--red);
+  }
+  h1{
+    font-family:'Source Serif 4',serif;
+    font-weight:700;
+    font-size:clamp(34px,5vw,52px);
+    line-height:1.05;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--red);
+    text-decoration:underline;
+    text-decoration-color:var(--red);
+    text-decoration-thickness:3px;
+    text-underline-offset:6px;
+  }
+  .lede{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    line-height:1.6;
+    margin:0 0 6px;
+  }
+  .fine{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:22px;
+    line-height:1.7;
+  }
+  .fine strong{color:var(--ink-soft);font-weight:600;}
+
+  /* ---------- input area ---------- */
+  .desk{padding:40px 0 0;}
+  .pad-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+  }
+  .pad-label button{
+    all:unset;
+    cursor:pointer;
+    color:var(--red);
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .pad-label button:hover{color:#8a2b21;}
+  textarea{
+    width:100%;
+    min-height:220px;
+    resize:vertical;
+    background:
+      repeating-linear-gradient(var(--paper),var(--paper) 30px,var(--rule) 31px);
+    background-color:#FCFAF4;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    padding:16px 18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14.5px;
+    line-height:31px;
+    color:var(--ink);
+    outline:none;
+    box-shadow:4px 4px 0 var(--rule);
+  }
+  textarea:focus{box-shadow:4px 4px 0 var(--gold);border-color:var(--gold);}
+  .examples{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+  }
+  .chip{
+    all:unset;cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--rule);
+    border-radius:20px;
+    color:var(--ink-soft);
+    background:var(--paper-dark);
+    transition:.15s;
+  }
+  .chip:hover{border-color:var(--ink);color:var(--ink);}
+
+  .action-row{
+    display:flex;align-items:center;gap:16px;
+    margin-top:22px;
+  }
+  .analyze-btn{
+    all:unset;
+    cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--paper);
+    padding:14px 26px;
+    border-radius:2px;
+    transition:.15s;
+  }
+  .analyze-btn:hover{background:var(--red);}
+  .analyze-btn:disabled{background:var(--muted);cursor:not-allowed;}
+  .status{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .error-box{
+    margin-top:18px;
+    padding:14px 16px;
+    background:var(--red-soft);
+    border-left:3px solid var(--red);
+    font-size:13.5px;
+    color:#7a281f;
+    display:none;
+  }
+
+  /* ---------- results ---------- */
+  #results{display:none;margin-top:56px;}
+  .stamp{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--green);
+    border:1px solid var(--green);
+    border-radius:20px;
+    padding:5px 12px;
+    margin-bottom:22px;
+  }
+  .doc-type{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--muted);margin-bottom:4px;
+  }
+  .section{margin-bottom:44px;}
+  .section-head{
+    display:flex;align-items:baseline;gap:12px;
+    margin-bottom:16px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:8px;
+  }
+  .section-head h2{
+    font-family:'Source Serif 4',serif;
+    font-size:22px;
+    margin:0;
+  }
+  .section-head .n{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--muted);
+  }
+  .summary-text{
+    font-size:16.5px;line-height:1.75;color:var(--ink-soft);
+    max-width:65ch;
+  }
+
+  /* key terms */
+  .terms-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+  }
+  @media (max-width:560px){.terms-grid{grid-template-columns:1fr;}}
+  .term{background:var(--paper);padding:16px 18px;}
+  .term-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px;
+  }
+  .term-val{font-size:15px;line-height:1.5;color:var(--ink);}
+
+  /* red flags — margin markup style */
+  .flag{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px dashed var(--rule);
+  }
+  .flag:last-child{border-bottom:none;}
+  .flag-mark{
+    display:flex;align-items:flex-start;justify-content:center;padding-top:2px;
+  }
+  .flag-circle{
+    width:34px;height:34px;border-radius:50%;
+    border:2.5px solid var(--red);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;font-size:13px;color:var(--red);
+    transform:rotate(-6deg);
+  }
+  .flag-circle.medium{border-color:var(--amber);color:var(--amber);}
+  .flag-circle.low{border-color:var(--green);color:var(--green);}
+  .flag-clause{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    text-decoration:underline;
+    text-decoration-color:var(--red);
+    text-decoration-style:wavy;
+    text-underline-offset:4px;
+    margin-bottom:6px;
+  }
+  .flag-issue{font-size:15px;line-height:1.55;color:var(--ink);}
+  .sev-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin-left:6px;
+  }
+
+  .consequences{
+    background:var(--amber-soft);
+    border-left:3px solid var(--amber);
+    padding:18px 20px;
+    font-size:15px;line-height:1.7;color:#5c4415;
+  }
+
+  .risk-card{
+    padding:18px 20px;
+    border:1px solid var(--rule);
+    background:var(--paper-dark);
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+  .risk-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:999px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .risk-low{background:var(--green-soft);color:var(--green);border:1px solid var(--green);}
+  .risk-medium{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber);}
+  .risk-high{background:var(--red-soft);color:var(--red);border:1px solid var(--red);}
+
+  .top-points{margin:0;padding-left:22px;color:var(--ink-soft);font-size:15.5px;line-height:1.7;}
+  .top-points li{margin-bottom:10px;}
+  .top-points li::marker{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:13px;}
+
+  .original-doc{
+    border:1px solid var(--rule);
+    background:#FBF8F1;
+    padding:18px 18px;
+    font-family:'IBM Plex Mono',monospace;
+    white-space:pre-wrap;
+    line-height:1.8;
+    font-size:13px;
+    color:var(--ink-soft);
+    max-height:420px;
+    overflow:auto;
+  }
+  .original-doc-hint{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;color:var(--muted);margin-bottom:10px;
+  }
+  .mark-clause{
+    background:var(--red-soft);
+    color:var(--ink);
+    padding:1px 3px;
+    border-radius:3px;
+    cursor:pointer;
+    transition:.15s;
+  }
+  .mark-clause:hover{background:#eab8b0;}
+  .mark-clause.active{background:var(--gold);color:#fff;}
+  .flag-clause{cursor:pointer;}
+  .flag-clause:hover{color:var(--red);}
+
+  .disclaimer{
+    margin-top:56px;padding-top:24px;border-top:1px solid var(--rule);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;line-height:1.8;color:var(--muted);
+  }
+  .disclaimer strong{color:var(--ink-soft);}
+
+  .feedback{
+    margin-top:28px;display:flex;align-items:center;gap:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);
+  }
+  .feedback button{
+    all:unset;cursor:pointer;border:1px solid var(--rule);
+    border-radius:16px;padding:6px 14px;color:var(--ink-soft);
+  }
+  .feedback button:hover{border-color:var(--ink);color:var(--ink);}
+  .feedback button.chosen{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* spinner */
+  .spinner{
+    width:14px;height:14px;border-radius:50%;
+    border:2px solid var(--rule);border-top-color:var(--red);
+    display:inline-block;animation:spin .7s linear infinite;
+    vertical-align:middle;margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  footer{
+    max-width:760px;margin:0 auto;padding:30px 24px 60px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">ClearClause</div>
+    <h1>Know what you're<br><em>actually</em> signing.</h1>
+    <p class="lede">Paste any lease, contract, or terms of service. Get a plain-language summary, the clauses worth worrying about, and what happens if things go wrong — before you sign, not after.</p>
+    <div class="fine"><strong>Not legal advice.</strong> This tool flags things worth a closer look — it doesn't replace a lawyer. <strong>We do not store your documents.</strong> The text is sent securely to an AI model for analysis and discarded after processing.</div>
+  </div>
+
+  <div class="desk">
+    <div class="pad-label">
+      <span>Paste your document</span>
+      <button id="clearBtn" type="button">clear</button>
+    </div>
+    <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
+    <div class="examples">
+      <button class="chip" data-example="lease">Try a sample lease</button>
+      <button class="chip" data-example="freelance">Try a freelance contract</button>
+      <button class="chip" data-example="tos">Try a ToS excerpt</button>
+    </div>
+    <div class="action-row">
+      <button class="analyze-btn" id="analyzeBtn">Explain my contract</button>
+      <span class="status" id="statusText"></span>
+    </div>
+    <div class="error-box" id="errorBox"></div>
+  </div>
+
+  <div id="results">
+    <div class="stamp">✓ Reviewed</div>
+    <div class="doc-type" id="docType"></div>
+
+    <div class="section risk-section">
+      <div class="section-head"><h2>Overall risk</h2><span class="n" id="riskLabel"></span></div>
+      <div class="risk-card" id="riskCard"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Top 3 things you should know</h2></div>
+      <ol class="top-points" id="topPoints"></ol>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Plain-language summary</h2></div>
+      <p class="summary-text" id="summaryText"></p>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Key terms</h2></div>
+      <div class="terms-grid" id="termsGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Red flags</h2><span class="n" id="flagCount"></span></div>
+      <div id="flagsList"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Original text</h2></div>
+      <div class="original-doc-hint">Click a red flag above, or a highlighted passage below, to jump between them.</div>
+      <div class="original-doc" id="originalDoc"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>If you break this</h2></div>
+      <div class="consequences" id="consequencesText"></div>
+    </div>
+
+    <div class="feedback">
+      <span>Was this helpful?</span>
+      <button data-v="yes" class="fb-btn">Yes</button>
+      <button data-v="no" class="fb-btn">No</button>
+      <span id="fbThanks"></span>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> ClearClause is an AI tool, not a lawyer. It can miss things, misread context, or flag clauses that are actually standard for your situation. For anything with real money or real consequences on the line — sign a lease, take a job, accept a settlement — have an actual attorney look at it. <strong>Privacy:</strong> we do not store your documents. The text is sent securely to an AI model for analysis and discarded after processing.
+    </div>
+  </div>
+</div>
+
+<footer>ClearClause — plain-language contract review. Built as a v1 tool: no accounts, no storage, no uploads yet.</footer>
+
+<script>
+const examples = {
+  lease: `RESIDENTIAL LEASE AGREEMENT
+
+This Lease is entered into between Landlord and Tenant for the property located at 482 Fenwick Ave, Unit 3B.
+
+TERM: This lease shall commence on the 1st and continue for a period of 12 months, automatically renewing for successive 12-month terms unless either party provides written notice of non-renewal at least 90 days prior to expiration.
+
+RENT: Tenant shall pay $2,150.00 per month, due on the 1st of each month. A late fee of $150 plus $25 per day shall apply to any payment received after the 3rd of the month.
+
+SECURITY DEPOSIT: Tenant shall pay a security deposit of $4,300.00. Landlord may retain any portion of the deposit for damages, cleaning, unpaid rent, or "any other reason permitted by law," and is not required to provide an itemized list within any specific timeframe.
+
+EARLY TERMINATION: Should Tenant vacate before the end of the term for any reason, Tenant remains liable for all remaining rent payments through the end of the lease term, plus a re-leasing fee equal to one month's rent, regardless of whether the unit is re-rented.
+
+MAINTENANCE: Tenant is responsible for all repairs to the unit, including structural and appliance repairs, up to $500 per incident.
+
+ENTRY: Landlord may enter the premises at any time for inspection, repairs, or showing the unit to prospective tenants or buyers, with 24 hours notice preferred but not required.
+
+ARBITRATION: Any dispute arising from this agreement shall be resolved through binding arbitration, and Tenant waives the right to a jury trial or to participate in any class action.`,
+
+  freelance: `INDEPENDENT CONTRACTOR AGREEMENT
+
+This Agreement is between Client and Contractor for the provision of design services.
+
+SCOPE: Contractor agrees to complete all work reasonably requested by Client related to the project, including revisions, as determined solely by Client.
+
+PAYMENT: Client shall pay Contractor $3,500 for the project, payable within 45 days of final delivery and Client's written acceptance. Client may withhold payment in full if any deliverable requires "material revision," as determined at Client's sole discretion.
+
+INTELLECTUAL PROPERTY: All work product, including drafts, concepts, and unused materials, shall be the sole and exclusive property of Client upon creation, whether or not the project is completed or paid for.
+
+TERMINATION: Client may terminate this Agreement at any time, for any reason, without notice. Contractor may terminate only with 30 days written notice and must complete all work in progress before termination is effective.
+
+NON-COMPETE: For 24 months following this engagement, Contractor shall not perform similar design services for any business in the same industry as Client, anywhere in the United States.
+
+LIABILITY: Contractor agrees to indemnify and hold Client harmless from any and all claims arising from the work, including claims arising from Client's own modifications to the work product.`,
+
+  tos: `TERMS OF SERVICE (Excerpt)
+
+By creating an account, you grant us a perpetual, irrevocable, worldwide, royalty-free license to use, reproduce, modify, and display any content you upload, for any purpose, including commercial purposes, even after you delete your account.
+
+We may modify these Terms at any time without direct notice to you. Continued use of the Service after changes constitutes acceptance. It is your responsibility to review these Terms periodically.
+
+We reserve the right to suspend or terminate your account at any time, for any reason or no reason, without prior notice or refund of any fees paid.
+
+You agree to resolve any disputes through individual binding arbitration and waive any right to participate in a class action lawsuit or class-wide arbitration against us.
+
+We are not liable for any damages arising from your use of the Service, including but not limited to loss of data, loss of profits, or any indirect, incidental, or consequential damages, even if we have been advised of the possibility of such damages, up to a maximum aggregate liability of $50.
+
+We may share your personal data, including usage history and device information, with third-party partners for advertising and analytics purposes.`
+};
+
+const docInput = document.getElementById('docInput');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const statusText = document.getElementById('statusText');
+const errorBox = document.getElementById('errorBox');
+const results = document.getElementById('results');
+
+document.querySelectorAll('.chip').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    docInput.value = examples[btn.dataset.example];
+    docInput.focus();
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  docInput.value = '';
+  results.style.display = 'none';
+  errorBox.style.display = 'none';
+});
+
+analyzeBtn.addEventListener('click', async ()=>{
+  const text = docInput.value.trim();
+  errorBox.style.display = 'none';
+  results.style.display = 'none';
+
+  if(!text){
+    errorBox.textContent = "Paste some document text first — there's nothing here to analyze.";
+    errorBox.style.display = 'block';
+    return;
+  }
+  if(text.length < 100){
+    errorBox.textContent = "That's pretty short for a contract — paste at least a few sentences so there's enough to work with.";
+    errorBox.style.display = 'block';
+    return;
+  }
+
+  analyzeBtn.disabled = true;
+
+  const loadingStages = [
+    'Detecting document type...',
+    'Reading the clauses...',
+    'Checking for red flags...',
+    'Writing the plain-English summary...',
+    'Still working — this one is taking a bit longer...',
+    'Almost there, thanks for your patience...'
+  ];
+  let stageIndex = 0;
+  statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[0];
+  const stageTimer = setInterval(()=>{
+    stageIndex = Math.min(stageIndex + 1, loadingStages.length - 1);
+    statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[stageIndex];
+  }, 2200);
+
+  // Fetch with quiet retries on rate limits (429) and transient server errors
+  // (502). Instead of surfacing "you're being rate limited" as a scary error,
+  // we just say we're taking longer and try again a couple of times behind
+  // the scenes — most people never notice a blip happened.
+  async function fetchAnalyzeWithRetry(body, maxRetries = 2){
+    const retryDelaysMs = [4000, 9000]; // gentle backoff
+    for(let attempt = 0; attempt <= maxRetries; attempt++){
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const isRetryable = response.status === 429 || response.status === 502;
+      if(isRetryable && attempt < maxRetries){
+        statusText.innerHTML = '<span class="spinner"></span>' +
+          "This is taking a little longer than usual — hang tight, still working on it...";
+        await new Promise(r => setTimeout(r, retryDelaysMs[attempt]));
+        continue;
+      }
+      return response;
+    }
+  }
+
+  try{
+    const truncated = text.length > 18000 ? text.slice(0, 18000) + "\n\n[document truncated for length]" : text;
+    window.__sourceDocText = truncated;
+
+    const response = await fetchAnalyzeWithRetry({ documentText: truncated });
+    const parsed = await response.json();
+
+    if(!response.ok){
+      const e = new Error(parsed.error || ("Request failed (" + response.status + ")"));
+      e.detail = parsed.detail;
+      e.status = response.status;
+      throw e;
+    }
+
+    if(parsed.isDocument === false){
+      errorBox.textContent = parsed.reason || "This doesn't look like a contract, lease, or terms-of-service document.";
+      errorBox.style.display = 'block';
+      statusText.textContent = '';
+      analyzeBtn.disabled = false;
+      return;
+    }
+
+    renderResults(parsed);
+    statusText.textContent = '';
+  }catch(err){
+    const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
+    const isRateLimited = err.status === 429;
+    errorBox.textContent = isNetworkError
+      ? "Couldn't reach the analysis service. Check your connection and try again."
+      : isRateLimited
+      ? "Things are busier than usual right now, so this took a while and still couldn't finish. Wait about a minute and give it another try."
+      : err.message + (err.detail ? " (" + err.detail + ")" : "");
+    errorBox.style.display = 'block';
+    statusText.textContent = '';
+  }finally{
+    clearInterval(stageTimer);
+    analyzeBtn.disabled = false;
+  }
+});
+
+function renderResults(d){
+  document.getElementById('docType').textContent = d.documentType || 'Document';
+
+  const risk = (d.riskLevel || 'medium').toLowerCase();
+  document.getElementById('riskLabel').textContent = risk.toUpperCase() + ' RISK';
+  document.getElementById('riskCard').innerHTML = `
+    <div class="risk-pill risk-${risk}">${escapeHtml(risk)} risk</div>
+    <div>${escapeHtml(d.riskSummary || 'This document deserves a careful read.')}</div>`;
+
+  const topPoints = document.getElementById('topPoints');
+  topPoints.innerHTML = '';
+  (d.topPoints || []).slice(0,3).forEach(point=>{
+    const li = document.createElement('li');
+    li.textContent = point;
+    topPoints.appendChild(li);
+  });
+
+  document.getElementById('summaryText').textContent = d.summary || '';
+
+  const termsGrid = document.getElementById('termsGrid');
+  const termLabels = { duration:'Duration', payment:'Payment', termination:'Termination', penalties:'Penalties' };
+  termsGrid.innerHTML = '';
+  Object.keys(termLabels).forEach(key=>{
+    const val = (d.keyTerms && d.keyTerms[key]) || 'Not specified';
+    const el = document.createElement('div');
+    el.className = 'term';
+    el.innerHTML = `<div class="term-label">${termLabels[key]}</div><div class="term-val">${escapeHtml(val)}</div>`;
+    termsGrid.appendChild(el);
+  });
+
+  const flags = d.redFlags || [];
+  document.getElementById('flagCount').textContent = flags.length + (flags.length===1?' flag':' flags');
+  const flagsList = document.getElementById('flagsList');
+  flagsList.innerHTML = '';
+  if(flags.length === 0){
+    flagsList.innerHTML = '<p style="color:var(--muted);font-size:14px;">No significant red flags found — still worth a careful read.</p>';
+  }
+  flags.forEach((f,i)=>{
+    const sev = (f.severity || 'medium').toLowerCase();
+    const anchor = f.anchor || ('flag-' + i);
+    const el = document.createElement('div');
+    el.className = 'flag';
+    el.innerHTML = `
+      <div class="flag-mark"><div class="flag-circle ${sev}">${i+1}</div></div>
+      <div>
+        <div class="flag-clause" data-anchor="${escapeHtmlAttr(anchor)}">"${escapeHtml(f.clause||'')}"</div>
+        <div class="flag-issue">${escapeHtml(f.issue||'')}<span class="sev-tag">${sev} severity</span></div>
+      </div>`;
+    flagsList.appendChild(el);
+  });
+
+  const originalDoc = document.getElementById('originalDoc');
+  originalDoc.innerHTML = highlightClauses(window.__sourceDocText || '', flags);
+
+  document.querySelectorAll('.flag-clause').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const target = document.querySelector(`[data-clause-anchor="${CSS.escape(el.dataset.anchor)}"]`);
+      if(target){
+        document.querySelectorAll('.mark-clause').forEach(x=>x.classList.remove('active'));
+        target.classList.add('active');
+        target.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+
+  document.getElementById('consequencesText').textContent = d.consequences || '';
+
+  results.style.display = 'block';
+  results.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function highlightClauses(text, flags){
+  if(!text) return '<span style="color:var(--muted);">No document text available.</span>';
+  let html = escapeHtml(text);
+  flags.forEach((f, idx)=>{
+    const clause = (f.clause || '').trim();
+    if(!clause || clause.length < 4) return;
+    const anchor = f.anchor || ('flag-' + idx);
+    const safeClause = escapeHtml(clause);
+    if(html.indexOf(safeClause) === -1) return; // model paraphrased instead of quoting verbatim — skip highlight
+    const replacement = `<mark class="mark-clause" data-clause-anchor="${escapeHtmlAttr(anchor)}">${safeClause}</mark>`;
+    html = html.replace(safeClause, replacement);
+  });
+  return html;
+}
+
+function escapeHtml(s){
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function escapeHtmlAttr(s){
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.querySelectorAll('.fb-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.fb-btn').forEach(b=>b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    document.getElementById('fbThanks').textContent = 'thanks for the feedback';
+  });
+});
+</script>
+
+</body>
+</html>
