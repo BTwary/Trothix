@@ -535,7 +535,9 @@ analyzeBtn.addEventListener('click', async ()=>{
     'Detecting document type...',
     'Reading the clauses...',
     'Checking for red flags...',
-    'Writing the plain-English summary...'
+    'Writing the plain-English summary...',
+    'Still working — this one is taking a bit longer...',
+    'Almost there, thanks for your patience...'
   ];
   let stageIndex = 0;
   statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[0];
@@ -544,21 +546,41 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[stageIndex];
   }, 2200);
 
+  // Fetch with quiet retries on rate limits (429) and transient server errors
+  // (502). Instead of surfacing "you're being rate limited" as a scary error,
+  // we just say we're taking longer and try again a couple of times behind
+  // the scenes — most people never notice a blip happened.
+  async function fetchAnalyzeWithRetry(body, maxRetries = 2){
+    const retryDelaysMs = [4000, 9000]; // gentle backoff
+    for(let attempt = 0; attempt <= maxRetries; attempt++){
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const isRetryable = response.status === 429 || response.status === 502;
+      if(isRetryable && attempt < maxRetries){
+        statusText.innerHTML = '<span class="spinner"></span>' +
+          "This is taking a little longer than usual — hang tight, still working on it...";
+        await new Promise(r => setTimeout(r, retryDelaysMs[attempt]));
+        continue;
+      }
+      return response;
+    }
+  }
+
   try{
     const truncated = text.length > 18000 ? text.slice(0, 18000) + "\n\n[document truncated for length]" : text;
     window.__sourceDocText = truncated;
 
-    const response = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ documentText: truncated })
-    });
-
+    const response = await fetchAnalyzeWithRetry({ documentText: truncated });
     const parsed = await response.json();
 
     if(!response.ok){
       const e = new Error(parsed.error || ("Request failed (" + response.status + ")"));
       e.detail = parsed.detail;
+      e.status = response.status;
       throw e;
     }
 
@@ -574,8 +596,11 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.textContent = '';
   }catch(err){
     const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
+    const isRateLimited = err.status === 429;
     errorBox.textContent = isNetworkError
       ? "Couldn't reach the analysis service. Check your connection and try again."
+      : isRateLimited
+      ? "Things are busier than usual right now, so this took a while and still couldn't finish. Wait about a minute and give it another try."
       : err.message + (err.detail ? " (" + err.detail + ")" : "");
     errorBox.style.display = 'block';
     statusText.textContent = '';

@@ -2,6 +2,8 @@
 // The Gemini API key lives only here, in the Vercel environment variable
 // GEMINI_API_KEY. It is never sent to or exposed in the browser.
 
+import { jsonrepair } from "jsonrepair";
+
 const GEMINI_MODEL = "gemini-3.5-flash"; // current free-tier-eligible Gemini model as of mid-2026;
                                           // re-check https://ai.google.dev/gemini-api/docs/pricing
                                           // before launch, since Google adjusts free-tier
@@ -165,16 +167,30 @@ export default async function handler(req, res) {
     try {
       parsed = JSON.parse(cleaned);
     } catch (e) {
-      console.error(
-        `[analyze] JSON.parse failed. finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} raw length=${cleaned.length}\nraw text:\n${cleaned}`
-      );
-      return res.status(502).json({
-        error:
-          finishReason === "MAX_TOKENS"
-            ? "The analysis got cut off before it finished. Try a shorter document, or try again."
-            : "Couldn't parse the analysis. Try again.",
-        detail: `finishReason: ${finishReason || "unknown"}; raw start: ${cleaned.slice(0, 300)}`,
-      });
+      // Gemini's JSON mode is asked for strict JSON but isn't 100% reliable,
+      // especially when the prompt demands verbatim character-for-character
+      // quotes from messy source text (odd whitespace, stray characters in
+      // things like blank contract templates). Before giving up, try
+      // jsonrepair, which fixes the common ways LLM JSON goes slightly wrong
+      // (trailing commas, unescaped control characters, unterminated
+      // strings/objects, etc.) without us hand-rolling regex fixes.
+      try {
+        parsed = JSON.parse(jsonrepair(cleaned));
+        console.warn(
+          `[analyze] strict JSON.parse failed but jsonrepair recovered it. finishReason=${finishReason}`
+        );
+      } catch (repairErr) {
+        console.error(
+          `[analyze] JSON.parse failed and jsonrepair could not recover it. finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} raw length=${cleaned.length}\nraw text:\n${cleaned}`
+        );
+        return res.status(502).json({
+          error:
+            finishReason === "MAX_TOKENS"
+              ? "The analysis got cut off before it finished. Try a shorter document, or try again."
+              : "Couldn't parse the analysis. Try again.",
+          detail: `finishReason: ${finishReason || "unknown"}; raw start: ${cleaned.slice(0, 300)}`,
+        });
+      }
     }
 
     return res.status(200).json(parsed);
