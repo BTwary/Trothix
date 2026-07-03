@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClearClause — Know what you're signing</title>
+<meta name="description" content="Paste any lease, contract, or terms of service. Get a plain-language summary, the clauses worth worrying about, and what happens if things go wrong — before you sign, not after.">
+<meta property="og:title" content="ClearClause — Know what you're actually signing">
+<meta property="og:description" content="Plain-language contract review. Paste a lease, contract, or ToS and see the red flags before you sign.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23211E1B'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' font-weight='700' fill='%23F6F3EC' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -108,6 +114,39 @@
     text-underline-offset:3px;
   }
   .pad-label button:hover{color:#8a2b21;}
+  .char-counter{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:8px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .char-counter.near-limit{color:var(--amber);}
+  .char-counter.over-limit{color:var(--red);}
+  .truncate-notice{
+    margin-top:10px;
+    padding:10px 14px;
+    background:var(--amber-soft);
+    border-left:3px solid var(--amber);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:#5c4415;
+    display:none;
+  }
+  .truncate-notice.show{display:block;}
+  .how-it-works{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 4px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .how-it-works .step{white-space:nowrap;}
+  .how-it-works .arrow{color:var(--rule);margin:0 2px;}
   textarea{
     width:100%;
     min-height:220px;
@@ -127,8 +166,9 @@
   }
   textarea:focus{box-shadow:4px 4px 0 var(--gold);border-color:var(--gold);}
   .examples{
-    display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;
   }
+  @media (max-width:560px){.examples{grid-template-columns:1fr;}}
   .examples-hint{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
@@ -136,29 +176,38 @@
     margin-top:14px;
     margin-bottom:-4px;
   }
- .input-note{
-    margin-top:8px;
-    margin-bottom:16px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:#7a6f62;   /* slightly lighter than your current text */
-    line-height:1.4;
-}
-  .label{
-    opacity:.7;
-}
   .chip{
     all:unset;cursor:pointer;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    padding:6px 12px;
+    display:block;
+    padding:14px 16px;
     border:1px solid var(--rule);
-    border-radius:20px;
-    color:var(--ink-soft);
+    border-radius:3px;
     background:var(--paper-dark);
     transition:.15s;
+    position:relative;
   }
-  .chip:hover{border-color:var(--ink);color:var(--ink);}
+  .chip:hover{border-color:var(--ink);background:#FBF8F1;transform:translateY(-1px);}
+  .chip:hover .chip-go{color:var(--red);}
+  .chip-kind{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .chip-kind::before{
+    content:"";width:9px;height:11px;
+    border:1.3px solid var(--muted);
+    border-radius:1px;
+    display:inline-block;
+  }
+  .chip-title{
+    font-family:'Source Serif 4',serif;
+    font-size:15px;color:var(--ink);margin-bottom:3px;
+  }
+  .chip-go{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;color:var(--muted);transition:.15s;
+  }
 
   .action-row{
     display:flex;align-items:center;gap:16px;
@@ -196,7 +245,8 @@
   }
 
   /* ---------- results ---------- */
-  #results{display:none;margin-top:56px;}
+  #results{display:none;margin-top:56px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
+  #results.in{opacity:1;transform:translateY(0);}
   .stamp{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'IBM Plex Mono',monospace;
@@ -296,11 +346,16 @@
   .risk-card{
     padding:18px 20px;
     border:1px solid var(--rule);
+    border-left:4px solid var(--rule);
     background:var(--paper-dark);
     font-size:15.5px;
     line-height:1.7;
     color:var(--ink-soft);
+    transition:.2s;
   }
+  .risk-card.risk-card-low{border-left-color:var(--green);background:var(--green-soft);}
+  .risk-card.risk-card-medium{border-left-color:var(--amber);background:var(--amber-soft);}
+  .risk-card.risk-card-high{border-left-color:var(--red);background:var(--red-soft);}
   .risk-pill{
     display:inline-flex;align-items:center;gap:8px;
     padding:7px 14px;border-radius:999px;
@@ -407,6 +462,11 @@
     <h1>Know what you're<br><em>actually</em> signing.</h1>
     <p class="lede">Paste any lease, contract, or terms of service. Get a plain-language summary, the clauses worth worrying about, and what happens if things go wrong — before you sign, not after.</p>
     <div class="fine"><strong>Not legal advice.</strong> This tool flags things worth a closer look — it doesn't replace a lawyer. <strong>We do not store your documents.</strong> The text is sent securely to an AI model for analysis and discarded after processing.</div>
+    <div class="how-it-works">
+      <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
+      <span class="step">2. It's sent to Google's Gemini AI to read</span><span class="arrow">→</span>
+      <span class="step">3. Results shown here — nothing is saved on our end</span>
+    </div>
   </div>
 
   <div class="desk">
@@ -415,18 +475,28 @@
       <button id="clearBtn" type="button">clear</button>
     </div>
     <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
-
-<p class="input-note">
-    <span class="label">Current limit:</span>
-    <strong>1,800 characters</strong>
-    <span>(about one page). PDF upload and larger documents coming soon.</span>
-</p>
-
-<p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
+    <div class="char-counter" id="charCounter">
+      <span id="charCount">0 characters</span>
+      <span id="charLimit">max 18,000 characters processed</span>
+    </div>
+    <div class="truncate-notice" id="truncateNotice"></div>
+    <p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
     <div class="examples">
-      <button class="chip" data-example="lease">Try a sample lease</button>
-      <button class="chip" data-example="freelance">Try a freelance contract</button>
-      <button class="chip" data-example="tos">Try a ToS excerpt</button>
+      <button class="chip" data-example="lease">
+        <div class="chip-kind">Residential lease</div>
+        <div class="chip-title">Apartment lease agreement</div>
+        <div class="chip-go">Load sample →</div>
+      </button>
+      <button class="chip" data-example="freelance">
+        <div class="chip-kind">Contractor agreement</div>
+        <div class="chip-title">Freelance design contract</div>
+        <div class="chip-go">Load sample →</div>
+      </button>
+      <button class="chip" data-example="tos">
+        <div class="chip-kind">Terms of service</div>
+        <div class="chip-title">App ToS excerpt</div>
+        <div class="chip-go">Load sample →</div>
+      </button>
     </div>
     <div class="action-row">
       <button class="analyze-btn" id="analyzeBtn">Explain my contract</button>
@@ -438,6 +508,7 @@
   <div id="results">
     <div class="stamp">✓ Reviewed</div>
     <div class="doc-type" id="docType"></div>
+    <div class="truncate-notice" id="resultsTruncateNotice"></div>
 
     <div class="section risk-section">
       <div class="section-head"><h2>Overall risk</h2><span class="n" id="riskLabel"></span></div>
@@ -506,7 +577,7 @@
 </div>
 
 <footer>
-  ClearClause — plain-language contract review. Built as a v1 tool: no accounts, no storage, no uploads yet.
+  ClearClause — plain-language contract review. No account needed. Nothing you paste is stored.
   <div class="footer-links"><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/faq.html">FAQ</a></div>
 </footer>
 
@@ -579,11 +650,34 @@ const analyzeBtn = document.getElementById('analyzeBtn');
 const statusText = document.getElementById('statusText');
 const errorBox = document.getElementById('errorBox');
 const results = document.getElementById('results');
+const charCounter = document.getElementById('charCounter');
+const charCount = document.getElementById('charCount');
+const truncateNotice = document.getElementById('truncateNotice');
+const CHAR_LIMIT = 18000;
+
+function updateCharCounter(){
+  const len = docInput.value.length;
+  charCount.textContent = len.toLocaleString() + ' character' + (len === 1 ? '' : 's');
+  charCounter.classList.remove('near-limit','over-limit');
+  if(len > CHAR_LIMIT){
+    charCounter.classList.add('over-limit');
+    truncateNotice.textContent = `Only the first ${CHAR_LIMIT.toLocaleString()} characters will be analyzed — the remaining ${(len - CHAR_LIMIT).toLocaleString()} will be cut off before it's sent.`;
+    truncateNotice.classList.add('show');
+  } else if(len > CHAR_LIMIT * 0.9){
+    charCounter.classList.add('near-limit');
+    truncateNotice.classList.remove('show');
+  } else {
+    truncateNotice.classList.remove('show');
+  }
+}
+docInput.addEventListener('input', updateCharCounter);
+updateCharCounter();
 
 document.querySelectorAll('.chip').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     docInput.value = examples[btn.dataset.example];
     docInput.focus();
+    updateCharCounter();
     try {
       fetch('/api/track', {
         method: 'POST',
@@ -597,7 +691,9 @@ document.querySelectorAll('.chip').forEach(btn=>{
 
 document.getElementById('clearBtn').addEventListener('click', ()=>{
   docInput.value = '';
+  updateCharCounter();
   results.style.display = 'none';
+  results.classList.remove('in');
   errorBox.style.display = 'none';
 });
 
@@ -629,7 +725,9 @@ analyzeBtn.addEventListener('click', async ()=>{
     }).catch(()=>{});
   } catch(e) {}
 
+  const processedLen = Math.min(text.length, CHAR_LIMIT);
   const loadingStages = [
+    `Processing ${processedLen.toLocaleString()} characters...`,
     'Detecting document type...',
     'Reading the clauses...',
     'Checking for red flags...',
@@ -671,8 +769,11 @@ analyzeBtn.addEventListener('click', async ()=>{
   }
 
   try{
-    const truncated = text.length > 18000 ? text.slice(0, 18000) + "\n\n[document truncated for length]" : text;
+    const wasTruncated = text.length > 18000;
+    const truncated = wasTruncated ? text.slice(0, 18000) + "\n\n[document truncated for length]" : text;
     window.__sourceDocText = truncated;
+    window.__wasTruncated = wasTruncated;
+    window.__originalLen = text.length;
 
     const response = await fetchAnalyzeWithRetry({ documentText: truncated });
     const parsed = await response.json();
@@ -695,46 +796,15 @@ analyzeBtn.addEventListener('click', async ()=>{
     renderResults(parsed);
     statusText.textContent = '';
   }catch(err){
-    const isNetworkError =
-  err.message === "Failed to fetch" || err instanceof TypeError;
-
-let message;
-
-if (isNetworkError) {
-
-  message =
-    "Couldn't reach the analysis service. Check your connection and try again.";
-
-}
-else if (err.status === 429) {
-
-  let retry = "";
-
-  if (err.detail) {
-    const match = err.detail.match(/retry in ([\d.]+)s/i);
-
-    if (match) {
-      retry = `\n\nPlease try again in about ${Math.ceil(Number(match[1]))} seconds.`;
-    }
-  }
-
-  message =
-    "⚠️ Service temporarily busy.\n\n" +
-    "ClearClause has reached its current AI usage limit." +
-    retry;
-
-}
-else {
-
-  message =
-    "Something went wrong while analyzing your document.\n\n" +
-    "Please try again in a moment.";
-
-}
-
-errorBox.textContent = message;
-errorBox.style.display = "block";
-statusText.textContent = "";
+    const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
+    // 429s are no longer retried, so err.message is already the specific,
+    // well-crafted message the server sent (per-IP vs. global throttle) --
+    // no need to override it with generic copy here.
+    errorBox.textContent = isNetworkError
+      ? "Couldn't reach the analysis service. Check your connection and try again."
+      : err.message + (err.detail ? " (" + err.detail + ")" : "");
+    errorBox.style.display = 'block';
+    statusText.textContent = '';
   }finally{
     clearInterval(stageTimer);
     analyzeBtn.disabled = false;
@@ -748,9 +818,19 @@ function renderResults(d){
 
   document.getElementById('docType').textContent = d.documentType || 'Document';
 
+  const resultsTruncateNotice = document.getElementById('resultsTruncateNotice');
+  if(window.__wasTruncated){
+    resultsTruncateNotice.textContent = `Heads up: this document was ${window.__originalLen.toLocaleString()} characters long. Only the first 18,000 were analyzed — anything after that wasn't reviewed.`;
+    resultsTruncateNotice.classList.add('show');
+  } else {
+    resultsTruncateNotice.classList.remove('show');
+  }
+
   const risk = (d.riskLevel || 'medium').toLowerCase();
   document.getElementById('riskLabel').textContent = risk.toUpperCase() + ' RISK';
-  document.getElementById('riskCard').innerHTML = `
+  const riskCardEl = document.getElementById('riskCard');
+  riskCardEl.className = 'risk-card risk-card-' + risk;
+  riskCardEl.innerHTML = `
     <div class="risk-pill risk-${risk}">${escapeHtml(risk)} risk</div>
     <div>${escapeHtml(d.riskSummary || 'This document deserves a careful read.')}</div>`;
 
@@ -813,6 +893,10 @@ function renderResults(d){
   document.getElementById('consequencesText').textContent = d.consequences || '';
 
   results.style.display = 'block';
+  results.classList.remove('in');
+  // force reflow so the transition re-triggers on repeat analyses
+  void results.offsetWidth;
+  requestAnimationFrame(()=> results.classList.add('in'));
   results.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
