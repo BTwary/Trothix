@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stats — ClearClause</title>
+<title>Stats — Trothix</title>
+<link rel="canonical" href="https://trothix-btwarys-projects.vercel.app/stats.html">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -61,8 +62,8 @@
 <body>
 
 <div class="wrap">
-  <a class="back" href="/">← Back to ClearClause</a>
-  <div class="eyebrow">ClearClause</div>
+  <a class="back" href="/">← Back to Trothix</a>
+  <div class="eyebrow">Trothix</div>
   <h1>Usage stats</h1>
   <div class="note">
     In-memory, per-instance counters — these reset on cold start and aren't a durable all-time total (see <code>api/_stats.js</code>). Good enough to sanity-check traffic and error rates during early usage; swap in a persistent store before relying on this for real reporting. "Page views" counts page loads, not unique visitors — a reload or a repeat visit both add to it. "Total analysis requests" counts every hit to <code>/api/analyze</code> — including your own testing, retried 502s, and any direct API calls — so it can legitimately be higher than page views.

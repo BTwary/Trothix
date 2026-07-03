@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /stats.html
+Disallow: /api/
+
+Sitemap: https://trothix-btwarys-projects.vercel.app/sitemap.xml
