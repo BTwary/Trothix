@@ -112,7 +112,38 @@ async function load(){
     html += cell('👎 No', d.feedbackNo);
     html += cell('Total feedback', d.totalFeedback);
     html += cell('Satisfaction rate', pct(d.satisfactionRate));
+    html += cell('Would actually use', pct(d.wouldUseYesRate));
     html += '</div>';
+
+    html += '<h2>Would you actually use this?</h2>';
+    const wouldUseTotal = d.wouldUse ? Object.values(d.wouldUse).reduce((a,b)=>a+b,0) : 0;
+    if(!wouldUseTotal){
+      html += '<p class="loading">No one has answered this yet.</p>';
+    } else {
+      const wouldUseLabels = { yes: 'Yes', not_yet: 'Not yet', no: 'No' };
+      html += '<table>' + Object.entries(d.wouldUse)
+        .map(([v, count]) => '<tr><td>' + escapeHtml(wouldUseLabels[v] || v) + '</td><td>' + count + '</td></tr>')
+        .join('') + '</table>';
+    }
+
+    html += '<h2>What could be better</h2>';
+    const feedbackReasonsTotal = d.feedbackReasons ? Object.values(d.feedbackReasons).reduce((a,b)=>a+b,0) : 0;
+    if(!feedbackReasonsTotal){
+      html += '<p class="loading">No one has tapped a reason chip yet.</p>';
+    } else {
+      const reasonLabels = {
+        jargon: 'Too much jargon',
+        missed_something: 'Missed something important',
+        red_flags_off: "Red flags didn't match",
+        unclear_next_steps: 'Not sure what to do next',
+        nothing: 'Nothing — it was great',
+      };
+      html += '<table>' + Object.entries(d.feedbackReasons)
+        .filter(([, count]) => count > 0)
+        .sort((a, b) => b[1] - a[1])
+        .map(([r, count]) => '<tr><td>' + escapeHtml(reasonLabels[r] || r) + '</td><td>' + count + '</td></tr>')
+        .join('') + '</table>';
+    }
 
     html += '<h2>Sample document clicks</h2>';
     if(!d.sampleClicks || d.sampleClicksTotal === 0){

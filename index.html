@@ -352,6 +352,23 @@
   .feedback button:hover{border-color:var(--ink);color:var(--ink);}
   .feedback button.chosen{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  .feedback-followup{
+    margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;
+    display:none;
+  }
+  .feedback-followup.show{display:block;}
+  .feedback-followup .fu-label{color:var(--muted);margin-bottom:8px;}
+  .feedback-followup .fu-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .feedback-followup .fu-row:last-child{margin-bottom:0;}
+  .fu-chip{
+    all:unset;cursor:pointer;border:1px solid var(--rule);
+    border-radius:16px;padding:6px 12px;color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    background:var(--paper-dark);transition:.15s;
+  }
+  .fu-chip:hover{border-color:var(--ink);color:var(--ink);}
+  .fu-chip.chosen{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
   /* spinner */
   .spinner{
     width:14px;height:14px;border-radius:50%;
@@ -445,6 +462,23 @@
       <button data-v="yes" class="fb-btn">Yes</button>
       <button data-v="no" class="fb-btn">No</button>
       <span id="fbThanks"></span>
+    </div>
+
+    <div class="feedback-followup" id="feedbackFollowup">
+      <div class="fu-label">What could be better? (optional, tap one)</div>
+      <div class="fu-row" id="fuReasons">
+        <button class="fu-chip" data-reason="jargon">Too much jargon</button>
+        <button class="fu-chip" data-reason="missed_something">Missed something important</button>
+        <button class="fu-chip" data-reason="red_flags_off">Red flags didn't match my document</button>
+        <button class="fu-chip" data-reason="unclear_next_steps">Not sure what to do next</button>
+        <button class="fu-chip" data-reason="nothing">Nothing — it was great</button>
+      </div>
+      <div class="fu-label">Would you actually use this on a real document?</div>
+      <div class="fu-row" id="fuWouldUse">
+        <button class="fu-chip" data-would-use="yes">Yes</button>
+        <button class="fu-chip" data-would-use="not_yet">Not yet</button>
+        <button class="fu-chip" data-would-use="no">No</button>
+      </div>
     </div>
 
     <div class="disclaimer">
@@ -553,6 +587,7 @@ analyzeBtn.addEventListener('click', async ()=>{
   const text = docInput.value.trim();
   errorBox.style.display = 'none';
   results.style.display = 'none';
+  resetFeedbackUI();
 
   if(!text){
     errorBox.textContent = "Paste some document text first — there's nothing here to analyze.";
@@ -758,23 +793,69 @@ function escapeHtmlAttr(s){
 }
 
 let feedbackSent = false;
+let reasonSent = false;
+let wouldUseSent = false;
+
+function resetFeedbackUI(){
+  feedbackSent = false;
+  reasonSent = false;
+  wouldUseSent = false;
+  document.querySelectorAll('.fb-btn, .fu-chip').forEach(b=>b.classList.remove('chosen'));
+  document.getElementById('fbThanks').textContent = '';
+  document.getElementById('feedbackFollowup').classList.remove('show');
+}
+
 document.querySelectorAll('.fb-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('.fb-btn').forEach(b=>b.classList.remove('chosen'));
     btn.classList.add('chosen');
     document.getElementById('fbThanks').textContent = 'thanks for the feedback';
+    document.getElementById('feedbackFollowup').classList.add('show');
 
-    // Only count the first choice per result toward stats -- clicking
+    // Only count the first choice per analysis toward stats -- clicking
     // "yes" then "no" (or back again) just updates which button looks
-    // selected, it doesn't double-count. Fire-and-forget: feedback is a
-    // nice-to-have signal, not something that should block or error the UI.
+    // selected, it doesn't double-count. Resets on the next analysis (see
+    // resetFeedbackUI, called when a new "Explain my contract" click
+    // starts). Fire-and-forget: feedback is a nice-to-have signal, not
+    // something that should block or error the UI.
     if(!feedbackSent){
       feedbackSent = true;
       fetch('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ value: btn.dataset.v })
+        body: JSON.stringify({ kind: 'helpful', value: btn.dataset.v })
       }).catch(()=>{ /* silently ignore -- feedback is best-effort */ });
+    }
+  });
+});
+
+// Follow-up chips: one tap each, no typing required.
+document.querySelectorAll('#fuReasons .fu-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('#fuReasons .fu-chip').forEach(c=>c.classList.remove('chosen'));
+    chip.classList.add('chosen');
+    if(!reasonSent){
+      reasonSent = true;
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kind: 'reason', value: chip.dataset.reason })
+      }).catch(()=>{});
+    }
+  });
+});
+
+document.querySelectorAll('#fuWouldUse .fu-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('#fuWouldUse .fu-chip').forEach(c=>c.classList.remove('chosen'));
+    chip.classList.add('chosen');
+    if(!wouldUseSent){
+      wouldUseSent = true;
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kind: 'would_use', value: chip.dataset.wouldUse })
+      }).catch(()=>{});
     }
   });
 });

@@ -110,6 +110,16 @@ function normalizeErrorReason(r) {
   return ERROR_REASONS.includes(r) ? r : "unexpected";
 }
 
+const FEEDBACK_REASONS = ["jargon", "missed_something", "red_flags_off", "unclear_next_steps", "nothing"];
+function normalizeFeedbackReason(r) {
+  return FEEDBACK_REASONS.includes(r) ? r : null; // no "other" catch-all -- an unrecognized value is dropped, not guessed at
+}
+
+const WOULD_USE_VALUES = ["yes", "not_yet", "no"];
+function normalizeWouldUse(v) {
+  return WOULD_USE_VALUES.includes(v) ? v : null;
+}
+
 // ---- Supabase backend ----
 
 function supabaseHeaders(extra = {}) {
@@ -172,6 +182,16 @@ async function recordEventSupabase(event, payload) {
       if (payload.value === "yes") calls.push(supabaseRpc("clearclause_incr", { p_key: "feedbackYes" }));
       else if (payload.value === "no") calls.push(supabaseRpc("clearclause_incr", { p_key: "feedbackNo" }));
       break;
+    case "feedback_reason": {
+      const r = normalizeFeedbackReason(payload.reason);
+      if (r) calls.push(supabaseRpc("clearclause_incr", { p_key: `feedbackReasons_${r}` }));
+      break;
+    }
+    case "would_use": {
+      const v = normalizeWouldUse(payload.value);
+      if (v) calls.push(supabaseRpc("clearclause_incr", { p_key: `wouldUse_${v}` }));
+      break;
+    }
     case "completed": {
       const type = String(payload.documentType || "Unlabeled").trim().slice(0, 60) || "Unlabeled";
       calls.push(supabaseRpc("clearclause_incr", { p_key: "completedAnalyses" }));
@@ -202,6 +222,12 @@ async function getStatsSupabase() {
   const errorReasons = Object.fromEntries(
     ERROR_REASONS.map((r) => [r, byKey[`errorReasons_${r}`] || 0])
   );
+  const feedbackReasons = Object.fromEntries(
+    FEEDBACK_REASONS.map((r) => [r, byKey[`feedbackReasons_${r}`] || 0])
+  );
+  const wouldUse = Object.fromEntries(
+    WOULD_USE_VALUES.map((v) => [v, byKey[`wouldUse_${v}`] || 0])
+  );
 
   return buildStatsPayload({
     pageViews: byKey.pageViews || 0,
@@ -212,6 +238,8 @@ async function getStatsSupabase() {
     notDocumentCount: byKey.notDocumentCount || 0,
     errors: byKey.errors || 0,
     errorReasons,
+    feedbackReasons,
+    wouldUse,
     rateLimitHits: byKey.rateLimitHits || 0,
     totalDocumentLength: byKey.totalDocumentLength || 0,
     feedbackYes: byKey.feedbackYes || 0,
@@ -240,6 +268,8 @@ const COUNTER_KEYS = {
 const DOC_TYPES_HASH_KEY = KEY_PREFIX + "docTypes";
 const SAMPLE_CLICKS_HASH_KEY = KEY_PREFIX + "sampleClicks";
 const ERROR_REASONS_HASH_KEY = KEY_PREFIX + "errorReasons";
+const FEEDBACK_REASONS_HASH_KEY = KEY_PREFIX + "feedbackReasons";
+const WOULD_USE_HASH_KEY = KEY_PREFIX + "wouldUse";
 
 async function redisPipeline(commands) {
   const res = await fetch(`${REDIS_URL}/pipeline`, {
@@ -293,6 +323,16 @@ async function recordEventRedis(event, payload) {
         await redisPipeline([["INCR", COUNTER_KEYS.feedbackNo]]);
       }
       break;
+    case "feedback_reason": {
+      const r = normalizeFeedbackReason(payload.reason);
+      if (r) await redisPipeline([["HINCRBY", FEEDBACK_REASONS_HASH_KEY, r, 1]]);
+      break;
+    }
+    case "would_use": {
+      const v = normalizeWouldUse(payload.value);
+      if (v) await redisPipeline([["HINCRBY", WOULD_USE_HASH_KEY, v, 1]]);
+      break;
+    }
     case "completed": {
       const type = String(payload.documentType || "Unlabeled").trim().slice(0, 60) || "Unlabeled";
       const commands = [["INCR", COUNTER_KEYS.completedAnalyses], ["HINCRBY", DOC_TYPES_HASH_KEY, type, 1]];
@@ -324,6 +364,8 @@ async function getStatsRedis() {
     docTypesRes,
     sampleClicksRes,
     errorReasonsRes,
+    feedbackReasonsRes,
+    wouldUseRes,
   ] = await redisPipeline([
     ["GET", COUNTER_KEYS.pageViews],
     ["GET", COUNTER_KEYS.analysisStarted],
@@ -339,6 +381,8 @@ async function getStatsRedis() {
     ["HGETALL", DOC_TYPES_HASH_KEY],
     ["HGETALL", SAMPLE_CLICKS_HASH_KEY],
     ["HGETALL", ERROR_REASONS_HASH_KEY],
+    ["HGETALL", FEEDBACK_REASONS_HASH_KEY],
+    ["HGETALL", WOULD_USE_HASH_KEY],
   ]);
 
   const toInt = (r) => parseInt(r?.result, 10) || 0;
@@ -361,6 +405,18 @@ async function getStatsRedis() {
     errorReasons[errorReasonsFlat[i]] = parseInt(errorReasonsFlat[i + 1], 10) || 0;
   }
 
+  const feedbackReasonsFlat = feedbackReasonsRes?.result || [];
+  const feedbackReasons = Object.fromEntries(FEEDBACK_REASONS.map((r) => [r, 0]));
+  for (let i = 0; i < feedbackReasonsFlat.length; i += 2) {
+    feedbackReasons[feedbackReasonsFlat[i]] = parseInt(feedbackReasonsFlat[i + 1], 10) || 0;
+  }
+
+  const wouldUseFlat = wouldUseRes?.result || [];
+  const wouldUse = Object.fromEntries(WOULD_USE_VALUES.map((v) => [v, 0]));
+  for (let i = 0; i < wouldUseFlat.length; i += 2) {
+    wouldUse[wouldUseFlat[i]] = parseInt(wouldUseFlat[i + 1], 10) || 0;
+  }
+
   return buildStatsPayload({
     pageViews: toInt(pageViewsRes),
     sampleClicks,
@@ -370,6 +426,8 @@ async function getStatsRedis() {
     notDocumentCount: toInt(notDocumentCountRes),
     errors: toInt(errorsRes),
     errorReasons,
+    feedbackReasons,
+    wouldUse,
     rateLimitHits: toInt(rateLimitHitsRes),
     totalDocumentLength: toInt(totalDocumentLengthRes),
     feedbackYes: toInt(feedbackYesRes),
@@ -395,6 +453,8 @@ const memoryStats = {
   documentTypeCounts: Object.create(null),
   feedbackYes: 0,
   feedbackNo: 0,
+  feedbackReasons: Object.fromEntries(FEEDBACK_REASONS.map((r) => [r, 0])),
+  wouldUse: Object.fromEntries(WOULD_USE_VALUES.map((v) => [v, 0])),
   windowStartedAt: Date.now(),
 };
 
@@ -430,6 +490,16 @@ function recordEventMemory(event, payload) {
       if (payload.value === "yes") memoryStats.feedbackYes++;
       else if (payload.value === "no") memoryStats.feedbackNo++;
       break;
+    case "feedback_reason": {
+      const r = normalizeFeedbackReason(payload.reason);
+      if (r) memoryStats.feedbackReasons[r] = (memoryStats.feedbackReasons[r] || 0) + 1;
+      break;
+    }
+    case "would_use": {
+      const v = normalizeWouldUse(payload.value);
+      if (v) memoryStats.wouldUse[v] = (memoryStats.wouldUse[v] || 0) + 1;
+      break;
+    }
     case "completed": {
       memoryStats.completedAnalyses++;
       if (typeof payload.documentLength === "number") {
@@ -464,6 +534,8 @@ function buildStatsPayload({
   documentTypeCounts,
   feedbackYes,
   feedbackNo,
+  feedbackReasons,
+  wouldUse,
   windowStartedAt,
 }) {
   const topDocumentTypes = Object.entries(documentTypeCounts)
@@ -527,6 +599,15 @@ function buildStatsPayload({
     feedbackNo,
     totalFeedback,
     satisfactionRate: totalFeedback ? +(feedbackYes / totalFeedback).toFixed(3) : null,
+    feedbackReasons,
+    wouldUse,
+    // Of everyone who answered the "would you actually use this?" chip,
+    // what fraction said yes -- the closest thing to a single number for
+    // "does this have legs," short of watching someone actually come back.
+    wouldUseYesRate: (() => {
+      const total = Object.values(wouldUse || {}).reduce((a, b) => a + b, 0);
+      return total ? +((wouldUse.yes || 0) / total).toFixed(3) : null;
+    })(),
     note: notes[BACKEND],
   };
 }
