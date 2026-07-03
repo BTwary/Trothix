@@ -8,6 +8,19 @@ Also included:
 - `privacy.html` — a Privacy Policy page (linked from the footer)
 - `faq.html` — an FAQ page answering the questions people ask before
   trusting a tool like this with a real document (linked from the footer)
+- `demo.html` — a "Request a Demo" / contact sales page (linked from the
+  footer as "Request Demo"). Submissions post to
+  [Formspree](https://formspree.io) — the simplest free option for a static
+  site since it needs no backend or database. To wire it up:
+  1. Create a free Formspree account and a new form (free tier covers 50
+     submissions/month).
+  2. Copy the form endpoint, e.g. `https://formspree.io/f/abcdwxyz`.
+  3. Open `demo.html` and replace `FORMSPREE_ENDPOINT`'s placeholder value
+     with that URL.
+
+  Until that's set, the page still validates and renders correctly, but
+  submission shows a friendly "not connected yet" message instead of
+  silently failing.
 - `stats.html` + `/api/stats` — a lightweight, privacy-respecting usage
   dashboard (total analyses, successful analyses, top document types,
   average document length, error/rate-limit rates, completion rate, and
