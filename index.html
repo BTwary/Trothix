@@ -15,7 +15,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://trothix-btwarys-projects.vercel.app/assets/og-image.png">
+<meta name="twitter:image" content="https://-btwarys-projects.vercel.app/assets/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23211E1B'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' font-weight='700' fill='%23F6F3EC' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -55,20 +55,66 @@
   /* ---------- top nav ---------- */
   html{scroll-behavior:smooth;}
   .topnav{
-    max-width:760px;margin:0 auto;padding:22px 24px 0;
+    max-width:760px;margin:0 auto;padding:24px 24px 8px;
     display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
   @media (max-width:600px){.topnav{padding:18px 16px 0;}}
+  @media (max-width:600px){
+
+.brand-logo{
+    width:38px;
+    height:38px;
+}
+
+.brand-name{
+    font-size:14px;
+}
+
+.brand-tagline{
+    font-size:9px;
+}
+
+}
   .topnav-brand{
-    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;
-  }
-  .topnav-brand:hover{color:var(--red);}
-  .topnav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-  .topnav-links a{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:.15s;
-  }
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+}
+
+.brand-logo{
+    width:46px;
+    height:46px;
+    border-radius:12px;
+    display:block;
+}
+
+.brand-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+}
+
+.brand-name{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:.16em;
+    color:var(--ink);
+}
+
+.brand-tagline{
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+}
+
+.topnav-brand:hover .brand-name{
+    color:var(--red);
+}
   .topnav-links a:hover{color:var(--red);}
   .topnav-cta{
     display:inline-flex;align-items:center;
@@ -809,7 +855,18 @@ gap:24px;
 <body>
 
 <nav class="topnav">
-  <a href="/" class="topnav-brand">Trothix</a>
+  <a href="/" class="topnav-brand">
+    <img
+        src="/apple-touch-icon.png"
+        alt="Trothix"
+        class="brand-logo"
+    >
+
+    <div class="brand-text">
+        <span class="brand-name">TROTHIX</span>
+        <span class="brand-tagline">KNOW BEFORE YOU SIGN</span>
+    </div>
+</a>
   <div class="topnav-links">
     <a href="/feedback.html">Give Feedback</a>
     <a href="/waitlist.html" class="topnav-cta">Get Early Access</a>
