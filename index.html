@@ -89,11 +89,19 @@ align-items:center;
 
 }
   .hero-cta-row{
+
 display:flex;
-align-items:center;
+
 gap:16px;
-margin-top:22px;
+
+justify-content:flex-start;
+
+align-items:center;
+
+margin-top:20px;
+
 flex-wrap:wrap;
+
 }
   .cta-primary{
     all:unset;cursor:pointer;box-sizing:border-box;
@@ -255,6 +263,15 @@ flex-wrap:wrap;
     margin-top:14px;
     margin-bottom:-4px;
   }
+  .roadmap-card{
+
+min-height:95px;
+
+display:flex;
+
+align-items:center;
+
+}
   .chip{
     all:unset;cursor:pointer;
     display:block;
@@ -318,6 +335,28 @@ box-shadow:0 8px 20px rgba(0,0,0,.05);
     border-radius:2px;
     transition:.15s;
   }
+  .roadmap-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:14px;
+margin:22px 0;
+}
+
+.roadmap-card{
+padding:14px;
+border:1px solid var(--rule);
+background:#fff;
+border-radius:10px;
+transition:.2s;
+}
+
+.roadmap-card:hover{
+transform:translateY(-3px);
+}
+
+.roadmap-card.done{
+border-left:4px solid #3fb950;
+}
   .analyze-btn{
 
 transition:.2s ease;
@@ -557,19 +596,19 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
   }
   .hiw-grid{
     display:grid;
-    grid-template-columns:64% 36%;
+    grid-template-columns:68% 32%;
     gap:72px;
     align-items:center;
 }
   .hiw-video{
     position:relative;
     width:100%;
-    aspect-ratio:16/10;
-    min-height:360px;
+    aspect-ratio:16/9;
+    min-height:430px;
     border:1px solid var(--rule);
     border-radius:18px;
-    box-shadow:
-0 18px 45px rgba(0,0,0,.12),
+   box-shadow:
+0 24px 60px rgba(0,0,0,.15),
 4px 4px 0 var(--rule);
     background:var(--paper-dark);
     overflow:hidden;
@@ -577,7 +616,8 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
   .hiw-video video{
     width:100%;
     height:100%;
-    object-fit:contain;
+    object-fit:fill;
+    transition:opacity .4s;
     background:#f6f3ec;
 }
   .hiw-steps{
@@ -613,6 +653,30 @@ box-shadow:2px 2px 0 rgba(0,0,0,.04);
     width:34px;height:34px;
     display:flex;align-items:center;justify-content:center;
   }
+  .sample-card{
+
+transition:.2s;
+
+}
+
+.sample-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+
+}
+  .footer-grid a{
+
+transition:.2s;
+
+}
+
+.footer-grid a:hover{
+
+color:var(--red);
+
+}
   .hiw-step-body h3{
     font-family:'Source Serif 4',serif;font-weight:700;
     font-size:17px;color:var(--ink);
@@ -636,7 +700,7 @@ box-shadow:2px 2px 0 rgba(0,0,0,.04);
   @keyframes spin{to{transform:rotate(360deg);}}
 
   footer{
-    max-width:760px;margin:0 auto;padding:30px 24px 60px;
+    max-width:760px;margin:0 auto;padding:60px;
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
   }
   .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;row-gap:6px;}
@@ -661,13 +725,24 @@ border-radius:50%;
 .red{background:#ff605c;}
 .yellow{background:#ffbd44;}
 .green{background:#00ca4e;}
+.cta-primary:hover{
 
+transform:translateY(-2px);
+
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+
+}
+  .cta-secondary:hover{
+
+transform:translateY(-2px);
+
+}
 .browser-title{
 margin-left:10px;
 font-size:12px;
 font-weight:600;
 font-family:'IBM Plex Mono',monospace;
-color:#bbb;
+color:#f6f3ec;
 }
   .footer-grid{
     display:grid;
@@ -722,7 +797,6 @@ gap:24px;
     <p class="lede">Understand contracts in plain English.
 
 Identify risks before you sign.</p>
-    <div class="hero-cta-row">
       <div class="trust-row">
     <div>🔒 Nothing stored</div>
     <div>⚡ AI review in seconds</div>
@@ -920,16 +994,29 @@ clearclause.ai
   <div class="shape-future">
     <div class="eyebrow">Get Involved</div>
     <h3>Coming Soon</h3>
+<div class="roadmap-grid">
 
+<div class="roadmap-card done">
 ✓ Better summaries
+</div>
 
+<div class="roadmap-card done">
 ✓ Risk scoring
+</div>
 
-🚧 PDF upload
+<div class="roadmap-card">
+🚧 PDF Upload
+</div>
 
-🚧 Browser extension
+<div class="roadmap-card">
+🚧 Browser Extension
+</div>
 
-🚧 Team workspace
+<div class="roadmap-card">
+🚧 Team Workspace
+</div>
+
+</div>
     <h2>Help Shape the Future of ClearClause</h2>
     <p>ClearClause is continuously evolving. Get early access to upcoming features, or share your feedback to help us build a better AI-powered contract review platform.</p>
     <div class="shape-future-btns">
