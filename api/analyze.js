@@ -1,44 +1,213 @@
-// /api/analyze — server-side proxy to the Gemini API.
-// The Gemini API key lives only here, in the Vercel environment variable
-// GEMINI_API_KEY. It is never sent to or exposed in the browser.
+// /api/analyze — server-side proxy to Gemini, Groq, and OpenRouter.
+// All API keys live only here, in Vercel Environment Variables:
+//   GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY
+// They are never sent to or exposed in the browser.
 
 import { jsonrepair } from "jsonrepair";
 import { recordEvent } from "./_stats.js";
 
-// Tried in order. Each Gemini model has its OWN separate free-tier quota
-// (RPM/TPM/RPD), so if gemini-3.5-flash is exhausted for the day, the next
-// model in the chain has an untouched quota of its own.
-// Re-check https://ai.google.dev/gemini-api/docs/pricing before launch --
+// Tried in order. Each entry has its own free-tier quota, completely
+// separate from the others, so if Gemini's daily cap is gone the chain
+// still has Groq and OpenRouter left before giving up.
+//   - Gemini: best verbatim-quote accuracy, largest free daily quota per model.
+//   - Groq: fast, standing free tier, tighter tokens-per-minute budget.
+//   - OpenRouter: aggregator with its own free model roster (list rotates --
+//     re-check https://openrouter.ai/models before launch and swap the
+//     model id below if it's no longer free).
+// Re-check https://ai.google.dev/gemini-api/docs/pricing for Gemini too --
 // Google adjusts free-tier model eligibility fairly often.
-const MODEL_CHAIN = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash"];
+const MODEL_CHAIN = [
+  { provider: "gemini", model: "gemini-3.5-flash" },
+  { provider: "gemini", model: "gemini-2.5-flash" },
+  { provider: "gemini", model: "gemini-2.0-flash" },
+  { provider: "groq", model: "llama-3.3-70b-versatile" },
+  { provider: "openrouter", model: "deepseek/deepseek-r1:free" },
+];
 
-async function callGemini(apiKey, systemPrompt, contents, generationConfig) {
-  let lastErr;
-  for (const model of MODEL_CHAIN) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents,
-            generationConfig,
-          }),
-        }
-      );
-      if (res.ok) return { res, model };
-      // Only move to the next model on a quota/server error. A 4xx that
-      // isn't a quota issue (e.g. bad request) will fail identically on
-      // every model in the chain, so don't waste calls retrying it.
-      if (res.status !== 429 && res.status < 500) return { res, model };
-      lastErr = { status: res.status, body: await res.text(), model };
-    } catch (e) {
-      lastErr = e;
-    }
+// Groq/OpenRouter don't have Gemini's hidden "thinking token" overhead, so
+// they need much less headroom than Gemini's maxOutputTokens: 8000.
+const OPENAI_COMPAT_MAX_TOKENS = 4096;
+
+function normalizeFinishReason(finishReason) {
+  if (finishReason === "length") return "MAX_TOKENS";
+  if (finishReason === "content_filter") return "SAFETY";
+  if (finishReason === "stop") return "STOP";
+  return finishReason || null;
+}
+
+// Pulls a retry-after value out of whatever shape the provider gave us --
+// a header, a Gemini-style {"retryDelay":"46s"} blob, or a Groq-style
+// "Please try again in 6m11.52s" message. Returns null if none found.
+function extractRetryAfterSeconds(res, rawBodyText) {
+  const header = res.headers?.get?.("retry-after");
+  if (header && !Number.isNaN(Number(header))) return parseInt(header, 10);
+
+  const geminiMatch = rawBodyText.match(/"retryDelay"\s*:\s*"(\d+)(?:\.\d+)?s"/);
+  if (geminiMatch) return parseInt(geminiMatch[1], 10);
+
+  const groqMatch = rawBodyText.match(/try again in\s*(?:(\d+)m)?(\d+(?:\.\d+)?)s/i);
+  if (groqMatch) {
+    const minutes = groqMatch[1] ? parseInt(groqMatch[1], 10) : 0;
+    const seconds = parseFloat(groqMatch[2]);
+    return Math.ceil(minutes * 60 + seconds);
   }
-  throw lastErr;
+
+  return null;
+}
+
+async function callGeminiOne(model, apiKey, systemPrompt, userText) {
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: userText }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          // See MODEL_CHAIN comment above -- keeps thinking tokens from
+          // eating the whole maxOutputTokens budget on Gemini 3.x.
+          thinkingConfig: { thinkingLevel: "low" },
+          maxOutputTokens: 8000,
+        },
+      }),
+    }
+  );
+
+  if (!res.ok) {
+    const rawDetail = await res.text();
+    return {
+      ok: false,
+      status: res.status,
+      provider: "gemini",
+      model,
+      rawDetail,
+      retryAfterSeconds: extractRetryAfterSeconds(res, rawDetail),
+    };
+  }
+
+  const data = await res.json();
+  const finishReason = data?.candidates?.[0]?.finishReason || null;
+  const text =
+    data?.candidates?.[0]?.content?.parts
+      ?.filter((p) => !p.thought)
+      ?.map((p) => p.text || "")
+      ?.join("") || "";
+
+  return {
+    ok: true,
+    status: 200,
+    provider: "gemini",
+    model,
+    text,
+    finishReason,
+    usageMetadata: data?.usageMetadata,
+  };
+}
+
+async function callOpenAiCompatible({ provider, model, baseUrl, apiKey, systemPrompt, userText, extraHeaders }) {
+  const res = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+      ...(extraHeaders || {}),
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userText },
+      ],
+      max_tokens: OPENAI_COMPAT_MAX_TOKENS,
+      response_format: { type: "json_object" },
+    }),
+  });
+
+  if (!res.ok) {
+    const rawDetail = await res.text();
+    return {
+      ok: false,
+      status: res.status,
+      provider,
+      model,
+      rawDetail,
+      retryAfterSeconds: extractRetryAfterSeconds(res, rawDetail),
+    };
+  }
+
+  const data = await res.json();
+  const choice = data?.choices?.[0];
+  const text = choice?.message?.content || "";
+
+  return {
+    ok: true,
+    status: 200,
+    provider,
+    model,
+    text,
+    finishReason: normalizeFinishReason(choice?.finish_reason),
+    usageMetadata: data?.usage,
+  };
+}
+
+async function callModel(entry, apiKeys, systemPrompt, userText) {
+  if (entry.provider === "gemini") {
+    return callGeminiOne(entry.model, apiKeys.gemini, systemPrompt, userText);
+  }
+  if (entry.provider === "groq") {
+    return callOpenAiCompatible({
+      provider: "groq",
+      model: entry.model,
+      baseUrl: "https://api.groq.com/openai/v1",
+      apiKey: apiKeys.groq,
+      systemPrompt,
+      userText,
+    });
+  }
+  if (entry.provider === "openrouter") {
+    return callOpenAiCompatible({
+      provider: "openrouter",
+      model: entry.model,
+      baseUrl: "https://openrouter.ai/api/v1",
+      apiKey: apiKeys.openrouter,
+      systemPrompt,
+      userText,
+      // OpenRouter asks for these but they're informational, not required
+      // for the request to succeed.
+      extraHeaders: {
+        "HTTP-Referer": "https://clear-clause-three.vercel.app",
+        "X-Title": "ClearClause",
+      },
+    });
+  }
+  throw new Error(`Unknown provider: ${entry.provider}`);
+}
+
+// Walks MODEL_CHAIN in order. Skips any provider whose API key isn't set
+// (so you can add Groq/OpenRouter keys incrementally without breaking
+// deploys), and moves to the next entry on a quota/server error. A 4xx
+// that isn't a quota issue fails the same way on every model, so it
+// returns immediately instead of burning calls retrying it.
+async function callModelChain(apiKeys, systemPrompt, userText) {
+  let lastResult = null;
+  for (const entry of MODEL_CHAIN) {
+    const apiKey = apiKeys[entry.provider];
+    if (!apiKey) continue;
+
+    let result;
+    try {
+      result = await callModel(entry, apiKeys, systemPrompt, userText);
+    } catch (e) {
+      result = { ok: false, status: 0, provider: entry.provider, model: entry.model, rawDetail: String(e) };
+    }
+
+    if (result.ok) return result;
+    lastResult = result;
+    if (result.status !== 429 && result.status < 500 && result.status !== 0) return result;
+  }
+  return lastResult; // may be null if no keys were configured at all
 }
 
 const SYSTEM_PROMPT = `You are ClearClause, a plain-language contract analysis assistant. Given a pasted contract, lease, or terms-of-service document, respond with ONLY a raw JSON object (no markdown code fences, no preamble, no commentary) matching exactly this shape:
@@ -72,11 +241,7 @@ If the pasted text is empty, nonsensical, far too short to be a real document, o
 // testing/iteration a handful of legitimate clicks in one minute was
 // tripping this before any real traffic was involved. Still well under
 // the global cap below, so it doesn't weaken protection against a single
-// IP hogging the shared Gemini budget when multiple people are visiting.
-// Does NOT protect the shared Gemini free-tier budget (10 requests/minute,
-// project-wide) from many different visitors each making one request in
-// the same minute -- exactly the traffic shape of a launch-day spike. See
-// requestLog note below for its own limits.
+// IP hogging the shared free-tier budget when multiple people are visiting.
 const requestLog = new Map();
 const RATE_LIMIT = 6;
 const RATE_WINDOW_MS = 60 * 1000;
@@ -89,13 +254,13 @@ function isRateLimited(ip) {
   return timestamps.length > RATE_LIMIT;
 }
 
-// Global soft-throttle: caps total calls to Gemini across ALL visitors at
-// 8/minute, just under the free tier's ~10/minute ceiling, so we hit our
-// own graceful "busy" message before Google's hard 429 -- and leave a
-// couple of requests of headroom for jitter/retries. This resets on cold
-// start and isn't shared across concurrent serverless instances, so it's a
-// smoothing measure, not a hard guarantee -- but it meaningfully reduces
-// how often visitors hit a raw Gemini rate-limit error during a spike.
+// Global soft-throttle: caps total incoming requests across ALL visitors
+// at 8/minute. This was originally tuned just under Gemini's own
+// ~10/minute free-tier ceiling. Now that failed Gemini calls fall through
+// to Groq/OpenRouter instead of just erroring out, this number is worth
+// revisiting once you see real traffic -- it's throttling *incoming*
+// requests, not calls to any one provider, so it can likely go a bit
+// higher without any single provider getting hammered.
 const GLOBAL_LIMIT_PER_MIN = 8;
 let globalWindowStart = Date.now();
 let globalWindowCount = 0;
@@ -149,83 +314,47 @@ export default async function handler(req, res) {
       ? documentText.slice(0, 18000) + "\n\n[document truncated for length]"
       : documentText;
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  const apiKeys = {
+    gemini: process.env.GEMINI_API_KEY,
+    groq: process.env.GROQ_API_KEY,
+    openrouter: process.env.OPENROUTER_API_KEY,
+  };
+
+  if (!apiKeys.gemini && !apiKeys.groq && !apiKeys.openrouter) {
     await recordEvent("error", { reason: "missing_api_key" });
     return res.status(500).json({
       error:
-        "The server is missing GEMINI_API_KEY. Set it in your Vercel project's Environment Variables and redeploy.",
+        "The server has no AI provider configured. Set at least one of GEMINI_API_KEY, GROQ_API_KEY, or OPENROUTER_API_KEY in your Vercel project's Environment Variables and redeploy.",
     });
   }
 
   try {
-    const { res: geminiRes, model: modelUsed } = await callGemini(
-      apiKey,
-      SYSTEM_PROMPT,
-      [{ role: "user", parts: [{ text: truncated }] }],
-      {
-        responseMimeType: "application/json",
-        // Gemini 3.x models are "thinking" models: by default they spend an
-        // unpredictable number of tokens reasoning before writing the answer,
-        // and those thinking tokens are deducted from the SAME
-        // maxOutputTokens budget as the actual output. With no
-        // thinkingConfig and a tight token cap, the model can burn most/all
-        // of the budget on reasoning and get cut off mid-JSON
-        // (finishReason: MAX_TOKENS) -- which is what was causing
-        // "Couldn't parse the analysis" here. Keeping thinking low and
-        // giving plenty of headroom fixes it.
-        thinkingConfig: { thinkingLevel: "low" },
-        maxOutputTokens: 8000,
-        // temperature/top_p/top_k are no longer recommended for Gemini 3.x --
-        // Google tunes reasoning quality around the defaults, so we omit them.
-      }
-    );
+    const result = await callModelChain(apiKeys, SYSTEM_PROMPT, truncated);
 
-    if (!geminiRes.ok) {
-      const rawDetail = await geminiRes.text();
-      const status = geminiRes.status === 429 ? 429 : 502;
+    if (!result || !result.ok) {
+      const status = result?.status === 429 ? 429 : 502;
 
-      // Raw upstream error (status codes, internal quota metric names, JSON
-      // shape, etc.) is logged server-side only -- it should never reach the
-      // browser. It's genuinely useful for debugging but meaningless (and
-      // unprofessional-looking) to a visitor.
-      console.error(`[analyze] Gemini upstream error (model=${modelUsed}) ${geminiRes.status}: ${rawDetail.slice(0, 1000)}`);
+      // Raw upstream error is logged server-side only -- never sent to the
+      // browser. Genuinely useful for debugging, meaningless to a visitor.
+      console.error(
+        `[analyze] upstream error (provider=${result?.provider} model=${result?.model}) status=${result?.status}: ${(result?.rawDetail || "").slice(0, 1000)}`
+      );
 
-      let retryAfterSeconds = null;
-      if (status === 429) {
-        // Gemini 429s often include a RetryInfo detail like {"retryDelay":"46s"}
-        // buried in a google.rpc error details array. Pull the integer seconds
-        // out of it so the UI can say "about 46 seconds" instead of nothing,
-        // and instead of leaking the raw payload.
-        const match = rawDetail.match(/"retryDelay"\s*:\s*"(\d+)(?:\.\d+)?s"/);
-        if (match) retryAfterSeconds = parseInt(match[1], 10);
-      }
-
-      await recordEvent(status === 429 ? "rate_limited" : "error", status === 429 ? undefined : { reason: "gemini_5xx" });
+      await recordEvent(status === 429 ? "rate_limited" : "error", status === 429 ? undefined : { reason: "upstream_5xx" });
       return res.status(status).json({
         error:
           status === 429
             ? "ClearClause has reached its AI usage limit for the moment."
             : "The analysis service is temporarily unavailable.",
-        retryAfterSeconds,
+        retryAfterSeconds: result?.retryAfterSeconds ?? null,
       });
     }
 
-    const data = await geminiRes.json();
-    const finishReason = data?.candidates?.[0]?.finishReason;
-    const thoughtsTokens = data?.usageMetadata?.thoughtsTokenCount;
-    // Defensively skip any part explicitly marked as a "thought" (reasoning)
-    // part rather than an answer part -- we don't request include_thoughts,
-    // so this shouldn't normally fire, but it costs nothing to be safe.
-    const text =
-      data?.candidates?.[0]?.content?.parts
-        ?.filter((p) => !p.thought)
-        ?.map((p) => p.text || "")
-        ?.join("") || "";
+    const { text, finishReason, provider: providerUsed, model: modelUsed, usageMetadata } = result;
 
     if (!text) {
       console.error(
-        `[analyze] empty text from Gemini (model=${modelUsed}). finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} usage=${JSON.stringify(data?.usageMetadata)}`
+        `[analyze] empty text (provider=${providerUsed} model=${modelUsed}). finishReason=${finishReason} usage=${JSON.stringify(usageMetadata)}`
       );
       await recordEvent("error", { reason: "empty_response" });
       return res.status(502).json({
@@ -238,29 +367,28 @@ export default async function handler(req, res) {
       });
     }
 
-    // Gemini is asked for pure JSON via responseMimeType, but strip stray
-    // code fences defensively in case a model variant adds them anyway.
+    // Strip stray code fences defensively in case a model variant adds them
+    // despite being asked for pure JSON.
     const cleaned = text.trim().replace(/^```json\s*/i, "").replace(/^```\s*/, "").replace(/```\s*$/, "").trim();
 
     let parsed;
     try {
       parsed = JSON.parse(cleaned);
     } catch (e) {
-      // Gemini's JSON mode is asked for strict JSON but isn't 100% reliable,
-      // especially when the prompt demands verbatim character-for-character
-      // quotes from messy source text (odd whitespace, stray characters in
-      // things like blank contract templates). Before giving up, try
-      // jsonrepair, which fixes the common ways LLM JSON goes slightly wrong
-      // (trailing commas, unescaped control characters, unterminated
-      // strings/objects, etc.) without us hand-rolling regex fixes.
+      // JSON mode isn't 100% reliable across providers/models, especially
+      // when the prompt demands verbatim character-for-character quotes
+      // from messy source text. Before giving up, try jsonrepair, which
+      // fixes the common ways LLM JSON goes slightly wrong (trailing
+      // commas, unescaped control characters, unterminated strings/objects)
+      // without hand-rolled regex fixes.
       try {
         parsed = JSON.parse(jsonrepair(cleaned));
         console.warn(
-          `[analyze] strict JSON.parse failed but jsonrepair recovered it. model=${modelUsed} finishReason=${finishReason}`
+          `[analyze] strict JSON.parse failed but jsonrepair recovered it. provider=${providerUsed} model=${modelUsed} finishReason=${finishReason}`
         );
       } catch (repairErr) {
         console.error(
-          `[analyze] JSON.parse failed and jsonrepair could not recover it. model=${modelUsed} finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} raw length=${cleaned.length}\nraw text:\n${cleaned}`
+          `[analyze] JSON.parse failed and jsonrepair could not recover it. provider=${providerUsed} model=${modelUsed} finishReason=${finishReason} raw length=${cleaned.length}\nraw text:\n${cleaned}`
         );
         await recordEvent("error", { reason: "json_parse_failed" });
         return res.status(502).json({
@@ -278,6 +406,8 @@ export default async function handler(req, res) {
       await recordEvent("completed", {
         documentType: parsed?.documentType,
         documentLength: truncated.length,
+        provider: providerUsed,
+        model: modelUsed,
       });
     }
 
