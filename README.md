@@ -8,19 +8,33 @@ Also included:
 - `privacy.html` — a Privacy Policy page (linked from the footer)
 - `faq.html` — an FAQ page answering the questions people ask before
   trusting a tool like this with a real document (linked from the footer)
-- `demo.html` — a "Request a Demo" / contact sales page (linked from the
-  footer as "Request Demo"). Submissions post to
-  [Formspree](https://formspree.io) — the simplest free option for a static
-  site since it needs no backend or database. To wire it up:
-  1. Create a free Formspree account and a new form (free tier covers 50
-     submissions/month).
-  2. Copy the form endpoint, e.g. `https://formspree.io/f/abcdwxyz`.
-  3. Open `demo.html` and replace `FORMSPREE_ENDPOINT`'s placeholder value
-     with that URL.
+- `waitlist.html` — "Join the Waitlist" page, linked from the nav bar CTA,
+  the homepage hero, the "Help Shape the Future" section, and the footer.
+- `contact.html` — "Contact Us" page (name, email, subject, message),
+  linked from the nav bar and footer.
+- `feedback.html` — "Give Feedback" page with a feedback-type dropdown and
+  a 1–5 star rating widget, linked from the nav bar and footer.
+- `terms.html` — a starter Terms of Service page (linked from the footer).
+  It's a reasonable plain-language early-stage template, not a substitute
+  for review by an actual lawyer before you rely on it commercially —
+  section 11 (governing law) in particular has a placeholder to fill in.
 
-  Until that's set, the page still validates and renders correctly, but
-  submission shows a friendly "not connected yet" message instead of
-  silently failing.
+  **Backend for `waitlist.html`, `contact.html`, and `feedback.html`:**
+  each posts to its own [Formspree](https://formspree.io) endpoint — the
+  simplest free option for a static site since it needs no backend or
+  database. To wire each one up:
+  1. Create a free Formspree account (free tier covers 50
+     submissions/month per form).
+  2. Create a separate form for each page (waitlist, contact, feedback) so
+     submissions land in separate inboxes, and copy each form's endpoint,
+     e.g. `https://formspree.io/f/abcdwxyz`.
+  3. Open each HTML file and replace its `FORMSPREE_ENDPOINT` placeholder
+     (`YOUR_WAITLIST_FORM_ID`, `YOUR_CONTACT_FORM_ID`,
+     `YOUR_FEEDBACK_FORM_ID`) with the matching URL.
+
+  Until a given endpoint is set, that page still validates and renders
+  correctly, but submission shows a friendly "not connected yet" message
+  instead of silently failing.
 - `stats.html` + `/api/stats` — a lightweight, privacy-respecting usage
   dashboard (total analyses, successful analyses, top document types,
   average document length, error/rate-limit rates, completion rate, and

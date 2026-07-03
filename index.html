@@ -42,9 +42,62 @@
   .wrap{max-width:760px;margin:0 auto;padding:0 24px 120px;}
   @media (max-width:600px){.wrap{padding:0 16px 90px;}}
 
+  /* ---------- top nav ---------- */
+  html{scroll-behavior:smooth;}
+  .topnav{
+    max-width:760px;margin:0 auto;padding:22px 24px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  @media (max-width:600px){.topnav{padding:18px 16px 0;}}
+  .topnav-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  }
+  .topnav-brand:hover{color:var(--red);}
+  .topnav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .topnav-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:.15s;
+  }
+  .topnav-links a:hover{color:var(--red);}
+  .topnav-cta{
+    display:inline-flex;align-items:center;
+    background:var(--ink);color:var(--paper) !important;
+    padding:9px 16px;border-radius:20px;transition:.15s;
+  }
+  .topnav-cta:hover{background:var(--red);color:var(--paper) !important;}
+
+  /* ---------- hero CTAs ---------- */
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 26px;}
+  .cta-primary{
+    all:unset;cursor:pointer;box-sizing:border-box;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);padding:14px 26px;border-radius:2px;transition:.15s;
+  }
+  .cta-primary:hover{background:var(--red);}
+  .cta-secondary{
+    all:unset;cursor:pointer;box-sizing:border-box;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink);border:1px solid var(--ink);padding:13px 25px;border-radius:2px;transition:.15s;
+  }
+  .cta-secondary:hover{border-color:var(--red);color:var(--red);}
+
+  /* ---------- shape the future ---------- */
+  .shape-future{
+    margin-top:64px;padding:44px 0 8px;border-top:1px solid var(--rule);
+  }
+  .shape-future h2{
+    font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(24px,4vw,30px);
+    margin:0 0 14px;line-height:1.18;letter-spacing:-0.01em;
+  }
+  .shape-future p{font-size:15.5px;line-height:1.7;color:var(--ink-soft);max-width:60ch;margin:0 0 24px;}
+  .shape-future-btns{display:flex;flex-wrap:wrap;gap:12px;}
+
   /* ---------- hero ---------- */
   .hero{
-    padding:64px 0 40px;
+    padding:32px 0 40px;
     border-bottom:1px solid var(--rule);
   }
   .eyebrow{
@@ -448,7 +501,7 @@
     max-width:760px;margin:0 auto;padding:30px 24px 60px;
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
   }
-  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;row-gap:6px;}
   .footer-links a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
   .footer-links a:hover{color:var(--red);}
   .footer-links span{color:var(--rule);}
@@ -456,11 +509,24 @@
 </head>
 <body>
 
+<nav class="topnav">
+  <a href="/" class="topnav-brand">ClearClause</a>
+  <div class="topnav-links">
+    <a href="/contact.html">Contact Us</a>
+    <a href="/feedback.html">Give Feedback</a>
+    <a href="/waitlist.html" class="topnav-cta">Join the Waitlist</a>
+  </div>
+</nav>
+
 <div class="wrap">
   <div class="hero">
     <div class="eyebrow">ClearClause</div>
     <h1>Know what you're<br><em>actually</em> signing.</h1>
     <p class="lede">Paste any lease, contract, or terms of service. Get a plain-English summary, key risks, and important obligations before you sign.</p>
+    <div class="hero-cta-row">
+      <a href="#desk" class="cta-primary">Try AI Contract Review</a>
+      <a href="/waitlist.html" class="cta-secondary">Join the Waitlist</a>
+    </div>
     <div class="fine"><strong>Not legal advice.</strong> This tool flags things worth a closer look — it doesn't replace a lawyer. <strong>We do not store your documents.</strong> The text is sent securely to an AI model for analysis and discarded after processing.</div>
     <div class="how-it-works">
       <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
@@ -469,7 +535,7 @@
     </div>
   </div>
 
-  <div class="desk">
+  <div class="desk" id="desk">
     <div class="pad-label">
       <span>Paste your document</span>
       <button id="clearBtn" type="button">clear</button>
@@ -573,11 +639,22 @@
       <strong>Disclaimer:</strong> ClearClause is an AI tool, not a lawyer. It can miss things, misread context, or flag clauses that are actually standard for your situation. For anything with real money or real consequences on the line — sign a lease, take a job, accept a settlement — have an actual attorney look at it. <strong>Privacy:</strong> we do not store your documents. The text is sent securely to an AI model for analysis and discarded after processing.
     </div>
   </div>
+
+  <div class="shape-future">
+    <div class="eyebrow">Get Involved</div>
+    <h2>Help Shape the Future of ClearClause</h2>
+    <p>ClearClause is continuously evolving. Join our waitlist for early access to upcoming features, or share your feedback to help us build a better AI-powered contract review platform.</p>
+    <div class="shape-future-btns">
+      <a href="/waitlist.html" class="cta-primary">Join the Waitlist</a>
+      <a href="/contact.html" class="cta-secondary">Contact Us</a>
+      <a href="/feedback.html" class="cta-secondary">Give Feedback</a>
+    </div>
+  </div>
 </div>
 
 <footer>
   ClearClause — plain-language contract review. No account needed. Nothing you paste is stored.
-  <div class="footer-links"><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/faq.html">FAQ</a><span>·</span><a href="/demo.html">Request Demo</a></div>
+  <div class="footer-links"><a href="/faq.html">FAQ</a><span>·</span><a href="/contact.html">Contact Us</a><span>·</span><a href="/waitlist.html">Join Waitlist</a><span>·</span><a href="/feedback.html">Give Feedback</a><span>·</span><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/terms.html">Terms of Service</a></div>
 </footer>
 
 <script>

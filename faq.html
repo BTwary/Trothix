@@ -28,6 +28,30 @@
     color:var(--red);display:flex;align-items:center;gap:10px;margin:28px 0 16px;
   }
   .eyebrow::before{content:"";width:22px;height:1px;background:var(--red);}
+  /* ---------- top nav ---------- */
+  html{scroll-behavior:smooth;}
+  .topnav{
+    max-width:680px;margin:0 auto;padding:22px 24px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  @media (max-width:600px){.topnav{padding:18px 16px 0;}}
+  .topnav-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  }
+  .topnav-brand:hover{color:var(--red);}
+  .topnav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .topnav-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:.15s;
+  }
+  .topnav-links a:hover{color:var(--red);}
+  .topnav-cta{
+    display:inline-flex;align-items:center;
+    background:var(--ink);color:var(--paper) !important;
+    padding:9px 16px;border-radius:20px;transition:.15s;
+  }
+  .topnav-cta:hover{background:var(--red);color:var(--paper) !important;}
   h1{
     font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(30px,5vw,42px);
     line-height:1.1;margin:0 0 30px;letter-spacing:-0.01em;
@@ -46,13 +70,22 @@
     max-width:680px;margin:0 auto;padding:30px 24px 60px;
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
   }
-  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;row-gap:6px;}
   .footer-links a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
   .footer-links a:hover{color:var(--red);}
   .footer-links span{color:var(--rule);}
 </style>
 </head>
 <body>
+
+<nav class="topnav">
+  <a href="/" class="topnav-brand">ClearClause</a>
+  <div class="topnav-links">
+    <a href="/contact.html">Contact Us</a>
+    <a href="/feedback.html">Give Feedback</a>
+    <a href="/waitlist.html" class="topnav-cta">Join the Waitlist</a>
+  </div>
+</nav>
 
 <div class="wrap">
   <a class="back" href="/">← Back to ClearClause</a>
@@ -106,7 +139,7 @@
 
 <footer>
   ClearClause — plain-language contract review.
-  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/demo.html">Request Demo</a></div>
+  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/contact.html">Contact Us</a><span>·</span><a href="/waitlist.html">Join Waitlist</a><span>·</span><a href="/feedback.html">Give Feedback</a><span>·</span><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/terms.html">Terms of Service</a></div>
 </footer>
 
 </body>

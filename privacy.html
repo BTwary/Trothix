@@ -28,6 +28,30 @@
     color:var(--red);display:flex;align-items:center;gap:10px;margin:28px 0 16px;
   }
   .eyebrow::before{content:"";width:22px;height:1px;background:var(--red);}
+  /* ---------- top nav ---------- */
+  html{scroll-behavior:smooth;}
+  .topnav{
+    max-width:680px;margin:0 auto;padding:22px 24px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  @media (max-width:600px){.topnav{padding:18px 16px 0;}}
+  .topnav-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  }
+  .topnav-brand:hover{color:var(--red);}
+  .topnav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .topnav-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:.15s;
+  }
+  .topnav-links a:hover{color:var(--red);}
+  .topnav-cta{
+    display:inline-flex;align-items:center;
+    background:var(--ink);color:var(--paper) !important;
+    padding:9px 16px;border-radius:20px;transition:.15s;
+  }
+  .topnav-cta:hover{background:var(--red);color:var(--paper) !important;}
   h1{
     font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(30px,5vw,42px);
     line-height:1.1;margin:0 0 8px;letter-spacing:-0.01em;
@@ -51,13 +75,22 @@
     max-width:680px;margin:0 auto;padding:30px 24px 60px;
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
   }
-  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;row-gap:6px;}
   .footer-links a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
   .footer-links a:hover{color:var(--red);}
   .footer-links span{color:var(--rule);}
 </style>
 </head>
 <body>
+
+<nav class="topnav">
+  <a href="/" class="topnav-brand">ClearClause</a>
+  <div class="topnav-links">
+    <a href="/contact.html">Contact Us</a>
+    <a href="/feedback.html">Give Feedback</a>
+    <a href="/waitlist.html" class="topnav-cta">Join the Waitlist</a>
+  </div>
+</nav>
 
 <div class="wrap">
   <a class="back" href="/">← Back to ClearClause</a>
@@ -86,6 +119,15 @@
   </ul>
   <p>None of this includes your document text, your name, or any other personal identifier. We can't tell which analysis belonged to which visitor.</p>
 
+  <h2>Waitlist, Contact, and Feedback forms</h2>
+  <p>This is different from document analysis, and worth calling out separately. If you fill out the <a href="/waitlist.html" style="color:var(--red);">waitlist</a>, <a href="/contact.html" style="color:var(--red);">contact</a>, or <a href="/feedback.html" style="color:var(--red);">feedback</a> forms, you're intentionally giving us information — like your name, email, company, or a message — so we can respond to you or keep you updated. That submission is stored (via our form processor, Formspree) so we can read and reply to it; it is not discarded the way document text is.</p>
+  <ul>
+    <li>We only use it to respond to your request, keep you posted on product updates you opted into, or act on the feedback you shared.</li>
+    <li>We don't sell it, and we don't use it to train any AI model.</li>
+    <li>It's visible to the small team running ClearClause and to Formspree as our form-processing provider, under their own privacy terms.</li>
+    <li>You can ask us to delete your submission at any time by emailing us through the <a href="/contact.html" style="color:var(--red);">Contact Us</a> page and referencing the email address you submitted with.</li>
+  </ul>
+
   <h2>IP addresses</h2>
   <p>Your IP address is used momentarily, in memory, to enforce a rate limit (so one visitor can't overwhelm the service) and is not stored or logged alongside your document text.</p>
 
@@ -99,12 +141,12 @@
   <p>If how we handle data changes — for example, if we introduce accounts or move to a paid AI tier with different data-use terms — we'll update this page.</p>
 
   <h2>Questions</h2>
-  <p>See the <a href="/faq.html" style="color:var(--red);">FAQ</a> for more, or reach out through the feedback link on the main page.</p>
+  <p>See the <a href="/faq.html" style="color:var(--red);">FAQ</a> for more, or reach out through the <a href="/contact.html" style="color:var(--red);">Contact Us</a> page.</p>
 </div>
 
 <footer>
   ClearClause — plain-language contract review.
-  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/faq.html">FAQ</a><span>·</span><a href="/demo.html">Request Demo</a></div>
+  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/faq.html">FAQ</a><span>·</span><a href="/contact.html">Contact Us</a><span>·</span><a href="/waitlist.html">Join Waitlist</a><span>·</span><a href="/feedback.html">Give Feedback</a><span>·</span><a href="/terms.html">Terms of Service</a></div>
 </footer>
 
 </body>
