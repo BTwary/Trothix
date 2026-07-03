@@ -136,6 +136,14 @@
     margin-top:14px;
     margin-bottom:-4px;
   }
+  .input-note{
+    margin-top:10px;
+    margin-bottom:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+}
   .chip{
     all:unset;cursor:pointer;
     font-family:'IBM Plex Mono',monospace;
@@ -404,7 +412,12 @@
       <button id="clearBtn" type="button">clear</button>
     </div>
     <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
-    <p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
+
+<p class="input-note">
+    Supports documents up to <strong>1,800 characters</strong> (about one page). Larger documents and PDF support are coming soon.
+</p>
+
+<p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
     <div class="examples">
       <button class="chip" data-example="lease">Try a sample lease</button>
       <button class="chip" data-example="freelance">Try a freelance contract</button>
