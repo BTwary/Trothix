@@ -488,6 +488,74 @@
   .fu-chip:hover{border-color:var(--ink);color:var(--ink);}
   .fu-chip.chosen{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  /* ---------- how it works (video + steps) ---------- */
+  .hiw-section{
+    padding:44px 0 8px;
+  }
+  .hiw-section h2{
+    font-family:'Source Serif 4',serif;font-weight:700;
+    font-size:clamp(24px,4vw,30px);line-height:1.18;letter-spacing:-0.01em;
+    margin:0 0 10px;
+  }
+  .hiw-section .hiw-subtitle{
+    font-size:15.5px;line-height:1.7;color:var(--ink-soft);
+    max-width:60ch;margin:0;
+  }
+  .hiw-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:44px;
+    align-items:center;
+    margin-top:32px;
+  }
+  .hiw-video{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    box-shadow:4px 4px 0 var(--rule);
+    background:var(--paper-dark);
+    overflow:hidden;
+  }
+  .hiw-video video{
+    width:100%;height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  .hiw-steps{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  .hiw-step{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .hiw-step-num{
+    flex:0 0 auto;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;font-weight:600;letter-spacing:.04em;
+    color:var(--red);
+    border:1px solid var(--red);
+    border-radius:20px;
+    width:34px;height:34px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hiw-step-body h3{
+    font-family:'Source Serif 4',serif;font-weight:700;
+    font-size:17px;color:var(--ink);
+    margin:2px 0 4px;letter-spacing:-0.005em;
+  }
+  .hiw-step-body p{
+    font-size:14.5px;line-height:1.6;color:var(--ink-soft);
+    margin:0;max-width:44ch;
+  }
+  @media (max-width:760px){
+    .hiw-grid{grid-template-columns:1fr;gap:28px;}
+  }
+
   /* spinner */
   .spinner{
     width:14px;height:14px;border-radius:50%;
@@ -532,6 +600,56 @@
       <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
       <span class="step">2. Sent securely for AI analysis</span><span class="arrow">→</span>
       <span class="step">3. Results shown here — nothing is saved on our end</span>
+    </div>
+  </div>
+
+  <div class="hiw-section">
+    <div class="eyebrow">See It In Action</div>
+    <h2>How It Works</h2>
+    <p class="hiw-subtitle">Understand contracts in four simple steps.</p>
+    <div class="hiw-grid">
+      <div class="hiw-video">
+        <video
+          id="hiwVideo"
+          src="/assets/how-it-works.mp4"
+          poster="/assets/how-it-works-poster.jpg"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
+      </div>
+      <div class="hiw-steps">
+        <div class="hiw-step">
+          <div class="hiw-step-num">01</div>
+          <div class="hiw-step-body">
+            <h3>Paste your contract</h3>
+            <p>Paste any lease, employment contract, NDA, or Terms of Service.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">02</div>
+          <div class="hiw-step-body">
+            <h3>AI analyzes the document</h3>
+            <p>ClearClause identifies important clauses, obligations, and potential risks.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">03</div>
+          <div class="hiw-step-body">
+            <h3>Review the summary</h3>
+            <p>Read a plain-English explanation with highlighted risks.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">04</div>
+          <div class="hiw-step-body">
+            <h3>Make informed decisions</h3>
+            <p>Understand what you're signing before you agree.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -688,6 +806,26 @@ try {
 } catch (e) {
   // Ignore
 }
+
+// How It Works video: autoplays muted/looped, but pauses while scrolled
+// off-screen so it isn't silently burning battery/bandwidth in a background
+// tab or below the fold. Resumes automatically once back in view.
+(function(){
+  const hiwVideo = document.getElementById('hiwVideo');
+  if (!hiwVideo || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        hiwVideo.play().catch(() => { /* autoplay can be blocked -- poster image covers this */ });
+      } else {
+        hiwVideo.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+
+  observer.observe(hiwVideo);
+})();
 
 const examples = {
   lease: `RESIDENTIAL LEASE AGREEMENT
