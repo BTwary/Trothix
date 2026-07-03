@@ -92,6 +92,24 @@ function normalizeSampleType(t) {
   return SAMPLE_TYPES.includes(t) ? t : "other";
 }
 
+// Fixed allowlist of "why did this request fail" reasons, set by
+// analyze.js at each of its own error-return sites (never trusted from the
+// client) -- this turns the single opaque "errors" counter into something
+// you can actually act on: is it mostly bad input, a Gemini outage, or
+// JSON the model returned that we couldn't parse?
+const ERROR_REASONS = [
+  "missing_document",
+  "too_short",
+  "missing_api_key",
+  "gemini_5xx",
+  "empty_response",
+  "json_parse_failed",
+  "unexpected",
+];
+function normalizeErrorReason(r) {
+  return ERROR_REASONS.includes(r) ? r : "unexpected";
+}
+
 // ---- Supabase backend ----
 
 function supabaseHeaders(extra = {}) {
@@ -145,6 +163,7 @@ async function recordEventSupabase(event, payload) {
       break;
     case "error":
       calls.push(supabaseRpc("clearclause_incr", { p_key: "errors" }));
+      calls.push(supabaseRpc("clearclause_incr", { p_key: `errorReasons_${normalizeErrorReason(payload.reason)}` }));
       break;
     case "not_document":
       calls.push(supabaseRpc("clearclause_incr", { p_key: "notDocumentCount" }));
@@ -180,6 +199,9 @@ async function getStatsSupabase() {
   const sampleClicks = Object.fromEntries(
     [...SAMPLE_TYPES, "other"].map((t) => [t, byKey[`sampleClicks_${t}`] || 0])
   );
+  const errorReasons = Object.fromEntries(
+    ERROR_REASONS.map((r) => [r, byKey[`errorReasons_${r}`] || 0])
+  );
 
   return buildStatsPayload({
     pageViews: byKey.pageViews || 0,
@@ -189,6 +211,7 @@ async function getStatsSupabase() {
     completedAnalyses: byKey.completedAnalyses || 0,
     notDocumentCount: byKey.notDocumentCount || 0,
     errors: byKey.errors || 0,
+    errorReasons,
     rateLimitHits: byKey.rateLimitHits || 0,
     totalDocumentLength: byKey.totalDocumentLength || 0,
     feedbackYes: byKey.feedbackYes || 0,
@@ -216,6 +239,7 @@ const COUNTER_KEYS = {
 };
 const DOC_TYPES_HASH_KEY = KEY_PREFIX + "docTypes";
 const SAMPLE_CLICKS_HASH_KEY = KEY_PREFIX + "sampleClicks";
+const ERROR_REASONS_HASH_KEY = KEY_PREFIX + "errorReasons";
 
 async function redisPipeline(commands) {
   const res = await fetch(`${REDIS_URL}/pipeline`, {
@@ -254,7 +278,10 @@ async function recordEventRedis(event, payload) {
       await redisPipeline([["INCR", COUNTER_KEYS.rateLimitHits]]);
       break;
     case "error":
-      await redisPipeline([["INCR", COUNTER_KEYS.errors]]);
+      await redisPipeline([
+        ["INCR", COUNTER_KEYS.errors],
+        ["HINCRBY", ERROR_REASONS_HASH_KEY, normalizeErrorReason(payload.reason), 1],
+      ]);
       break;
     case "not_document":
       await redisPipeline([["INCR", COUNTER_KEYS.notDocumentCount]]);
@@ -296,6 +323,7 @@ async function getStatsRedis() {
     windowStartedAtRes,
     docTypesRes,
     sampleClicksRes,
+    errorReasonsRes,
   ] = await redisPipeline([
     ["GET", COUNTER_KEYS.pageViews],
     ["GET", COUNTER_KEYS.analysisStarted],
@@ -310,6 +338,7 @@ async function getStatsRedis() {
     ["GET", COUNTER_KEYS.windowStartedAt],
     ["HGETALL", DOC_TYPES_HASH_KEY],
     ["HGETALL", SAMPLE_CLICKS_HASH_KEY],
+    ["HGETALL", ERROR_REASONS_HASH_KEY],
   ]);
 
   const toInt = (r) => parseInt(r?.result, 10) || 0;
@@ -326,6 +355,12 @@ async function getStatsRedis() {
     sampleClicks[sampleClicksFlat[i]] = parseInt(sampleClicksFlat[i + 1], 10) || 0;
   }
 
+  const errorReasonsFlat = errorReasonsRes?.result || [];
+  const errorReasons = Object.fromEntries(ERROR_REASONS.map((r) => [r, 0]));
+  for (let i = 0; i < errorReasonsFlat.length; i += 2) {
+    errorReasons[errorReasonsFlat[i]] = parseInt(errorReasonsFlat[i + 1], 10) || 0;
+  }
+
   return buildStatsPayload({
     pageViews: toInt(pageViewsRes),
     sampleClicks,
@@ -334,6 +369,7 @@ async function getStatsRedis() {
     completedAnalyses: toInt(completedAnalysesRes),
     notDocumentCount: toInt(notDocumentCountRes),
     errors: toInt(errorsRes),
+    errorReasons,
     rateLimitHits: toInt(rateLimitHitsRes),
     totalDocumentLength: toInt(totalDocumentLengthRes),
     feedbackYes: toInt(feedbackYesRes),
@@ -353,6 +389,7 @@ const memoryStats = {
   completedAnalyses: 0,
   notDocumentCount: 0,
   errors: 0,
+  errorReasons: Object.fromEntries(ERROR_REASONS.map((r) => [r, 0])),
   rateLimitHits: 0,
   totalDocumentLength: 0,
   documentTypeCounts: Object.create(null),
@@ -380,9 +417,12 @@ function recordEventMemory(event, payload) {
     case "rate_limited":
       memoryStats.rateLimitHits++;
       break;
-    case "error":
+    case "error": {
       memoryStats.errors++;
+      const r = normalizeErrorReason(payload.reason);
+      memoryStats.errorReasons[r] = (memoryStats.errorReasons[r] || 0) + 1;
       break;
+    }
     case "not_document":
       memoryStats.notDocumentCount++;
       break;
@@ -418,6 +458,7 @@ function buildStatsPayload({
   completedAnalyses,
   notDocumentCount,
   errors,
+  errorReasons,
   rateLimitHits,
   totalDocumentLength,
   documentTypeCounts,
@@ -473,6 +514,7 @@ function buildStatsPayload({
 
     notDocumentCount,
     errors,
+    errorReasons,
     rateLimitHits,
     completionRate: rate(completedAnalyses),
     errorRate: rate(errors),

@@ -36,13 +36,18 @@ List up to 5 red flags, ordered by severity (high first). The "clause" field for
 If the pasted text is empty, nonsensical, far too short to be a real document, or clearly not a contract/lease/terms-of-service (e.g. it's a poem, a recipe, random text), instead respond with ONLY:
 { "isDocument": false, "reason": "one short plain sentence explaining why this doesn't look like a document ClearClause can analyze" }`;
 
-// Per-IP rate limit: 5 requests per minute per IP. Stops one visitor from
-// hammering the endpoint. Does NOT protect the shared Gemini free-tier
-// budget (10 requests/minute, project-wide) from many different visitors
-// each making one request in the same minute -- exactly the traffic shape
-// of a launch-day spike. See requestLog note below for its own limits.
+// Per-IP rate limit: 6 requests per minute per IP. Stops one visitor from
+// hammering the endpoint. Was 5 -- raised slightly because during solo
+// testing/iteration a handful of legitimate clicks in one minute was
+// tripping this before any real traffic was involved. Still well under
+// the global cap below, so it doesn't weaken protection against a single
+// IP hogging the shared Gemini budget when multiple people are visiting.
+// Does NOT protect the shared Gemini free-tier budget (10 requests/minute,
+// project-wide) from many different visitors each making one request in
+// the same minute -- exactly the traffic shape of a launch-day spike. See
+// requestLog note below for its own limits.
 const requestLog = new Map();
-const RATE_LIMIT = 5;
+const RATE_LIMIT = 6;
 const RATE_WINDOW_MS = 60 * 1000;
 
 function isRateLimited(ip) {
@@ -98,11 +103,11 @@ export default async function handler(req, res) {
 
   const { documentText } = req.body || {};
   if (!documentText || typeof documentText !== "string" || !documentText.trim()) {
-    await recordEvent("error");
+    await recordEvent("error", { reason: "missing_document" });
     return res.status(400).json({ error: "No document text was provided." });
   }
   if (documentText.trim().length < 100) {
-    await recordEvent("error");
+    await recordEvent("error", { reason: "too_short" });
     return res.status(400).json({ error: "That's too short to be a real document — paste at least a few sentences." });
   }
 
@@ -113,7 +118,7 @@ export default async function handler(req, res) {
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    await recordEvent("error");
+    await recordEvent("error", { reason: "missing_api_key" });
     return res.status(500).json({
       error:
         "The server is missing GEMINI_API_KEY. Set it in your Vercel project's Environment Variables and redeploy.",
@@ -156,7 +161,7 @@ export default async function handler(req, res) {
       const detail = await geminiRes.text();
       // Surface rate-limit errors distinctly so the frontend can say something useful.
       const status = geminiRes.status === 429 ? 429 : 502;
-      await recordEvent(status === 429 ? "rate_limited" : "error");
+      await recordEvent(status === 429 ? "rate_limited" : "error", status === 429 ? undefined : { reason: "gemini_5xx" });
       return res.status(status).json({
         error:
           geminiRes.status === 429
@@ -182,7 +187,7 @@ export default async function handler(req, res) {
       console.error(
         `[analyze] empty text from Gemini. finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} usage=${JSON.stringify(data?.usageMetadata)}`
       );
-      await recordEvent("error");
+      await recordEvent("error", { reason: "empty_response" });
       return res.status(502).json({
         error:
           finishReason === "SAFETY"
@@ -218,7 +223,7 @@ export default async function handler(req, res) {
         console.error(
           `[analyze] JSON.parse failed and jsonrepair could not recover it. finishReason=${finishReason} thoughtsTokenCount=${thoughtsTokens} raw length=${cleaned.length}\nraw text:\n${cleaned}`
         );
-        await recordEvent("error");
+        await recordEvent("error", { reason: "json_parse_failed" });
         return res.status(502).json({
           error:
             finishReason === "MAX_TOKENS"
@@ -240,7 +245,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json(parsed);
   } catch (err) {
-    await recordEvent("error");
+    await recordEvent("error", { reason: "unexpected" });
     return res.status(500).json({ error: "Unexpected server error.", detail: String(err.message || err) });
   }
 }

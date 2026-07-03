@@ -125,6 +125,17 @@ async function load(){
         .join('') + '</table>';
     }
 
+    html += '<h2>Error breakdown</h2>';
+    if(!d.errorReasons || d.errors === 0){
+      html += '<p class="loading">No errors yet.</p>';
+    } else {
+      html += '<table>' + Object.entries(d.errorReasons)
+        .filter(([, count]) => count > 0)
+        .sort((a, b) => b[1] - a[1])
+        .map(([reason, count]) => '<tr><td>' + escapeHtml(reason) + '</td><td>' + count + '</td></tr>')
+        .join('') + '</table>';
+    }
+
     html += '<h2>Top document types</h2>';
     if(!d.topDocumentTypes || d.topDocumentTypes.length === 0){
       html += '<p class="loading">No completed analyses yet.</p>';

@@ -129,6 +129,13 @@
   .examples{
     display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
   }
+  .examples-hint{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:14px;
+    margin-bottom:-4px;
+  }
   .chip{
     all:unset;cursor:pointer;
     font-family:'IBM Plex Mono',monospace;
@@ -380,6 +387,7 @@
       <button id="clearBtn" type="button">clear</button>
     </div>
     <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
+    <p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
     <div class="examples">
       <button class="chip" data-example="lease">Try a sample lease</button>
       <button class="chip" data-example="freelance">Try a freelance contract</button>
@@ -583,12 +591,14 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[stageIndex];
   }, 2200);
 
-  // Fetch with quiet retries on rate limits (429) and transient server errors
-  // (502). Instead of surfacing "you're being rate limited" as a scary error,
-  // we just say we're taking longer and try again a couple of times behind
-  // the scenes — most people never notice a blip happened.
-  async function fetchAnalyzeWithRetry(body, maxRetries = 2){
-    const retryDelaysMs = [4000, 9000]; // gentle backoff
+  // Fetch with a quiet retry on transient server errors (502) only. 429s
+  // are NOT retried: our rate-limit windows are 60s wide, and a 4-9s retry
+  // delay can't outrun that -- retrying into a 429 just re-triggers the
+  // same limit, burns more of the per-IP/global budget, and double-counts
+  // the attempt in stats. Better to surface the server's rate-limit
+  // message immediately than to silently retry into a wall.
+  async function fetchAnalyzeWithRetry(body, maxRetries = 1){
+    const retryDelaysMs = [4000]; // gentle backoff, 502s only
     for(let attempt = 0; attempt <= maxRetries; attempt++){
       const response = await fetch("/api/analyze", {
         method: "POST",
@@ -596,7 +606,7 @@ analyzeBtn.addEventListener('click', async ()=>{
         body: JSON.stringify(body)
       });
 
-      const isRetryable = response.status === 429 || response.status === 502;
+      const isRetryable = response.status === 502;
       if(isRetryable && attempt < maxRetries){
         statusText.innerHTML = '<span class="spinner"></span>' +
           "This is taking a little longer than usual — hang tight, still working on it...";
@@ -633,11 +643,11 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.textContent = '';
   }catch(err){
     const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
-    const isRateLimited = err.status === 429;
+    // 429s are no longer retried, so err.message is already the specific,
+    // well-crafted message the server sent (per-IP vs. global throttle) --
+    // no need to override it with generic copy here.
     errorBox.textContent = isNetworkError
       ? "Couldn't reach the analysis service. Check your connection and try again."
-      : isRateLimited
-      ? "Things are busier than usual right now, so this took a while and still couldn't finish. Wait about a minute and give it another try."
       : err.message + (err.detail ? " (" + err.detail + ")" : "");
     errorBox.style.display = 'block';
     statusText.textContent = '';
