@@ -91,13 +91,15 @@ export default async function handler(req, res) {
   if (isRateLimited(ip)) {
     await recordEvent("rate_limited");
     return res.status(429).json({
-      error: "You're analyzing documents faster than the free tier allows. Wait about a minute and try again.",
+      error: "You're sending requests faster than allowed.",
+      retryAfterSeconds: 60,
     });
   }
   if (isGloballyThrottled()) {
     await recordEvent("rate_limited");
     return res.status(429).json({
-      error: "We're getting a lot of traffic right now. Wait about a minute and try again.",
+      error: "ClearClause is getting a lot of traffic right now.",
+      retryAfterSeconds: 60,
     });
   }
 
@@ -158,16 +160,32 @@ export default async function handler(req, res) {
     );
 
     if (!geminiRes.ok) {
-      const detail = await geminiRes.text();
-      // Surface rate-limit errors distinctly so the frontend can say something useful.
+      const rawDetail = await geminiRes.text();
       const status = geminiRes.status === 429 ? 429 : 502;
+
+      // Raw upstream error (status codes, internal quota metric names, JSON
+      // shape, etc.) is logged server-side only -- it should never reach the
+      // browser. It's genuinely useful for debugging but meaningless (and
+      // unprofessional-looking) to a visitor.
+      console.error(`[analyze] Gemini upstream error ${geminiRes.status}: ${rawDetail.slice(0, 1000)}`);
+
+      let retryAfterSeconds = null;
+      if (status === 429) {
+        // Gemini 429s often include a RetryInfo detail like {"retryDelay":"46s"}
+        // buried in a google.rpc error details array. Pull the integer seconds
+        // out of it so the UI can say "about 46 seconds" instead of nothing,
+        // and instead of leaking the raw payload.
+        const match = rawDetail.match(/"retryDelay"\s*:\s*"(\d+)(?:\.\d+)?s"/);
+        if (match) retryAfterSeconds = parseInt(match[1], 10);
+      }
+
       await recordEvent(status === 429 ? "rate_limited" : "error", status === 429 ? undefined : { reason: "gemini_5xx" });
       return res.status(status).json({
         error:
-          geminiRes.status === 429
-            ? "The analysis service is rate-limited right now (free tier). Wait a moment and try again."
-            : "The analysis service returned an error.",
-        detail: detail.slice(0, 500),
+          status === 429
+            ? "ClearClause has reached its AI usage limit for the moment."
+            : "The analysis service is temporarily unavailable.",
+        retryAfterSeconds,
       });
     }
 
@@ -193,9 +211,8 @@ export default async function handler(req, res) {
           finishReason === "SAFETY"
             ? "The document couldn't be analyzed — it may have tripped a safety filter."
             : finishReason === "MAX_TOKENS"
-            ? "The analysis got cut off before it finished (ran out of tokens, often on internal reasoning). Try again or shorten the document."
-            : "The analysis service returned an empty response.",
-        detail: `finishReason: ${finishReason || "unknown"}${thoughtsTokens ? `; thoughtsTokenCount: ${thoughtsTokens}` : ""}`,
+            ? "The analysis got cut off before it finished. Try again or shorten the document."
+            : "The analysis service returned an empty response. Try again.",
       });
     }
 
@@ -229,7 +246,6 @@ export default async function handler(req, res) {
             finishReason === "MAX_TOKENS"
               ? "The analysis got cut off before it finished. Try a shorter document, or try again."
               : "Couldn't parse the analysis. Try again.",
-          detail: `finishReason: ${finishReason || "unknown"}; raw start: ${cleaned.slice(0, 300)}`,
         });
       }
     }
@@ -245,7 +261,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json(parsed);
   } catch (err) {
+    console.error(`[analyze] unexpected server error: ${err?.stack || err}`);
     await recordEvent("error", { reason: "unexpected" });
-    return res.status(500).json({ error: "Unexpected server error.", detail: String(err.message || err) });
+    return res.status(500).json({ error: "Something went wrong on our end. Try again in a moment." });
   }
 }

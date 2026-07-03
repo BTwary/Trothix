@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClearClause — Know what you're signing</title>
-<meta name="description" content="Paste any lease, contract, or terms of service. Get a plain-language summary, the clauses worth worrying about, and what happens if things go wrong — before you sign, not after.">
+<meta name="description" content="Paste any lease, contract, or terms of service. Get a plain-English summary, key risks, and important obligations before you sign.">
 <meta property="og:title" content="ClearClause — Know what you're actually signing">
 <meta property="og:description" content="Plain-language contract review. Paste a lease, contract, or ToS and see the red flags before you sign.">
 <meta property="og:type" content="website">
@@ -210,7 +210,7 @@
   }
 
   .action-row{
-    display:flex;align-items:center;gap:16px;
+    display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;
     margin-top:22px;
   }
   .analyze-btn{
@@ -460,11 +460,11 @@
   <div class="hero">
     <div class="eyebrow">ClearClause</div>
     <h1>Know what you're<br><em>actually</em> signing.</h1>
-    <p class="lede">Paste any lease, contract, or terms of service. Get a plain-language summary, the clauses worth worrying about, and what happens if things go wrong — before you sign, not after.</p>
+    <p class="lede">Paste any lease, contract, or terms of service. Get a plain-English summary, key risks, and important obligations before you sign.</p>
     <div class="fine"><strong>Not legal advice.</strong> This tool flags things worth a closer look — it doesn't replace a lawyer. <strong>We do not store your documents.</strong> The text is sent securely to an AI model for analysis and discarded after processing.</div>
     <div class="how-it-works">
       <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
-      <span class="step">2. It's sent to Google's Gemini AI to read</span><span class="arrow">→</span>
+      <span class="step">2. Sent securely for AI analysis</span><span class="arrow">→</span>
       <span class="step">3. Results shown here — nothing is saved on our end</span>
     </div>
   </div>
@@ -476,8 +476,7 @@
     </div>
     <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
     <div class="char-counter" id="charCounter">
-      <span id="charCount">0 characters</span>
-      <span id="charLimit">max 18,000 characters processed</span>
+      <span id="charCount">0 / 18,000 characters</span>
     </div>
     <div class="truncate-notice" id="truncateNotice"></div>
     <p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
@@ -485,21 +484,21 @@
       <button class="chip" data-example="lease">
         <div class="chip-kind">Residential lease</div>
         <div class="chip-title">Apartment lease agreement</div>
-        <div class="chip-go">Load sample →</div>
+        <div class="chip-go">Try sample →</div>
       </button>
       <button class="chip" data-example="freelance">
         <div class="chip-kind">Contractor agreement</div>
         <div class="chip-title">Freelance design contract</div>
-        <div class="chip-go">Load sample →</div>
+        <div class="chip-go">Try sample →</div>
       </button>
       <button class="chip" data-example="tos">
         <div class="chip-kind">Terms of service</div>
         <div class="chip-title">App ToS excerpt</div>
-        <div class="chip-go">Load sample →</div>
+        <div class="chip-go">Try sample →</div>
       </button>
     </div>
     <div class="action-row">
-      <button class="analyze-btn" id="analyzeBtn">Explain my contract</button>
+      <button class="analyze-btn" id="analyzeBtn">Analyze My Document</button>
       <span class="status" id="statusText"></span>
     </div>
     <div class="error-box" id="errorBox"></div>
@@ -657,7 +656,7 @@ const CHAR_LIMIT = 18000;
 
 function updateCharCounter(){
   const len = docInput.value.length;
-  charCount.textContent = len.toLocaleString() + ' character' + (len === 1 ? '' : 's');
+  charCount.textContent = len.toLocaleString() + ' / ' + CHAR_LIMIT.toLocaleString() + ' characters';
   charCounter.classList.remove('near-limit','over-limit');
   if(len > CHAR_LIMIT){
     charCounter.classList.add('over-limit');
@@ -779,8 +778,8 @@ analyzeBtn.addEventListener('click', async ()=>{
     const parsed = await response.json();
 
     if(!response.ok){
-      const e = new Error(parsed.error || ("Request failed (" + response.status + ")"));
-      e.detail = parsed.detail;
+      const e = new Error(parsed.error || "Something went wrong. Try again.");
+      e.retryAfterSeconds = parsed.retryAfterSeconds;
       e.status = response.status;
       throw e;
     }
@@ -797,12 +796,21 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.textContent = '';
   }catch(err){
     const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
-    // 429s are no longer retried, so err.message is already the specific,
-    // well-crafted message the server sent (per-IP vs. global throttle) --
-    // no need to override it with generic copy here.
-    errorBox.textContent = isNetworkError
-      ? "Couldn't reach the analysis service. Check your connection and try again."
-      : err.message + (err.detail ? " (" + err.detail + ")" : "");
+    if(isNetworkError){
+      errorBox.textContent = "Couldn't reach the analysis service. Check your connection and try again.";
+    } else if(err.status === 429){
+      const wait = err.retryAfterSeconds
+        ? `about ${err.retryAfterSeconds} second${err.retryAfterSeconds === 1 ? '' : 's'}`
+        : 'about a minute';
+      errorBox.textContent = `⚠️ Service temporarily busy — we're currently processing the maximum number of AI requests allowed. Please try again in ${wait}. Thanks for your patience.`;
+    } else {
+      // Server-side already strips implementation details (status codes,
+      // upstream error bodies, etc.) before this ever reaches the browser --
+      // err.message here is always a pre-written, user-safe sentence. Never
+      // append raw error detail to what's shown on screen; if it's useful for
+      // debugging, it belongs in server logs / analytics, not the UI.
+      errorBox.textContent = err.message;
+    }
     errorBox.style.display = 'block';
     statusText.textContent = '';
   }finally{

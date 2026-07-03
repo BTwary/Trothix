@@ -41,6 +41,10 @@
   .cell{background:var(--paper);padding:18px 20px;}
   .cell .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
   .cell .val{font-family:'Source Serif 4',serif;font-size:26px;color:var(--ink);}
+  .cell .val.stat-good{color:var(--green);}
+  .cell .val.stat-warn{color:var(--amber);}
+  .cell .val.stat-bad{color:var(--red);}
+  .cell .label .soon{color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;}
   h2{font-family:'Source Serif 4',serif;font-size:19px;margin:0 0 12px;border-bottom:1px solid var(--rule);padding-bottom:8px;}
   table{width:100%;border-collapse:collapse;margin-bottom:32px;}
   td{padding:8px 4px;font-size:14.5px;border-bottom:1px dashed var(--rule);color:var(--ink-soft);}
@@ -61,7 +65,7 @@
   <div class="eyebrow">ClearClause</div>
   <h1>Usage stats</h1>
   <div class="note">
-    In-memory, per-instance counters — these reset on cold start and aren't a durable all-time total (see <code>api/_stats.js</code>). Good enough to sanity-check traffic and error rates during early usage; swap in a persistent store before relying on this for real reporting. "Page views" counts page loads, not unique visitors — a reload or a repeat visit both add to it.
+    In-memory, per-instance counters — these reset on cold start and aren't a durable all-time total (see <code>api/_stats.js</code>). Good enough to sanity-check traffic and error rates during early usage; swap in a persistent store before relying on this for real reporting. "Page views" counts page loads, not unique visitors — a reload or a repeat visit both add to it. "Total analysis requests" counts every hit to <code>/api/analyze</code> — including your own testing, retried 502s, and any direct API calls — so it can legitimately be higher than page views.
   </div>
 
   <div id="content"><p class="loading">Loading…</p></div>
@@ -90,18 +94,19 @@ async function load(){
     html += '<div class="grid">';
     html += cell('Page views', d.pageViews);
     html += cell('Analysis started', d.analysisStarted);
-    html += cell('Requests sent', d.totalRequests);
+    html += cell('Total analysis requests', d.totalRequests);
     html += cell('Successful analyses', d.completedAnalyses);
+    html += cellRaw('Unique visitors <span class="soon">(coming soon)</span>', '—');
     html += cell('Feedback submitted', d.totalFeedback);
-    html += cell('Visit → analysis rate', pct(d.visitToAnalysisRate));
-    html += cell('Request → success rate', pct(d.completionRate));
+    html += coloredPctCell('Page view → success', d.visitToAnalysisRate);
+    html += coloredPctCell('Request → success rate', d.completionRate);
     html += '</div>';
 
     html += '<h2>Analysis quality &amp; load</h2>';
     html += '<div class="grid">';
     html += cell('Avg. document length', d.averageDocumentLength ? d.averageDocumentLength + ' chars' : '—');
-    html += cell('Error rate', pct(d.errorRate));
-    html += cell('Rate-limit hit rate', pct(d.rateLimitHitRate));
+    html += coloredPctCell('Error rate', d.errorRate, { invert: true });
+    html += coloredPctCell('Rate-limit hit rate', d.rateLimitHitRate, { invert: true });
     html += cell('Not-a-document count', d.notDocumentCount);
     html += cell('Window started', new Date(d.windowStartedAt).toLocaleString());
     html += '</div>';
@@ -160,10 +165,19 @@ async function load(){
     if(!d.errorReasons || d.errors === 0){
       html += '<p class="loading">No errors yet.</p>';
     } else {
+      const errorReasonLabels = {
+        missing_document: 'No document provided',
+        too_short: 'Document too short',
+        missing_api_key: 'Server misconfigured (no API key)',
+        gemini_5xx: 'AI service unavailable',
+        empty_response: 'AI returned an empty response',
+        json_parse_failed: 'Invalid AI response',
+        unexpected: 'Unexpected server error',
+      };
       html += '<table>' + Object.entries(d.errorReasons)
         .filter(([, count]) => count > 0)
         .sort((a, b) => b[1] - a[1])
-        .map(([reason, count]) => '<tr><td>' + escapeHtml(reason) + '</td><td>' + count + '</td></tr>')
+        .map(([reason, count]) => '<tr><td>' + escapeHtml(errorReasonLabels[reason] || reason) + '</td><td>' + count + '</td></tr>')
         .join('') + '</table>';
     }
 
@@ -191,6 +205,30 @@ async function load(){
 
 function cell(label, val){
   return '<div class="cell"><div class="label">' + escapeHtml(label) + '</div><div class="val">' + escapeHtml(String(val ?? '—')) + '</div></div>';
+}
+
+// Like cell(), but the label is trusted, pre-built HTML (e.g. to embed a
+// "(coming soon)" span) instead of a plain string that gets escaped.
+function cellRaw(labelHtml, val){
+  return '<div class="cell"><div class="label">' + labelHtml + '</div><div class="val">' + escapeHtml(String(val ?? '—')) + '</div></div>';
+}
+
+// Color-coded percentage cell for at-a-glance health checks.
+// Default (invert:false) is for "higher is better" metrics like success rate:
+//   green >=80%, amber 50-79%, red <50%.
+// invert:true is for "lower is better" metrics like error rate / rate-limit
+// hit rate, using the mirrored thresholds: green <=20%, amber 21-50%, red >50%.
+function coloredPctCell(label, value, { invert = false } = {}){
+  const display = value === null || value === undefined ? '—' : Math.round(value * 100) + '%';
+  let cls = '';
+  if(value !== null && value !== undefined){
+    if(!invert){
+      cls = value >= 0.8 ? 'stat-good' : value >= 0.5 ? 'stat-warn' : 'stat-bad';
+    } else {
+      cls = value <= 0.2 ? 'stat-good' : value <= 0.5 ? 'stat-warn' : 'stat-bad';
+    }
+  }
+  return '<div class="cell"><div class="label">' + escapeHtml(label) + '</div><div class="val ' + cls + '">' + escapeHtml(display) + '</div></div>';
 }
 
 function escapeHtml(s){
