@@ -4,7 +4,11 @@
 
 import { jsonrepair } from "jsonrepair";
 
-const GEMINI_MODEL = "gemini-3.5-flash"; // current free-tier-eligible Gemini model as of mid-2026;
+const GEMINI_MODELS = [
+  "gemini-3.5-flash",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite"
+]; // current free-tier-eligible Gemini model as of mid-2026;
                                           // re-check https://ai.google.dev/gemini-api/docs/pricing
                                           // before launch, since Google adjusts free-tier
                                           // model eligibility fairly often.
@@ -52,6 +56,34 @@ function isRateLimited(ip) {
   requestLog.set(ip, timestamps);
   return timestamps.length > RATE_LIMIT;
 }
+async function callGemini(model, apiKey, prompt) {
+  return fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey,
+      },
+      body: JSON.stringify({
+        systemInstruction: {
+          parts: [{ text: SYSTEM_PROMPT }]
+        },
+        contents: [{
+          role: "user",
+          parts: [{ text: prompt }]
+        }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          thinkingConfig: {
+            thinkingBudget: 0
+          },
+          maxOutputTokens: 8000
+        }
+      })
+    }
+  );
+}
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -88,38 +120,37 @@ export default async function handler(req, res) {
   }
 
   try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
-        },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: [{ role: "user", parts: [{ text: truncated }] }],
-          generationConfig: {
-            responseMimeType: "application/json",
-            // Gemini 3.x models are "thinking" models: by default they spend an
-            // unpredictable number of tokens reasoning before writing the answer,
-            // and those thinking tokens are deducted from the SAME
-            // maxOutputTokens budget as the actual output. With no
-            // thinkingConfig and a tight token cap, the model can burn most/all
-            // of the budget on reasoning and get cut off mid-JSON
-            // (finishReason: MAX_TOKENS) -- which is what was causing
-            // "Couldn't parse the analysis" here. Keeping thinking low and
-            // giving plenty of headroom fixes it.
-            thinkingConfig: { thinkingLevel: "low" },
-            maxOutputTokens: 8000,
-            // temperature/top_p/top_k are no longer recommended for Gemini 3.x --
-            // Google tunes reasoning quality around the defaults, so we omit them.
-          },
-        }),
-      }
-    );
+   let geminiRes;
+let modelUsed = null;
+
+for (const model of GEMINI_MODELS) {
+
+   try {
+    geminiRes = await callGemini(model, apiKey, truncated);
+} catch (e) {
+    console.warn(`Network failure on ${model}, trying next model...`);
+
+    if (model === GEMINI_MODELS[GEMINI_MODELS.length - 1]) {
+        throw e;
+    }
+
+    continue;
+}
+
+    if (geminiRes.ok) {
+        modelUsed = model;
+        break;
+    }
+
+    if (![429, 500, 502, 503, 504].includes(geminiRes.status)) {
+      break;
+    }
+
+   console.warn(`Model ${model} failed (${geminiRes.status}), trying next model...`);
+}
 
     if (!geminiRes.ok) {
+  console.error("All Gemini models failed.");
       const detail = await geminiRes.text();
       // Surface rate-limit errors distinctly so the frontend can say something useful.
       const status = geminiRes.status === 429 ? 429 : 502;
@@ -133,6 +164,7 @@ export default async function handler(req, res) {
     }
 
     const data = await geminiRes.json();
+    console.log(`Model used: ${modelUsed}`);
     const finishReason = data?.candidates?.[0]?.finishReason;
     const thoughtsTokens = data?.usageMetadata?.thoughtsTokenCount;
     // Defensively skip any part explicitly marked as a "thought" (reasoning)
