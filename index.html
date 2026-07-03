@@ -677,15 +677,46 @@ analyzeBtn.addEventListener('click', async ()=>{
     renderResults(parsed);
     statusText.textContent = '';
   }catch(err){
-    const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
-    // 429s are no longer retried, so err.message is already the specific,
-    // well-crafted message the server sent (per-IP vs. global throttle) --
-    // no need to override it with generic copy here.
-    errorBox.textContent = isNetworkError
-      ? "Couldn't reach the analysis service. Check your connection and try again."
-      : err.message + (err.detail ? " (" + err.detail + ")" : "");
-    errorBox.style.display = 'block';
-    statusText.textContent = '';
+    const isNetworkError =
+  err.message === "Failed to fetch" || err instanceof TypeError;
+
+let message;
+
+if (isNetworkError) {
+
+  message =
+    "Couldn't reach the analysis service. Check your connection and try again.";
+
+}
+else if (err.status === 429) {
+
+  let retry = "";
+
+  if (err.detail) {
+    const match = err.detail.match(/retry in ([\d.]+)s/i);
+
+    if (match) {
+      retry = `\n\nPlease try again in about ${Math.ceil(Number(match[1]))} seconds.`;
+    }
+  }
+
+  message =
+    "⚠️ Service temporarily busy.\n\n" +
+    "ClearClause has reached its current AI usage limit." +
+    retry;
+
+}
+else {
+
+  message =
+    "Something went wrong while analyzing your document.\n\n" +
+    "Please try again in a moment.";
+
+}
+
+errorBox.textContent = message;
+errorBox.style.display = "block";
+statusText.textContent = "";
   }finally{
     clearInterval(stageTimer);
     analyzeBtn.disabled = false;
