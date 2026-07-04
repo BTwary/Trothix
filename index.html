@@ -605,7 +605,7 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
     font-family:'IBM Plex Mono',monospace;
     font-size:11.5px;line-height:1.8;color:var(--muted);
   }
-  .disclaimer strong{color:var(--ink-soft);}
+  .disclaimer strong{color: var(--muted-text);}
   .privacy-notice{
     margin-top:16px;
     padding:14px 16px;
@@ -731,7 +731,11 @@ box-shadow:2px 2px 0 rgba(0,0,0,.04);
 transition:.2s;
 
 }
-
+.warning{
+    color:#d97706;
+    font-weight:600;
+    margin:16px 0;
+}
 .sample-card:hover{
 
 transform:translateY(-4px);
@@ -1023,9 +1027,10 @@ Trothix
         During this beta, uploaded text is sent securely to these providers for processing.
     </p>
 
-    <p>
-        <strong>Please do not upload</strong> contracts containing highly confidential,
-        legally privileged, financial, medical, or government-sensitive information.
+<p class="warning">
+⚠️ Please do not upload contracts containing highly confidential,
+legally privileged, financial, medical, or government-sensitive information.
+</p>
         If possible, remove names, addresses, account numbers, and other personal details before analysis.
     </p>
 </div>
