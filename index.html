@@ -773,6 +773,152 @@ color:var(--red);
     .hiw-grid{grid-template-columns:1fr;gap:28px;}
   }
 
+  /* ---------- animated how-it-works walkthrough ---------- */
+  .hiw-anim{
+    position:relative;
+    width:100%;
+    height:calc(100% - 43px);
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .hiw-scene{
+    position:absolute;
+    inset:0;
+    padding:26px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity .5s ease, transform .5s ease;
+    pointer-events:none;
+  }
+  .hiw-scene.active{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .anim-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .anim-box{
+    flex:1;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fff;
+    padding:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    white-space:pre-wrap;
+    overflow:hidden;
+  }
+  .anim-cursor{
+    display:inline-block;
+    width:2px;
+    height:14px;
+    background:var(--ink);
+    vertical-align:middle;
+    margin-left:1px;
+    animation:animBlink 1s step-end infinite;
+  }
+  @keyframes animBlink{50%{opacity:0;}}
+  .anim-btn{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);
+    padding:10px 18px;border-radius:2px;
+  }
+  .anim-scan-box{
+    position:relative;
+    flex:1;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fff;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .anim-scan-line{
+    height:9px;
+    border-radius:3px;
+    background:var(--rule);
+  }
+  .anim-scan-line.highlight{
+    background:var(--amber-soft);
+    border:1px solid var(--amber);
+  }
+  .anim-scanner{
+    position:absolute;
+    left:0;right:0;
+    height:2px;
+    background:var(--red);
+    box-shadow:0 0 12px 2px rgba(178,58,46,.5);
+    animation:animScanSweep 2.6s ease-in-out infinite;
+  }
+  @keyframes animScanSweep{
+    0%{top:6%;}
+    50%{top:92%;}
+    100%{top:6%;}
+  }
+  .anim-risk-pill{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    background:var(--red-soft);color:var(--red);
+    padding:6px 12px;border-radius:20px;
+  }
+  .anim-flag{
+    font-size:13px;
+    color:var(--ink-soft);
+    background:var(--amber-soft);
+    border-left:3px solid var(--amber);
+    padding:8px 12px;
+    border-radius:2px;
+  }
+  .anim-summary-line{
+    height:9px;
+    border-radius:3px;
+    background:var(--rule);
+  }
+  .anim-check{
+    align-self:center;
+    margin-top:18px;
+    width:56px;height:56px;
+    border-radius:50%;
+    background:var(--green-soft);
+    color:var(--green);
+    font-size:28px;
+    display:flex;align-items:center;justify-content:center;
+    animation:animPop .4s ease;
+  }
+  @keyframes animPop{
+    0%{transform:scale(.6);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
+  }
+  .anim-decision-text{
+    align-self:center;
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    color:var(--ink);
+    text-align:center;
+  }
+  .hiw-step.hiw-step-active .hiw-step-num{
+    background:var(--red);color:#fff;
+  }
+  .hiw-step.hiw-step-active .hiw-step-body h3{
+    color:var(--red);
+  }
+
   /* spinner */
   .spinner{
     width:14px;height:14px;border-radius:50%;
@@ -957,35 +1103,75 @@ Trothix
     playsinline
     preload="metadata"
     poster="/assets/how-it-works-poster.jpg"
+    style="display:none;"
 >
     <source src="/assets/how-it-works.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
+<div class="hiw-anim" id="hiwAnim">
+
+  <div class="hiw-scene active" data-scene="1">
+    <div class="anim-label">Paste your document</div>
+    <div class="anim-box">
+      <span class="anim-typed-text" id="animTypedText"></span><span class="anim-cursor"></span>
+    </div>
+    <div class="anim-btn">Analyze My Document</div>
+  </div>
+
+  <div class="hiw-scene" data-scene="2">
+    <div class="anim-label">Trothix is reviewing your document…</div>
+    <div class="anim-scan-box">
+      <div class="anim-scan-line" style="width:92%;"></div>
+      <div class="anim-scan-line" style="width:74%;"></div>
+      <div class="anim-scan-line highlight" style="width:85%;"></div>
+      <div class="anim-scan-line" style="width:60%;"></div>
+      <div class="anim-scan-line" style="width:80%;"></div>
+      <div class="anim-scan-line highlight" style="width:68%;"></div>
+      <div class="anim-scanner"></div>
+    </div>
+  </div>
+
+  <div class="hiw-scene" data-scene="3">
+    <div class="anim-label">Plain-language summary</div>
+    <div class="anim-risk-pill">high risk</div>
+    <div class="anim-flag">⚠ Early termination penalty: 2 months' rent</div>
+    <div class="anim-flag">⚠ Automatic renewal clause found</div>
+    <div class="anim-summary-line" style="width:95%;"></div>
+    <div class="anim-summary-line" style="width:78%;"></div>
+  </div>
+
+  <div class="hiw-scene" data-scene="4">
+    <div class="anim-check">✓</div>
+    <div class="anim-decision-text">You know exactly what you're signing.</div>
+  </div>
+
+</div>
+
 </div>
       <div class="hiw-steps">
-        <div class="hiw-step">
+        <div class="hiw-step" data-step="1">
           <div class="hiw-step-num">01</div>
           <div class="hiw-step-body">
             <h3>Paste your contract</h3>
             <p>Paste any lease, employment contract, NDA, or Terms of Service.</p>
           </div>
         </div>
-        <div class="hiw-step">
+        <div class="hiw-step" data-step="2">
           <div class="hiw-step-num">02</div>
           <div class="hiw-step-body">
             <h3>Trothix reviews the document</h3>
             <p>Trothix identifies important clauses, obligations, and potential risks.</p>
           </div>
         </div>
-        <div class="hiw-step">
+        <div class="hiw-step" data-step="3">
           <div class="hiw-step-num">03</div>
           <div class="hiw-step-body">
             <h3>Review the summary</h3>
             <p>Read a plain-English explanation with highlighted risks.</p>
           </div>
         </div>
-        <div class="hiw-step">
+        <div class="hiw-step" data-step="4">
           <div class="hiw-step-num">04</div>
           <div class="hiw-step-body">
             <h3>Make informed decisions</h3>
@@ -1205,25 +1391,70 @@ try {
   // Ignore
 }
 
-// How It Works video: autoplays muted/looped, but pauses while scrolled
-// off-screen so it isn't silently burning battery/bandwidth in a background
-// tab or below the fold. Resumes automatically once back in view.
+// How It Works animated walkthrough: cycles through 4 mock scenes in sync
+// with the step list, pausing while scrolled off-screen so it isn't running
+// in the background. A lightweight substitute for an actual screen-recording.
 (function(){
-  const hiwVideo = document.getElementById('hiwVideo');
-  if (!hiwVideo || !('IntersectionObserver' in window)) return;
+  const animRoot = document.getElementById('hiwAnim');
+  if (!animRoot) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        hiwVideo.play().catch(() => { /* autoplay can be blocked -- poster image covers this */ });
-      } else {
-        hiwVideo.pause();
+  const scenes = Array.from(animRoot.querySelectorAll('.hiw-scene'));
+  const steps = Array.from(document.querySelectorAll('.hiw-step'));
+  const typedTextEl = document.getElementById('animTypedText');
+  const typedSample = "RESIDENTIAL LEASE AGREEMENT\n\nThis lease is entered into between Landlord and Tenant for the property located at...";
+  const SCENE_MS = 3400;
+
+  let sceneIndex = 0;
+  let cycleTimer = null;
+  let typeTimer = null;
+
+  function setActiveScene(idx){
+    scenes.forEach((s,i)=> s.classList.toggle('active', i === idx));
+    steps.forEach((s,i)=> s.classList.toggle('hiw-step-active', i === idx));
+    if(idx === 0) startTyping();
+  }
+
+  function startTyping(){
+    clearInterval(typeTimer);
+    typedTextEl.textContent = '';
+    let i = 0;
+    typeTimer = setInterval(()=>{
+      typedTextEl.textContent = typedSample.slice(0, i);
+      i += 3;
+      if(i > typedSample.length){
+        clearInterval(typeTimer);
       }
-    });
-  }, { threshold: 0.25 });
+    }, 18);
+  }
 
-  observer.observe(hiwVideo);
+  function startCycle(){
+    if (cycleTimer) return;
+    setActiveScene(sceneIndex);
+    cycleTimer = setInterval(()=>{
+      sceneIndex = (sceneIndex + 1) % scenes.length;
+      setActiveScene(sceneIndex);
+    }, SCENE_MS);
+  }
+
+  function stopCycle(){
+    clearInterval(cycleTimer);
+    clearInterval(typeTimer);
+    cycleTimer = null;
+  }
+
+  if ('IntersectionObserver' in window){
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if (entry.isIntersecting) startCycle();
+        else stopCycle();
+      });
+    }, { threshold: 0.25 });
+    observer.observe(animRoot);
+  } else {
+    startCycle();
+  }
 })();
+
 
 const examples = {
   lease: `RESIDENTIAL LEASE AGREEMENT
