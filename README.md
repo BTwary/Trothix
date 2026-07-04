@@ -1,4 +1,4 @@
-# ClearClause
+# Trothix
 
 Plain-language contract/lease/ToS analyzer. Frontend is a single static
 `index.html`; the AI call is proxied through `/api/analyze.js` so your API
@@ -102,7 +102,7 @@ supports both.
 ```bash
 git init
 git add .
-git commit -m "ClearClause v1"
+git commit -m "Trothix v1"
 git branch -M main
 git remote add origin <your-empty-github-repo-url>
 git push -u origin main
