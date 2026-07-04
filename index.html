@@ -429,15 +429,32 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
 
 }
   .analyze-btn:disabled{background:var(--muted);cursor:not-allowed;}
-  .cancel-btn{
-    all:unset;
+  .consent-notice{
+    margin-top:16px;
+    padding:14px 16px;
+    background:var(--amber-soft);
+    border-left:3px solid var(--amber);
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .consent-notice strong{color:var(--ink);}
+  .consent-check{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:12px;
+    font-size:13px;
+    color:var(--ink-soft);
     cursor:pointer;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    color:var(--red);
-    text-decoration:underline;
-    text-underline-offset:3px;
-    padding:14px 4px;
+  }
+  .consent-check input{
+    margin-top:2px;
+    width:16px;
+    height:16px;
+    accent-color:var(--ink);
+    cursor:pointer;
+    flex-shrink:0;
   }
   .status{
     font-family:'IBM Plex Mono',monospace;
@@ -453,92 +470,6 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
     color:#7a281f;
     display:none;
   }
-
-  /* ---------- pdf upload ---------- */
-  .upload-zone{
-    border:1.5px dashed var(--rule);
-    border-radius:4px;
-    background:var(--paper-dark);
-    padding:22px 20px;
-    text-align:center;
-    transition:.15s;
-    cursor:pointer;
-  }
-  .upload-zone:hover, .upload-zone.drag-over{
-    border-color:var(--gold);
-    background:var(--amber-soft);
-  }
-  .upload-zone.has-error{border-color:var(--red);background:var(--red-soft);}
-  .upload-zone-inner{display:flex;flex-direction:column;align-items:center;gap:6px;}
-  .upload-icon{font-size:22px;}
-  .upload-text{
-    font-family:'Inter',sans-serif;
-    font-size:14px;
-    color:var(--ink-soft);
-  }
-  .upload-browse{
-    all:unset;cursor:pointer;color:var(--gold);text-decoration:underline;
-    text-underline-offset:3px;font-weight:600;
-  }
-  .upload-hint{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;color:var(--muted);
-  }
-  .upload-progress{padding:4px 4px 0;}
-  .upload-progress-bar{
-    width:100%;height:6px;border-radius:3px;background:var(--rule);overflow:hidden;
-  }
-  .upload-progress-fill{
-    height:100%;width:0%;background:var(--gold);transition:width .2s ease;
-  }
-  .upload-progress-text{
-    display:block;margin-top:8px;
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
-  }
-  .upload-file-row{
-    display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);
-  }
-  .upload-file-row button{
-    all:unset;cursor:pointer;color:var(--red);text-decoration:underline;font-size:11.5px;
-  }
-  .upload-divider{
-    display:flex;align-items:center;gap:12px;margin:16px 0;
-    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--muted);
-  }
-  .upload-divider::before, .upload-divider::after{
-    content:"";flex:1;height:1px;background:var(--rule);
-  }
-
-  /* ---------- why not chatgpt ---------- */
-  .compare-section{margin-top:56px;}
-  .compare-section h2{
-    font-family:'Source Serif 4',serif;font-size:26px;margin:0 0 8px;
-  }
-  .compare-subtitle{
-    font-family:'Inter',sans-serif;color:var(--ink-soft);font-size:15px;
-    margin:0 0 22px;max-width:56ch;line-height:1.5;
-  }
-  .compare-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:14px;
-  }
-  @media (max-width:600px){.compare-grid{grid-template-columns:1fr;}}
-  .compare-card{
-    border:1px solid var(--rule);border-radius:4px;padding:20px 20px 22px;background:#fff;
-  }
-  .compare-card.trothix{border-color:var(--gold);background:var(--amber-soft);}
-  .compare-card h3{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
-    text-transform:uppercase;margin:0 0 14px;color:var(--muted);
-  }
-  .compare-card.trothix h3{color:var(--gold);}
-  .compare-card ul{list-style:none;margin:0;padding:0;}
-  .compare-card li{
-    font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;
-    padding:7px 0;display:flex;gap:8px;color:var(--ink-soft);
-  }
-  .compare-card.trothix li{color:var(--ink);}
 
   /* ---------- results ---------- */
   #results{display:none;margin-top:56px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
@@ -973,9 +904,9 @@ gap:24px;
   <div class="hero">
     <div class="eyebrow">Trothix</div>
     <h1>Know what you're<br><em>actually</em> signing.</h1>
-    <p class="lede">No prompt engineering. No generic summaries.
+    <p class="lede">Understand contracts in plain English.
 
-Purpose-built to find the clauses that matter — before you sign.</p>
+Identify risks before you sign.</p>
       <div class="trust-row">
     <div>🔒 Nothing stored</div>
     <div>⚡ Easy-to-understand review</div>
@@ -993,34 +924,9 @@ Purpose-built to find the clauses that matter — before you sign.</p>
 </div>
     <div class="fine"><strong>✓ Not legal advice</strong> ✓ Your document isn't stored <strong>✓ Text is discarded after processing</strong></div>
     <div class="how-it-works">
-      <span class="step">1. Paste text or upload a PDF — any length</span><span class="arrow">→</span>
+      <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
       <span class="step">2. Sent securely for AI analysis</span><span class="arrow">→</span>
       <span class="step">3. Results shown here — nothing is saved on our end</span>
-    </div>
-  </div>
-
-  <div class="compare-section">
-    <h2>Why not just paste this into ChatGPT?</h2>
-    <p class="compare-subtitle">You can — and it can summarize a contract if you ask it the right way. Trothix removes the guesswork and gives you the same careful review every time.</p>
-    <div class="compare-grid">
-      <div class="compare-card">
-        <h3>General AI chatbot</h3>
-        <ul>
-          <li>✗ Generic summary — depends on how you phrase the prompt</li>
-          <li>✗ No consistent structure between documents</li>
-          <li>✗ You have to know what to ask about</li>
-          <li>✗ No dedicated risk or clause detection</li>
-        </ul>
-      </div>
-      <div class="compare-card trothix">
-        <h3>Trothix</h3>
-        <ul>
-          <li>✓ Built specifically to read contracts, leases, and ToS</li>
-          <li>✓ Same structured review every time — risks, terms, obligations</li>
-          <li>✓ Automatically flags high-risk clauses like termination and arbitration</li>
-          <li>✓ Explains each one in plain English, with why it matters</li>
-        </ul>
-      </div>
     </div>
   </div>
 
@@ -1095,27 +1001,9 @@ Trothix
       <span>Paste your document</span>
       <button id="clearBtn" type="button">clear</button>
     </div>
-    <div class="upload-zone" id="uploadZone">
-      <input type="file" id="pdfFileInput" accept="application/pdf" hidden>
-      <div class="upload-zone-inner" id="uploadZoneInner">
-        <span class="upload-icon">📄</span>
-        <span class="upload-text"><strong>Drop a PDF here</strong> or <button type="button" class="upload-browse" id="browseBtn">browse files</button></span>
-        <span class="upload-hint">Up to 15&nbsp;MB · text extracted entirely in your browser — nothing is uploaded until you click Analyze</span>
-      </div>
-      <div class="upload-progress" id="uploadProgress" style="display:none;">
-        <div class="upload-progress-bar"><div class="upload-progress-fill" id="uploadProgressFill"></div></div>
-        <span class="upload-progress-text" id="uploadProgressText">Reading PDF…</span>
-      </div>
-      <div class="upload-file-row" id="uploadFileRow" style="display:none;">
-        <span id="uploadFileName"></span>
-        <button type="button" id="uploadReplaceBtn">use a different file</button>
-      </div>
-    </div>
-    <div class="upload-divider"><span>or paste text below</span></div>
-
     <textarea id="docInput" placeholder="Paste the full text of your lease, contract, or terms of service here..."></textarea>
     <div class="char-counter" id="charCounter">
-      <span id="charCount">0 characters</span>
+      <span id="charCount">0 / 18,000 characters</span>
     </div>
     <div class="truncate-notice" id="truncateNotice"></div>
     <p class="examples-hint">✨ Want to see how it works? Try a sample document.</p>
@@ -1136,9 +1024,15 @@ Trothix
         <div class="chip-go">Use this sample</div>
       </button>
     </div>
+    <div class="consent-notice">
+      <strong>Before you analyze:</strong> your document text is sent to a secure third-party AI service for analysis. Please do not paste highly sensitive, confidential, or personally identifying information — redact names, addresses, account numbers, and anything you wouldn't want processed by an external AI provider.
+      <label class="consent-check" for="consentCheck">
+        <input type="checkbox" id="consentCheck">
+        <span>I understand and agree to have my document processed by a third-party AI service for analysis.</span>
+      </label>
+    </div>
     <div class="action-row">
-      <button class="analyze-btn" id="analyzeBtn">Analyze My Document</button>
-      <button class="cancel-btn" id="cancelBtn" type="button" style="display:none;">Cancel</button>
+      <button class="analyze-btn" id="analyzeBtn" disabled>Analyze My Document</button>
       <span class="status" id="statusText"></span>
     </div>
     <div class="error-box" id="errorBox"></div>
@@ -1226,10 +1120,6 @@ Trothix
 
 <div class="roadmap-card done">
 ✓ Risk scoring
-</div>
-
-<div class="roadmap-card">
-🚧 PDF Upload
 </div>
 
 <div class="roadmap-card">
@@ -1393,32 +1283,19 @@ const results = document.getElementById('results');
 const charCounter = document.getElementById('charCounter');
 const charCount = document.getElementById('charCount');
 const truncateNotice = document.getElementById('truncateNotice');
-// SINGLE_CALL_LIMIT: documents at or under this size are sent in one AI
-// call, exactly like before -- zero change in behavior or cost for the
-// common case of a pasted lease/ToS excerpt.
-//
-// Above that, instead of truncating (losing everything past the cutoff),
-// the document is split into ~CHUNK_SIZE-character sections and analyzed
-// section-by-section, then merged. MAX_CHUNKS bounds worst-case cost and
-// request count for a single document.
-const SINGLE_CALL_LIMIT = 16000;
-const CHUNK_SIZE = 14000;
-const MAX_CHUNKS = 14;
-const MAX_TOTAL_CHARS = CHUNK_SIZE * MAX_CHUNKS; // ~196,000 characters
+const CHAR_LIMIT = 18000;
 
 function updateCharCounter(){
   const len = docInput.value.length;
-  charCount.textContent = len.toLocaleString() + ' characters';
+  charCount.textContent = len.toLocaleString() + ' / ' + CHAR_LIMIT.toLocaleString() + ' characters';
   charCounter.classList.remove('near-limit','over-limit');
-  if(len > MAX_TOTAL_CHARS){
+  if(len > CHAR_LIMIT){
     charCounter.classList.add('over-limit');
-    truncateNotice.textContent = `This document is too long even for section-by-section analysis (max ~${MAX_TOTAL_CHARS.toLocaleString()} characters). Try analyzing it in parts, or selecting the sections you care most about.`;
+    truncateNotice.textContent = `Only the first ${CHAR_LIMIT.toLocaleString()} characters will be analyzed — the remaining ${(len - CHAR_LIMIT).toLocaleString()} will be cut off before it's sent.`;
     truncateNotice.classList.add('show');
-  } else if(len > SINGLE_CALL_LIMIT){
-    const estimatedChunks = Math.ceil(len / CHUNK_SIZE);
+  } else if(len > CHAR_LIMIT * 0.9){
     charCounter.classList.add('near-limit');
-    truncateNotice.textContent = `This is a long document — it'll be analyzed in about ${estimatedChunks} sections and the results merged, so nothing gets cut off.`;
-    truncateNotice.classList.add('show');
+    truncateNotice.classList.remove('show');
   } else {
     truncateNotice.classList.remove('show');
   }
@@ -1426,258 +1303,10 @@ function updateCharCounter(){
 docInput.addEventListener('input', updateCharCounter);
 updateCharCounter();
 
-/* ---------------- PDF upload: extraction + OCR fallback ---------------- */
-(function(){
-  const uploadZone = document.getElementById('uploadZone');
-  const uploadZoneInner = document.getElementById('uploadZoneInner');
-  const pdfFileInput = document.getElementById('pdfFileInput');
-  const browseBtn = document.getElementById('browseBtn');
-  const uploadProgress = document.getElementById('uploadProgress');
-  const uploadProgressFill = document.getElementById('uploadProgressFill');
-  const uploadProgressText = document.getElementById('uploadProgressText');
-  const uploadFileRow = document.getElementById('uploadFileRow');
-  const uploadFileName = document.getElementById('uploadFileName');
-  const uploadReplaceBtn = document.getElementById('uploadReplaceBtn');
-
-  const MAX_PDF_BYTES = 15 * 1024 * 1024; // 15 MB
-  const MIN_TEXT_CHARS_PER_PAGE = 25; // below this, treat page as scanned/image-only
-  let pdfjsReady = null;
-  let tesseractReady = null;
-
-  function loadScriptOnce(src){
-    return new Promise((resolve, reject) => {
-      const existing = document.querySelector(`script[src="${src}"]`);
-      if (existing){ existing.addEventListener('load', resolve); if (existing.dataset.loaded) resolve(); return; }
-      const s = document.createElement('script');
-      s.src = src;
-      s.onload = () => { s.dataset.loaded = '1'; resolve(); };
-      s.onerror = () => reject(new Error('Failed to load ' + src));
-      document.head.appendChild(s);
-    });
-  }
-
-  function ensurePdfJs(){
-    if (pdfjsReady) return pdfjsReady;
-    pdfjsReady = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js')
-      .then(() => {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js';
-      });
-    return pdfjsReady;
-  }
-
-  // Only pulled in when a page actually looks scanned -- keeps the normal
-  // "paste text" and "digital PDF" paths from ever downloading OCR weight.
-  function ensureTesseract(){
-    if (tesseractReady) return tesseractReady;
-    tesseractReady = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js');
-    return tesseractReady;
-  }
-
-  function setProgress(pct, text){
-    uploadProgress.style.display = 'block';
-    uploadZoneInner.style.display = 'none';
-    uploadFileRow.style.display = 'none';
-    uploadProgressFill.style.width = Math.max(0, Math.min(100, pct)) + '%';
-    uploadProgressText.textContent = text;
-  }
-
-  function showError(msg){
-    uploadZone.classList.add('has-error');
-    uploadProgress.style.display = 'none';
-    uploadZoneInner.style.display = 'flex';
-    uploadFileRow.style.display = 'none';
-    errorBox.textContent = msg;
-    errorBox.style.display = 'block';
-  }
-
-  function showDone(file, charCountExtracted){
-    uploadZone.classList.remove('has-error');
-    uploadProgress.style.display = 'none';
-    uploadZoneInner.style.display = 'none';
-    uploadFileRow.style.display = 'flex';
-    uploadFileName.textContent = `${file.name} — ${charCountExtracted.toLocaleString()} characters extracted`;
-  }
-
-  function resetUploadUI(){
-    uploadZone.classList.remove('has-error');
-    uploadProgress.style.display = 'none';
-    uploadZoneInner.style.display = 'flex';
-    uploadFileRow.style.display = 'none';
-    pdfFileInput.value = '';
-  }
-
-  // Strips repeated headers/footers, bare page numbers, and "Page X of Y"
-  // style boilerplate that would otherwise eat into the character budget
-  // and distract the AI from actual contract language.
-  function cleanExtractedPages(pageTexts){
-    const lineFreq = new Map();
-    const pageLines = pageTexts.map(pt => pt.split('\n').map(l => l.trim()));
-
-    pageLines.forEach(lines => {
-      const seenThisPage = new Set();
-      lines.forEach(line => {
-        if (!line || line.length > 80) return;
-        if (seenThisPage.has(line)) return;
-        seenThisPage.add(line);
-        lineFreq.set(line, (lineFreq.get(line) || 0) + 1);
-      });
-    });
-
-    const pageCount = pageTexts.length;
-    const repeatThreshold = Math.max(3, Math.ceil(pageCount * 0.5));
-    const junkPatterns = [
-      /^page\s+\d+(\s+of\s+\d+)?$/i,
-      /^\d{1,4}$/,
-      /^confidential$/i,
-    ];
-
-    const cleanedPages = pageLines.map(lines =>
-      lines.filter(line => {
-        if (!line) return true; // keep blank lines for paragraph spacing, collapsed later
-        if (junkPatterns.some(re => re.test(line))) return false;
-        if (pageCount >= 3 && (lineFreq.get(line) || 0) >= repeatThreshold) return false;
-        return true;
-      }).join('\n')
-    );
-
-    let combined = cleanedPages.join('\n\n');
-    combined = combined.replace(/\n{3,}/g, '\n\n').trim();
-    return combined;
-  }
-
-  async function extractDigitalText(pdf, onPageProgress){
-    const pageTexts = [];
-    const needsOcr = [];
-    for (let i = 1; i <= pdf.numPages; i++){
-      onPageProgress(i, pdf.numPages, 'Reading');
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      const text = content.items.map(it => it.str).join(' ').replace(/\s+/g, ' ').trim();
-      pageTexts.push(text);
-      if (text.length < MIN_TEXT_CHARS_PER_PAGE) needsOcr.push(i);
-    }
-    return { pageTexts, needsOcr };
-  }
-
-  async function ocrPage(pdf, pageNum){
-    const page = await pdf.getPage(pageNum);
-    const viewport = page.getViewport({ scale: 2 });
-    const canvas = document.createElement('canvas');
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-    const ctx = canvas.getContext('2d');
-    await page.render({ canvasContext: ctx, viewport }).promise;
-    const { data } = await window.Tesseract.recognize(canvas, 'eng');
-    return (data.text || '').trim();
-  }
-
-  async function handleFile(file){
-    if (!file) return;
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
-      showError('That doesn\'t look like a PDF. Please upload a .pdf file, or paste the text directly.');
-      return;
-    }
-    if (file.size > MAX_PDF_BYTES){
-      showError(`That PDF is too large (${(file.size / (1024*1024)).toFixed(1)} MB). Please upload a file under 15 MB, or paste the text directly.`);
-      return;
-    }
-
-    errorBox.style.display = 'none';
-    uploadZone.classList.remove('has-error');
-    setProgress(3, 'Loading PDF engine…');
-
-    try {
-      await ensurePdfJs();
-      const arrayBuffer = await file.arrayBuffer();
-      setProgress(8, 'Opening document…');
-
-      let pdf;
-      try {
-        pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      } catch (e) {
-        if (e && e.name === 'PasswordException'){
-          showError('This PDF is password-protected. Please remove the password and try again, or paste the text directly.');
-          return;
-        }
-        showError('Couldn\'t open this PDF — it may be corrupted. Try a different file or paste the text directly.');
-        return;
-      }
-
-      const { pageTexts, needsOcr } = await extractDigitalText(pdf, (i, total) => {
-        setProgress(10 + (i / total) * 40, `Reading page ${i} of ${total}…`);
-      });
-
-      if (needsOcr.length){
-        setProgress(52, `Loading OCR engine for ${needsOcr.length} scanned page${needsOcr.length > 1 ? 's' : ''}…`);
-        await ensureTesseract();
-        for (let idx = 0; idx < needsOcr.length; idx++){
-          const pageNum = needsOcr[idx];
-          setProgress(55 + (idx / needsOcr.length) * 40, `Running OCR on page ${pageNum} (${idx + 1} of ${needsOcr.length})…`);
-          try {
-            const ocrText = await ocrPage(pdf, pageNum);
-            pageTexts[pageNum - 1] = ocrText;
-          } catch (ocrErr) {
-            // Leave that page's text empty rather than failing the whole upload.
-            console.warn('[pdf-upload] OCR failed for page', pageNum, ocrErr);
-          }
-        }
-      }
-
-      setProgress(97, 'Cleaning up text…');
-      const cleaned = cleanExtractedPages(pageTexts);
-
-      if (!cleaned || cleaned.trim().length < 100){
-        showError('Couldn\'t find enough readable text in this PDF. It may be a scanned image at very low quality, or blank. Try a clearer scan or paste the text directly.');
-        return;
-      }
-
-      docInput.value = cleaned;
-      updateCharCounter();
-      showDone(file, cleaned.length);
-
-      try {
-        fetch('/api/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event: 'pdf_uploaded', pageCount: pdf.numPages, ocrPages: needsOcr.length }),
-          keepalive: true
-        }).catch(()=>{});
-      } catch(e) {}
-
-    } catch (err) {
-      console.error('[pdf-upload] unexpected error', err);
-      showError('Something went wrong reading that PDF. Try again, or paste the text directly.');
-    }
-  }
-
-  browseBtn.addEventListener('click', () => pdfFileInput.click());
-  uploadZoneInner.addEventListener('click', (e) => {
-    if (e.target === browseBtn) return;
-    pdfFileInput.click();
-  });
-  uploadReplaceBtn.addEventListener('click', resetUploadUI);
-  pdfFileInput.addEventListener('change', () => handleFile(pdfFileInput.files[0]));
-
-  ['dragenter','dragover'].forEach(evt => {
-    uploadZone.addEventListener(evt, (e) => {
-      e.preventDefault(); e.stopPropagation();
-      uploadZone.classList.add('drag-over');
-    });
-  });
-  ['dragleave','drop'].forEach(evt => {
-    uploadZone.addEventListener(evt, (e) => {
-      e.preventDefault(); e.stopPropagation();
-      uploadZone.classList.remove('drag-over');
-    });
-  });
-  uploadZone.addEventListener('drop', (e) => {
-    const file = e.dataTransfer?.files?.[0];
-    if (file) handleFile(file);
-  });
-
-  document.getElementById('clearBtn').addEventListener('click', resetUploadUI);
-})();
+const consentCheck = document.getElementById('consentCheck');
+consentCheck.addEventListener('change', ()=>{
+  analyzeBtn.disabled = !consentCheck.checked;
+});
 
 document.querySelectorAll('.chip').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -1703,158 +1332,6 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
   errorBox.style.display = 'none';
 });
 
-const cancelBtn = document.getElementById('cancelBtn');
-let currentAbortController = null;
-let userCancelled = false;
-
-function genJobId(){
-  if (window.crypto?.randomUUID) return window.crypto.randomUUID();
-  return 'job-' + Date.now() + '-' + Math.random().toString(36).slice(2);
-}
-
-// Splits on paragraph breaks so sections don't get cut mid-sentence where
-// avoidable. Falls back to a hard slice only if a single paragraph is
-// itself bigger than one chunk (rare, but possible with dense legalese).
-function splitIntoChunks(text, maxSize){
-  const paragraphs = text.split(/\n{2,}/);
-  const chunks = [];
-  let current = '';
-  for (const para of paragraphs){
-    const candidate = current ? current + '\n\n' + para : para;
-    if (candidate.length <= maxSize){
-      current = candidate;
-      continue;
-    }
-    if (current) chunks.push(current);
-    if (para.length > maxSize){
-      for (let i = 0; i < para.length; i += maxSize) chunks.push(para.slice(i, i + maxSize));
-      current = '';
-    } else {
-      current = para;
-    }
-  }
-  if (current) chunks.push(current);
-  return chunks;
-}
-
-const SEVERITY_RANK = { high: 0, medium: 1, low: 2 };
-function severityRank(s){ return SEVERITY_RANK[s] ?? 3; }
-
-function mergeChunkResults(chunkResults){
-  const keyTerms = {};
-  const allRedFlags = [];
-  const notableFacts = [];
-  const seenFlagKeys = new Set();
-
-  for (const r of chunkResults){
-    if (!r) continue;
-    for (const field of ['duration','payment','termination','penalties']){
-      if (!keyTerms[field] && r.keyTerms?.[field]) keyTerms[field] = r.keyTerms[field];
-    }
-    for (const flag of (r.redFlags || [])){
-      const key = (flag.anchor || flag.clause || '').toLowerCase().trim();
-      if (key && seenFlagKeys.has(key)) continue;
-      if (key) seenFlagKeys.add(key);
-      allRedFlags.push(flag);
-    }
-    for (const fact of (r.notableFacts || [])) notableFacts.push(fact);
-  }
-
-  allRedFlags.sort((a, b) => severityRank(a.severity) - severityRank(b.severity));
-
-  return {
-    keyTerms,
-    redFlags: allRedFlags.slice(0, 10),
-    notableFacts: notableFacts.slice(0, 24),
-  };
-}
-
-// Fetch with a quiet retry on transient server errors (502) only, and
-// AbortController support so Cancel actually stops in-flight work instead
-// of just hiding the UI. 429s are NOT retried: our rate-limit windows are
-// 60s wide, and a 4-9s retry delay can't outrun that -- retrying into a
-// 429 just re-triggers the same limit and burns more of the shared budget.
-async function fetchAnalyzeWithRetry(body, { signal, maxRetries = 1 } = {}){
-  const retryDelaysMs = [4000];
-  for(let attempt = 0; attempt <= maxRetries; attempt++){
-    const response = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-      signal
-    });
-
-    const isRetryable = response.status === 502;
-    if(isRetryable && attempt < maxRetries){
-      statusText.innerHTML = '<span class="spinner"></span>' +
-        "This is taking a little longer than usual — hang tight, still working on it...";
-      await new Promise(r => setTimeout(r, retryDelaysMs[attempt]));
-      continue;
-    }
-    return response;
-  }
-}
-
-async function analyzeSingleCall(text, signal){
-  const response = await fetchAnalyzeWithRetry({ documentText: text }, { signal });
-  const parsed = await response.json();
-  if(!response.ok){
-    const e = new Error(parsed.error || "Something went wrong. Try again.");
-    e.retryAfterSeconds = parsed.retryAfterSeconds;
-    e.status = response.status;
-    throw e;
-  }
-  return parsed;
-}
-
-async function analyzeChunked(text, signal){
-  const chunks = splitIntoChunks(text, CHUNK_SIZE);
-  const chunkResults = [];
-
-  for (let i = 0; i < chunks.length; i++){
-    statusText.innerHTML = '<span class="spinner"></span>' +
-      `Analyzing section ${i + 1} of ${chunks.length}…`;
-    const response = await fetchAnalyzeWithRetry({
-      documentText: chunks[i],
-      mode: 'chunk',
-      jobId: currentJobId,
-      chunkIndex: i + 1,
-      chunkCount: chunks.length,
-    }, { signal });
-    const parsed = await response.json();
-    if(!response.ok){
-      const e = new Error(parsed.error || `Stopped after ${i} of ${chunks.length} sections — try again in a moment.`);
-      e.retryAfterSeconds = parsed.retryAfterSeconds;
-      e.status = response.status;
-      throw e;
-    }
-    chunkResults.push(parsed);
-  }
-
-  statusText.innerHTML = '<span class="spinner"></span>' + 'Combining findings into a final summary…';
-  const merged = mergeChunkResults(chunkResults);
-  const response = await fetchAnalyzeWithRetry({
-    mode: 'synthesize',
-    jobId: currentJobId,
-    findings: { ...merged, documentLength: text.length, chunkCount: chunks.length },
-  }, { signal });
-  const parsed = await response.json();
-  if(!response.ok){
-    const e = new Error(parsed.error || "Couldn't put together the final summary. Try again.");
-    e.retryAfterSeconds = parsed.retryAfterSeconds;
-    e.status = response.status;
-    throw e;
-  }
-  return parsed;
-}
-
-let currentJobId = null;
-
-cancelBtn.addEventListener('click', () => {
-  userCancelled = true;
-  currentAbortController?.abort();
-});
-
 analyzeBtn.addEventListener('click', async ()=>{
   const text = docInput.value.trim();
   errorBox.style.display = 'none';
@@ -1871,96 +1348,110 @@ analyzeBtn.addEventListener('click', async ()=>{
     errorBox.style.display = 'block';
     return;
   }
-  if(text.length > MAX_TOTAL_CHARS){
-    errorBox.textContent = `This document is too long even for section-by-section analysis (max ~${MAX_TOTAL_CHARS.toLocaleString()} characters). Try analyzing it in parts.`;
-    errorBox.style.display = 'block';
-    return;
-  }
-
-  const isChunked = text.length > SINGLE_CALL_LIMIT;
-  currentJobId = genJobId();
-  userCancelled = false;
-  currentAbortController = new AbortController();
 
   analyzeBtn.disabled = true;
-  cancelBtn.style.display = 'inline';
 
   try {
     fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'analysis_started', chunked: isChunked }),
+      body: JSON.stringify({ event: 'analysis_started' }),
       keepalive: true
     }).catch(()=>{});
   } catch(e) {}
 
-  let stageTimer = null;
-  if (!isChunked){
-    const loadingStages = [
-      `Processing ${text.length.toLocaleString()} characters...`,
-      'Detecting document type...',
-      'Reading the clauses...',
-      'Checking for red flags...',
-      'Writing the plain-English summary...',
-      'Still working — this one is taking a bit longer...',
-      'Almost there, thanks for your patience...'
-    ];
-    let stageIndex = 0;
-    statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[0];
-    stageTimer = setInterval(()=>{
-      stageIndex = Math.min(stageIndex + 1, loadingStages.length - 1);
-      statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[stageIndex];
-    }, 2200);
+  const processedLen = Math.min(text.length, CHAR_LIMIT);
+  const loadingStages = [
+    `Processing ${processedLen.toLocaleString()} characters...`,
+    'Detecting document type...',
+    'Reading the clauses...',
+    'Checking for red flags...',
+    'Writing the plain-English summary...',
+    'Still working — this one is taking a bit longer...',
+    'Almost there, thanks for your patience...'
+  ];
+  let stageIndex = 0;
+  statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[0];
+  const stageTimer = setInterval(()=>{
+    stageIndex = Math.min(stageIndex + 1, loadingStages.length - 1);
+    statusText.innerHTML = '<span class="spinner"></span>' + loadingStages[stageIndex];
+  }, 2200);
+
+  // Fetch with a quiet retry on transient server errors (502) only. 429s
+  // are NOT retried: our rate-limit windows are 60s wide, and a 4-9s retry
+  // delay can't outrun that -- retrying into a 429 just re-triggers the
+  // same limit, burns more of the per-IP/global budget, and double-counts
+  // the attempt in stats. Better to surface the server's rate-limit
+  // message immediately than to silently retry into a wall.
+  async function fetchAnalyzeWithRetry(body, maxRetries = 1){
+    const retryDelaysMs = [4000]; // gentle backoff, 502s only
+    for(let attempt = 0; attempt <= maxRetries; attempt++){
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const isRetryable = response.status === 502;
+      if(isRetryable && attempt < maxRetries){
+        statusText.innerHTML = '<span class="spinner"></span>' +
+          "This is taking a little longer than usual — hang tight, still working on it...";
+        await new Promise(r => setTimeout(r, retryDelaysMs[attempt]));
+        continue;
+      }
+      return response;
+    }
   }
 
   try{
-    // Full text is always kept for clause highlighting now -- chunking
-    // means nothing gets truncated or thrown away before analysis.
-    window.__sourceDocText = text;
-    window.__wasTruncated = false;
+    const wasTruncated = text.length > 18000;
+    const truncated = wasTruncated ? text.slice(0, 18000) + "\n\n[document truncated for length]" : text;
+    window.__sourceDocText = truncated;
+    window.__wasTruncated = wasTruncated;
     window.__originalLen = text.length;
 
-    const parsed = isChunked
-      ? await analyzeChunked(text, currentAbortController.signal)
-      : await analyzeSingleCall(text, currentAbortController.signal);
+    const response = await fetchAnalyzeWithRetry({ documentText: truncated });
+    const parsed = await response.json();
+
+    if(!response.ok){
+      const e = new Error(parsed.error || "Something went wrong. Try again.");
+      e.retryAfterSeconds = parsed.retryAfterSeconds;
+      e.status = response.status;
+      throw e;
+    }
 
     if(parsed.isDocument === false){
       errorBox.textContent = parsed.reason || "This doesn't look like a contract, lease, or terms-of-service document.";
       errorBox.style.display = 'block';
       statusText.textContent = '';
+      analyzeBtn.disabled = false;
       return;
     }
 
     renderResults(parsed);
     statusText.textContent = '';
   }catch(err){
-    if (err.name === 'AbortError'){
-      statusText.textContent = userCancelled ? 'Analysis cancelled.' : '';
+    const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
+    if(isNetworkError){
+      errorBox.textContent = "Couldn't reach the analysis service. Check your connection and try again.";
+    } else if(err.status === 429){
+      const wait = err.retryAfterSeconds
+        ? `about ${err.retryAfterSeconds} second${err.retryAfterSeconds === 1 ? '' : 's'}`
+        : 'about a minute';
+      errorBox.textContent = `⚠️ Service temporarily busy — we're currently processing the maximum number of AI requests allowed. Please try again in ${wait}. Thanks for your patience.`;
     } else {
-      const isNetworkError = err.message === 'Failed to fetch' || err instanceof TypeError;
-      if(isNetworkError){
-        errorBox.textContent = "Couldn't reach the analysis service. Check your connection and try again.";
-      } else if(err.status === 429){
-        const wait = err.retryAfterSeconds
-          ? `about ${err.retryAfterSeconds} second${err.retryAfterSeconds === 1 ? '' : 's'}`
-          : 'about a minute';
-        errorBox.textContent = `⚠️ Service temporarily busy — we're currently processing the maximum number of AI requests allowed. Please try again in ${wait}. Thanks for your patience.`;
-      } else {
-        // Server-side already strips implementation details (status codes,
-        // upstream error bodies, etc.) before this ever reaches the browser --
-        // err.message here is always a pre-written, user-safe sentence. Never
-        // append raw error detail to what's shown on screen; if it's useful for
-        // debugging, it belongs in server logs / analytics, not the UI.
-        errorBox.textContent = err.message;
-      }
-      errorBox.style.display = 'block';
-      statusText.textContent = '';
+      // Server-side already strips implementation details (status codes,
+      // upstream error bodies, etc.) before this ever reaches the browser --
+      // err.message here is always a pre-written, user-safe sentence. Never
+      // append raw error detail to what's shown on screen; if it's useful for
+      // debugging, it belongs in server logs / analytics, not the UI.
+      errorBox.textContent = err.message;
     }
+    errorBox.style.display = 'block';
+    statusText.textContent = '';
   }finally{
-    if (stageTimer) clearInterval(stageTimer);
+    clearInterval(stageTimer);
     analyzeBtn.disabled = false;
-    cancelBtn.style.display = 'none';
-    currentAbortController = null;
   }
 });
 
