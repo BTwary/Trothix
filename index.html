@@ -606,6 +606,22 @@ box-shadow:0 10px 20px rgba(0,0,0,.08);
     font-size:11.5px;line-height:1.8;color:var(--muted);
   }
   .disclaimer strong{color:var(--ink-soft);}
+  .privacy-notice{
+    margin-top:16px;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid #f4c54255;
+    background:#fef8e71a;
+    color:#d7d7d7;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.privacy-notice strong{
+    display:block;
+    color:#ffd54f;
+    margin-bottom:6px;
+}
 
   .feedback{
     margin-top:28px;display:flex;align-items:center;gap:14px;
@@ -881,7 +897,7 @@ gap:24px;
 
 Identify risks before you sign.</p>
       <div class="trust-row">
-    <div>🔒 Nothing stored</div>
+    <div>🔒 No account required</div>
     <div>⚡ Easy-to-understand review</div>
     <div>✓ No signup required</div>
 </div>
@@ -895,7 +911,7 @@ Identify risks before you sign.</p>
         Get Early Access
     </a>
 </div>
-    <div class="fine"><strong>✓ Not legal advice</strong> ✓ Your document isn't stored <strong>✓ Text is discarded after processing</strong></div>
+    <div class="fine"><strong>✓ Not legal advice</strong> ✓ No account required <strong>✓ Documents are processed securely</strong> </div> 
     <div class="how-it-works">
       <span class="step">1. You paste text (up to 18,000 characters)</span><span class="arrow">→</span>
       <span class="step">2. Sent securely for AI analysis</span><span class="arrow">→</span>
@@ -998,6 +1014,32 @@ Trothix
       </button>
     </div>
     <div class="action-row">
+      <div class="privacy-notice">
+    <strong>🛡️ Beta Privacy Notice</strong>
+
+    <p>
+        Trothix processes documents using trusted third-party AI providers to generate analyses.
+        During this beta, uploaded text is sent securely to these providers for processing.
+    </p>
+
+    <p>
+        Please do <strong>not</strong> upload contracts containing highly confidential,
+        legally privileged, financial, medical, or government-sensitive information.
+        If possible, remove names, addresses, account numbers, and other personal details before analysis.
+    </p>
+</div>
+      <label class="privacy-consent">
+
+<input
+type="checkbox"
+id="privacyConsent"
+/>
+
+<span>
+I understand Trothix is in beta and I will not upload highly confidential or legally privileged documents.
+</span>
+
+</label>
       <button class="analyze-btn" id="analyzeBtn">Analyze My Document</button>
       <span class="status" id="statusText"></span>
     </div>
@@ -1070,7 +1112,7 @@ Trothix
     </div>
 
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> Trothix is an AI tool, not a lawyer. It can miss things, misread context, or flag clauses that are actually standard for your situation. For anything with real money or real consequences on the line — sign a lease, take a job, accept a settlement — have an actual attorney look at it. <strong>Privacy:</strong> we do not store your documents. The text is sent securely to an AI model for analysis and discarded after processing.
+      <strong>Disclaimer:</strong> Trothix is an AI tool, not a lawyer. It can miss things, misread context, or flag clauses that are actually standard for your situation. For anything with real money or real consequences on the line — sign a lease, take a job, accept a settlement — have an actual attorney look at it. <strong>Privacy:</strong> Privacy: Trothix does not permanently store the documents you submit. During analysis, your document is securely transmitted to third-party AI providers. While Trothix is in beta, avoid uploading highly confidential or legally privileged information.
     </div>
   </div>
 
@@ -1111,7 +1153,7 @@ Trothix
 </div>
 
 <footer>
-  Trothix — plain-language contract review. No account needed. Nothing you paste is stored.
+  Trothix — plain-language contract review. No account needed. Documents are not permanently stored by Trothix.
 
   <div class="footer-grid">
 
@@ -1246,9 +1288,17 @@ We may share your personal data, including usage history and device information,
 
 const docInput = document.getElementById('docInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
+const privacyConsent = document.getElementById('privacyConsent');
+
 const statusText = document.getElementById('statusText');
 const errorBox = document.getElementById('errorBox');
 const results = document.getElementById('results');
+
+analyzeBtn.disabled = true;
+
+privacyConsent.addEventListener("change", () => {
+    analyzeBtn.disabled = !privacyConsent.checked;
+});
 const charCounter = document.getElementById('charCounter');
 const charCount = document.getElementById('charCount');
 const truncateNotice = document.getElementById('truncateNotice');
@@ -1415,8 +1465,10 @@ analyzeBtn.addEventListener('click', async ()=>{
     statusText.textContent = '';
   }finally{
     clearInterval(stageTimer);
-    analyzeBtn.disabled = false;
-  }
+
+    privacyConsent.checked = false;
+    analyzeBtn.disabled = true;
+}
 });
 
 function renderResults(d){
