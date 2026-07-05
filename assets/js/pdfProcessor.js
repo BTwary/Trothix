@@ -291,15 +291,15 @@ function analyzeDocumentStructure(text) {
   let documentType = "Contract";
   let typeConfidence = 0.85;
   
-  if (headerPreview.includes("employment agreement") || headerPreview.includes("employment contract")) {
+  if (/\bemployment (agreement|contract)\b/.test(headerPreview)) {
     documentType = "Employment Contract"; typeConfidence = 0.94;
-  } else if (headerPreview.includes("non-disclosure") || headerPreview.includes("nda")) {
+  } else if (/\b(?:non[-\s]?disclosure|nda)\b/.test(headerPreview)) {
     documentType = "Non-Disclosure Agreement"; typeConfidence = 0.96;
-  } else if (headerPreview.includes("lease") || headerPreview.includes("tenant")) {
+  } else if (/\b(?:lease|tenant|rental)\b/.test(headerPreview)) {
     documentType = "Rental Agreement"; typeConfidence = 0.92;
-  } else if (headerPreview.includes("terms of service") || headerPreview.includes("terms of use")) {
+  } else if (/\b(?:terms of service|terms of use)\b/.test(headerPreview)) {
     documentType = "Terms of Service"; typeConfidence = 0.98;
-  } else if (headerPreview.includes("independent contractor") || headerPreview.includes("freelance")) {
+  } else if (/\b(?:independent contractor|freelance)\b/.test(headerPreview)) {
     documentType = "Freelance Agreement"; typeConfidence = 0.93;
   }
   

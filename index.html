@@ -2042,6 +2042,8 @@ analyzeBtn.addEventListener('click', async ()=>{
 
       if (result.isFullyLocal) {
         clearInterval(stageTimer);
+        statusText.textContent = '';
+        analyzeBtn.disabled = false;
         // Synthesize a UI-compatible report for the existing renderResults
         const d = {
           documentType: result.docType === 'NDA' ? 'Non-Disclosure Agreement' : (result.docType === 'LEASE' ? 'Lease Agreement' : 'Document'),
