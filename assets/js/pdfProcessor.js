@@ -12,7 +12,7 @@ const UI = {
   progressState: document.getElementById('progressState'),
   readyCardState: document.getElementById('readyCardState'),
   defaultActionRow: document.getElementById('defaultActionRow'),
-  consentNotice: document.querySelector('.consent-notice'),
+  consentNotice: document.getElementById('defaultConsentNotice'),
   docInput: document.getElementById('docInput'),
   charCounter: document.getElementById('charCounter'),
   errorBox: document.getElementById('errorBox'),
