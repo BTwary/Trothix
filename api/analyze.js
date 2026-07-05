@@ -232,7 +232,7 @@ const SYSTEM_PROMPT = `You are Trothix, a plain-language contract analysis assis
   "riskSummary": "one plain-English sentence explaining the overall risk level and who it favors",
   "topPoints": [ "up to 3 short plain-English sentences, the most important things the reader should know before anything else" ],
   "summary": "3-5 plain-English sentences: what this document is and what the reader is agreeing to",
-  "keyTermms": {
+  "keyTerms": {
     "duration": "term/duration in plain language, or 'Not specified'",
     "payment": "payment amount and terms in plain language, or 'Not specified'",
     "termination": "how/when this can be ended, or 'Not specified'",
