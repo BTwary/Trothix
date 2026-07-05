@@ -1,88 +1,66 @@
 import { parseDefinitions } from './definitions.js';
-import { parseNDA } from '../parsers/ndaParser.js';
-import { parseLease } from '../parsers/leaseParser.js';
-import { parseUniversal } from '../parsers/universalParser.js';
-import { evaluateNDARisk } from '../rules/ndaRules.js';
-import { evaluateLeaseRisk } from '../rules/leaseRules.js';
-import { evaluateUniversalRisk } from '../rules/universalRules.js';
+import { runPipeline } from './pipeline.js';
 import { logMiss } from '../telemetry.js';
+import { NDAPlugin } from '../plugins/nda/index.js';
+import { LeasePlugin } from '../plugins/lease/index.js';
+import { UniversalPlugin } from '../plugins/universal/index.js';
 
 export async function processDocument(documentText, providedType, userContext, rules, consentTelemetry) {
-  // 1. Pre-process text (definitions is currently a stub)
   const normalizedText = documentText.replace(/\r\n/g, '\n');
   const definedTerms = parseDefinitions(normalizedText);
   
-  // 2. Identify type if not provided
   const docType = providedType || identifyType(normalizedText);
   
-  let extractedData = {};
-  let flags = [];
+  // Load the appropriate plugin configuration
+  let pluginConfig = UniversalPlugin;
+  if (docType === 'NDA') {
+     pluginConfig = NDAPlugin;
+  } else if (docType === 'LEASE') {
+     pluginConfig = LeasePlugin;
+  }
+  
+  // 1. Run the Deterministic NLP Pipeline (Layer 1)
+  const ir = await runPipeline(normalizedText, docType, pluginConfig);
+  
+  // 2. Decide if we need AI Fallback (Layer 2)
   let requiresAIFallback = false;
   let missingClausesPayload = [];
 
-  // Helper to extract a safe context window for AI
   const getContextSnippet = (keyword) => {
       const idx = normalizedText.toLowerCase().indexOf(keyword);
-      if (idx === -1) return normalizedText.substring(0, 2000); // Send first 2k chars if keyword missing
+      if (idx === -1) return normalizedText.substring(0, 2000);
       const start = Math.max(0, idx - 1000);
       const end = Math.min(normalizedText.length, idx + 1000);
       return normalizedText.substring(start, end);
   };
 
-  // 3. Route to specific parsers
-  if (docType === 'NDA') {
-    extractedData = parseNDA(normalizedText, definedTerms);
-    
-    // Check if required fields are missing
-    if (!extractedData.confidentialityScope || (!extractedData.termYears && !extractedData.termYearsMissingButHandled)) {
+  // If the confidence is too low or we missed crucial elements, engage AI
+  if (ir.confidenceScore < 60) {
       requiresAIFallback = true;
       missingClausesPayload.push({
-        type: 'missing_term',
-        context: 'Could not confidently identify the duration or scope of confidentiality.',
-        rawTextToAnalyze: getContextSnippet('term') // Added actual excerpt for AI
+        type: 'low_confidence',
+        context: 'The deterministic parser could not confidently extract core clauses. Please perform a deep review.',
+        rawTextToAnalyze: normalizedText.substring(0, 4000)
       });
-      if (consentTelemetry) logMiss('NDA', 'term_or_scope');
-    } else {
-      flags = evaluateNDARisk(extractedData, userContext, rules);
-    }
-  } else if (docType === 'LEASE') {
-    extractedData = parseLease(normalizedText, definedTerms);
-    
-    // Example required fields
-    if (!extractedData.monthlyRent || !extractedData.securityDepositMonths) {
-      requiresAIFallback = true;
-      missingClausesPayload.push({
-        type: 'missing_financials',
-        context: 'Could not confidently identify rent or deposit amounts.',
-        rawTextToAnalyze: getContextSnippet('rent') // Added actual excerpt for AI
-      });
-      if (consentTelemetry) logMiss('LEASE', 'financials');
-    } else {
-      flags = evaluateLeaseRisk(extractedData, userContext, rules);
-    }
-  } else {
-    // 4. Fallback for unsupported documents (Universal Generic Rules)
-    extractedData = parseUniversal(normalizedText, definedTerms);
-    
-    if (extractedData.isFullyLocal) {
-      requiresAIFallback = false;
-      flags = evaluateUniversalRisk(extractedData, userContext, rules);
-    } else {
-      requiresAIFallback = true;
-      missingClausesPayload.push({
-        type: 'unsupported_document_type',
-        context: 'Document requires deeper AI analysis to extract bespoke clauses.',
-        rawTextToAnalyze: normalizedText.substring(0, 4000) // Send a larger chunk for AI fallback
-      });
-    }
+      if (consentTelemetry) logMiss(docType, 'low_confidence');
   }
 
+  // Ensure compatibility with existing front-end by mapping IR to old variables where needed
   return {
     docType,
     isFullyLocal: !requiresAIFallback,
-    extractedData,
-    flags,
-    aiPayloadRecommendation: requiresAIFallback ? missingClausesPayload : null
+    extractedData: {}, // Deprecated, but kept for UI compatibility
+    flags: ir.risks, // Replace old flags with new IR risks
+    aiPayloadRecommendation: requiresAIFallback ? missingClausesPayload : null,
+    
+    // New Advanced Metrics
+    fairness: ir.fairness,
+    missingClauses: ir.missingClauses,
+    confidenceScore: ir.confidenceScore,
+    riskScore: ir.riskScore,
+    riskLevel: ir.riskLevel,
+    deadlines: ir.deadlines,
+    exceptions: ir.exceptions
   };
 }
 
@@ -91,7 +69,7 @@ function identifyType(text) {
   if (topText.includes('non-disclosure') || topText.includes('confidentiality agreement')) {
     return 'NDA';
   }
-  if (topText.includes('lease agreement') || topText.includes('tenant') && topText.includes('landlord')) {
+  if (topText.includes('lease agreement') || (topText.includes('tenant') && topText.includes('landlord'))) {
     return 'LEASE';
   }
   return 'UNKNOWN';
