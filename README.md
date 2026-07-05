@@ -6,7 +6,8 @@
 
 ## What's New in v2.0
 
-- **Multi-provider AI fallback chain** — Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash → Groq (LLaMA 3.3 70B) → Mistral (open-mistral-nemo) → OpenRouter (DeepSeek R1). If one provider's daily quota is exhausted, the next one takes over automatically with zero downtime.
+- **Hybrid Website Intelligence Engine** — Fast, privacy-first local Regex engine runs in a Web Worker in the browser. Instantly parses standard NDAs and Leases locally without sending data to the server.
+- **Multi-provider AI Fallback Chain** — If a document is too complex for the local engine, it seamlessly routes to a robust AI chain: Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash → Groq (LLaMA 3.3 70B) → Mistral (open-mistral-nemo) → OpenRouter (DeepSeek R1).
 - **PDF upload with chunked analysis** — Drag-and-drop a PDF; the app extracts text client-side via PDF.js + Tesseract.js OCR, splits it into sections, analyzes each independently, then synthesizes a single unified report. Handles large documents without hitting per-request token limits.
 - **Robust JSON parsing** — `<think>` block stripping for reasoning models (DeepSeek R1, Groq), markdown code-fence unwrapping, and `jsonrepair` as a last-resort recovery step before failing.
 - **Privacy consent UI** — Transparent disclosure that free-tier Gemini requests may be used by Google for model training, with a user-facing notice before analysis.
