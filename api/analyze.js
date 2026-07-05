@@ -1,6 +1,6 @@
-// /api/analyze — server-side proxy to Gemini, Groq, and OpenRouter.
+// /api/analyze — server-side proxy to Gemini, Groq, Mistral, and OpenRouter.
 // All API keys live only here, in Vercel Environment Variables:
-//   GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY
+//   GEMINI_API_KEY, GROQ_API_KEY, MISTRAL_API_KEY, OPENROUTER_API_KEY
 // They are never sent to or exposed in the browser.
 
 import { jsonrepair } from "jsonrepair";
@@ -8,24 +8,29 @@ import { recordEvent } from "./_stats.js";
 
 // Tried in order. Each entry has its own free-tier quota, completely
 // separate from the others, so if Gemini's daily cap is gone the chain
-// still has Groq and OpenRouter left before giving up.
-//   - Gemini: best verbatim-quote accuracy, largest free daily quota per model.
+// still has Groq, Mistral, and OpenRouter left before giving up.
+//   - Gemini 3.5 Flash: latest free-tier model, highest RPD allowance (20/day).
+//   - Gemini 2.5 Flash: fallback Gemini; same RPD limit (20/day) but separate quota.
+//   - Gemini 2.0 Flash: older but still on free tier; 0/0 limits mean quota not set,
+//     skipped automatically if it starts returning 429s.
 //   - Groq: fast, standing free tier, tighter tokens-per-minute budget.
+//   - Mistral: open-mistral-nemo on free tier, reliable JSON mode.
 //   - OpenRouter: aggregator with its own free model roster (list rotates --
 //     re-check https://openrouter.ai/models before launch and swap the
 //     model id below if it's no longer free).
-// Re-check https://ai.google.dev/gemini-api/docs/pricing for Gemini too --
+// Re-check https://ai.google.dev/gemini-api/docs/rate-limits for Gemini too --
 // Google adjusts free-tier model eligibility fairly often.
 const MODEL_CHAIN = [
   { provider: "gemini", model: "gemini-3.5-flash" },
   { provider: "gemini", model: "gemini-2.5-flash" },
   { provider: "gemini", model: "gemini-2.0-flash" },
-  { provider: "groq", model: "llama-3.3-70b-versatile" },
+  { provider: "groq",   model: "llama-3.3-70b-versatile" },
+  { provider: "mistral", model: "open-mistral-nemo" },
   { provider: "openrouter", model: "deepseek/deepseek-r1:free" },
 ];
 
-// Groq/OpenRouter don't have Gemini's hidden "thinking token" overhead, so
-// they need much less headroom than Gemini's maxOutputTokens: 8000.
+// Groq/Mistral/OpenRouter don't have Gemini's hidden "thinking token" overhead,
+// so they need much less headroom than Gemini's maxOutputTokens: 8000.
 const OPENAI_COMPAT_MAX_TOKENS = 4096;
 
 function normalizeFinishReason(finishReason) {
@@ -66,8 +71,8 @@ async function callGeminiOne(model, apiKey, systemPrompt, userText) {
         contents: [{ role: "user", parts: [{ text: userText }] }],
         generationConfig: {
           responseMimeType: "application/json",
-          // See MODEL_CHAIN comment above -- keeps thinking tokens from
-          // eating the whole maxOutputTokens budget on Gemini 3.x.
+          // Keeps thinking tokens from eating the whole maxOutputTokens budget
+          // on Gemini 2.5+ and 3.x models.
           thinkingConfig: { thinkingLevel: "low" },
           maxOutputTokens: 8000,
         },
@@ -166,6 +171,16 @@ async function callModel(entry, apiKeys, systemPrompt, userText) {
       userText,
     });
   }
+  if (entry.provider === "mistral") {
+    return callOpenAiCompatible({
+      provider: "mistral",
+      model: entry.model,
+      baseUrl: "https://api.mistral.ai/v1",
+      apiKey: apiKeys.mistral,
+      systemPrompt,
+      userText,
+    });
+  }
   if (entry.provider === "openrouter") {
     return callOpenAiCompatible({
       provider: "openrouter",
@@ -174,11 +189,9 @@ async function callModel(entry, apiKeys, systemPrompt, userText) {
       apiKey: apiKeys.openrouter,
       systemPrompt,
       userText,
-      // OpenRouter asks for these but they're informational, not required
-      // for the request to succeed.
       extraHeaders: {
-        "HTTP-Referer": "https://clear-clause-three.vercel.app",
-        "X-Title": "ClearClause",
+        "HTTP-Referer": "https://trothix.vercel.app",
+        "X-Title": "Trothix",
       },
     });
   }
@@ -186,10 +199,10 @@ async function callModel(entry, apiKeys, systemPrompt, userText) {
 }
 
 // Walks MODEL_CHAIN in order. Skips any provider whose API key isn't set
-// (so you can add Groq/OpenRouter keys incrementally without breaking
-// deploys), and moves to the next entry on a quota/server error. A 4xx
-// that isn't a quota issue fails the same way on every model, so it
-// returns immediately instead of burning calls retrying it.
+// (so you can add keys incrementally without breaking deploys), and moves
+// to the next entry on a quota/server error. A 4xx that isn't a quota
+// issue fails the same way on every model, so it returns immediately
+// instead of burning calls retrying it.
 async function callModelChain(apiKeys, systemPrompt, userText) {
   let lastResult = null;
   for (const entry of MODEL_CHAIN) {
@@ -210,7 +223,7 @@ async function callModelChain(apiKeys, systemPrompt, userText) {
   return lastResult; // may be null if no keys were configured at all
 }
 
-const SYSTEM_PROMPT = `You are ClearClause, a plain-language contract analysis assistant. Given a pasted contract, lease, or terms-of-service document, respond with ONLY a raw JSON object (no markdown code fences, no preamble, no commentary) matching exactly this shape:
+const SYSTEM_PROMPT = `You are Trothix, a plain-language contract analysis assistant. Given a pasted contract, lease, or terms-of-service document, respond with ONLY a raw JSON object (no markdown code fences, no preamble, no commentary) matching exactly this shape:
 
 {
   "isDocument": true,
@@ -219,7 +232,7 @@ const SYSTEM_PROMPT = `You are ClearClause, a plain-language contract analysis a
   "riskSummary": "one plain-English sentence explaining the overall risk level and who it favors",
   "topPoints": [ "up to 3 short plain-English sentences, the most important things the reader should know before anything else" ],
   "summary": "3-5 plain-English sentences: what this document is and what the reader is agreeing to",
-  "keyTerms": {
+  "keyTermms": {
     "duration": "term/duration in plain language, or 'Not specified'",
     "payment": "payment amount and terms in plain language, or 'Not specified'",
     "termination": "how/when this can be ended, or 'Not specified'",
@@ -234,16 +247,12 @@ const SYSTEM_PROMPT = `You are ClearClause, a plain-language contract analysis a
 List up to 5 red flags, ordered by severity (high first). The "clause" field for each red flag MUST be copied character-for-character from the source document (not paraphrased) so it can be located and highlighted in the original text. Use cautious, non-definitive language for legal conclusions — say a clause "may be unusual" or "is worth reviewing with a professional" rather than declaring anything "illegal" or "unenforceable." Never give definitive legal conclusions.
 
 If the pasted text is empty, nonsensical, far too short to be a real document, or clearly not a contract/lease/terms-of-service (e.g. it's a poem, a recipe, random text), instead respond with ONLY:
-{ "isDocument": false, "reason": "one short plain sentence explaining why this doesn't look like a document ClearClause can analyze" }`;
+{ "isDocument": false, "reason": "one short plain sentence explaining why this doesn't look like a document Trothix can analyze" }`;
 
 // Used for documents too large for a single call (see SINGLE_CALL_LIMIT on
-// the client). Each chunk is analyzed independently -- the model only ever
-// sees one section, never the whole document -- and results are merged
-// client-side before a final, cheap SYNTHESIS_SYSTEM_PROMPT call turns the
-// merged findings into the same shape SYSTEM_PROMPT would have produced.
-// This keeps per-call token cost bounded regardless of total document size,
-// instead of truncating long documents or sending everything in one huge
-// (expensive, context-risking) call.
+// the client). Each chunk is analyzed independently and results are merged
+// client-side before a final SYNTHESIS_SYSTEM_PROMPT call produces the
+// same shape SYSTEM_PROMPT would have produced for a single-call document.
 const CHUNK_SYSTEM_PROMPT = `You are Trothix, analyzing ONE SECTION of a much larger contract. You are only shown this excerpt, not the full document -- do not assume anything about sections you can't see. Respond with ONLY a raw JSON object (no markdown, no preamble, no commentary) matching exactly this shape:
 
 {
@@ -261,11 +270,8 @@ const CHUNK_SYSTEM_PROMPT = `You are Trothix, analyzing ONE SECTION of a much la
 
 List up to 4 red flags found in this excerpt, ordered by severity (high first). The "clause" field MUST be copied character-for-character from this excerpt. Omit any keyTerms field this excerpt doesn't actually mention -- don't guess or write "Not specified" here. Use cautious, non-definitive language ("may be unusual", "worth reviewing with a professional") and never declare anything "illegal" or "unenforceable." If this excerpt has no meaningful contract content (e.g. it's a signature block, table of contents, or blank boilerplate), respond with { "redFlags": [], "keyTerms": {}, "notableFacts": [] }.`;
 
-// Takes the merged output of many CHUNK_SYSTEM_PROMPT calls (small, already-
-// extracted findings -- not the original document text) and produces the
-// same final report shape SYSTEM_PROMPT does for a single-call document.
-// Because the input here is just structured findings, this call is cheap
-// regardless of how long the original document was.
+// Takes the merged output of many CHUNK_SYSTEM_PROMPT calls and produces
+// the same final report shape SYSTEM_PROMPT does for a single-call document.
 const SYNTHESIS_SYSTEM_PROMPT = `You are Trothix. A long contract has already been reviewed section-by-section, and the raw findings from every section are provided below as JSON. Your only job is to synthesize those findings into the final report -- do not invent clauses or facts beyond what's given. Respond with ONLY a raw JSON object (no markdown, no preamble, no commentary) matching exactly this shape:
 
 {
@@ -290,16 +296,7 @@ const SYNTHESIS_SYSTEM_PROMPT = `You are Trothix. A long contract has already be
 Select and reorder up to 5 red flags from the provided list, ordered by severity (high first) -- do not alter the "clause" text. If the findings are too sparse to determine a keyTerms field, use "Not specified". If the findings list is empty or has no real content, respond with { "isDocument": false, "reason": "one short plain sentence" } instead.`;
 
 // Rate limiting is job-aware, not request-aware, because one large document
-// now becomes many sub-requests (one per chunk, plus one synthesis call)
-// instead of one. Without this, a single big lease would burn through the
-// old per-request limit on its own before finishing.
-//
-// - RATE_LIMIT_JOBS: distinct analyses (documents) per IP per minute. This
-//   is the meaningful "how many documents is this visitor analyzing" limit,
-//   equivalent in spirit to the old flat per-request limit.
-// - RATE_LIMIT_SUBREQUESTS: hard ceiling on raw HTTP calls per IP per
-//   minute, mostly a defense against something other than the normal
-//   chunked-analysis flow hammering the endpoint directly.
+// now becomes many sub-requests (one per chunk, plus one synthesis call).
 const jobLog = new Map(); // ip -> Map(jobId -> firstSeenTimestamp)
 const requestLog = new Map(); // ip -> [timestamps]
 const RATE_LIMIT_JOBS = 6;
@@ -325,14 +322,6 @@ function isRateLimited(ip, jobId) {
   return jobs.size > RATE_LIMIT_JOBS;
 }
 
-// Global soft-throttle: caps total incoming requests across ALL visitors
-// per minute. Raised from the original 8 because a single large document
-// can now legitimately produce 10+ sub-requests (one per chunk, plus one
-// synthesis call) instead of just 1. This is deliberately a request-count
-// throttle, not a per-document one -- that's what RATE_LIMIT_JOBS above is
-// for -- so it's worth re-tuning once you see real concurrent traffic,
-// since it's the thing standing between visitors and each provider's own
-// per-minute quota in MODEL_CHAIN.
 const GLOBAL_LIMIT_PER_MIN = 30;
 let globalWindowStart = Date.now();
 let globalWindowCount = 0;
@@ -358,9 +347,6 @@ export default async function handler(req, res) {
   const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket?.remoteAddress || "unknown";
   const { documentText, mode: rawMode, jobId: incomingJobId, chunkIndex, chunkCount, findings } = req.body || {};
   const mode = rawMode === "chunk" || rawMode === "synthesize" ? rawMode : "full";
-  // Full-mode requests from older/simple callers won't send a jobId -- give
-  // each one its own so a single paste still counts as exactly one job,
-  // matching the original per-request behavior.
   const jobId = typeof incomingJobId === "string" && incomingJobId ? incomingJobId : `${ip}-solo-${Date.now()}-${Math.random()}`;
 
   if (isRateLimited(ip, jobId)) {
@@ -373,7 +359,7 @@ export default async function handler(req, res) {
   if (isGloballyThrottled()) {
     await recordEvent("rate_limited");
     return res.status(429).json({
-      error: "ClearClause is getting a lot of traffic right now.",
+      error: "Trothix is getting a lot of traffic right now. Please try again in a moment.",
       retryAfterSeconds: 60,
     });
   }
@@ -395,10 +381,6 @@ export default async function handler(req, res) {
     }
 
     if (mode === "chunk") {
-      // Chunks are section-sized (client targets ~14,000 chars), not whole
-      // documents -- a trailing chunk can legitimately be short, so there's
-      // no "too short to be a document" rejection here. There is still a
-      // hard ceiling so a misbehaving client can't send an oversized chunk.
       if (documentText.length > 16000) {
         await recordEvent("error", { reason: "chunk_too_large" });
         return res.status(400).json({ error: "That section is too large to analyze in one piece." });
@@ -426,14 +408,15 @@ export default async function handler(req, res) {
   const apiKeys = {
     gemini: process.env.GEMINI_API_KEY,
     groq: process.env.GROQ_API_KEY,
+    mistral: process.env.MISTRAL_API_KEY,
     openrouter: process.env.OPENROUTER_API_KEY,
   };
 
-  if (!apiKeys.gemini && !apiKeys.groq && !apiKeys.openrouter) {
+  if (!apiKeys.gemini && !apiKeys.groq && !apiKeys.mistral && !apiKeys.openrouter) {
     await recordEvent("error", { reason: "missing_api_key" });
     return res.status(500).json({
       error:
-        "The server has no AI provider configured. Set at least one of GEMINI_API_KEY, GROQ_API_KEY, or OPENROUTER_API_KEY in your Vercel project's Environment Variables and redeploy.",
+        "The server has no AI provider configured. Set at least one of GEMINI_API_KEY, GROQ_API_KEY, MISTRAL_API_KEY, or OPENROUTER_API_KEY in your Vercel project's Environment Variables and redeploy.",
     });
   }
 
@@ -443,8 +426,6 @@ export default async function handler(req, res) {
     if (!result || !result.ok) {
       const status = result?.status === 429 ? 429 : 502;
 
-      // Raw upstream error is logged server-side only -- never sent to the
-      // browser. Genuinely useful for debugging, meaningless to a visitor.
       console.error(
         `[analyze] upstream error (provider=${result?.provider} model=${result?.model}) status=${result?.status}: ${(result?.rawDetail || "").slice(0, 1000)}`
       );
@@ -453,7 +434,7 @@ export default async function handler(req, res) {
       return res.status(status).json({
         error:
           status === 429
-            ? "ClearClause has reached its AI usage limit for the moment."
+            ? "Trothix has reached its AI usage limit for the moment. Please try again shortly."
             : "The analysis service is temporarily unavailable.",
         retryAfterSeconds: result?.retryAfterSeconds ?? null,
       });
@@ -476,20 +457,20 @@ export default async function handler(req, res) {
       });
     }
 
-    // Strip stray code fences defensively in case a model variant adds them
-    // despite being asked for pure JSON.
-    const cleaned = text.trim().replace(/^```json\s*/i, "").replace(/^```\s*/, "").replace(/```\s*$/, "").trim();
+    // Strip <think> blocks (DeepSeek R1 and some Groq models emit these)
+    // then extract JSON whether it's bare or inside a code fence.
+    let cleaned = text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+    const jsonBlockMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (jsonBlockMatch) {
+      cleaned = jsonBlockMatch[1].trim();
+    } else {
+      cleaned = cleaned.trim();
+    }
 
     let parsed;
     try {
       parsed = JSON.parse(cleaned);
     } catch (e) {
-      // JSON mode isn't 100% reliable across providers/models, especially
-      // when the prompt demands verbatim character-for-character quotes
-      // from messy source text. Before giving up, try jsonrepair, which
-      // fixes the common ways LLM JSON goes slightly wrong (trailing
-      // commas, unescaped control characters, unterminated strings/objects)
-      // without hand-rolled regex fixes.
       try {
         parsed = JSON.parse(jsonrepair(cleaned));
         console.warn(
