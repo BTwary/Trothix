@@ -7,9 +7,9 @@
 ## What's New in v2.0
 
 - **Hybrid Website Intelligence Engine** — Fast, privacy-first local Regex engine runs in a Web Worker in the browser. Instantly parses standard NDAs and Leases locally without sending data to the server.
-- **Multi-provider AI Fallback Chain** — If a document is too complex for the local engine, it seamlessly routes to a robust AI chain: Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash → Groq (LLaMA 3.3 70B) → Mistral (open-mistral-nemo) → OpenRouter (DeepSeek R1).
+- **Multi-model AI Fallback Chain** — If a document is too complex for the local engine, it seamlessly routes to a robust AI chain: Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash.
 - **PDF upload with chunked analysis** — Drag-and-drop a PDF; the app extracts text client-side via PDF.js + Tesseract.js OCR, splits it into sections, analyzes each independently, then synthesizes a single unified report. Handles large documents without hitting per-request token limits.
-- **Robust JSON parsing** — `<think>` block stripping for reasoning models (DeepSeek R1, Groq), markdown code-fence unwrapping, and `jsonrepair` as a last-resort recovery step before failing.
+- **Robust JSON parsing** — `<think>` block stripping, markdown code-fence unwrapping, and `jsonrepair` as a last-resort recovery step before failing.
 - **Privacy consent UI** — Transparent disclosure that free-tier Gemini requests may be used by Google for model training, with a user-facing notice before analysis.
 - **Job-aware rate limiting** — A multi-chunk document counts as one "job" against the per-IP rate limit, not one request per chunk.
 - **Supabase analytics backend** — `/stats.html` dashboard backed by Supabase Postgres (Redis and in-memory fallbacks included).
@@ -41,9 +41,6 @@
 | Variable | Required | Provider |
 |---|---|---|
 | `GEMINI_API_KEY` | Recommended | Google AI Studio |
-| `GROQ_API_KEY` | Optional | Groq Console |
-| `MISTRAL_API_KEY` | Optional | Mistral La Plateforme |
-| `OPENROUTER_API_KEY` | Optional | OpenRouter |
 | `SUPABASE_URL` | Optional (stats) | Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | Optional (stats) | Supabase |
 
@@ -59,18 +56,6 @@ At least one AI key must be set. The chain skips any provider whose key is absen
 3. Free-tier limits as of mid-2026: ~20 RPD for Gemini 3.5 Flash and 2.5 Flash. Check https://ai.google.dev/gemini-api/docs/rate-limits — Google adjusts these often.
 
 **Free-tier tradeoff:** requests may be used by Google to improve their models. Since users will paste real contracts, disclose this in your privacy copy, or upgrade to a paid/Vertex project once you have real users.
-
-### Groq (fast fallback — free)
-1. Go to https://console.groq.com
-2. Create an API key — free tier available, no credit card required.
-
-### Mistral (additional fallback — free)
-1. Go to https://console.mistral.ai
-2. Create an API key — `open-mistral-nemo` is on the free tier.
-
-### OpenRouter (last-resort fallback)
-1. Go to https://openrouter.ai/keys
-2. Create an API key. `deepseek/deepseek-r1:free` is free but the free model roster rotates — re-check https://openrouter.ai/models if it stops working.
 
 ---
 
@@ -129,7 +114,7 @@ Reads API keys from a `.env` file locally — create one with your keys (don't c
 ## Architecture Notes
 
 ### AI fallback chain
-`api/analyze.js` walks `MODEL_CHAIN` in order, skipping any provider whose key isn't set. On a 429 or 5xx it moves to the next provider. On a non-quota 4xx it returns immediately (the same error would repeat on every model). The chain is: **Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash → Groq LLaMA 3.3 70B → Mistral open-mistral-nemo → OpenRouter DeepSeek R1**.
+`api/analyze.js` walks `MODEL_CHAIN` in order, skipping any provider whose key isn't set. On a 429 or 5xx it moves to the next provider. On a non-quota 4xx it returns immediately (the same error would repeat on every model). The chain is: **Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash**.
 
 ### PDF chunked analysis
 The client (`assets/js/pdfProcessor.js`) extracts text from the PDF, splits it into ~14,000-character sections, sends each as a `mode: "chunk"` request, merges the per-section findings, then sends one final `mode: "synthesize"` request that combines everything into the same report shape a single-document analysis produces. This keeps per-call token cost bounded regardless of document size.
