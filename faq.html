@@ -1,72 +1,233 @@
-export function parseNDA(text, definitions) {
-  const extracted = {
-    termYears: null,
-    termYearsMissingButHandled: false,
-    confidentialityScope: '',
-    jurisdiction: null,
-    counterpartyState: null,
-    isUnilateral: false,
-    mentionsTradeSecrets: false,
-    disclosingPartyName: definitions?.['Disclosing Party'] || null,
-    receivingPartyName: definitions?.['Receiving Party'] || null,
-  };
-
-  // 1. Duration / Term parsing
-  // E.g. "for a period of 2 years", "term of three (3) years"
-  const termRegex = /period of (\d+|one|two|three|four|five|ten) years?/i;
-  const matchTerm = text.match(termRegex);
-  if (matchTerm) {
-    let num = matchTerm[1].toLowerCase();
-    const map = { one: 1, two: 2, three: 3, four: 4, five: 5, ten: 10 };
-    extracted.termYears = map[num] || parseInt(num, 10);
-  } else if (/perpetual|indefinite|survive termination/i.test(text)) {
-    extracted.termYearsMissingButHandled = true;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Trothix</title>
+<meta name="description" content="Answers to common questions about how Trothix analyzes contracts, what happens to your data, and its current limitations.">
+<meta property="og:title" content="FAQ — Trothix">
+<meta property="og:description" content="Answers to common questions about how Trothix analyzes contracts, what happens to your data, and its current limitations.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://trothix-btwarys-projects.vercel.app/faq.html">
+<meta property="og:url" content="https://trothix-btwarys-projects.vercel.app/faq.html">
+<meta property="og:site_name" content="Trothix">
+<meta property="og:image" content="https://trothix-btwarys-projects.vercel.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://trothix-btwarys-projects.vercel.app/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC; --paper-dark:#EDE8DB; --ink:#211E1B; --ink-soft:#4A453E;
+    --muted:#8A8377; --rule:#D8D0BF; --red:#B23A2E; --red-soft:#F3E3DF;
+    --gold:#9A7B3F; --green:#4B6B4F; --green-soft:#E7EDE3; --amber:#9C6B1F; --amber-soft:#F3E9D6;
   }
-
-  // 2. Scope & Trade Secrets
-  const scopeRegex = /Confidential Information(?: shall)? means (.*?)(?=\.|$)/i;
-  const matchScope = text.match(scopeRegex);
-  if (matchScope) {
-    extracted.confidentialityScope = matchScope[1];
-  } else if (/confidential information/i.test(text)) {
-    extracted.confidentialityScope = 'Found mentions of confidential information.';
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--red-soft);}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.wrap{padding:0 16px 80px;}}
+  .back{
+    display:inline-flex;align-items:center;gap:8px;margin-top:40px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--red);text-decoration:none;
   }
-
-  extracted.mentionsTradeSecrets = /trade secret/i.test(text);
-
-  // 3. Jurisdiction (governing law / venue)
-  const jurisdictionRegex = /(?:governed by the laws of|jurisdiction of) (the State of )?([A-Z][a-zA-Z\s]+)/i;
-  const matchJur = text.match(jurisdictionRegex);
-  if (matchJur && matchJur[2]) {
-    extracted.jurisdiction = matchJur[2].trim();
+  .back:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--red);display:flex;align-items:center;gap:10px;margin:28px 0 16px;
   }
-
-  // 4. Counterparty state of incorporation/residence.
-  // Best-effort: looks for "a [State] corporation" / "a corporation organized
-  // under the laws of [State]" near an entity name. This is distinct from
-  // jurisdiction/governing law above -- a company can be incorporated in one
-  // state but agree to litigate in another.
-  const incorporationRegex =
-    /a\s+([A-Z][a-zA-Z]+)\s+corporation|corporation organized under the laws of (?:the State of )?([A-Z][a-zA-Z]+)/i;
-  const matchIncorp = text.match(incorporationRegex);
-  if (matchIncorp) {
-    extracted.counterpartyState = (matchIncorp[1] || matchIncorp[2] || '').trim();
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--red);}
+  /* ---------- top nav ---------- */
+  html{scroll-behavior:smooth;}
+  .topnav{
+    max-width:680px;margin:0 auto;padding:22px 24px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
-
-  // 5. Unilateral vs Mutual
-  // Checks if both roles exist anywhere in the text independently, rather
-  // than requiring them adjacent in one match (label-style layouts like
-  // "Disclosing Party:\nAcme Inc." put a newline between them, which broke
-  // the old adjacency-based regex).
-  const hasMutual = /mutual(?: non-disclosure| confidentiality)/i.test(text);
-  const hasDisclosing = /disclosing party/i.test(text);
-  const hasReceiving = /receiving party/i.test(text);
-
-  if (hasMutual) {
-    extracted.isUnilateral = false;
-  } else if (hasDisclosing && hasReceiving) {
-    extracted.isUnilateral = true;
+  @media (max-width:600px){.topnav{padding:18px 16px 0;}}
+  .topnav-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;
   }
-
-  return extracted;
+  .topnav-brand:hover{color:var(--red);}
+  .topnav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .topnav-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:.15s;
+  }
+  .topnav-links a:hover{color:var(--red);}
+  .topnav-cta{
+    display:inline-flex;align-items:center;
+    background:var(--ink);color:var(--paper) !important;
+    padding:9px 16px;border-radius:20px;transition:.15s;
+  }
+  .topnav-cta:hover{background:var(--red);color:var(--paper) !important;}
+  h1{
+    font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(30px,5vw,42px);
+    line-height:1.1;margin:0 0 30px;letter-spacing:-0.01em;
+  }
+  .q{
+    margin-bottom:34px;padding-bottom:30px;border-bottom:1px solid var(--rule);
+  }
+  .q:last-child{border-bottom:none;}
+  .q h2{
+    font-family:'Source Serif 4',serif;font-size:19px;margin:0 0 10px;color:var(--ink);
+  }
+  .q p{font-size:15.5px;line-height:1.75;color:var(--ink-soft);margin:0 0 10px;}
+  .q p:last-child{margin-bottom:0;}
+  .q strong{color:var(--ink);}
+  footer{
+    max-width:680px;margin:0 auto;padding:30px 24px 60px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
+  }
+  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;row-gap:6px;}
+  .footer-links a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
+  .footer-links a:hover{color:var(--red);}
+  .footer-links span{color:var(--rule);}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my document stored?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Your text is sent securely to an AI model for analysis and discarded right after. We don't write it to a database or log file. Once you close or refresh the tab, it's gone from our side too — there's no history or account to retrieve it from later."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who can see my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your document text passes through our server briefly, in memory, to relay it, and Google's Gemini API which performs the analysis. We don't share it with anyone else, and we don't keep a copy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this legal advice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Trothix is an AI tool, not a lawyer. It's built to flag things worth a second look and explain a document in plain English, but it can miss things or misread context. For anything with real money or real consequences riding on it, have an actual attorney review the document."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which AI model powers the explanations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Google's Gemini model, kept on the current free-tier-eligible version."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which document types work best?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trothix is tuned for contracts, leases, and terms-of-service documents. Residential leases, freelance or independent contractor agreements, and ToS excerpts all work well."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the current limitations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's a v1 tool with no accounts, no file uploads, and no saved history. It runs on a free-tier AI budget, so busy periods may show a rate-limit message. Long documents are truncated after roughly 18,000 characters, and like any AI tool it can occasionally misread a clause."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you use my document to train the AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trothix doesn't train anything itself. Because analysis runs on Gemini's free tier, Google's own terms may allow request content to be used to improve their models, which is standard for free-tier AI APIs generally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did I get a busy or rate-limit message?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The free AI tier Trothix runs on has a shared request budget across everyone using it at that moment. During high traffic, a friendly try-again message is shown rather than letting the request fail silently."
+      }
+    }
+  ]
 }
+</script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/" class="topnav-brand">Trothix</a>
+  <div class="topnav-links">
+    <a href="/contact.html">Contact Us</a>
+    <a href="/feedback.html">Give Feedback</a>
+    <a href="/waitlist.html" class="topnav-cta">Join the Waitlist</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="/">← Back to Trothix</a>
+  <div class="eyebrow">Trothix</div>
+  <h1>Frequently asked questions</h1>
+
+  <div class="q">
+    <h2>Is my document stored?</h2>
+    <p>No. Your text is sent securely to an AI model for analysis and discarded right after. We don't write it to a database or log file. Once you close or refresh the tab, it's gone from our side too — there's no history or account to retrieve it from later.</p>
+  </div>
+
+  <div class="q">
+    <h2>Who can see my data?</h2>
+    <p>Your document text passes through our server (briefly, in memory, to relay it) and Google's Gemini API (which performs the analysis). We don't share it with anyone else, and we don't keep a copy. See the <a href="/privacy.html" style="color:var(--red);">Privacy Policy</a> for more on how Google's free tier handles request data.</p>
+  </div>
+
+  <div class="q">
+    <h2>Is this legal advice?</h2>
+    <p><strong>No.</strong> Trothix is an AI tool, not a lawyer. It's built to flag things worth a second look and explain a document in plain English — it can miss things, misread context, or flag clauses that are actually standard for your situation. For anything with real money or real consequences riding on it, have an actual attorney review the document.</p>
+  </div>
+
+  <div class="q">
+    <h2>Which AI model powers the explanations?</h2>
+    <p>Google's Gemini model. We keep it on the current free-tier-eligible version and periodically check Google's docs to confirm eligibility, since Google adjusts this over time.</p>
+  </div>
+
+  <div class="q">
+    <h2>Which document types work best?</h2>
+    <p>Trothix is tuned for contracts, leases, and terms-of-service documents — the kind of agreement an individual might be asked to sign or click "I agree" on. Residential leases, freelance/independent contractor agreements, and ToS excerpts all work well. Try the sample-document chips on the homepage to see the kind of output to expect.</p>
+  </div>
+
+  <div class="q">
+    <h2>What are the current limitations?</h2>
+    <p>A few worth knowing about:</p>
+    <p>• It's a v1 tool — no accounts, no file uploads (paste text only), no saved history.</p>
+    <p>• It runs on a free-tier AI budget, so during busy periods you may see a "we're getting a lot of traffic" message. Waiting a minute and retrying usually works.</p>
+    <p>• Long documents are truncated after roughly 18,000 characters to fit within the model's processing limits.</p>
+    <p>• Like any AI tool, it can occasionally misread a clause or miss something a human reviewer would catch — treat it as a first pass, not a final word.</p>
+  </div>
+
+  <div class="q">
+    <h2>Do you use my document to train the AI?</h2>
+    <p>We don't train anything ourselves. Because analysis currently runs on Gemini's free tier, Google's own terms may allow request content to be used to improve their models — this is standard for free-tier AI APIs generally, not something specific to Trothix. If you're pasting something especially sensitive, strip identifying details first.</p>
+  </div>
+
+  <div class="q">
+    <h2>Why did I get a "busy" or rate-limit message?</h2>
+    <p>The free AI tier we run on has a shared request budget across everyone using Trothix at that moment, not just you. If a lot of people are analyzing documents at the same time, we show a friendly "try again in a minute" message rather than letting the request fail silently. It's not personal, and it's not about how much you've used the tool.</p>
+  </div>
+</div>
+
+<footer>
+  Trothix — plain-language contract review.
+  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/contact.html">Contact Us</a><span>·</span><a href="/waitlist.html">Join Waitlist</a><span>·</span><a href="/feedback.html">Give Feedback</a><span>·</span><a href="/privacy.html">Privacy Policy</a><span>·</span><a href="/terms.html">Terms of Service</a></div>
+</footer>
+
+</body>
+</html>

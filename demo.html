@@ -1,16 +1,557 @@
-export function parseBase(text, definitions) {
-  const extracted = {};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Demo — Trothix</title>
+<meta name="description" content="See Trothix in action. Request a personalized demo for your legal, real estate, HR, or procurement team.">
+<meta property="og:title" content="Request a Demo — Trothix">
+<meta property="og:description" content="Tell us a bit about your team and we'll set up a walkthrough of plain-language contract review.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://trothix-btwarys-projects.vercel.app/demo.html">
+<meta property="og:url" content="https://trothix-btwarys-projects.vercel.app/demo.html">
+<meta property="og:site_name" content="Trothix">
+<meta property="og:image" content="https://trothix-btwarys-projects.vercel.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://trothix-btwarys-projects.vercel.app/assets/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23211E1B'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' font-weight='700' fill='%23F6F3EC' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC; --paper-dark:#EDE8DB; --ink:#211E1B; --ink-soft:#4A453E;
+    --muted:#8A8377; --rule:#D8D0BF; --red:#B23A2E; --red-soft:#F3E3DF;
+    --gold:#9A7B3F; --green:#4B6B4F; --green-soft:#E7EDE3; --amber:#9C6B1F; --amber-soft:#F3E9D6;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--red-soft);}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.wrap{padding:0 16px 80px;}}
 
-  // Simple scan for universal risk markers
-  extracted.hasIndemnification = /indemnify|indemnification/i.test(text);
-  extracted.hasArbitration = /arbitration|arbitrate/i.test(text);
-  extracted.hasLimitationOfLiability = /limitation of liability|cap on liability/i.test(text);
-  
-  // Extract simple dates or dollar amounts just to see if we can
-  const moneyMatch = text.match(/\$[0-9,]+(\.[0-9]{2})?/);
-  if (moneyMatch) {
-    extracted.notableMoneyAmount = moneyMatch[0];
+  .back{
+    display:inline-flex;align-items:center;gap:8px;margin-top:40px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--red);text-decoration:none;
+  }
+  .back:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--red);display:flex;align-items:center;gap:10px;margin:28px 0 16px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--red);}
+  h1{
+    font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(30px,5vw,42px);
+    line-height:1.1;margin:0 0 14px;letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:16px;color:var(--ink-soft);max-width:56ch;line-height:1.65;margin:0 0 6px;
+  }
+  .fine{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);
+    margin-top:20px;line-height:1.7;padding-bottom:26px;border-bottom:1px solid var(--rule);
+  }
+  .fine strong{color:var(--ink-soft);font-weight:600;}
+
+  /* ---------- form shell ---------- */
+  form{margin-top:34px;}
+  .form-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:20px 18px;
+  }
+  @media (max-width:600px){.form-grid{grid-template-columns:1fr;gap:18px;}}
+  .field{display:flex;flex-direction:column;}
+  .field.full{grid-column:1 / -1;}
+  .field label{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:8px;display:flex;gap:4px;
+  }
+  .field label .req{color:var(--red);}
+  .field label .opt{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:none;
+    color:var(--muted);margin-left:auto;
   }
 
-  return extracted;
-}
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select{
+    width:100%;
+    background:#FCFAF4;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    padding:12px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    outline:none;
+    box-shadow:2px 2px 0 var(--rule);
+    transition:box-shadow .15s, border-color .15s;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%234A453E' stroke-width='1.6' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:36px;
+  }
+  input::placeholder, textarea::placeholder{color:var(--muted);}
+  input:focus, select:focus, textarea:focus{
+    box-shadow:2px 2px 0 var(--gold);border-color:var(--gold);
+  }
+  input.invalid, select.invalid, textarea.invalid{
+    border-color:var(--red);box-shadow:2px 2px 0 var(--red-soft);
+  }
+
+  textarea#message{
+    width:100%;min-height:120px;resize:vertical;
+    background:
+      repeating-linear-gradient(var(--paper),var(--paper) 27px,var(--rule) 28px);
+    background-color:#FCFAF4;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    padding:14px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13.5px;
+    line-height:28px;
+    color:var(--ink);
+    outline:none;
+    box-shadow:4px 4px 0 var(--rule);
+    transition:box-shadow .15s, border-color .15s;
+  }
+  textarea#message:focus{box-shadow:4px 4px 0 var(--gold);border-color:var(--gold);}
+  textarea#message.invalid{border-color:var(--red);box-shadow:4px 4px 0 var(--red-soft);}
+
+  .field-error{
+    display:none;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--red);
+    margin-top:6px;
+  }
+  .field-error.show{display:block;}
+
+  .consent{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:16px 18px;
+    background:var(--paper-dark);
+    border:1px solid var(--rule);
+    border-radius:3px;
+  }
+  .consent input[type="checkbox"]{
+    margin:3px 0 0;width:15px;height:15px;flex:0 0 15px;
+    accent-color:var(--red);cursor:pointer;
+  }
+  .consent label{
+    font-size:13.5px;line-height:1.6;color:var(--ink-soft);cursor:pointer;
+  }
+  .consent a{color:var(--red);text-decoration:underline;text-underline-offset:3px;}
+  .consent a:hover{color:#8a2b21;}
+
+  .action-row{
+    display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;
+    margin-top:28px;
+  }
+  .submit-btn{
+    all:unset;
+    cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--paper);
+    padding:14px 28px;
+    border-radius:2px;
+    transition:.15s;
+  }
+  .submit-btn:hover{background:var(--red);}
+  .submit-btn:disabled{background:var(--muted);cursor:not-allowed;}
+  .status{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .error-box{
+    margin-top:18px;
+    padding:14px 16px;
+    background:var(--red-soft);
+    border-left:3px solid var(--red);
+    font-size:13.5px;
+    color:#7a281f;
+    display:none;
+  }
+  .error-box.show{display:block;}
+
+  /* spinner */
+  .spinner{
+    width:14px;height:14px;border-radius:50%;
+    border:2px solid var(--rule);border-top-color:var(--paper);
+    display:inline-block;animation:spin .7s linear infinite;
+    vertical-align:middle;margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .why-row{
+    margin-top:36px;padding-top:28px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--rule);border:1px solid var(--rule);
+  }
+  @media (max-width:560px){.why-row{grid-template-columns:1fr;}}
+  .why-item{background:var(--paper);padding:16px 18px;}
+  .why-item .why-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px;
+  }
+  .why-item .why-val{font-size:14px;line-height:1.55;color:var(--ink-soft);}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:28px;
+    transform:translate(-50%,16px);
+    opacity:0;pointer-events:none;
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:var(--paper);
+    padding:14px 20px;border-radius:3px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+    box-shadow:0 8px 24px rgba(33,30,27,.25);
+    transition:opacity .4s ease, transform .4s ease;
+    z-index:50;
+    max-width:90vw;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto;}
+  .toast .toast-check{
+    width:20px;height:20px;border-radius:50%;
+    border:2px solid var(--green-soft);
+    color:var(--green-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;flex:0 0 20px;
+  }
+
+  footer{
+    max-width:680px;margin:0 auto;padding:30px 24px 60px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
+  }
+  .footer-links{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
+  .footer-links a:hover{color:var(--red);}
+  .footer-links span{color:var(--rule);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="/">← Back to Trothix</a>
+  <div class="eyebrow">Trothix</div>
+  <h1>Request a demo</h1>
+  <p class="lede">Tell us a little about your team and what you're hoping to review. We'll set up a short walkthrough of Trothix tailored to your use case — no pressure, no obligation.</p>
+  <div class="fine"><strong>Typical response time: 1 business day.</strong> We'll reach out at the work email you provide to find a time that works.</div>
+
+  <form id="demoForm" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="fullName">Full Name <span class="req">*</span></label>
+        <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" autocomplete="name">
+        <span class="field-error" id="err-fullName"></span>
+      </div>
+
+      <div class="field">
+        <label for="workEmail">Work Email <span class="req">*</span></label>
+        <input type="email" id="workEmail" name="workEmail" placeholder="jane@company.com" autocomplete="email">
+        <span class="field-error" id="err-workEmail"></span>
+      </div>
+
+      <div class="field">
+        <label for="company">Company <span class="req">*</span></label>
+        <input type="text" id="company" name="company" placeholder="Acme Inc." autocomplete="organization">
+        <span class="field-error" id="err-company"></span>
+      </div>
+
+      <div class="field">
+        <label for="jobTitle">Job Title <span class="req">*</span></label>
+        <input type="text" id="jobTitle" name="jobTitle" placeholder="General Counsel" autocomplete="organization-title">
+        <span class="field-error" id="err-jobTitle"></span>
+      </div>
+
+      <div class="field">
+        <label for="companySize">Company Size <span class="req">*</span></label>
+        <select id="companySize" name="companySize">
+          <option value="" disabled selected>Select company size</option>
+          <option value="1-10">1–10 employees</option>
+          <option value="11-50">11–50 employees</option>
+          <option value="51-200">51–200 employees</option>
+          <option value="201-500">201–500 employees</option>
+          <option value="501-1000">501–1,000 employees</option>
+          <option value="1000+">1,000+ employees</option>
+        </select>
+        <span class="field-error" id="err-companySize"></span>
+      </div>
+
+      <div class="field">
+        <label for="country">Country <span class="req">*</span></label>
+        <select id="country" name="country">
+          <option value="" disabled selected>Select country</option>
+        </select>
+        <span class="field-error" id="err-country"></span>
+      </div>
+
+      <div class="field">
+        <label for="useCase">Primary Use Case <span class="req">*</span></label>
+        <select id="useCase" name="useCase">
+          <option value="" disabled selected>Select primary use case</option>
+          <option value="legal">Legal team / compliance review</option>
+          <option value="real-estate">Real estate / property management</option>
+          <option value="hr">HR / employment agreements</option>
+          <option value="procurement">Procurement / vendor contracts</option>
+          <option value="sales">Sales / customer contracts</option>
+          <option value="freelance">Freelance / independent professional</option>
+          <option value="other">Other</option>
+        </select>
+        <span class="field-error" id="err-useCase"></span>
+      </div>
+
+      <div class="field">
+        <label for="demoDate">Preferred Demo Date <span class="req">*</span></label>
+        <input type="date" id="demoDate" name="demoDate">
+        <span class="field-error" id="err-demoDate"></span>
+      </div>
+
+      <div class="field full">
+        <label for="message">Message <span class="opt">optional</span></label>
+        <textarea id="message" name="message" placeholder="Anything specific you'd like us to cover — document types, team size, integration questions..."></textarea>
+        <span class="field-error" id="err-message"></span>
+      </div>
+
+      <div class="field full">
+        <div class="consent">
+          <input type="checkbox" id="privacyConsent" name="privacyConsent">
+          <label for="privacyConsent">I agree to the <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and consent to Trothix contacting me about this request. <span class="req">*</span></label>
+        </div>
+        <span class="field-error" id="err-privacyConsent"></span>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button type="submit" class="submit-btn" id="submitBtn">Request Demo</button>
+      <span class="status" id="statusText"></span>
+    </div>
+    <div class="error-box" id="errorBox"></div>
+  </form>
+
+  <div class="why-row">
+    <div class="why-item">
+      <div class="why-label">Setup</div>
+      <div class="why-val">No install. Works in your browser.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-label">Privacy</div>
+      <div class="why-val">Documents are never stored.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-label">Onboarding</div>
+      <div class="why-val">Guided walkthrough with your team.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Trothix — plain-language contract review.
+  <div class="footer-links"><a href="/">Home</a><span>·</span><a href="/faq.html">FAQ</a><span>·</span><a href="/privacy.html">Privacy Policy</a></div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-check">✓</span>
+  <span id="toastMsg">Thanks — your request has been sent. We'll be in touch shortly.</span>
+</div>
+
+<script>
+(function(){
+  // ---- Backend: Formspree ----
+  // 1. Create a free account at https://formspree.io (free tier: 50 submissions/month, no server needed).
+  // 2. Create a new form and copy its endpoint, e.g. https://formspree.io/f/abcdwxyz
+  // 3. Paste it below. That's the entire backend setup — no API keys touch the browser.
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
+  const form = document.getElementById("demoForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusText = document.getElementById("statusText");
+  const errorBox = document.getElementById("errorBox");
+  const toast = document.getElementById("toast");
+
+  // Populate country list
+  const countries = ["United States","United Kingdom","Canada","Australia","India","Germany","France","Ireland","Netherlands","Singapore","New Zealand","South Africa","United Arab Emirates","Spain","Italy","Sweden","Switzerland","Brazil","Mexico","Japan","South Korea","Other"];
+  const countrySelect = document.getElementById("country");
+  countries.forEach(function(c){
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    countrySelect.appendChild(opt);
+  });
+
+  // Prevent picking a demo date in the past
+  const demoDateInput = document.getElementById("demoDate");
+  demoDateInput.min = new Date().toISOString().split("T")[0];
+
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const requiredFields = [
+    { id: "fullName", message: "Please enter your full name." },
+    { id: "workEmail", message: "Please enter your work email." },
+    { id: "company", message: "Please enter your company name." },
+    { id: "jobTitle", message: "Please enter your job title." },
+    { id: "companySize", message: "Please select a company size." },
+    { id: "country", message: "Please select your country." },
+    { id: "useCase", message: "Please select a primary use case." },
+    { id: "demoDate", message: "Please choose a preferred demo date." }
+  ];
+
+  function clearFieldError(id){
+    const el = document.getElementById(id);
+    const err = document.getElementById("err-" + id);
+    el.classList.remove("invalid");
+    err.textContent = "";
+    err.classList.remove("show");
+  }
+
+  function setFieldError(id, message){
+    const el = document.getElementById(id);
+    const err = document.getElementById("err-" + id);
+    el.classList.add("invalid");
+    err.textContent = message;
+    err.classList.add("show");
+  }
+
+  function clearAllErrors(){
+    requiredFields.concat([{id:"message"},{id:"privacyConsent"}]).forEach(function(f){
+      clearFieldError(f.id);
+    });
+    errorBox.classList.remove("show");
+    errorBox.textContent = "";
+  }
+
+  function validate(){
+    let firstInvalid = null;
+    let valid = true;
+
+    requiredFields.forEach(function(f){
+      const el = document.getElementById(f.id);
+      if(!el.value || !el.value.trim()){
+        setFieldError(f.id, f.message);
+        valid = false;
+        if(!firstInvalid) firstInvalid = el;
+      }
+    });
+
+    const emailEl = document.getElementById("workEmail");
+    if(emailEl.value && !emailRe.test(emailEl.value.trim())){
+      setFieldError("workEmail", "Please enter a valid email address.");
+      valid = false;
+      if(!firstInvalid) firstInvalid = emailEl;
+    }
+
+    const consentEl = document.getElementById("privacyConsent");
+    if(!consentEl.checked){
+      setFieldError("privacyConsent", "Please agree to the Privacy Policy to continue.");
+      valid = false;
+      if(!firstInvalid) firstInvalid = consentEl;
+    }
+
+    if(firstInvalid) firstInvalid.focus();
+    return valid;
+  }
+
+  function showToast(message){
+    document.getElementById("toastMsg").textContent = message || "Thanks — your request has been sent. We'll be in touch shortly.";
+    toast.classList.add("show");
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(function(){
+      toast.classList.remove("show");
+    }, 5000);
+  }
+
+  function setLoading(isLoading){
+    submitBtn.disabled = isLoading;
+    if(isLoading){
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending…';
+      statusText.textContent = "";
+    } else {
+      submitBtn.textContent = "Request Demo";
+    }
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    clearAllErrors();
+
+    if(!validate()){
+      statusText.textContent = "Please fix the highlighted fields.";
+      return;
+    }
+
+    if(FORMSPREE_ENDPOINT.indexOf("YOUR_FORM_ID") !== -1){
+      errorBox.textContent = "This form isn't connected yet — replace FORMSPREE_ENDPOINT in demo.html with your Formspree form URL.";
+      errorBox.classList.add("show");
+      return;
+    }
+
+    const payload = {
+      fullName: document.getElementById("fullName").value.trim(),
+      workEmail: document.getElementById("workEmail").value.trim(),
+      company: document.getElementById("company").value.trim(),
+      jobTitle: document.getElementById("jobTitle").value.trim(),
+      companySize: document.getElementById("companySize").value,
+      country: document.getElementById("country").value,
+      useCase: document.getElementById("useCase").value,
+      demoDate: document.getElementById("demoDate").value,
+      message: document.getElementById("message").value.trim(),
+      _subject: "New Trothix demo request"
+    };
+
+    setLoading(true);
+
+    fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(function(res){
+        if(res.ok){
+          form.reset();
+          clearAllErrors();
+          showToast("Thanks, " + (payload.fullName.split(" ")[0] || "there") + " — your request has been sent. We'll be in touch shortly.");
+          statusText.textContent = "";
+        } else {
+          return res.json().catch(function(){ return null; }).then(function(data){
+            const detail = data && data.errors && data.errors.length
+              ? data.errors.map(function(er){ return er.message; }).join(" ")
+              : "Something went wrong sending your request.";
+            throw new Error(detail);
+          });
+        }
+      })
+      .catch(function(err){
+        errorBox.textContent = (err && err.message) ? err.message : "Something went wrong. Please try again, or email us directly.";
+        errorBox.classList.add("show");
+      })
+      .finally(function(){
+        setLoading(false);
+      });
+  });
+
+  requiredFields.concat([{id:"message"}]).forEach(function(f){
+    document.getElementById(f.id).addEventListener("input", function(){ clearFieldError(f.id); });
+    document.getElementById(f.id).addEventListener("change", function(){ clearFieldError(f.id); });
+  });
+  document.getElementById("privacyConsent").addEventListener("change", function(){ clearFieldError("privacyConsent"); });
+})();
+</script>
+
+</body>
+</html>
