@@ -345,7 +345,7 @@ export default async function handler(req, res) {
   await recordEvent("request");
 
   const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket?.remoteAddress || "unknown";
-  const { documentText, mode: rawMode, jobId: incomingJobId, chunkIndex, chunkCount, findings } = req.body || {};
+  const { documentText, mode: rawMode, jobId: incomingJobId, chunkIndex, chunkCount, findings, userState, userRole } = req.body || {};
   const mode = rawMode === "chunk" || rawMode === "synthesize" ? rawMode : "full";
   const jobId = typeof incomingJobId === "string" && incomingJobId ? incomingJobId : `${ip}-solo-${Date.now()}-${Math.random()}`;
 
@@ -403,6 +403,11 @@ export default async function handler(req, res) {
       userText = truncated;
       loggedLength = truncated.length;
     }
+  }
+
+  if (userState && userRole && userState !== "Not specified" && userRole !== "Not specified") {
+    const contextStr = `\n\nCONTEXT: The user is acting as a [${userRole}] in the state of [${userState}]. Evaluate the document through this specific lens, focusing on how the terms impact this role under this jurisdiction's laws.`;
+    systemPrompt += contextStr;
   }
 
   const apiKeys = {

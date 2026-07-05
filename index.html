@@ -1785,7 +1785,16 @@ analyzeBtn.addEventListener('click', async ()=>{
     window.__wasTruncated = wasTruncated;
     window.__originalLen = text.length;
 
-    const response = await fetchAnalyzeWithRetry({ documentText: truncated });
+    const userState = document.getElementById('userState') ? document.getElementById('userState').value : "Not specified";
+    const userRole = document.getElementById('userRole') ? document.getElementById('userRole').value : "Not specified";
+    const telemetryConsent = document.getElementById('telemetryConsent') ? document.getElementById('telemetryConsent').checked : false;
+
+    const response = await fetchAnalyzeWithRetry({ 
+      documentText: truncated,
+      userState,
+      userRole,
+      telemetryConsent
+    });
     const parsed = await response.json();
 
     if(!response.ok){
