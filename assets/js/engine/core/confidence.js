@@ -1,4 +1,9 @@
-export function calculateConfidence(ir) {
+// Cue words that suggest the source text actually contains time-bound
+// language. Used to gate the "0 deadlines" penalty below so we don't punish
+// a document (e.g. a short TOS clause) that legitimately has no deadlines.
+const TEMPORAL_CUE_REGEX = /\b(days?|months?|years?|period of|notice)\b/i;
+
+export function calculateConfidence(ir, sourceText = "") {
   let conf = 0;
   
   // Clause Coverage (30%)
@@ -20,6 +25,17 @@ export function calculateConfidence(ir) {
   } else {
      conf += 10; // Some missing
   }
-  
+
+  // Penalties: catch cases where extraction quality is visibly poor even
+  // though the checks above passed.
+  const looksLikeItHasDeadlines = TEMPORAL_CUE_REGEX.test(sourceText);
+  if (looksLikeItHasDeadlines && (!ir.deadlines || ir.deadlines.length === 0)) {
+    conf -= 10; // Text suggests deadlines exist, but none were extracted.
+  }
+  if (!ir.fairness || /^unknown/i.test(ir.fairness)) {
+    conf -= 15; // Fairness scoring came back empty/unresolved.
+  }
+
+  conf = Math.max(0, Math.min(100, conf));
   return Math.round(conf);
 }

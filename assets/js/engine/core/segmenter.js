@@ -33,7 +33,17 @@ export function segmentClauses(text) {
   }
   
   if (clauses.length === 0) {
-    clauses.push({ id: '1', title: 'Main Body', text: text, types: [], entities: [] });
+    const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+    paragraphs.forEach((p, index) => {
+       // Only treat substantial paragraphs as clauses to avoid noise
+       if (p.trim().length > 30) {
+         clauses.push({ id: String(index + 1), title: `Paragraph ${index + 1}`, text: p.trim(), types: [], entities: [] });
+       }
+    });
+    // Ultimate fallback if no paragraphs > 30 chars
+    if (clauses.length === 0) {
+        clauses.push({ id: '1', title: 'Main Body', text: text, types: [], entities: [] });
+    }
   }
 
   return clauses;

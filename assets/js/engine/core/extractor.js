@@ -10,27 +10,103 @@ export function extractEntities(clauses) {
   return Array.from(entities);
 }
 
+// Recognized role-subject phrases. The subject capture is restricted to
+// this list (rather than an open-ended `[A-Z][a-zA-Z\s]+?`) so a modal verb
+// buried deep in a long sentence ("...and further agrees that the other
+// Party shall be entitled...") can't cause the regex to backtrack across
+// the whole preceding clause and report a 40-word run-on as the "subject".
+const ROLE_SUBJECTS = [
+  'The Receiving Party', 'The Disclosing Party', 'Receiving Party', 'Disclosing Party',
+  'Either Party', 'Each Party', 'Neither Party', 'Both Parties', 'The Parties', 'Parties',
+  'The Tenant', 'Tenant', 'The Landlord', 'Landlord',
+  'The Company', 'Company', 'The Client', 'Client',
+  'The Consultant', 'Consultant', 'The Contractor', 'Contractor',
+  'The Employer', 'Employer', 'The Employee', 'Employee',
+  'The Licensor', 'Licensor', 'The Licensee', 'Licensee',
+  'Party 1', 'Party A', 'Party B',
+];
+
 export function extractObligations(clauses) {
   const obligations = [];
-  const modalRegex = /([A-Z][a-zA-Z\s]+?)\s+(shall|must|will|may|cannot|only|unless)\s+([a-z]+)\s+([^\.\,;]+)/gi;
-  
+  // Sort longest-first so "The Receiving Party" matches before "Receiving Party".
+  const subjectAlternation = [...ROLE_SUBJECTS]
+    .sort((a, b) => b.length - a.length)
+    .map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
+  const modalRegex = new RegExp(
+    `\\b(${subjectAlternation})\\s+(shall|must|will|may|cannot|only|unless)\\s+([a-z]+)\\s+([^.,;]+)`,
+    'gi'
+  );
+
   clauses.forEach(c => {
     let match;
     while ((match = modalRegex.exec(c.text)) !== null) {
-       const subject = match[1].trim();
-       // Only accept valid entity subjects to reduce noise
-       if (/(Party|Tenant|Landlord|Company|Client|Consultant|Contractor)/i.test(subject)) {
-           obligations.push({
-             subject: subject,
-             verb: match[3],
-             object: match[4].trim(),
-             clauseId: c.id
-           });
-       }
+      const verb = match[3];
+      const object = match[4].trim();
+      // Skip naming/definitional boilerplate ("...shall hereinafter be
+      // referred to as Company") — it labels a party, it doesn't impose a
+      // duty, and counting it as an obligation skews fairness scoring.
+      if (verb.toLowerCase() === 'hereinafter' || /referred to as/i.test(object)) {
+        continue;
+      }
+      obligations.push({
+        subject: match[1].trim(),
+        verb,
+        object,
+        clauseId: c.id
+      });
     }
   });
-  
+
   return obligations;
+}
+
+// --- Document-level metadata extraction ---
+// Previously missing entirely: nothing extracted parties, jurisdiction,
+// governing law, or effective date, so the IR had no way to surface a
+// "Document Information" section.
+export function extractMetadata(text, definitions = {}) {
+  const metadata = {
+    parties: [],
+    jurisdiction: null,
+    governingLaw: null,
+    effectiveDate: null,
+    effectiveDateIsBlank: false,
+  };
+
+  // Parties: pull from the resolved definitions map (role label -> entity name).
+  for (const [role, entity] of Object.entries(definitions)) {
+    if (entity) metadata.parties.push({ role, name: entity });
+  }
+
+  // Governing law, e.g. "governed by the laws of India" / "the laws of the
+  // State of New York".
+  const govLawMatch = text.match(
+    /governed by(?: and construed in accordance with)? the laws of(?: the (?:State|Republic|Province) of)?\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2})/i
+  );
+  if (govLawMatch) metadata.governingLaw = govLawMatch[1].trim();
+
+  // Jurisdiction / venue, e.g. "exclusive jurisdiction of the Courts in
+  // Bangalore" or "jurisdiction of the courts of New York".
+  const jurisdictionMatch = text.match(
+    /jurisdiction of the\s+courts?\s+(?:in|of)\s+([A-Za-z][A-Za-z\s]*?)(?=,|\.|;|\s+for\b|\s+under\b|\s+in connection\b|$)/i
+  );
+  if (jurisdictionMatch) metadata.jurisdiction = jurisdictionMatch[1].trim();
+
+  // Effective date. Two cases: an actual date is present, or the date slot
+  // is a blank template field (e.g. "day of _________, 2016").
+  const blankDateMatch = text.match(/day of\s*_{2,}\s*,?\s*(\d{4})/i);
+  if (blankDateMatch) {
+    metadata.effectiveDateIsBlank = true;
+    metadata.effectiveDate = `Blank (year shown as ${blankDateMatch[1]})`;
+  } else {
+    const dateMatch = text.match(
+      /(?:effective as of|entered into on|dated as of|made on this the)\s+([A-Za-z0-9,\s]{4,30}?(?:\d{4}))/i
+    );
+    if (dateMatch) metadata.effectiveDate = dateMatch[1].trim();
+  }
+
+  return metadata;
 }
 
 export function extractExceptions(clauses) {
@@ -45,10 +121,15 @@ export function extractExceptions(clauses) {
 
 export function extractDeadlines(text) {
   const deadlines = [];
-  const regex = /(\d+|one|two|three|four|five|ten|thirty|sixty|ninety)\s+(days|months|years)/gi;
+  // Supports plain numerals ("30 days"), word numerals ("thirty days"),
+  // parenthetical numerals directly after a word numeral with no space
+  // before the unit ("seven (7) days", "thirty (30)days" — no space between
+  // ")" and the unit is common in generated contracts), and "year(s)"-style
+  // plurals where "(s)" sits between the root word and end of the match.
+  const regex = /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|thirty|sixty|ninety)\b\s*(?:\(\d+\))?\s*(?:days?|months?|years?)/gi;
   let match;
   while ((match = regex.exec(text)) !== null) {
-    deadlines.push(match[0]);
+    deadlines.push(match[0].replace(/\s+/g, ' ').trim());
   }
   return [...new Set(deadlines)];
 }

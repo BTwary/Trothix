@@ -20,7 +20,7 @@ export async function processDocument(documentText, providedType, userContext, r
   }
   
   // 1. Run the Deterministic NLP Pipeline (Layer 1)
-  const ir = await runPipeline(normalizedText, docType, pluginConfig);
+  const ir = await runPipeline(normalizedText, docType, pluginConfig, definedTerms);
   
   // 2. Decide if we need AI Fallback (Layer 2)
   let requiresAIFallback = false;
@@ -60,7 +60,17 @@ export async function processDocument(documentText, providedType, userContext, r
     riskScore: ir.riskScore,
     riskLevel: ir.riskLevel,
     deadlines: ir.deadlines,
-    exceptions: ir.exceptions
+    exceptions: ir.exceptions,
+
+    // Document metadata (previously extracted internally but never
+    // returned to the caller, so the UI had no way to show it)
+    document: {
+      jurisdiction: ir.document.jurisdiction,
+      governingLaw: ir.document.governingLaw,
+      effectiveDate: ir.document.effectiveDate,
+      effectiveDateIsBlank: ir.document.effectiveDateIsBlank,
+      parties: ir.document.parties
+    }
   };
 }
 

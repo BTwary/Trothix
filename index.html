@@ -2055,7 +2055,13 @@ analyzeBtn.addEventListener('click', async ()=>{
             fairness: result.fairness || 'Unknown',
             confidence: (result.confidenceScore || 0) + '%',
             missing: (result.missingClauses && result.missingClauses.length > 0) ? result.missingClauses.join(', ') : 'None',
-            deadlines: (result.deadlines && result.deadlines.length > 0) ? result.deadlines.slice(0,2).join(', ') : 'None'
+            deadlines: (result.deadlines && result.deadlines.length > 0) ? result.deadlines.slice(0,2).join(', ') : 'None',
+            jurisdiction: (result.document && result.document.jurisdiction && result.document.jurisdiction !== 'Unknown') ? result.document.jurisdiction : 'Not found',
+            governingLaw: (result.document && result.document.governingLaw && result.document.governingLaw !== 'Unknown') ? result.document.governingLaw : 'Not found',
+            effectiveDate: (result.document && result.document.effectiveDate && result.document.effectiveDate !== 'Unknown') ? result.document.effectiveDate : 'Not found',
+            parties: (result.document && result.document.parties && result.document.parties.length > 0)
+              ? result.document.parties.map(p => `${p.role}: ${p.name}`).join('; ')
+              : 'Not found'
           },
           redFlags: result.flags.map(f => ({
             severity: f.severity.toLowerCase(),
@@ -2141,7 +2147,7 @@ function renderResults(d){
   document.getElementById('summaryText').textContent = d.summary || '';
 
   const termsGrid = document.getElementById('termsGrid');
-  const termLabels = { fairness:'Fairness', confidence:'Confidence', missing:'Missing Clauses', deadlines:'Deadlines' };
+  const termLabels = { fairness:'Fairness', confidence:'Confidence', missing:'Missing Clauses', deadlines:'Deadlines', jurisdiction:'Jurisdiction', governingLaw:'Governing Law', effectiveDate:'Effective Date', parties:'Parties' };
   termsGrid.innerHTML = '';
   Object.keys(termLabels).forEach(key=>{
     const val = (d.keyTerms && d.keyTerms[key]) || 'Not specified';

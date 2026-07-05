@@ -1,15 +1,15 @@
 import { segmentClauses } from './segmenter.js';
-import { extractEntities, extractObligations, extractExceptions, extractDeadlines, extractPlaceholders } from './extractor.js';
+import { extractEntities, extractObligations, extractExceptions, extractDeadlines, extractPlaceholders, extractMetadata } from './extractor.js';
 import { classifyClauses } from './classifier.js';
 import { calculateFairness } from '../rules/fairness.js';
 import { calculateRisk } from '../rules/riskEngine.js';
 import { verifyChecklist } from './checklist.js';
 import { calculateConfidence } from './confidence.js';
 
-export async function runPipeline(text, docType, pluginConfig) {
+export async function runPipeline(text, docType, pluginConfig, definitions = {}) {
   // 1. Setup IR
   const ir = {
-    document: { type: docType, jurisdiction: "Unknown" },
+    document: { type: docType, jurisdiction: "Unknown", governingLaw: "Unknown", effectiveDate: "Unknown", parties: [] },
     clauses: [],
     entities: [],
     obligations: [],
@@ -34,11 +34,18 @@ export async function runPipeline(text, docType, pluginConfig) {
   ir.deadlines = extractDeadlines(text);
   ir.placeholders = extractPlaceholders(text);
 
+  const metadata = extractMetadata(text, definitions);
+  ir.document.jurisdiction = metadata.jurisdiction || "Unknown";
+  ir.document.governingLaw = metadata.governingLaw || "Unknown";
+  ir.document.effectiveDate = metadata.effectiveDate || "Unknown";
+  ir.document.effectiveDateIsBlank = metadata.effectiveDateIsBlank;
+  ir.document.parties = metadata.parties;
+
   // 4. Classification
   ir.clauses = classifyClauses(ir.clauses, ir.entities, ir.obligations);
 
   // 5. Rules & Scoring Engines
-  ir.fairness = calculateFairness(ir.obligations);
+  ir.fairness = calculateFairness(ir.obligations, definitions);
   
   if (pluginConfig && pluginConfig.riskRules) {
      const riskResult = calculateRisk(ir.clauses, ir.placeholders, pluginConfig.riskRules);
@@ -52,7 +59,7 @@ export async function runPipeline(text, docType, pluginConfig) {
      ir.missingClauses = chkResult.missing;
   }
 
-  ir.confidenceScore = calculateConfidence(ir);
+  ir.confidenceScore = calculateConfidence(ir, text);
 
   return ir;
 }
