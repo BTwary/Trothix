@@ -1968,6 +1968,16 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
 
 
 let parserWorker = new Worker('assets/js/engine/worker.js', { type: 'module' });
+parserWorker.onerror = (e) => {
+  console.error("Parser worker failed to load/run:", e);
+  if (typeof stageTimer !== 'undefined') clearInterval(stageTimer);
+  if (typeof analyzeBtn !== 'undefined') analyzeBtn.disabled = false;
+  if (typeof statusText !== 'undefined') statusText.textContent = '';
+  if (typeof errorBox !== 'undefined') {
+    errorBox.textContent = "Engine failed to load (" + (e.message || "unknown error") + "). Check the browser console for details.";
+    errorBox.style.display = 'block';
+  }
+};
 
 analyzeBtn.addEventListener('click', async ()=>{
   const text = docInput.value.trim();

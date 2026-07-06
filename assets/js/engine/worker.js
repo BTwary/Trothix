@@ -1,4 +1,4 @@
-import { processDocument } from './core/router.js';
+import { processDocument } from './core/legacy/router.js';
 
 // Baked-in fallback config if network fails
 const DEFAULT_RULES = {

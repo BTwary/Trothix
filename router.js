@@ -21,7 +21,7 @@
 import { readdirSync, readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { processDocument } from '../core/router.js';
+import { processDocument } from './assets/js/engine/core/legacy/router.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
