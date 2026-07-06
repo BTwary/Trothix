@@ -229,6 +229,7 @@ const SYSTEM_PROMPT = `You are Trothix, a highly advanced legal AI assistant. Gi
   "isDocument": true,
   "documentType": "Short specific label (e.g., 'Mutual Non-Disclosure Agreement', 'Commercial Lease')",
   "executiveSummary": "A detailed, multi-paragraph plain-English summary of what the document is, its primary purpose, and its overall balance.",
+  "processWalkthrough": "A step-by-step narrative explanation (like a diary) of exactly how you analyzed the document, broken down into numbered steps (e.g. 1. Document type identification, 2. Extracting parties, 3. Clause segmentation, 4. Rights vs obligations, 5. Risk detection, 6. Fairness). Make it sound like a human expert explaining their methodology.",
   "documentInformation": {
     "jurisdiction": "Jurisdiction or courts mentioned, or 'Not specified'",
     "governingLaw": "Governing law mentioned, or 'Not specified'",
@@ -265,6 +266,7 @@ If the pasted text is empty, nonsensical, or clearly not a contract/lease/ToS, i
 const CHUNK_SYSTEM_PROMPT = `You are Trothix, analyzing ONE SECTION of a much larger contract. You are only shown this excerpt. Respond with ONLY a raw JSON object matching exactly this shape:
 
 {
+  "processWalkthrough": "A narrative explaining how you analyzed this specific excerpt step-by-step.",
   "keyObligations": [ "up to 5 duties found in this excerpt" ],
   "keyRights": [ "up to 3 rights found in this excerpt" ],
   "importantDates": [ "any deadlines found here" ],
@@ -286,6 +288,7 @@ const SYNTHESIS_SYSTEM_PROMPT = `You are Trothix. A long contract has been revie
   "isDocument": true,
   "documentType": "inferred from findings",
   "executiveSummary": "A detailed, multi-paragraph plain-English summary synthesizing all findings.",
+  "processWalkthrough": "A cohesive step-by-step narrative explanation synthesizing the methodology from all chunks.",
   "documentInformation": { "jurisdiction": "...", "governingLaw": "...", "parties": "...", "duration": "..." },
   "keyObligations": [ "merge from findings" ],
   "keyRights": [ "merge from findings" ],

@@ -211,10 +211,36 @@ export function generateReport(ir, meta) {
   const signedNote = (ir.signatureStatus && ir.signatureStatus.hasSignatureBlock)
     ? (ir.signatureStatus.likelySigned ? '' : 'The signature section appears to be blank. ')
     : '';
+  
+  // --- Process Walkthrough ---
+  const processWalkthrough = `Here is a step-by-step walkthrough of how the deterministic engine worked through this document locally:
+
+**1. Document type identification**
+I scanned the structural and textual markers of the document and identified it as a **${docTypeLabel}**.
+
+**2. Extracting parties/jurisdiction/law/duration**
+I located the jurisdiction (${documentInfo.jurisdiction}) and governing law (${documentInfo.governingLaw}). I identified the parties as: ${documentInfo.parties.join(', ')}.
+
+**3. Clause segmentation and classification**
+I mechanically split the document into ${ir.clauses.length} distinct clauses and tagged each by its legal function. This fed directly into the Rights and Obligations sections.
+
+**4. Extracting obligations vs. rights**
+I extracted ${ir.obligations.length} distinct obligations and ${ir.rights.length} rights by checking for modal verbs and directional phrasing.
+
+**5. Risk detection**
+I ran deterministic heuristics against the text and flagged ${ir.risks.length} specific risks, plus ${ir.placeholders.length} blank placeholders.
+
+**6. Fairness assessment**
+Based on the distribution of obligations and rights, I determined this document is structurally ${ir.fairness}.
+
+**7. Confidence score**
+My final confidence score for this local deterministic analysis is ${ir.confidenceScore}%.`;
+
   const executiveSummary = `This is a ${docTypeLabel}. ${blankNote}${signedNote}Overall risk is assessed as ${ir.riskLevel}, and the obligations in this document are best described as: ${ir.fairness}.`;
 
   return {
     executiveSummary,
+    processWalkthrough,
     documentInfo,
     keyObligations,
     keyRights,
