@@ -2079,17 +2079,23 @@ analyzeBtn.addEventListener('click', async ()=>{
     });
 
     parserWorker.onmessage = async (e) => {
-      const { status, result, error } = e.data;
-      
-      if (status === 'error') {
-        clearInterval(stageTimer);
-        analyzeBtn.disabled = false;
-        statusText.textContent = '';
-        errorBox.textContent = "Engine Error: " + error;
-        errorBox.style.display = 'block';
-        return;
-      }
-
+  try {
+    const { status, result, error } = e.data;
+    if (status === 'error') { ...; return; }
+    if (!result) throw new Error("Worker returned no result payload.");
+    if (result.isFullyLocal) {
+      ...
+    } else {
+      ...
+    }
+  } catch (err) {
+    clearInterval(stageTimer);
+    analyzeBtn.disabled = false;
+    statusText.textContent = '';
+    errorBox.textContent = "Rendering error: " + err.message;
+    errorBox.style.display = 'block';
+  }
+};
       if (result.isFullyLocal) {
         clearInterval(stageTimer);
         statusText.textContent = '';
