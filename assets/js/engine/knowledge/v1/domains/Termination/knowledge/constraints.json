@@ -1,0 +1,17 @@
+[
+  {
+    "id": "TIME",
+    "terms": [
+      "30 days",
+      "60 days",
+      "immediate"
+    ]
+  },
+  {
+    "id": "MONEY",
+    "terms": [
+      "$10,000",
+      "5%"
+    ]
+  }
+]

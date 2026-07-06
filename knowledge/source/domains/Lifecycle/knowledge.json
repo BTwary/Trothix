@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "states": "states.json",
+  "events": "events.json",
+  "transitions": "transitions.json",
+  "illegal_transitions": "illegal_transitions.json",
+  "timeline": "timeline.json",
+  "deadlines": "deadlines.json",
+  "decision_tables": "decision_tables.json",
+  "rules": "rules.json"
+}

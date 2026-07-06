@@ -1,0 +1,38 @@
+[
+  {
+    "id": "DT_DEFINED_TERM",
+    "purpose": "Extracts definitions and assigns to canonical entities.",
+    "inputs": [
+      "DEFINE_TERM"
+    ],
+    "conditions": [
+      {
+        "match": "INTENT_DEFINE"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_DEFINITIONS_PRESENT",
+        "legal_effect": "DEFINITION"
+      }
+    ]
+  },
+  {
+    "id": "DT_ALIAS",
+    "purpose": "Resolves synonyms to canonical entities.",
+    "inputs": [
+      "DEFINE_ALIAS"
+    ],
+    "conditions": [
+      {
+        "match": "INTENT_ALIAS"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_ALIASES_RESOLVED",
+        "legal_effect": "ALIAS"
+      }
+    ]
+  }
+]

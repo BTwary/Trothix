@@ -1,0 +1,17 @@
+{
+  "conceptsAdded": 0,
+  "conceptsEnriched": 1,
+  "actionsAdded": 2,
+  "entitiesAdded": 3,
+  "statesAdded": 0,
+  "eventsAdded": 0,
+  "conditionsAdded": 0,
+  "exceptionsAdded": 1,
+  "relationsAdded": 0,
+  "templateFamiliesUpdated": 2,
+  "decisionTablesAdded": 0,
+  "decisionTablesReused": 1,
+  "rulesAdded": 0,
+  "rulesReused": 1,
+  "testsAdded": 2
+}

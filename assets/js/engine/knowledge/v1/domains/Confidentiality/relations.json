@@ -1,9 +1,17 @@
 [
   {
-    "id": "REL_CONFIDENTIALITY_SURVIVAL",
     "source": "CONCEPT_CONFIDENTIALITY",
-    "target": "CONCEPT_TERMINATION",
-    "relation": "survives",
-    "strength": "required"
+    "type": "REQUIRES",
+    "target": "CONCEPT_NOTICE"
+  },
+  {
+    "source": "CONCEPT_CONFIDENTIALITY",
+    "type": "SURVIVES",
+    "target": "CONCEPT_TERMINATION"
+  },
+  {
+    "source": "CONCEPT_CONFIDENTIALITY",
+    "type": "PROTECTS",
+    "target": "CONCEPT_INTELLECTUAL_PROPERTY"
   }
 ]

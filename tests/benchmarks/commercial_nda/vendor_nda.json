@@ -1,0 +1,17 @@
+{
+  "id": "BENCHMARK_NDA_VENDOR_NDA",
+  "provenance": {
+    "source": "Placeholder SEC/Curated",
+    "documentType": "VENDOR NDA",
+    "jurisdiction": "US",
+    "industry": "Agnostic",
+    "retrievedAt": "2026-07-06"
+  },
+  "expected": {
+    "findings": [],
+    "riskScore": 0,
+    "completeness": 0,
+    "decisionTrace": {},
+    "verdict": "Unknown"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CONVENIENCE_POS",
+    "template": "TPL_TERMINATION_FOR_CONVENIENCE",
+    "type": "Positive",
+    "expects": "Match"
+  },
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CONVENIENCE_NEG1",
+    "template": "TPL_TERMINATION_FOR_CONVENIENCE",
+    "type": "Lexical Mutation",
+    "mutation": "Replace Modal with NEG_NOT",
+    "expects": "Fail"
+  },
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CONVENIENCE_NEG2",
+    "template": "TPL_TERMINATION_FOR_CONVENIENCE",
+    "type": "Semantic Contradiction",
+    "mutation": "Add EXC_LAW",
+    "expects": "Edge Case"
+  },
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CAUSE_POS",
+    "template": "TPL_TERMINATION_FOR_CAUSE",
+    "type": "Positive",
+    "expects": "Match"
+  },
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CAUSE_NEG1",
+    "template": "TPL_TERMINATION_FOR_CAUSE",
+    "type": "Lexical Mutation",
+    "mutation": "Replace Modal with NEG_NOT",
+    "expects": "Fail"
+  },
+  {
+    "id": "MUT_TPL_TERMINATION_FOR_CAUSE_NEG2",
+    "template": "TPL_TERMINATION_FOR_CAUSE",
+    "type": "Semantic Contradiction",
+    "mutation": "Add EXC_LAW",
+    "expects": "Edge Case"
+  },
+  {
+    "id": "MUT_TPL_AUTOMATIC_EXPIRATION_POS",
+    "template": "TPL_AUTOMATIC_EXPIRATION",
+    "type": "Positive",
+    "expects": "Match"
+  },
+  {
+    "id": "MUT_TPL_AUTOMATIC_EXPIRATION_NEG1",
+    "template": "TPL_AUTOMATIC_EXPIRATION",
+    "type": "Lexical Mutation",
+    "mutation": "Replace Modal with NEG_NOT",
+    "expects": "Fail"
+  },
+  {
+    "id": "MUT_TPL_AUTOMATIC_EXPIRATION_NEG2",
+    "template": "TPL_AUTOMATIC_EXPIRATION",
+    "type": "Semantic Contradiction",
+    "mutation": "Add EXC_LAW",
+    "expects": "Edge Case"
+  }
+]

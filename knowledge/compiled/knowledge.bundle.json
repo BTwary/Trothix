@@ -1,0 +1,20 @@
+{
+  "version": "1.3.2",
+  "domains": {
+    "Assignment": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    }
+  }
+}

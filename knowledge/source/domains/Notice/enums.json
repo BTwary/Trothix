@@ -1,0 +1,54 @@
+{
+  "deliveryMethods": [
+    {
+      "id": "DELIVERY_EMAIL",
+      "terms": [
+        "by email"
+      ]
+    },
+    {
+      "id": "DELIVERY_REGISTERED_MAIL",
+      "terms": [
+        "by registered mail"
+      ]
+    },
+    {
+      "id": "DELIVERY_COURIER",
+      "terms": [
+        "by recognized overnight courier"
+      ]
+    },
+    {
+      "id": "DELIVERY_PERSONAL",
+      "terms": [
+        "delivered personally"
+      ]
+    }
+  ],
+  "temporalExpressions": [
+    {
+      "id": "TIME_UPON_RECEIPT",
+      "terms": [
+        "upon receipt"
+      ]
+    },
+    {
+      "id": "TIME_3_BUSINESS_DAYS",
+      "terms": [
+        "three (3) business days after mailing"
+      ]
+    },
+    {
+      "id": "TIME_1_BUSINESS_DAY",
+      "terms": [
+        "one (1) business day after dispatch"
+      ]
+    },
+    {
+      "id": "TIME_UPON_CONFIRMATION",
+      "terms": [
+        "upon confirmation of transmission"
+      ]
+    }
+  ]
+}

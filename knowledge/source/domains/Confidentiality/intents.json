@@ -1,0 +1,16 @@
+[
+  {
+    "id": "INTENT_KEEP_SECRET",
+    "terms": [
+      "hold in strict confidence",
+      "maintain confidentiality",
+      "protect proprietary information"
+    ]
+  },
+  {
+    "id": "INTENT_DISCLOSE",
+    "terms": [
+      "disclose"
+    ]
+  }
+]

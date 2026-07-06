@@ -1,0 +1,23 @@
+[
+  {
+    "id": "TEST_CONF_01",
+    "type": "Real Clause",
+    "clause": "The Receiving Party shall hold all Confidential Information in strict confidence and shall not disclose such Confidential Information to any third party without the prior written consent of the Disclosing Party.",
+    "expected": {
+      "finding": "RULE_NON_DISCLOSURE",
+      "trace": {
+        "decisionTable": "DT_CONFIDENTIALITY",
+        "rule": "RULE_NON_DISCLOSURE",
+        "template": "NON_DISCLOSURE_PROHIBITION"
+      }
+    }
+  },
+  {
+    "id": "TEST_CONF_NEG_01",
+    "type": "Inverse False Positive",
+    "clause": "Receiving Party may disclose Confidential Information.",
+    "expected": {
+      "finding": null
+    }
+  }
+]

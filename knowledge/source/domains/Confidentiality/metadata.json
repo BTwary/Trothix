@@ -1,0 +1,14 @@
+{
+  "source": "SEC EDGAR (Standard Commercial NDA)",
+  "documentType": "Mutual NDA",
+  "jurisdiction": "US",
+  "industry": "Technology",
+  "clauseType": "Confidentiality",
+  "language": "English",
+  "reviewStatus": "Verified",
+  "reviewedBy": "Antigravity",
+  "license": "Public Filing",
+  "retrievedAt": "2026-07-06",
+  "documentHash": "a1b2c3d4e5",
+  "knowledgeFingerprint": "0192837465abcdf"
+}

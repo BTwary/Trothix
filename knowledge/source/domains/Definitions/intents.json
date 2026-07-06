@@ -1,0 +1,18 @@
+[
+  {
+    "id": "INTENT_DEFINE",
+    "terms": [
+      "means",
+      "shall mean",
+      "refers to",
+      "includes"
+    ]
+  },
+  {
+    "id": "INTENT_ALIAS",
+    "terms": [
+      "collectively referred to as",
+      "also known as"
+    ]
+  }
+]

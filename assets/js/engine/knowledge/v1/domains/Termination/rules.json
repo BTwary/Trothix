@@ -1,0 +1,26 @@
+[
+  {
+    "id": "DECISION_TERM_001",
+    "name": "Termination for Convenience",
+    "inputs": [
+      "templates",
+      "events"
+    ],
+    "conditions": [
+      {
+        "matchTemplate": "TPL_TERMINATION_FOR_CONVENIENCE"
+      }
+    ],
+    "output": {
+      "findingType": "TerminationForConvenience",
+      "severity": "Neutral"
+    },
+    "domainDependencies": [
+      {
+        "requires": "Notice",
+        "type": "mandatory",
+        "confidence": 1
+      }
+    ]
+  }
+]

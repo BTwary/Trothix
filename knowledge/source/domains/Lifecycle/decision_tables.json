@@ -1,0 +1,20 @@
+[
+  {
+    "id": "DT_LIFECYCLE",
+    "purpose": "Evaluates state transitions and validity.",
+    "inputs": [
+      "STATE_TRANSITION"
+    ],
+    "conditions": [
+      {
+        "match": "RULE_ILLEGAL_STATE_TRANSITION"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_ILLEGAL_STATE_TRANSITION",
+        "legal_effect": "VOID"
+      }
+    ]
+  }
+]

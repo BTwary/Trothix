@@ -1,0 +1,14 @@
+[
+  {
+    "id": "EVENT_NOTICE",
+    "trigger": "Notice Served"
+  },
+  {
+    "id": "EVENT_BREACH",
+    "trigger": "Material Breach Occurs"
+  },
+  {
+    "id": "EVENT_TIME_ELAPSED",
+    "trigger": "Time Elapsed"
+  }
+]

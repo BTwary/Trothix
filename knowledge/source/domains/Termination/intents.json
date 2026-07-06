@@ -1,0 +1,33 @@
+[
+  {
+    "id": "INTENT_END_CONTRACT",
+    "terms": [
+      "terminate",
+      "cancel",
+      "expire",
+      "cease",
+      "rescind",
+      "withdraw",
+      "revoke",
+      "bring to an end",
+      "come to an end"
+    ]
+  },
+  {
+    "id": "INTENT_CURE",
+    "terms": [
+      "cure",
+      "remedy",
+      "fix",
+      "correct"
+    ]
+  },
+  {
+    "id": "INTENT_RENEW",
+    "terms": [
+      "renew",
+      "extend",
+      "automatically renew"
+    ]
+  }
+]

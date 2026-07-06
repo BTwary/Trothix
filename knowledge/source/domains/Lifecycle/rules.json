@@ -1,0 +1,30 @@
+[
+  {
+    "id": "RULE_PROPER_NOTICE_TIMELINE",
+    "concept": "LIFECYCLE",
+    "category": "Positive",
+    "severity": "Low",
+    "jurisdiction": "Universal",
+    "rationale": "Notice timeline is strictly followed.",
+    "recommendation": "None.",
+    "legal_effect": "PERMITTED",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": []
+  },
+  {
+    "id": "RULE_ILLEGAL_STATE_TRANSITION",
+    "concept": "LIFECYCLE",
+    "category": "Risk",
+    "severity": "High",
+    "jurisdiction": "Universal",
+    "rationale": "An illegal contract state transition was detected.",
+    "recommendation": "Ensure state transitions are logically valid.",
+    "legal_effect": "VOID",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": []
+  }
+]

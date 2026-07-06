@@ -1,0 +1,12 @@
+{
+  "source": "SEC EDGAR",
+  "documentType": "Mutual NDA",
+  "jurisdiction": "US",
+  "industry": "Technology",
+  "clauseType": "Notice",
+  "language": "English",
+  "reviewStatus": "Verified",
+  "retrievedAt": "2026-07-06",
+  "documentHash": "b2c3d4e5f6",
+  "knowledgeFingerprint": "abcdf0192837465"
+}

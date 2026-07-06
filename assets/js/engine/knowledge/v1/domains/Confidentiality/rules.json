@@ -1,47 +1,58 @@
 [
   {
-    "id": "RULE_CONFIDENTIALITY_PRESENT",
-    "name": "Confidentiality Present",
-    "description": "Checks if Confidentiality is present.",
-    "category": "Completeness",
-    "severity": "Neutral",
-    "status": "production",
-    "when": {
-      "all": [
-        { "type": "conceptExists", "value": "CONCEPT_CONFIDENTIALITY" }
-      ]
+    "id": "DECISION_OBLIGATION_001",
+    "priority": 10,
+    "inputs": [
+      "tokens",
+      "actions",
+      "parties"
+    ],
+    "conditions": [
+      {
+        "containsIntent": "INTENT_RESTRICT_DISCLOSURE"
+      }
+    ],
+    "output": {
+      "type": "Finding",
+      "findingType": "StrictNonDisclosure",
+      "severity": "High"
     },
-    "then": { "type": "createFinding", "findingType": "ConfidentialityPresent" }
+    "trace": [
+      "Matched phrase with INTENT_RESTRICT_DISCLOSURE"
+    ],
+    "capabilities": {
+      "Commercial NDA": 0.4
+    },
+    "next": [
+      "DECISION_DEADLINE"
+    ]
   },
   {
-    "id": "RULE_CONFIDENTIALITY_MISSING",
-    "name": "Missing Confidentiality",
-    "description": "Checks if Confidentiality is unexpectedly missing.",
-    "category": "Completeness",
-    "severity": "High",
-    "status": "production",
-    "when": {
-      "all": [
-        { "type": "documentRequiresConcept", "value": "CONCEPT_CONFIDENTIALITY" },
-        { "type": "conceptMissing", "value": "CONCEPT_CONFIDENTIALITY" }
-      ]
+    "id": "DECISION_RISK_001",
+    "priority": 20,
+    "inputs": [
+      "findings"
+    ],
+    "conditions": [
+      {
+        "missingEntity": "ENTITY_EXCEPTION_REQUIRED_BY_LAW"
+      }
+    ],
+    "output": {
+      "type": "Finding",
+      "findingType": "MissingLegalException",
+      "severity": "Critical"
     },
-    "then": { "type": "createFinding", "findingType": "MissingConfidentiality" }
-  },
-  {
-    "id": "RULE_CONFIDENTIALITY_MUTUALITY_RISK",
-    "name": "Asymmetric Confidentiality Risk",
-    "description": "Checks if confidentiality obligations are only unilateral in a Mutual NDA.",
-    "category": "Risk",
-    "severity": "High",
-    "status": "production",
-    "when": {
-      "all": [
-        { "type": "conceptExists", "value": "CONCEPT_CONFIDENTIALITY" },
-        { "type": "documentTypeEquals", "value": "Mutual NDA" },
-        { "type": "asymmetricObligation", "value": "ACTION_PROTECT" }
-      ]
+    "recommendation": {
+      "text": "Add 'except as required by law or court order'",
+      "priority": "High"
     },
-    "then": { "type": "createFinding", "findingType": "AsymmetricConfidentiality" }
+    "trace": [
+      "Checked exception entities in AST"
+    ],
+    "capabilities": {
+      "Commercial NDA": 0.5,
+      "MSA": 0.3
+    }
   }
 ]

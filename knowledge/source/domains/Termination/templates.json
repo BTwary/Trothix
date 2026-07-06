@@ -1,0 +1,29 @@
+[
+  {
+    "id": "TPL_TERMINATION_FOR_CONVENIENCE",
+    "structure": [
+      "ACTOR",
+      "MODAL",
+      "INTENT_END_CONTRACT",
+      "OBJECT",
+      "COND_NOTICE"
+    ]
+  },
+  {
+    "id": "TPL_TERMINATION_FOR_CAUSE",
+    "structure": [
+      "ACTOR",
+      "MODAL",
+      "INTENT_END_CONTRACT",
+      "COND_BREACH"
+    ]
+  },
+  {
+    "id": "TPL_AUTOMATIC_EXPIRATION",
+    "structure": [
+      "OBJECT",
+      "INTENT_END_CONTRACT",
+      "COND_NOTICE"
+    ]
+  }
+]

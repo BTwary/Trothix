@@ -1,0 +1,22 @@
+[
+  {
+    "id": "STATE_ACTIVE",
+    "name": "Active"
+  },
+  {
+    "id": "STATE_NOTICE_PENDING",
+    "name": "Notice Pending"
+  },
+  {
+    "id": "STATE_CURE_PENDING",
+    "name": "Cure Pending"
+  },
+  {
+    "id": "STATE_TERMINATED",
+    "name": "Terminated"
+  },
+  {
+    "id": "STATE_EXPIRED",
+    "name": "Expired"
+  }
+]

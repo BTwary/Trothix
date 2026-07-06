@@ -1,0 +1,20 @@
+[
+  {
+    "id": "PARTY_RECEIVER",
+    "terms": [
+      "Receiving Party"
+    ]
+  },
+  {
+    "id": "PARTY_SENDER",
+    "terms": [
+      "Disclosing Party"
+    ]
+  },
+  {
+    "id": "PARTY_THIRD",
+    "terms": [
+      "third party"
+    ]
+  }
+]

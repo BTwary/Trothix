@@ -1,0 +1,26 @@
+[
+  {
+    "id": "MOD_IMMEDIATE",
+    "terms": [
+      "immediately",
+      "promptly",
+      "forthwith",
+      "without delay"
+    ]
+  },
+  {
+    "id": "MOD_MATERIAL",
+    "terms": [
+      "material",
+      "substantial",
+      "significant"
+    ]
+  },
+  {
+    "id": "MOD_REASONABLE",
+    "terms": [
+      "reasonable",
+      "commercially reasonable"
+    ]
+  }
+]

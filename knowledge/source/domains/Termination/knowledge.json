@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "actors": "actors.json",
+  "objects": "objects.json",
+  "modals": "modals.json",
+  "negations": "negations.json",
+  "modifiers": "modifiers.json",
+  "exceptions": "exceptions.json",
+  "conditions": "conditions.json",
+  "intents": "intents.json",
+  "states": "states.json",
+  "events": "events.json",
+  "constraints": "constraints.json",
+  "templates": "templates.json"
+}

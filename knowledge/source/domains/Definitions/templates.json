@@ -1,0 +1,22 @@
+[
+  {
+    "family": "DEFINE_TERM",
+    "templates": [
+      [
+        "DEFINED_TERM",
+        "INTENT_DEFINE",
+        "DEFINITION_BODY"
+      ]
+    ]
+  },
+  {
+    "family": "DEFINE_ALIAS",
+    "templates": [
+      [
+        "DEFINED_TERM",
+        "INTENT_ALIAS",
+        "ALIAS_TERM"
+      ]
+    ]
+  }
+]

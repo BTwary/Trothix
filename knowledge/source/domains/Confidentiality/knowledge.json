@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "actors": "actors.json",
+  "objects": "objects.json",
+  "modals": "modals.json",
+  "intents": "intents.json",
+  "negations": "negations.json",
+  "exceptions": "exceptions.json",
+  "templates": "templates.json",
+  "decision_tables": "decision_tables.json",
+  "rules": "rules.json"
+}

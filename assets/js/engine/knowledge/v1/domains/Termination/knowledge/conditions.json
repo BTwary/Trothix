@@ -1,0 +1,25 @@
+[
+  {
+    "id": "COND_BREACH",
+    "terms": [
+      "upon breach",
+      "in the event of breach",
+      "if a breach exists"
+    ]
+  },
+  {
+    "id": "COND_NOTICE",
+    "terms": [
+      "upon written notice",
+      "after notice",
+      "following notice"
+    ]
+  },
+  {
+    "id": "COND_CURE",
+    "terms": [
+      "after cure period",
+      "fails to cure"
+    ]
+  }
+]

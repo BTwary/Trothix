@@ -1,14 +1,61 @@
 [
   {
-    "id": "ENTITY_CONFIDENTIALITY_TERM",
-    "name": "Confidentiality Term",
-    "extractor": "durationExtractor",
-    "normalizer": "durationNormalizer"
+    "id": "ENTITY_CONFIDENTIAL_INFO",
+    "name": "Confidential Information",
+    "aliases": [
+      "Proprietary Data",
+      "Sensitive Information",
+      "Trade Secrets"
+    ]
   },
   {
-    "id": "ENTITY_STANDARD_OF_CARE",
-    "name": "Standard of Care",
-    "extractor": "phraseExtractor",
-    "normalizer": "standardOfCareNormalizer"
+    "id": "ENTITY_TRADE_SECRET",
+    "name": "Trade Secret",
+    "aliases": [
+      "commercial secret",
+      "know-how"
+    ]
+  },
+  {
+    "id": "ENTITY_EXCEPTION_REQUIRED_BY_LAW",
+    "name": "Required by Law",
+    "aliases": [
+      "court order",
+      "government authority",
+      "subpoena"
+    ],
+    "category": "Exception"
+  },
+  {
+    "id": "ENTITY_EXCEPTION_PRIOR_KNOWLEDGE",
+    "name": "Prior Knowledge",
+    "aliases": [
+      "already public",
+      "independently developed",
+      "third party"
+    ],
+    "category": "Exception"
+  },
+  {
+    "id": "ENTITY_QUANTIFIER_REASONABLE",
+    "name": "Reasonable Quantifier",
+    "aliases": [
+      "commercially reasonable",
+      "best",
+      "strict",
+      "material"
+    ],
+    "category": "Quantifier"
+  },
+  {
+    "id": "ENTITY_TEMPORAL_PERPETUAL",
+    "name": "Perpetual Duration",
+    "aliases": [
+      "perpetual",
+      "survive",
+      "indefinite",
+      "forever"
+    ],
+    "category": "Temporal"
   }
 ]

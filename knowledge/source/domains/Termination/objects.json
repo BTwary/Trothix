@@ -1,0 +1,29 @@
+[
+  {
+    "id": "AGREEMENT",
+    "terms": [
+      "Agreement",
+      "Contract",
+      "Services",
+      "SOW",
+      "Term Sheet"
+    ]
+  },
+  {
+    "id": "NOTICE",
+    "terms": [
+      "Notice",
+      "Written Notice",
+      "Notification"
+    ]
+  },
+  {
+    "id": "BREACH",
+    "terms": [
+      "Material Breach",
+      "Minor Breach",
+      "Violation",
+      "Default"
+    ]
+  }
+]

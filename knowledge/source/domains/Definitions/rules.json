@@ -1,0 +1,50 @@
+[
+  {
+    "id": "RULE_DEFINITIONS_PRESENT",
+    "concept": "NOTICE",
+    "category": "Positive",
+    "severity": "Low",
+    "jurisdiction": "Universal",
+    "rationale": "Definitions are properly structured and present.",
+    "recommendation": "Review definitions for consistency with usage.",
+    "legal_effect": "DEFINITION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_DEF_01"
+    ]
+  },
+  {
+    "id": "RULE_ALIASES_RESOLVED",
+    "concept": "NOTICE",
+    "category": "Positive",
+    "severity": "Low",
+    "jurisdiction": "Universal",
+    "rationale": "Synonyms are successfully resolved to canonical entities.",
+    "recommendation": "Ensure aliases are consistent throughout the document.",
+    "legal_effect": "ALIAS",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_DEF_02"
+    ]
+  },
+  {
+    "id": "RULE_UNDEFINED_CAPITALIZED_TERM",
+    "concept": "NOTICE",
+    "category": "Risk",
+    "severity": "Medium",
+    "jurisdiction": "Universal",
+    "rationale": "Capitalized term is used but not defined in the Definitions section.",
+    "recommendation": "Provide explicit definition for this capitalized term.",
+    "legal_effect": "RISK",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_DEF_03"
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "NEG_NOT",
+    "terms": [
+      "not",
+      "never",
+      "without"
+    ]
+  },
+  {
+    "id": "NEG_EXCEPT",
+    "terms": [
+      "unless",
+      "except",
+      "excluding"
+    ]
+  },
+  {
+    "id": "NEG_PROHIBITED",
+    "terms": [
+      "prohibited",
+      "forbidden",
+      "restricted"
+    ]
+  }
+]

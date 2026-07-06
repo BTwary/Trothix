@@ -1,0 +1,15 @@
+[
+  {
+    "id": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "terms": [
+      "Confidential Information"
+    ]
+  },
+  {
+    "id": "DEFINITION",
+    "terms": [
+      "definition",
+      "definitions"
+    ]
+  }
+]

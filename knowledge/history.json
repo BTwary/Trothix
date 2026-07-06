@@ -1,0 +1,47 @@
+[
+  {
+    "date": "2026-07-06",
+    "domain": "Confidentiality",
+    "source": "SEC",
+    "knowledgeFingerprint": "0192837465abcdf",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+1.0%"
+  },
+  {
+    "date": "2026-07-06",
+    "domain": "Confidentiality",
+    "source": "SEC",
+    "knowledgeFingerprint": "0192837465abcdf",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+1.0%"
+  },
+  {
+    "date": "2026-07-06",
+    "domain": "Confidentiality",
+    "source": "SEC",
+    "knowledgeFingerprint": "0192837465abcdf",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+1.0%"
+  },
+  {
+    "date": "2026-07-06",
+    "domain": "Lifecycle",
+    "source": "SEC",
+    "knowledgeFingerprint": "lifecycle0192837465",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+${overallCoverage - 24}%"
+  },
+  {
+    "date": "2026-07-06",
+    "domain": "Assignment",
+    "source": "SEC",
+    "knowledgeFingerprint": "assignment0192837465",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+66%"
+  }
+]

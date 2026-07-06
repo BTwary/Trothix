@@ -2,23 +2,41 @@
   {
     "id": "ACTION_DISCLOSE",
     "name": "Disclose",
-    "synonyms": ["share", "publish", "reveal", "disseminate"],
+    "synonyms": [
+      "share",
+      "publish",
+      "reveal",
+      "disseminate",
+      "divulge",
+      "distribute",
+      "transmit",
+      "make known"
+    ],
     "grammar": {
       "subject": "Party",
       "object": "Information",
       "recipient": "Party",
-      "constraints": []
+      "constraints": [
+        "without consent"
+      ]
     }
   },
   {
     "id": "ACTION_PROTECT",
     "name": "Protect",
-    "synonyms": ["safeguard", "secure", "hold in confidence", "keep confidential"],
+    "synonyms": [
+      "safeguard",
+      "secure",
+      "hold in confidence",
+      "keep confidential",
+      "preserve"
+    ],
     "grammar": {
       "subject": "Party",
       "object": "Information",
-      "recipient": null,
-      "constraints": ["ENTITY_STANDARD_OF_CARE"]
+      "constraints": [
+        "ENTITY_STANDARD_OF_CARE"
+      ]
     }
   }
 ]

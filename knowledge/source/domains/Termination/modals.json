@@ -1,0 +1,20 @@
+[
+  {
+    "id": "OBLIGATION",
+    "terms": [
+      "shall",
+      "must",
+      "will",
+      "agrees to",
+      "undertakes to"
+    ]
+  },
+  {
+    "id": "PERMISSION",
+    "terms": [
+      "may",
+      "has the right to",
+      "is permitted to"
+    ]
+  }
+]

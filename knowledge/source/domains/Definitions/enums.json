@@ -1,0 +1,29 @@
+{
+  "definitionStyles": [
+    {
+      "id": "STYLE_MEANS",
+      "terms": [
+        "means"
+      ]
+    },
+    {
+      "id": "STYLE_SHALL_MEAN",
+      "terms": [
+        "shall mean"
+      ]
+    },
+    {
+      "id": "STYLE_REFERS_TO",
+      "terms": [
+        "refers to"
+      ]
+    },
+    {
+      "id": "STYLE_INCLUDES",
+      "terms": [
+        "includes",
+        "includes but not limited to"
+      ]
+    }
+  ]
+}

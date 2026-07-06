@@ -1,0 +1,34 @@
+[
+  {
+    "id": "PARTY_RECEIVER",
+    "terms": [
+      "Recipient",
+      "Receiving Party",
+      "Consultant",
+      "Vendor",
+      "Supplier",
+      "Contractor",
+      "Employee"
+    ]
+  },
+  {
+    "id": "PARTY_SENDER",
+    "terms": [
+      "Discloser",
+      "Disclosing Party",
+      "Client",
+      "Customer",
+      "Company",
+      "Employer"
+    ]
+  },
+  {
+    "id": "PARTY_ANY",
+    "terms": [
+      "Either party",
+      "Any party",
+      "A party",
+      "The parties"
+    ]
+  }
+]

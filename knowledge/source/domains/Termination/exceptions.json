@@ -1,0 +1,25 @@
+[
+  {
+    "id": "EXC_LAW",
+    "terms": [
+      "unless prohibited",
+      "except by law",
+      "required by law"
+    ]
+  },
+  {
+    "id": "EXC_CONSENT",
+    "terms": [
+      "except with consent",
+      "without prior written consent"
+    ]
+  },
+  {
+    "id": "EXC_FRAUD",
+    "terms": [
+      "except fraud",
+      "except willful misconduct",
+      "gross negligence"
+    ]
+  }
+]
