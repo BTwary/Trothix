@@ -1,8 +1,8 @@
 import { segmentClauses } from './segmenter.js';
 import { extractEntities, extractObligations, extractRights, extractExceptions, extractDeadlines, extractPlaceholders, extractMetadata, extractSignatureStatus } from './extractor.js';
 import { classifyClauses } from './classifier.js';
-import { calculateFairness } from '../rules/fairness.js';
-import { calculateRisk } from '../rules/riskEngine.js';
+import { calculateFairness } from '../../rules/fairness.js';
+import { calculateRisk } from '../../rules/riskEngine.js';
 import { verifyChecklist } from './checklist.js';
 import { calculateConfidence } from './confidence.js';
 import { generateReport } from './reportGenerator.js';
