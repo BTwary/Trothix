@@ -1,0 +1,21 @@
+{
+  "id": "VSN_CAPABILITIES",
+  "version": "1.0.0",
+  "purpose": "Replaces feature tracking. Defines the required domains, rules, and coverage metrics needed for a specific document type to be supported (e.g. Commercial NDA).",
+  "scope": [
+    "Commercial NDA",
+    "Employment Agreement",
+    "Lease",
+    "MSA",
+    "Service Agreement",
+    "Privacy Policy",
+    "Terms of Service"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

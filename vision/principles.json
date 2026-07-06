@@ -1,0 +1,26 @@
+{
+  "id": "VSN_PRINCIPLES",
+  "version": "1.0.0",
+  "purpose": "Trothix is a deterministic legal decision system. Every conclusion is the result of evaluating explicit decision tables over structured legal facts. No legal knowledge exists in executable code.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "RULE_0001: No engine may contain legal knowledge.",
+    "RULE_0002: Every engine is only an evaluator.",
+    "RULE_0003: All legal knowledge lives inside knowledge/.",
+    "RULE_0004: Adding support for a new legal concept must never require modifying engine code.",
+    "RULE_0005: The engine changes rarely. The knowledge changes continuously.",
+    "RULE_0006: Every legal decision must be explainable.",
+    "RULE_0007: Every finding must trace back to a decision.",
+    "RULE_0008: Every score must derive from findings.",
+    "RULE_0009: Nothing in the deterministic engine may depend on an LLM.",
+    "RULE_0010: No feature enters production unless it improves a verified capability."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

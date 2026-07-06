@@ -1,0 +1,17 @@
+{
+  "id": "VSN_GOVERNANCE",
+  "version": "1.0.0",
+  "purpose": "Defines the review workflow, versioning, deprecation, and ownership of rules and ontology nodes.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Changes to knowledge must pass the knowledge linter and regression pass."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

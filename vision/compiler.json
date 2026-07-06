@@ -1,0 +1,21 @@
+{
+  "id": "VSN_COMPILER",
+  "version": "1.0.0",
+  "purpose": "Defines the 26-stage deterministic compilation pipeline.",
+  "scope": [
+    "Lexer",
+    "Tokenizer",
+    "Parser",
+    "Clause Builder",
+    "Legal IR Builder"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Lexical processing strictly feeds into the Decision Graph."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

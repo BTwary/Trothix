@@ -1,0 +1,19 @@
+{
+  "id": "VSN_TELEMETRY",
+  "version": "1.0.0",
+  "purpose": "Defines the Telemetry Bus for tracking analyses, engine_runs, findings, metrics, and coverage.",
+  "scope": [
+    "Console",
+    "Supabase",
+    "OpenTelemetry",
+    "Sentry",
+    "PostHog"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

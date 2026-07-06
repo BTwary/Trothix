@@ -1,0 +1,17 @@
+{
+  "id": "VSN_SECURITY",
+  "version": "1.0.0",
+  "purpose": "Defines the security posture, row-level security, and data redaction policies.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Client data is never persisted without explicit consent."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

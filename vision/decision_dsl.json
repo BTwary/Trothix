@@ -1,0 +1,24 @@
+{
+  "id": "VSN_DECISION_DSL",
+  "version": "1.0.0",
+  "purpose": "Defines the JSON schema for decision tables.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [
+    "priority",
+    "inputs",
+    "conditions",
+    "output",
+    "next",
+    "trace"
+  ],
+  "outputs": [],
+  "constraints": [
+    "A decision is represented strictly as data (e.g. `when`, `contains`, `then`, `next`)."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

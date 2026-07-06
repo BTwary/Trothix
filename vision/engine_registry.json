@@ -1,0 +1,17 @@
+{
+  "id": "VSN_ENGINE_REGISTRY",
+  "version": "1.0.0",
+  "purpose": "Manages the lifecycle, dependencies, and caching of all evaluators.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Engines are purely stateless evaluators of decision tables."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

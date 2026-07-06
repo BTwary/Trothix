@@ -1,0 +1,17 @@
+{
+  "id": "VSN_ROADMAP",
+  "version": "1.0.0",
+  "purpose": "Defines the strategic execution path for graduating capabilities.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Roadmap items must tie directly to verified capabilities."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

@@ -1,0 +1,20 @@
+{
+  "id": "VSN_ARCHITECTURE",
+  "version": "1.0.0",
+  "purpose": "Defines the high-level flow of the Deterministic Decision System, from text extraction to optional AI narration.",
+  "scope": [
+    "PDF Processing",
+    "IR Building",
+    "Decision Graph",
+    "Assessment Layer"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Data flows in a strictly acyclic, deterministic graph."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

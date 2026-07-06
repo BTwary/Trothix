@@ -1,0 +1,18 @@
+{
+  "id": "VSN_EXECUTION_MODEL",
+  "version": "1.0.0",
+  "purpose": "Defines the Decision Graph (Decision -> Outcome -> Decision -> Finding) execution model.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Must behave exactly like a compiler.",
+    "State mutations only allowed via explicit patches."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

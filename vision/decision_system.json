@@ -1,0 +1,22 @@
+{
+  "id": "VSN_DECISION_SYSTEM",
+  "version": "1.0.0",
+  "purpose": "Defines the core Decision Table Evaluator. Executes the JSON decision graphs dynamically.",
+  "scope": [
+    "RuleCompiler",
+    "DecisionEvaluator",
+    "DecisionContext",
+    "DecisionCache"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Rules must compile once.",
+    "Never interpret JSON repeatedly.",
+    "Evaluate decision tables using logical operators (AND, OR, NOT, ANY, ALL, EXISTS, MATCHES, etc.)."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

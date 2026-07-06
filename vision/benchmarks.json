@@ -1,0 +1,24 @@
+{
+  "id": "VSN_BENCHMARKS",
+  "version": "1.0.0",
+  "purpose": "Defines the metrics used to track platform health and intelligence.",
+  "scope": [
+    "Coverage",
+    "Rule Accuracy",
+    "False Positives",
+    "False Negatives",
+    "Parser Accuracy",
+    "Finding Accuracy",
+    "Capability Coverage",
+    "Knowledge Density",
+    "Regression Pass Rate",
+    "Rule Confidence"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

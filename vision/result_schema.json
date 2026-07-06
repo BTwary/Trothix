@@ -1,0 +1,26 @@
+{
+  "id": "VSN_RESULT_SCHEMA",
+  "version": "1.0.0",
+  "purpose": "Defines the structure of a Finding and the final Report.",
+  "scope": [
+    "id",
+    "type",
+    "severity",
+    "confidence",
+    "decision",
+    "engine",
+    "evidence",
+    "recommendation",
+    "timestamp",
+    "version"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [
+    "No engine produces custom warnings. Only Findings."
+  ],
+  "future": [],
+  "references": []
+}

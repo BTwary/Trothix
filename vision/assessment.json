@@ -1,0 +1,17 @@
+{
+  "id": "VSN_ASSESSMENT",
+  "version": "1.0.0",
+  "purpose": "Defines the engines for evaluating Risk, Fairness, Completeness, and Positives based entirely on upstream findings.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Assessment engines cannot invent facts; they only aggregate findings."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

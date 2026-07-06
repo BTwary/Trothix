@@ -1,0 +1,24 @@
+{
+  "id": "VSN_TESTING",
+  "version": "1.0.0",
+  "purpose": "Defines the deterministic testing pyramid.",
+  "scope": [
+    "Lexer Tests",
+    "Parser Tests",
+    "Ontology Tests",
+    "Rule Tests",
+    "Capability Tests",
+    "Regression Tests",
+    "Golden Tests",
+    "Benchmark Tests",
+    "Performance Tests",
+    "Knowledge Validation Tests"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

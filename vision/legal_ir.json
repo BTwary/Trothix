@@ -1,0 +1,18 @@
+{
+  "id": "VSN_LEGAL_IR",
+  "version": "1.0.0",
+  "purpose": "Defines the schema for the Legal Intermediate Representation (Document, Node, Clause, Party, Action, etc.).",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "All fields must be strictly typed.",
+    "Every output must have a Decision Trace (Why? -> Which decision? -> Which phrase? -> Which rule? -> Which evidence? -> Which node? -> Which document? -> Which version?)."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

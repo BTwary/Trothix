@@ -1,0 +1,17 @@
+{
+  "id": "VSN_DEPLOYMENT",
+  "version": "1.0.0",
+  "purpose": "Defines the CI/CD pipeline, preview deployments, and knowledge versioning in production.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Knowledge updates can be deployed independently of the engine code."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

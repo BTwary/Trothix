@@ -1,0 +1,17 @@
+{
+  "id": "VSN_PLUGINS",
+  "version": "1.0.0",
+  "purpose": "Defines the interfaces for all plugins (Parser, Party Resolver, Entity Engine, etc.) which act as specialized decision evaluators.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Plugins must return patches or findings, never modify state directly."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

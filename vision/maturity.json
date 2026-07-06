@@ -1,0 +1,17 @@
+{
+  "id": "VSN_MATURITY",
+  "version": "1.0.0",
+  "purpose": "Defines the graduation criteria for capabilities: Experimental -> Beta -> Verified -> Production.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Every promotion must require minimum rules, minimum tests, coverage, manual review, regression pass."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

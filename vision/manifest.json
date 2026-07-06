@@ -1,0 +1,17 @@
+{
+  "id": "VSN_MANIFEST",
+  "version": "1.0.0",
+  "purpose": "The root index defining the entire Deterministic Decision System.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "The system must be fully deterministic and machine-readable."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

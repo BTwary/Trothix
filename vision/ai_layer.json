@@ -1,0 +1,24 @@
+{
+  "id": "VSN_AI_LAYER",
+  "version": "1.0.0",
+  "purpose": "Defines the exact role of AI in Trothix.",
+  "scope": [
+    "Explain",
+    "Narrate",
+    "Research",
+    "Consensus"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [
+    "Extract legal facts",
+    "Modify IR",
+    "Create findings",
+    "Score contracts",
+    "Override deterministic logic"
+  ],
+  "future": [],
+  "references": []
+}

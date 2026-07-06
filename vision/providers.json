@@ -1,0 +1,19 @@
+{
+  "id": "VSN_PROVIDERS",
+  "version": "1.0.0",
+  "purpose": "Provider abstraction for LLMs (Gemini, Groq, Mistral, OpenRouter).",
+  "scope": [
+    "chat()",
+    "models()",
+    "health()",
+    "cost()",
+    "limits()"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

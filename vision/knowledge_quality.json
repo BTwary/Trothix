@@ -1,0 +1,17 @@
+{
+  "id": "VSN_KNOWLEDGE_QUALITY",
+  "version": "1.0.0",
+  "purpose": "Defines the standards for knowledge density and test coverage.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Every decision table must have corresponding unit tests."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

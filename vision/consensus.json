@@ -1,0 +1,17 @@
+{
+  "id": "VSN_CONSENSUS",
+  "version": "1.0.0",
+  "purpose": "Defines the layer for resolving conflicts and aggregating confidence.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Consensus is only used for narration, not for mutating deterministic facts."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}

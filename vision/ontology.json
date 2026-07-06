@@ -1,0 +1,17 @@
+{
+  "id": "VSN_ONTOLOGY",
+  "version": "1.0.0",
+  "purpose": "Defines the semantic hierarchy of legal domains.",
+  "scope": [
+    "Trothix Architecture"
+  ],
+  "dependencies": [],
+  "inputs": [],
+  "outputs": [],
+  "constraints": [
+    "Ontology must be DAG-structured."
+  ],
+  "forbidden": [],
+  "future": [],
+  "references": []
+}
