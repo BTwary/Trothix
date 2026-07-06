@@ -5,9 +5,13 @@ export function calculateRisk(clauses, placeholders, riskRules) {
   clauses.forEach(c => {
      const t = c.text.toLowerCase();
      riskRules.forEach(rule => {
-        if (t.includes(rule.pattern.toLowerCase())) {
+        const pLower = rule.pattern.toLowerCase();
+        const idx = t.indexOf(pLower);
+        if (idx !== -1) {
            score += rule.score;
-           flags.push({ severity: rule.level.toUpperCase(), clause: c.title, message: rule.explanation || `Detected risk pattern: "${rule.pattern}"` });
+           // Extract the exact case-sensitive matched string for highlighting
+           const matchedText = c.text.substring(idx, idx + rule.pattern.length);
+           flags.push({ severity: rule.level.toUpperCase(), clause: matchedText, message: rule.explanation || `Detected risk pattern: "${rule.pattern}"` });
         }
      });
   });

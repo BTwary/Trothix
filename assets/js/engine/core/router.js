@@ -42,7 +42,7 @@ export async function processDocument(documentText, providedType, userContext, r
   };
 
   // If the confidence is too low or we missed crucial elements, engage AI
-  if (ir.confidenceScore < 60) {
+  if (ir.confidenceScore < 60 || ir.obligations.length === 0) {
       requiresAIFallback = true;
       missingClausesPayload.push({
         type: 'low_confidence',
