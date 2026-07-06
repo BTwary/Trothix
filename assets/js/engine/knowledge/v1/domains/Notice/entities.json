@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ENTITY_NOTICE_TERM",
-    "name": "Notice Term",
-    "extractor": "durationExtractor",
-    "normalizer": "durationNormalizer"
-  }
-]

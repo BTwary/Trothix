@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "assignment_types": "assignment_types.json",
+  "successors": "successors.json",
+  "delegation": "delegation.json",
+  "consent": "consent.json",
+  "corporate_events": "corporate_events.json",
+  "restrictions": "restrictions.json",
+  "exceptions": "exceptions.json",
+  "templates": "templates.json",
+  "decision_tables": "decision_tables.json",
+  "rules": "rules.json"
+}

@@ -1,9 +1,0 @@
-[
-  {
-    "id": "REL_GOVERNINGLAW_EXAMPLE",
-    "source": "CONCEPT_GOVERNINGLAW",
-    "target": "CONCEPT_UNKNOWN",
-    "relation": "references",
-    "strength": "optional"
-  }
-]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED",
+    "concept": "OWNERSHIP",
+    "category": "Positive",
+    "severity": "Low",
+    "jurisdiction": "Universal",
+    "rationale": "IP ownership is clearly assigned to the creator/Disclosing Party.",
+    "recommendation": "None.",
+    "legal_effect": "OWNERSHIP"
+  },
+  {
+    "id": "RULE_OWNERSHIP_UNDEFINED",
+    "concept": "OWNERSHIP",
+    "category": "Risk",
+    "severity": "High",
+    "jurisdiction": "Universal",
+    "rationale": "No explicit assignment of created IP.",
+    "recommendation": "Ensure IP assignments are clearly written.",
+    "legal_effect": "VOID"
+  }
+]

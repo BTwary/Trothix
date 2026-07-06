@@ -1,0 +1,21 @@
+[
+  {
+    "id": "DT_ASSIGNMENT",
+    "purpose": "Determines if assignment is permitted and under what conditions.",
+    "inputs": [
+      "ASSIGNMENT_PROHIBITED",
+      "CONSENT_REQUIRED"
+    ],
+    "conditions": [
+      {
+        "match": "CONSENT_REQUIRED"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_CONSENT_REQUIRED",
+        "legal_effect": "RESTRICTION"
+      }
+    ]
+  }
+]

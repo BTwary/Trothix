@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "actors": "actors.json",
+  "objects": "objects.json",
+  "intents": "intents.json",
+  "enums": "enums.json",
+  "templates": "templates.json",
+  "decision_tables": "decision_tables.json",
+  "rules": "rules.json",
+  "defined_terms": "defined_terms.json",
+  "aliases": "aliases.json",
+  "definition_patterns": "definition_patterns.json",
+  "references": "references.json",
+  "enumerations": "enumerations.json"
+}

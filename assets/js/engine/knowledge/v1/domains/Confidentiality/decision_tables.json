@@ -1,0 +1,21 @@
+[
+  {
+    "id": "DT_CONFIDENTIALITY",
+    "purpose": "Evaluates if a confidentiality obligation exists",
+    "inputs": [
+      "CONFIDENTIALITY_OBLIGATION",
+      "NON_DISCLOSURE_PROHIBITION"
+    ],
+    "conditions": [
+      {
+        "matchAny": true
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_NON_DISCLOSURE",
+        "legal_effect": "OBLIGATION"
+      }
+    ]
+  }
+]

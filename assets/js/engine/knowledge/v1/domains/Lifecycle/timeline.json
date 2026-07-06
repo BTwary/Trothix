@@ -1,0 +1,20 @@
+{
+  "STATE_ACTIVE": [
+    {
+      "obligation": "Payment Obligation",
+      "status": "Mandatory"
+    }
+  ],
+  "STATE_TERMINATED": [
+    {
+      "obligation": "Confidentiality",
+      "status": "Active"
+    }
+  ],
+  "STATE_SURVIVING": [
+    {
+      "obligation": "Dispute Resolution",
+      "status": "Enforceable"
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ENTITY_GOVERNINGLAW_TERM",
-    "name": "GoverningLaw Term",
-    "extractor": "durationExtractor",
-    "normalizer": "durationNormalizer"
-  }
-]

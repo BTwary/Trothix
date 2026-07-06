@@ -1,9 +1,0 @@
-[
-  {
-    "id": "REL_TERMINATION_REQUIRES_NOTICE",
-    "source": "CONCEPT_TERMINATION",
-    "target": "CONCEPT_NOTICE",
-    "relation": "requires",
-    "strength": "required"
-  }
-]

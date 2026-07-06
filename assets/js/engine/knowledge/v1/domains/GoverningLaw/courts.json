@@ -1,0 +1,14 @@
+[
+  {
+    "id": "COURT_STATE",
+    "terms": [
+      "state courts"
+    ]
+  },
+  {
+    "id": "COURT_FEDERAL",
+    "terms": [
+      "federal courts"
+    ]
+  }
+]

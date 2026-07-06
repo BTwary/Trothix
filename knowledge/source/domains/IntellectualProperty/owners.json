@@ -1,0 +1,14 @@
+[
+  {
+    "id": "OWNER_DISCLOSING_PARTY",
+    "terms": [
+      "Disclosing Party"
+    ]
+  },
+  {
+    "id": "OWNER_RECEIVING_PARTY",
+    "terms": [
+      "Receiving Party"
+    ]
+  }
+]

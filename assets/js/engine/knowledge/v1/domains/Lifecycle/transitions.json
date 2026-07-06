@@ -1,0 +1,63 @@
+[
+  {
+    "from": "STATE_DRAFT",
+    "event": "EVENT_SIGNED",
+    "to": "STATE_ACTIVE",
+    "preconditions": {
+      "requires": [],
+      "forbidden": []
+    },
+    "effects": [
+      "ACTIVATE_CONTRACT"
+    ]
+  },
+  {
+    "from": "STATE_ACTIVE",
+    "event": "EVENT_NOTICE_SENT",
+    "to": "STATE_NOTICE_PENDING",
+    "preconditions": {
+      "requires": [
+        "NOTICE_EXISTS",
+        "NOTICE_DELIVERED"
+      ],
+      "forbidden": [
+        "STATE_TERMINATED"
+      ]
+    },
+    "effects": [
+      "ACTIVATE_NOTICE_DEADLINE",
+      "ENABLE_TERMINATION_RIGHT"
+    ]
+  },
+  {
+    "from": "STATE_NOTICE_PENDING",
+    "event": "EVENT_NOTICE_RECEIVED",
+    "to": "STATE_CURE_PERIOD",
+    "preconditions": {
+      "requires": [
+        "BREACH_DECLARED",
+        "NOTICE_RECEIVED"
+      ],
+      "forbidden": []
+    },
+    "effects": [
+      "ACTIVATE_CURE_DEADLINE",
+      "START_TIMER"
+    ]
+  },
+  {
+    "from": "STATE_CURE_PERIOD",
+    "event": "EVENT_CURE_FAILED",
+    "to": "STATE_TERMINATED",
+    "preconditions": {
+      "requires": [
+        "CURE_EXPIRED"
+      ],
+      "forbidden": []
+    },
+    "effects": [
+      "DISABLE_ACTIVE_OBLIGATIONS",
+      "TRIGGER_SURVIVAL"
+    ]
+  }
+]

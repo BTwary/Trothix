@@ -1,0 +1,7 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "jurisdictions": "jurisdictions.json",
+  "courts": "courts.json",
+  "rules": "rules.json"
+}

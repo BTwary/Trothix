@@ -15,6 +15,111 @@
           "type": "Positive"
         }
       ]
+    },
+    "Confidentiality": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "Definitions": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "GoverningLaw": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "IntellectualProperty": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "Lifecycle": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "Notice": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "Termination": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
     }
   }
 }

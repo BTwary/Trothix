@@ -1,0 +1,23 @@
+[
+  {
+    "family": "ASSIGNMENT_PROHIBITED",
+    "templates": [
+      [
+        "PARTY",
+        "MODAL",
+        "INTENT_PROHIBIT",
+        "ASSIGNMENT"
+      ]
+    ]
+  },
+  {
+    "family": "CONSENT_REQUIRED",
+    "templates": [
+      [
+        "ASSIGNMENT",
+        "MANDATORY",
+        "CONSENT_REQUIRED"
+      ]
+    ]
+  }
+]

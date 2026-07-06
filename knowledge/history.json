@@ -43,5 +43,14 @@
     "conceptsEnriched": 1,
     "rulesReused": 1,
     "coverage": "+66%"
+  },
+  {
+    "date": "2026-07-06",
+    "domain": "Assignment",
+    "source": "SEC",
+    "knowledgeFingerprint": "assignment0192837465",
+    "conceptsEnriched": 1,
+    "rulesReused": 1,
+    "coverage": "+66%"
   }
 ]

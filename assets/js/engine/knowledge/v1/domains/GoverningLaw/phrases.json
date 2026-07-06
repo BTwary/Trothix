@@ -1,9 +1,0 @@
-[
-  {
-    "id": "PHRASE_GOVERNINGLAW_MARKER",
-    "text": "sample governinglaw phrase",
-    "intent": "Obligation",
-    "strength": "High",
-    "concept": "CONCEPT_GOVERNINGLAW"
-  }
-]

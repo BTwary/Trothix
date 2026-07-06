@@ -1,58 +1,19 @@
 [
   {
-    "id": "DECISION_OBLIGATION_001",
-    "priority": 10,
-    "inputs": [
-      "tokens",
-      "actions",
-      "parties"
-    ],
-    "conditions": [
-      {
-        "containsIntent": "INTENT_RESTRICT_DISCLOSURE"
-      }
-    ],
-    "output": {
-      "type": "Finding",
-      "findingType": "StrictNonDisclosure",
-      "severity": "High"
-    },
-    "trace": [
-      "Matched phrase with INTENT_RESTRICT_DISCLOSURE"
-    ],
-    "capabilities": {
-      "Commercial NDA": 0.4
-    },
-    "next": [
-      "DECISION_DEADLINE"
+    "id": "RULE_NON_DISCLOSURE",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "category": "Risk",
+    "severity": "High",
+    "jurisdiction": "Universal",
+    "rationale": "Requires receiving party to maintain strict confidence.",
+    "recommendation": "Ensure exceptions for legally required disclosures exist.",
+    "legal_effect": "OBLIGATION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_CONF_01",
+      "TEST_CONF_NEG_01"
     ]
-  },
-  {
-    "id": "DECISION_RISK_001",
-    "priority": 20,
-    "inputs": [
-      "findings"
-    ],
-    "conditions": [
-      {
-        "missingEntity": "ENTITY_EXCEPTION_REQUIRED_BY_LAW"
-      }
-    ],
-    "output": {
-      "type": "Finding",
-      "findingType": "MissingLegalException",
-      "severity": "Critical"
-    },
-    "recommendation": {
-      "text": "Add 'except as required by law or court order'",
-      "priority": "High"
-    },
-    "trace": [
-      "Checked exception entities in AST"
-    ],
-    "capabilities": {
-      "Commercial NDA": 0.5,
-      "MSA": 0.3
-    }
   }
 ]

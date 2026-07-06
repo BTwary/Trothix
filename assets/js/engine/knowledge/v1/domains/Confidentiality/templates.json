@@ -1,0 +1,28 @@
+[
+  {
+    "family": "CONFIDENTIALITY_OBLIGATION",
+    "templates": [
+      [
+        "ACTOR",
+        "MODAL",
+        "INTENT_KEEP_SECRET",
+        "OBJECT"
+      ]
+    ]
+  },
+  {
+    "family": "NON_DISCLOSURE_PROHIBITION",
+    "templates": [
+      [
+        "ACTOR",
+        "MODAL",
+        "NEG_NOT",
+        "INTENT_DISCLOSE",
+        "OBJECT",
+        "ACTOR",
+        "EXC_CONSENT",
+        "ACTOR"
+      ]
+    ]
+  }
+]

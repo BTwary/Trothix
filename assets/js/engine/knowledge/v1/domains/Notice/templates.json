@@ -1,0 +1,45 @@
+[
+  {
+    "family": "NOTICE_DELIVERY",
+    "templates": [
+      [
+        "OBJECT",
+        "MANDATORY",
+        "INTENT_REQUIRE_WRITTEN"
+      ]
+    ]
+  },
+  {
+    "family": "NOTICE_DEEMED_DELIVERY",
+    "templates": [
+      [
+        "OBJECT",
+        "MODAL",
+        "INTENT_DEEMED_RECEIVED",
+        "DELIVERY_PERSONAL",
+        "TIME_UPON_RECEIPT"
+      ],
+      [
+        "OBJECT",
+        "MODAL",
+        "INTENT_DEEMED_RECEIVED",
+        "DELIVERY_REGISTERED_MAIL",
+        "TIME_3_BUSINESS_DAYS"
+      ],
+      [
+        "OBJECT",
+        "MODAL",
+        "INTENT_DEEMED_RECEIVED",
+        "DELIVERY_COURIER",
+        "TIME_1_BUSINESS_DAY"
+      ],
+      [
+        "OBJECT",
+        "MODAL",
+        "INTENT_DEEMED_RECEIVED",
+        "DELIVERY_EMAIL",
+        "TIME_UPON_CONFIRMATION"
+      ]
+    ]
+  }
+]

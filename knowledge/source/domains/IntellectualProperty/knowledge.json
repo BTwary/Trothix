@@ -1,0 +1,7 @@
+{
+  "version": "1.0",
+  "metadata": "metadata.json",
+  "owners": "owners.json",
+  "licenses": "licenses.json",
+  "rules": "rules.json"
+}

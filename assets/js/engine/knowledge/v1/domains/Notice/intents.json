@@ -1,0 +1,14 @@
+[
+  {
+    "id": "INTENT_DEEMED_RECEIVED",
+    "terms": [
+      "deemed received"
+    ]
+  },
+  {
+    "id": "INTENT_REQUIRE_WRITTEN",
+    "terms": [
+      "shall be in writing"
+    ]
+  }
+]

@@ -1,126 +1,34 @@
 [
   {
-    "id": "CONCEPT_NOTICE_PRESENT",
-    "name": "Notice Present",
-    "description": "Checks if Notice is present.",
-    "category": "Completeness",
-    "severity": "Neutral",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "NoticePresent"
-    }
-  },
-  {
-    "id": "CONCEPT_NOTICE_MISSING",
-    "name": "Missing Notice",
-    "description": "Checks if Notice is unexpectedly missing.",
-    "category": "Completeness",
-    "severity": "High",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "documentRequiresConcept",
-          "value": "CONCEPT_NOTICE"
-        },
-        {
-          "type": "conceptMissing",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "MissingNotice"
-    }
-  },
-  {
-    "id": "CONCEPT_NOTICE_RISK",
-    "name": "Notice Risk",
-    "description": "Checks for risky Notice terms.",
-    "category": "Risk",
-    "severity": "High",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "RiskyNotice"
-    }
-  },
-  {
-    "id": "CONCEPT_NOTICE_FAIRNESS",
-    "name": "Notice Fairness",
-    "description": "Checks if Notice is balanced.",
-    "category": "Fairness",
-    "severity": "Medium",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "UnfairNotice"
-    }
-  },
-  {
-    "id": "CONCEPT_NOTICE_POSITIVE",
-    "name": "Notice Positive",
-    "description": "Checks for highly favorable Notice terms.",
+    "id": "RULE_EMAIL_NOTICE_ALLOWED",
+    "concept": "NOTICE_METHOD",
     "category": "Positive",
     "severity": "Low",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "FavorableNotice"
-    }
+    "jurisdiction": "Universal",
+    "rationale": "Email notice is explicitly permitted.",
+    "recommendation": "Ensure deemed receipt is tied to a business day.",
+    "legal_effect": "PERMISSION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_NOTICE_01"
+    ]
   },
   {
-    "id": "CONCEPT_NOTICE_NEGOTIATION",
-    "name": "Notice Negotiation",
-    "description": "Identifies standard fallback positions for Notice.",
-    "category": "Negotiation",
-    "severity": "Neutral",
-    "status": "draft",
-    "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_NOTICE"
-        }
-      ]
-    },
-    "then": {
-      "type": "createFinding",
-      "findingType": "NegotiateNotice"
-    }
+    "id": "RULE_MISSING_NOTICE_ADDRESS",
+    "concept": "NOTICE_ADDRESS",
+    "category": "Risk",
+    "severity": "Medium",
+    "jurisdiction": "Universal",
+    "rationale": "No explicit notice address was provided.",
+    "recommendation": "Add an address block.",
+    "legal_effect": "OBLIGATION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": [
+      "TEST_NOTICE_02"
+    ]
   }
 ]

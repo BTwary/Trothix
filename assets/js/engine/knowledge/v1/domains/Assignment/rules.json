@@ -1,0 +1,30 @@
+[
+  {
+    "id": "RULE_ASSIGNMENT_ALLOWED",
+    "concept": "ASSIGNMENT",
+    "category": "Positive",
+    "severity": "Low",
+    "jurisdiction": "Universal",
+    "rationale": "Assignment is permitted under certain conditions.",
+    "recommendation": "Verify assignee creditworthiness.",
+    "legal_effect": "PERMISSION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": []
+  },
+  {
+    "id": "RULE_CONSENT_REQUIRED",
+    "concept": "ASSIGNMENT",
+    "category": "Risk",
+    "severity": "Medium",
+    "jurisdiction": "Universal",
+    "rationale": "Assignment requires prior written consent from the non-assigning party.",
+    "recommendation": "Request consent in writing prior to any transfer.",
+    "legal_effect": "RESTRICTION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "Verified",
+    "linkedTests": []
+  }
+]

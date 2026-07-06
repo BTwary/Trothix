@@ -1,0 +1,38 @@
+[
+  {
+    "id": "DT_NOTICE_METHOD",
+    "purpose": "Evaluates delivery mechanisms.",
+    "inputs": [
+      "NOTICE_DEEMED_DELIVERY"
+    ],
+    "conditions": [
+      {
+        "match": "DELIVERY_EMAIL"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_EMAIL_NOTICE_ALLOWED",
+        "legal_effect": "PERMISSION"
+      }
+    ]
+  },
+  {
+    "id": "DT_NOTICE_ADDRESS",
+    "purpose": "Verify notice destination.",
+    "inputs": [
+      "NOTICE_DELIVERY"
+    ],
+    "conditions": [
+      {
+        "notMatch": "NOTICE_ADDRESS"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_MISSING_NOTICE_ADDRESS",
+        "legal_effect": "RISK"
+      }
+    ]
+  }
+]

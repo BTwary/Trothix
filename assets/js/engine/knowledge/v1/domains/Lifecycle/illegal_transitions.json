@@ -1,0 +1,22 @@
+[
+  {
+    "from": "STATE_TERMINATED",
+    "to": "STATE_ACTIVE",
+    "finding": "RULE_ILLEGAL_STATE_TRANSITION"
+  },
+  {
+    "from": "STATE_SURVIVING",
+    "to": "STATE_NEGOTIATION",
+    "finding": "RULE_ILLEGAL_STATE_TRANSITION"
+  },
+  {
+    "from": "STATE_DRAFT",
+    "to": "STATE_TERMINATED",
+    "finding": "RULE_ILLEGAL_STATE_TRANSITION"
+  },
+  {
+    "from": "STATE_NOTICE_PENDING",
+    "to": "STATE_EXECUTED",
+    "finding": "RULE_ILLEGAL_STATE_TRANSITION"
+  }
+]
