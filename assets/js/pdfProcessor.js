@@ -167,7 +167,7 @@ async function processPDF(file) {
     
     setActiveStage('prog-sections');
     await sleep(400); // Visual pacing
-    const structure = analyzeDocumentStructure(cleanedText);
+    const structure = analyzeDocumentStructure(cleanedText, file.name);
     
     const extractionQuality = calculateQuality(rawText, cleanedText);
     const estimatedReviewSeconds = Math.max(3, Math.round(cleanedText.length / 3000));
@@ -276,7 +276,7 @@ function prepareDocument(text) {
   return cleaned.trim();
 }
 
-function analyzeDocumentStructure(text) {
+function analyzeDocumentStructure(text, fileName = "") {
   const sections = [];
   const patterns = [
     { id: 'payment', regex: /payment|compensation|fees|billing/i },
@@ -286,14 +286,14 @@ function analyzeDocumentStructure(text) {
     { id: 'governing_law', regex: /governing law|jurisdiction|dispute resolution/i }
   ];
   
-  // Search only the first 30% or up to 5000 chars for a general type
-  const headerPreview = text.slice(0, 5000).toLowerCase();
+  // Search only the first 30% or up to 5000 chars for a general type, and include filename
+  const headerPreview = (fileName + " " + text.slice(0, 5000)).toLowerCase();
   let documentType = "Contract";
   let typeConfidence = 0.85;
   
   if (/\bemployment (agreement|contract)\b/.test(headerPreview)) {
     documentType = "Employment Contract"; typeConfidence = 0.94;
-  } else if (/\b(?:non[-\s]?disclosure|nda)\b/.test(headerPreview)) {
+  } else if (/\b(?:non[-\s]?disclosure|nda|confidentiality agreement)\b/.test(headerPreview)) {
     documentType = "Non-Disclosure Agreement"; typeConfidence = 0.96;
   } else if (/\b(?:lease|tenant|rental)\b/.test(headerPreview)) {
     documentType = "Rental Agreement"; typeConfidence = 0.92;
