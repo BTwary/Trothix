@@ -1,12 +1,14 @@
 import { parseDefinitions } from './definitions.js';
 import { runPipeline } from './pipeline.js';
-import { logMiss } from '../telemetry.js';
-import { NDAPlugin } from '../plugins/nda/index.js';
-import { LeasePlugin } from '../plugins/lease/index.js';
-import { UniversalPlugin } from '../plugins/universal/index.js';
-import { EmploymentPlugin } from '../plugins/employment/index.js';
-import { LoanPlugin } from '../plugins/loan/index.js';
-import { ServicePlugin } from '../plugins/service/index.js';
+
+import { logMiss } from '../../telemetry.js';
+
+import { NDAPlugin } from '../../plugins/nda/index.js';
+import { LeasePlugin } from '../../plugins/lease/index.js';
+import { UniversalPlugin } from '../../plugins/universal/index.js';
+import { EmploymentPlugin } from '../../plugins/employment/index.js';
+import { LoanPlugin } from '../../plugins/loan/index.js';
+import { ServicePlugin } from '../../plugins/service/index.js';
 
 const PLUGIN_BY_DOC_TYPE = {
   NDA: NDAPlugin,
