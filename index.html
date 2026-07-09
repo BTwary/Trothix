@@ -2006,7 +2006,7 @@
       verdictDetails.innerHTML = '';
     }
 
-    document.getElementById('executiveSummary').textContent = d.executiveSummary || '';
+    document.getElementById('executiveSummary').textContent = typeof d.executiveSummary === 'object' ? (d.executiveSummary.executiveSummary || '') : (d.executiveSummary || '');
 
     const docInfoGrid = document.getElementById('docInfoGrid');
     docInfoGrid.innerHTML = '';
@@ -2042,7 +2042,7 @@
     populateList('missingInfoList', d.missingInformation);
     populateList('positiveList', d.positiveFeatures);
 
-    document.getElementById('fairnessText').textContent = d.fairnessAssessment || '';
+    document.getElementById('fairnessText').textContent = typeof d.fairnessAssessment === 'object' ? (d.fairnessAssessment.summary || '') : (d.fairnessAssessment || '');
 
     const flags = d.riskAnalysis || [];
     document.getElementById('flagCount').textContent = flags.length + (flags.length === 1 ? ' risk' : ' risks');

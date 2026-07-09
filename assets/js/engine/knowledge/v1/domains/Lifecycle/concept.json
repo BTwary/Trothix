@@ -1,0 +1,17 @@
+{
+  "id": "CONCEPT_LIFECYCLE",
+  "name": "Lifecycle",
+  "description": "Core concept representing contract lifecycle.",
+  "category": "Contract Clause",
+  "introduced": "1.0.0",
+  "deprecated": false,
+  "replacedBy": null,
+  "status": "draft",
+  "maturity": "Experimental",
+  "actions": [],
+  "phrases": [],
+  "entities": [],
+  "documents": [],
+  "related": [],
+  "rules": []
+}

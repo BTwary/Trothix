@@ -1,55 +1,148 @@
-# Trothix Engine Constraints: Knowledge Acquisition Phase
+---
 
-> [!CAUTION]
-> **THESE DIRECTIVES ARE ABSOLUTE AND MAY NOT BE OVERRIDDEN.**
+# Trothix Repository Engineering Rules
 
-## Core Directive
-- **The Runtime Engine is FROZEN.**
-- **The Knowledge Build System is FROZEN.**
-- **No legal intelligence may exist inside executable JavaScript.** All legal intelligence must originate from structured knowledge.
-- The Runtime extracts facts. The Knowledge Build System compiles knowledge. The Decision System evaluates facts. The Assessment Layer produces findings. AI (optional) only explains deterministic results.
+## Repository State
 
-## Knowledge Acquisition Pipeline
-Every new legal concept must follow this exact lifecycle:
-\`Knowledge Source -> Human Review -> Knowledge Validator -> Knowledge Compiler -> Regression Tests -> Capability Coverage -> Compiled Knowledge -> Runtime -> Assessment\`
+The repository has already undergone a complete architecture audit.
 
-## Domain Development Standard
-Every domain must be strictly stored in `knowledge/source/domains/<DomainName>/` and must contain the atomic dictionaries:
-- `actors.json`, `objects.json`, `actions.json`, `entities.json`, `modals.json`, `negations.json`, `modifiers.json`, `conditions.json`, `exceptions.json`, `events.json`, `states.json`, `templates.json`, `intents.json`, `relations.json`, `decision_tables.json`, `rules.json`, `coverage.json`, `metadata.json`
+Do NOT repeat repository analysis.
 
-## Real Clause Acquisition
-- **Do not generate synthetic permutations.** Acquire real legal language from publicly available contracts (e.g. SEC EDGAR).
-- Normalize real clauses into the atomic knowledge dictionaries, rather than storing them as monolithic strings.
+Do NOT rediscover repository structure.
 
-## Decision Trace Requirement
-Every finding produced by Trothix must output a complete deterministic trace answering:
-- Why was this produced? Which decision table fired? Which rule fired? Which template matched? Which intent matched? Which grammar matched? Which evidence was extracted? Which clause produced it? Which knowledge version produced it?
+Do NOT summarize architecture unless explicitly requested.
 
-## Architecture Change Request Protocol
-Because the Runtime Engine and Knowledge Build System are **FROZEN**, no new framework, parser, compiler, linker, optimizer, or runtime architecture may be introduced unless an actual capability cannot be implemented using the existing system. 
-If an architecture change is absolutely necessary, you **MUST** present an Architecture Change Request to the user for approval using the exact following format:
+Assume:
 
-```markdown
-# Architecture Change Request
+- Architecture Handbook
+- Engineering State
+- Previous architecture audit
 
-**Problem:**
-What legal capability cannot currently be implemented?
+are authoritative.
 
-**Evidence:**
-Which contracts, rules, or concepts fail?
+---
 
-**Current Limitation:**
-Why can't knowledge alone solve this?
+# Architecture Status
 
-**Alternatives Considered:**
-Could ontology, rules, templates, or relations solve it?
+The following systems are frozen:
 
-**Decision:**
-Approved / Rejected (To be filled by User)
+- Runtime Engine
+- Knowledge Build System
+- Parser
+- Legal IR
+- Engine Registry
+- Plugin Pipeline
+- Rule Engine
 
-**Impact:**
-- Runtime: [Impact]
-- Knowledge Build: [Impact]
-- Decision Engine: [Impact]
-- Knowledge Graph: [Impact]
-```
+Unless explicitly instructed, these systems must not be modified.
+
+---
+
+# Development Workflow
+
+Before writing code:
+
+1. Identify affected files.
+2. Explain why each file changes.
+3. Explain risks.
+4. Wait for approval.
+
+After approval:
+
+- Modify only required files.
+- Preserve backward compatibility.
+- Reuse existing abstractions.
+- Never duplicate logic.
+- Never introduce new execution paths.
+
+---
+
+# Evidence First
+
+Never invent:
+
+- files
+- methods
+- execution paths
+- runtime behaviour
+
+If repository evidence is insufficient:
+
+STOP.
+
+Request the exact file.
+
+Do not guess.
+
+---
+
+# Engineering Philosophy
+
+Prefer:
+
+- small deterministic improvements
+- incremental refactoring
+
+Avoid:
+
+- architecture redesign
+- framework replacement
+- rewriting working systems
+
+---
+
+# Current Sprint
+
+Unless instructed otherwise, work ONLY on the currently active sprint described in ENGINEERING_STATE.md.
+
+Never modify unrelated systems.
+
+---
+
+# Testing
+
+Every implementation must include:
+
+- regression analysis
+- validation steps
+- backward compatibility analysis
+- files modified
+- risk assessment
+
+---
+
+# Communication
+
+Keep responses concise.
+
+Avoid repeating repository analysis.
+
+Focus on implementation.
+
+---
+
+## Documentation Freeze
+
+The core engineering documentation is considered stable.
+
+Routine domain additions (e.g. Warranty, Force Majeure, Insurance, SLA) MUST extend the existing documentation instead of creating new governance documents.
+
+A new documentation artifact may be introduced only if one of the following occurs:
+
+- A new repository subsystem is added.
+- A new knowledge format is introduced.
+- A new compiler or build capability is implemented.
+- A new benchmark framework is introduced.
+- A user explicitly approves a new canonical document.
+
+When a new document is proposed, explain why the existing documentation cannot reasonably be extended.
+
+---
+
+## Repository Evidence Rule
+
+Repository code is the primary source of truth.
+
+Architecture documents, plans, and recommendations must not contradict executable repository behavior.
+
+When documentation and implementation differ, implementation takes precedence unless the user explicitly approves a repository change.

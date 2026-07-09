@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "benchmark": "node benchmark/run-benchmark.mjs",
-    "test": "node benchmark/run-benchmark.mjs"
+    "test": "node benchmark/run-benchmark.mjs",
+    "rule-diagnostics": "node test_ruleDiagnostics.mjs"
   },
   "dependencies": {
     "jsdom": "^29.1.1",

@@ -1,11 +1,16 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const domainDir = 'C:\\Users\\bhask\\Desktop\\Antigravity\\Trothix_GitHub\\assets\\js\\engine\\knowledge\\v1\\domains\\Termination';
-const knowledgeDir = path.join(domainDir, 'knowledge');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-if (!fs.existsSync(knowledgeDir)) {
-    fs.mkdirSync(knowledgeDir, { recursive: true });
+const rootDir = path.resolve(__dirname, '..', '..');
+const sourceDir = path.join(rootDir, 'knowledge', 'source', 'domains');
+const targetDomainDir = path.join(sourceDir, 'Termination');
+
+if (!fs.existsSync(targetDomainDir)) {
+    fs.mkdirSync(targetDomainDir, { recursive: true });
 }
 
 // Atomic Dictionaries
@@ -82,7 +87,7 @@ const templates = [
 ];
 
 // Write atomic files
-const writeAtomic = (filename, data) => fs.writeFileSync(path.join(knowledgeDir, filename), JSON.stringify(data, null, 2));
+const writeAtomic = (filename, data) => fs.writeFileSync(path.join(targetDomainDir, filename), JSON.stringify(data, null, 2));
 
 writeAtomic('actors.json', actors);
 writeAtomic('objects.json', objects);
@@ -115,4 +120,4 @@ const manifest = {
 };
 writeAtomic('knowledge.json', manifest);
 
-console.log("Atomic Knowledge Files Generated Successfully in " + knowledgeDir);
+console.log("Atomic Knowledge Files Generated Successfully in " + targetDomainDir);

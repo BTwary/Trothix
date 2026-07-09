@@ -42,6 +42,32 @@
       "jurisdiction": "Colorado"
     }
   },
+  "tos_07.txt": {
+    "id": "TOS-007",
+    "purpose": "ToS contract containing a Force Majeure clause.",
+    "origin": "synthetic",
+    "difficulty": "basic",
+    "status": "passing",
+    "introduced": "2026-07-08",
+    "docType": "UNKNOWN",
+    "expected": {
+      "hasWarrantyDisclaimer": false,
+      "jurisdiction": "Florida"
+    }
+  },
+  "tos_08.txt": {
+    "id": "TOS-008",
+    "purpose": "ToS contract lacking a Force Majeure clause.",
+    "origin": "synthetic",
+    "difficulty": "basic",
+    "status": "passing",
+    "introduced": "2026-07-08",
+    "docType": "UNKNOWN",
+    "expected": {
+      "hasWarrantyDisclaimer": false,
+      "jurisdiction": "Ohio"
+    }
+  },
   "tos_03.txt": {
     "id": "TOS-003",
     "purpose": "Sparse document -- only a liability cap and jurisdiction are present. Checks the parser doesn't false-positive on absent fields (arbitration, payment terms, etc. should all read false/null).",
@@ -74,6 +100,32 @@
       "hasSignatureBlock": false,
       "referencesSchedules": true,
       "jurisdiction": "Massachusetts"
+    }
+  },
+  "tos_05.txt": {
+    "id": "TOS-005",
+    "purpose": "ToS contract with an explicit warranty disclaimer.",
+    "origin": "synthetic",
+    "difficulty": "basic",
+    "status": "passing",
+    "introduced": "2026-07-08",
+    "docType": "UNKNOWN",
+    "expected": {
+      "hasWarrantyDisclaimer": true,
+      "jurisdiction": "California"
+    }
+  },
+  "tos_06.txt": {
+    "id": "TOS-006",
+    "purpose": "ToS contract with an affirmative warranty and no disclaimer.",
+    "origin": "synthetic",
+    "difficulty": "basic",
+    "status": "passing",
+    "introduced": "2026-07-08",
+    "docType": "UNKNOWN",
+    "expected": {
+      "hasWarrantyDisclaimer": false,
+      "jurisdiction": "Delaware"
     }
   }
 }

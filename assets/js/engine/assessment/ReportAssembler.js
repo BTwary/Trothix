@@ -4,7 +4,7 @@ export class ReportAssembler {
   /**
    * Assembles the final deterministic 15-part report schema.
    */
-  assemble(ir, actions, findings, assessments, scores, verdict) {
+  assemble(ir, actions, findings, assessments, scores, verdict, narratives = []) {
     // @todo: In the future, this naive filtering should be replaced by output 
     // from a dedicated ObligationEngine and RightsEngine that traverse the 
     // knowledge graph to determine true polarity (e.g. factoring in "shall not").
@@ -19,7 +19,11 @@ export class ReportAssembler {
         documentType: ir.metadata?.category || "Mutual NDA",
         language: "en"
       },
-      executiveSummary: assessments.executiveSummary,
+      executiveSummary: {
+        ...assessments.executiveSummary.stats,
+        stats: assessments.executiveSummary.stats,
+        executiveSummary: assessments.executiveSummary.executiveSummary
+      },
       documentInformation: ir.metadata || {},
       obligations,
       rights,
@@ -28,7 +32,20 @@ export class ReportAssembler {
       fairnessAssessment: assessments.fairnessAssessment,
       completenessAssessment: assessments.completenessAssessment,
       positiveFeatures: assessments.positiveAssessment.evidence,
-      findings,
+      findings: findings.map(f => {
+         const n = narratives.find(narr => narr.findingId === f.id);
+         if (n) {
+            return {
+               ...f,
+               narrative: n.narrative,
+               title: n.title,
+               summary: n.summary,
+               impact: n.impact,
+               recommendation: n.recommendation
+            };
+         }
+         return f;
+      }),
       scores,
       overallVerdict: verdict,
       traceability: this._buildTraceability(findings),

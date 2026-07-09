@@ -46,6 +46,21 @@
         }
       ]
     },
+    "ForceMajeure": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
     "GoverningLaw": {
       "rules": [],
       "decisionTables": [
@@ -107,6 +122,21 @@
       ]
     },
     "Termination": {
+      "rules": [],
+      "decisionTables": [
+        {
+          "id": "DECISION_1",
+          "logic": "..."
+        }
+      ],
+      "mutationTests": [
+        {
+          "id": "MUT_1",
+          "type": "Positive"
+        }
+      ]
+    },
+    "Warranty": {
       "rules": [],
       "decisionTables": [
         {

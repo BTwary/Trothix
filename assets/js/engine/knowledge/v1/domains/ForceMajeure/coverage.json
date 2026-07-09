@@ -1,0 +1,15 @@
+{
+  "id": "COV_FORCE_MAJEURE",
+  "domain": "ForceMajeure",
+  "documentTypes": [
+    "NDA",
+    "Lease",
+    "TOS",
+    "MSA"
+  ],
+  "jurisdictions": [
+    "Universal"
+  ],
+  "targetAccuracy": 0.95,
+  "currentAccuracy": 1.0
+}

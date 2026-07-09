@@ -1,0 +1,16 @@
+[
+  {
+    "id": "REL_FORCE_MAJEURE_TRIGGERS_TERMINATION",
+    "source": "CONCEPT_FORCE_MAJEURE",
+    "target": "CONCEPT_TERMINATION",
+    "relation": "triggers",
+    "strength": "recommended"
+  },
+  {
+    "id": "REL_FORCE_MAJEURE_MEASURED_BY_DURATION",
+    "source": "CONCEPT_FORCE_MAJEURE",
+    "target": "ENTITY_DURATION",
+    "relation": "measured_by",
+    "strength": "recommended"
+  }
+]

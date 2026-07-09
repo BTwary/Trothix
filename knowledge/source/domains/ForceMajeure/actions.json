@@ -1,0 +1,17 @@
+{
+  "id": "ACTION_SUSPEND",
+  "name": "Suspend",
+  "synonyms": [
+    "suspend",
+    "excuse",
+    "delay",
+    "relieve",
+    "postpone"
+  ],
+  "grammar": {
+    "subject": "Party",
+    "object": "Obligation",
+    "recipient": "Party",
+    "constraints": []
+  }
+}

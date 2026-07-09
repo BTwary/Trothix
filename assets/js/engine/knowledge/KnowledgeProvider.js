@@ -6,6 +6,7 @@
  */
 
 import { RuleRegistry } from '../rules/RuleRegistry.js';
+import { isExecutableRule } from '../rules/RuleCapability.js';
 import path from 'path';
 import fs from 'fs';
 
@@ -30,6 +31,11 @@ export class KnowledgeProvider {
         nodes: new Map(), // id -> object
         edges: []         // array of relation objects
     };
+
+    // Diagnostics extension: Track raw loaded entries internally.
+    // KnowledgeProvider owns runtime/production state; diagnostics tools
+    // consume this state via read-only accessors rather than modifying internals.
+    this._rawEntries = [];
   }
 
   /**
@@ -79,6 +85,7 @@ export class KnowledgeProvider {
         try {
             const raw = fs.readFileSync(file, 'utf8');
             const data = JSON.parse(raw);
+            const domain = path.basename(path.dirname(file));
             
             // Handle arrays of rules or single objects
             const entries = Array.isArray(data) ? data : [data];
@@ -86,7 +93,16 @@ export class KnowledgeProvider {
             for (const entry of entries) {
                 if (!entry.id) continue;
 
-                if (entry.id.startsWith('RULE_')) {
+                // Track all raw entries internally for read-only diagnostics auditing
+                this._rawEntries.push({ entry, file, domain });
+
+                // Verified issue #4 fix: route by structure, not id naming
+                // convention. A rule is executable because it HAS a
+                // complete when/then, not because its id happens to start
+                // with "RULE_" — several fully-executable entries used a
+                // "CONCEPT_" id and were silently excluded from
+                // compilation under the old prefix check.
+                if (isExecutableRule(entry)) {
                     this.ruleRegistry.compileRule(entry);
                 } else if (entry.id.startsWith('REL_')) {
                     this.graph.edges.push(entry);
@@ -136,11 +152,16 @@ export class KnowledgeProvider {
   getCompiledRules() {
     return this.ruleRegistry.getRules();
   }
-  
-  get registry() {
-    return this.ruleRegistry;
-  }
 
+  /**
+   * Returns a read-only list of raw domain entries.
+   * Diagnostics consume this state but never extend or modify runtime state.
+   * @returns {Object[]}
+   */
+  getRawEntries() {
+    return [...this._rawEntries];
+  }
+  
   // --- Graph API Methods --- //
 
   getNode(id) {

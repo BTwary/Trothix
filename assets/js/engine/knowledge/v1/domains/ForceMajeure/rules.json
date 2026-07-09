@@ -1,0 +1,70 @@
+[
+  {
+    "id": "RULE_FORCE_MAJEURE_PRESENT",
+    "name": "Force Majeure Present",
+    "description": "Checks if the contract contains a Force Majeure clause.",
+    "category": "Completeness",
+    "severity": "Neutral",
+    "status": "draft",
+    "when": {
+      "field": "extractedData.hasForceMajeure",
+      "equals": true
+    },
+    "then": {
+      "trigger": "ForceMajeurePresent"
+    }
+  },
+  {
+    "id": "RULE_FORCE_MAJEURE_MISSING",
+    "name": "Force Majeure Missing",
+    "description": "Flags contracts that lack a Force Majeure excuse clause.",
+    "category": "Completeness",
+    "severity": "Medium",
+    "status": "draft",
+    "when": {
+      "field": "extractedData.hasForceMajeure",
+      "equals": false
+    },
+    "then": {
+      "trigger": "ForceMajeureMissing"
+    }
+  },
+  {
+    "id": "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
+    "name": "Excessive Force Majeure Delay Before Termination",
+    "description": "Flags clauses that allow excuse delays exceeding 60 days before termination is authorized.",
+    "category": "Risk",
+    "severity": "Medium",
+    "status": "draft",
+    "when": {
+      "and": [
+        {
+          "field": "extractedData.hasForceMajeure",
+          "equals": true
+        },
+        {
+          "field": "extractedData.forceMajeureDelayDays",
+          "greater_than": 60
+        }
+      ]
+    },
+    "then": {
+      "trigger": "ExcessiveForceMajeureDelay"
+    }
+  },
+  {
+    "id": "RULE_FORCE_MAJEURE_NOTICE_REQUIRED",
+    "name": "Notice of Force Majeure Required",
+    "description": "Checks if the affected party must provide notice of a force majeure incident.",
+    "category": "Fairness",
+    "severity": "Medium",
+    "status": "draft",
+    "when": {
+      "field": "extractedData.requiresForceMajeureNotice",
+      "equals": true
+    },
+    "then": {
+      "trigger": "ForceMajeureNoticeRequired"
+    }
+  }
+]

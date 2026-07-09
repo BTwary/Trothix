@@ -1,0 +1,23 @@
+[
+  {
+    "id": "PHRASE_FORCE_MAJEURE_INCIDENT",
+    "text": "act of God fire flood earthquake strikes epidemic war riots governmental action",
+    "intent": "Incident",
+    "strength": "High",
+    "concept": "CONCEPT_FORCE_MAJEURE"
+  },
+  {
+    "id": "PHRASE_FORCE_MAJEURE_DELAY_LIMIT",
+    "text": "exceeds thirty days delay of more than sixty days",
+    "intent": "Limit",
+    "strength": "Medium",
+    "concept": "CONCEPT_FORCE_MAJEURE"
+  },
+  {
+    "id": "PHRASE_FORCE_MAJEURE_NOTICE",
+    "text": "promptly notify the other party in writing",
+    "intent": "Notice",
+    "strength": "High",
+    "concept": "CONCEPT_FORCE_MAJEURE"
+  }
+]

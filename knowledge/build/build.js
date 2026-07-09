@@ -41,12 +41,51 @@ domains.forEach(domain => {
     runLinter(domainPath);
     
     const rawKnowledge = {};
+    const localManifestPath = path.join(domainPath, 'knowledge.json');
+    if (fs.existsSync(localManifestPath)) {
+        const localManifest = JSON.parse(fs.readFileSync(localManifestPath, 'utf8'));
+        for (const [key, filename] of Object.entries(localManifest)) {
+            if (key !== 'version') {
+                const filePath = path.join(domainPath, filename);
+                if (fs.existsSync(filePath)) {
+                    rawKnowledge[key] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                }
+            }
+        }
+    } else {
+        // Fallback: load all JSON files directly
+        const files = fs.readdirSync(domainPath);
+        files.forEach(file => {
+            if (file.endsWith('.json') && file !== 'package.json') {
+                const key = path.basename(file, '.json');
+                const filePath = path.join(domainPath, file);
+                rawKnowledge[key] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            }
+        });
+    }
     
     // 3. Normalize
     const normalized = runNormalizer(rawKnowledge);
     
     // 4. Compile
     const compiled = runCompiler(normalized);
+    
+    // Write runtime files back to assets v1 domains folder to ensure engine runtime loads the compiled rules.
+    const runtimeDomainDir = path.join(rootDir, 'assets', 'js', 'engine', 'knowledge', 'v1', 'domains', domain);
+    if (fs.existsSync(runtimeDomainDir)) {
+        const sourceHasRules = fs.existsSync(path.join(domainPath, 'rules.json'));
+        if (!sourceHasRules && compiled.decisionTables && compiled.decisionTables.length > 0) {
+            // Write compiled decision tables to rules.json for engine runtime
+            fs.writeFileSync(path.join(runtimeDomainDir, 'rules.json'), JSON.stringify(compiled.decisionTables, null, 2));
+        }
+        if (compiled.mutationTests && compiled.mutationTests.length > 0) {
+            const testsDir = path.join(runtimeDomainDir, 'tests');
+            if (!fs.existsSync(testsDir)) {
+                fs.mkdirSync(testsDir, { recursive: true });
+            }
+            fs.writeFileSync(path.join(testsDir, 'mutation_tests.json'), JSON.stringify(compiled.mutationTests, null, 2));
+        }
+    }
     
     // 6. Optimize
     const optimized = runOptimizer(compiled);

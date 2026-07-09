@@ -1,0 +1,31 @@
+{
+  "id": "CONCEPT_FORCE_MAJEURE",
+  "name": "Force Majeure",
+  "description": "Core concept representing performance excuse due to unforeseeable events.",
+  "category": "Contract Clause",
+  "introduced": "1.0.0",
+  "deprecated": false,
+  "replacedBy": null,
+  "status": "draft",
+  "maturity": "Experimental",
+  "actions": [
+    "ACTION_SUSPEND"
+  ],
+  "phrases": [
+    "PHRASE_FORCE_MAJEURE_INCIDENT",
+    "PHRASE_FORCE_MAJEURE_DELAY_LIMIT",
+    "PHRASE_FORCE_MAJEURE_NOTICE"
+  ],
+  "entities": [],
+  "documents": [],
+  "related": [
+    "CONCEPT_TERMINATION",
+    "CONCEPT_LIFECYCLE"
+  ],
+  "rules": [
+    "RULE_FORCE_MAJEURE_PRESENT",
+    "RULE_FORCE_MAJEURE_MISSING",
+    "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
+    "RULE_FORCE_MAJEURE_NOTICE_REQUIRED"
+  ]
+}

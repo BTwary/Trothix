@@ -35,11 +35,24 @@ import { ReportAssembler } from './assessment/ReportAssembler.js';
 // Telemetry
 import { DeveloperInspector } from './core/inspector.js';
 
+// Narrative Helpers
+import { RuleMetadataResolver } from './assessment/RuleMetadataResolver.js';
+import { ExplanationLibrary } from './assessment/ExplanationLibrary.js';
+import { EvidenceResolver } from './assessment/EvidenceResolver.js';
+import { FindingNarrator } from './assessment/FindingNarrator.js';
+import { NarrativeFormatter } from './assessment/NarrativeFormatter.js';
+
 export class Trothix {
   constructor(options = {}) {
     this.kbPath = options.kbPath || process.cwd() + '/assets/js/engine/knowledge/v1';
     this.weightsPath = options.weightsPath || this.kbPath + '/weights';
     this.knowledgeProvider = new KnowledgeProvider(this.kbPath);
+
+    this.metadataResolver = null;
+    this.explanationLibrary = null;
+    this.evidenceResolver = null;
+    this.findingNarrator = null;
+    this.narrativeFormatter = null;
   }
 
   /**
@@ -47,6 +60,12 @@ export class Trothix {
    */
   async initialize() {
     await this.knowledgeProvider.initialize();
+
+    this.metadataResolver = new RuleMetadataResolver(this.knowledgeProvider);
+    this.explanationLibrary = new ExplanationLibrary();
+    this.evidenceResolver = new EvidenceResolver();
+    this.findingNarrator = new FindingNarrator(this.explanationLibrary);
+    this.narrativeFormatter = new NarrativeFormatter();
   }
 
   /**
@@ -96,6 +115,24 @@ export class Trothix {
        }
     });
 
+    // Narrative generation helper pipeline (non-mutating, per-finding variables)
+    const narratives = [];
+    findings.forEach(f => {
+       const variables = this.evidenceResolver.resolveVariables(irBuilder.document, f);
+       const resolvedMetadata = this.metadataResolver.resolve(f);
+       const narrated = this.findingNarrator.narrate(f, resolvedMetadata, variables);
+       const fullNarrativeText = this.narrativeFormatter.formatFinding(narrated);
+       
+       narratives.push({
+          findingId: f.id,
+          title: narrated.title,
+          summary: narrated.summary,
+          impact: narrated.impact,
+          recommendation: narrated.recommendation,
+          narrative: fullNarrativeText
+       });
+    });
+
     // 5. Assessment Layer
     const riskA = new RiskAssessment();
     const fairA = new FairnessAssessment();
@@ -106,17 +143,18 @@ export class Trothix {
     const actions = (irBuilder.document || irBuilder.ir).nodes.flatMap(n => n.actions || []);
     
     const assessments = {
-       riskAssessment: riskA.evaluate(findings),
+       riskAssessment: riskA.evaluate(findings, narratives),
        fairnessAssessment: fairA.evaluate(actions, findings),
        completenessAssessment: compA.evaluate(findings),
-       positiveAssessment: posA.evaluate(findings)
+       positiveAssessment: posA.evaluate(findings, narratives)
     };
     
     assessments.executiveSummary = execSum.evaluate(
        irBuilder.document, 
        findings, 
        assessments.riskAssessment, 
-       assessments.positiveAssessment
+       assessments.positiveAssessment,
+       narratives
     );
 
     // 6. Scoring & Verdict Layer
@@ -128,7 +166,7 @@ export class Trothix {
 
     // 7. Report Assembler
     const assembler = new ReportAssembler();
-    const finalReport = assembler.assemble(irBuilder.document, actions, findings, assessments, scores, verdict);
+    const finalReport = assembler.assemble(irBuilder.document, actions, findings, assessments, scores, verdict, narratives);
 
     return finalReport;
   }

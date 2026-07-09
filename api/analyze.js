@@ -60,8 +60,18 @@ export default async function handler(req, res) {
     if (!globalEngine) {
       // In Vercel, process.cwd() is the project root
       const kbPath = path.join(process.cwd(), 'assets', 'js', 'engine', 'knowledge', 'v1');
-      globalEngine = new Trothix({ kbPath });
-      await globalEngine.initialize();
+      // Construct and initialize into a LOCAL variable first. Only commit
+      // to the module-level singleton after initialize() actually
+      // succeeds — previously `globalEngine` was assigned before the
+      // await, so a thrown initialize() (e.g. a bad knowledge file) left
+      // a truthy-but-broken engine in place; every subsequent request in
+      // that warm container would see `globalEngine` as non-null, skip
+      // re-initialization entirely, and call .analyze() on a broken
+      // instance instead of retrying — silently, for the life of the
+      // container.
+      const engine = new Trothix({ kbPath });
+      await engine.initialize();
+      globalEngine = engine;
     }
 
     const metadata = { 
