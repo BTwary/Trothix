@@ -68,6 +68,7 @@ export class FindingNarrator {
         metadata.id,
         metadata.trigger
       ) || {};
+    
 
     const title = template.title ??
       metadata.trigger ??
@@ -83,21 +84,27 @@ export class FindingNarrator {
     );
 
     const businessImpact = this.fillTemplate(
-      template.businessImpact ?? null,
+      template.businessImpact ?? "",
       variables
     );
 
     const legalImpact = this.fillTemplate(
-      template.legalImpact ?? null,
+      template.legalImpact ?? "",
       variables
     );
 
     const recommendation = this.fillTemplate(
       template.recommendation ??
       metadata.recommendation ??
-      null,
+      "",
       variables
     );
+    const negotiationTip = template.negotiationTip
+    ? this.fillTemplate(template.negotiationTip, variables)
+    : null;
+    const impact = [businessImpact, legalImpact]
+  .filter(Boolean)
+  .join(" ");
 
     const evidence = {
       clause: variables.clause ?? null,
