@@ -21,6 +21,7 @@ export const RULE_FIELD_REGISTRY = [
   { pattern: 'actions[*].object', status: 'active', populatedBy: 'actionBuilder' },
   { pattern: 'actions[*].recipient', status: 'inert', reason: 'actionBuilder sets this to null; no downstream plugin writes it.' },
   { pattern: 'actions[*].conditions', status: 'active', populatedBy: 'actionBuilder' },
+  { pattern: 'actions[*].conditions[*]', status: 'active', populatedBy: 'actionBuilder' },
   { pattern: 'actions[*].exceptions', status: 'active', populatedBy: 'actionBuilder' },
   { pattern: 'actions[*].confidence', status: 'active', populatedBy: 'actionBuilder' },
   { pattern: 'actions[*].evidence.matchedText', status: 'active', populatedBy: 'actionBuilder' },
@@ -67,6 +68,25 @@ export const RULE_FIELD_REGISTRY = [
     pattern: 'nodes[*].metadata.candidates[*]', 
     status: 'unverified',
     reason: 'Populated in IR, but nested [*] pattern is not exercised by current rule corpus.' 
+  },
+
+  {
+    pattern: 'extractedData.hasForceMajeure',
+    status: 'active',
+    populatedBy: 'forceMajeureExtractor',
+    caveat: 'Detected via a curated incident-marker phrase list, not a full semantic parse. See ForceMajeure/phrases.json for the source phrases.'
+  },
+  {
+    pattern: 'extractedData.forceMajeureDelayDays',
+    status: 'active',
+    populatedBy: 'forceMajeureExtractor',
+    caveat: 'Only populated within a sentence that also matched an incident marker; the largest matched day-count across such sentences is kept.'
+  },
+  {
+    pattern: 'extractedData.requiresForceMajeureNotice',
+    status: 'active',
+    populatedBy: 'forceMajeureExtractor',
+    caveat: 'Detected via a curated notice-phrase list within force-majeure sentences only.'
   },
 ];
 

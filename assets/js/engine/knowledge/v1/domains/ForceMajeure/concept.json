@@ -1,31 +1,65 @@
-{
-  "id": "CONCEPT_FORCE_MAJEURE",
-  "name": "Force Majeure",
-  "description": "Core concept representing performance excuse due to unforeseeable events.",
-  "category": "Contract Clause",
-  "introduced": "1.0.0",
-  "deprecated": false,
-  "replacedBy": null,
-  "status": "draft",
-  "maturity": "Experimental",
-  "actions": [
-    "ACTION_SUSPEND"
-  ],
-  "phrases": [
-    "PHRASE_FORCE_MAJEURE_INCIDENT",
-    "PHRASE_FORCE_MAJEURE_DELAY_LIMIT",
-    "PHRASE_FORCE_MAJEURE_NOTICE"
-  ],
-  "entities": [],
-  "documents": [],
-  "related": [
-    "CONCEPT_TERMINATION",
-    "CONCEPT_LIFECYCLE"
-  ],
-  "rules": [
-    "RULE_FORCE_MAJEURE_PRESENT",
-    "RULE_FORCE_MAJEURE_MISSING",
-    "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
-    "RULE_FORCE_MAJEURE_NOTICE_REQUIRED"
-  ]
-}
+[
+  {
+    "id": "CONCEPT_FORCE_MAJEURE",
+    "name": "Force Majeure",
+    "description": "Core concept representing performance excuse due to unforeseeable events.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "deprecated": false,
+    "replacedBy": null,
+    "status": "draft",
+    "maturity": "Experimental",
+    "actions": [
+      "ACTION_SUSPEND"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_TERMINATION",
+      "CONCEPT_LIFECYCLE",
+      "CONCEPT_FM_MITIGATION",
+      "CONCEPT_FM_TERMINATION"
+    ],
+    "rules": [
+      "RULE_FORCE_MAJEURE_PRESENT",
+      "RULE_FORCE_MAJEURE_MISSING",
+      "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
+      "RULE_FORCE_MAJEURE_NOTICE_REQUIRED"
+    ]
+  },
+  {
+    "id": "CONCEPT_FM_MITIGATION",
+    "name": "Force Majeure Mitigation",
+    "description": "The duty of an affected party to mitigate the impact of a Force Majeure event and resume performance as soon as possible.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_FORCE_MAJEURE"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_FM_TERMINATION",
+    "name": "Force Majeure Termination",
+    "description": "Right of either party to terminate the contract if the Force Majeure event persists beyond a specified timeframe.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_FORCE_MAJEURE"
+    ],
+    "rules": []
+  }
+]

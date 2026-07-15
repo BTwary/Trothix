@@ -17,5 +17,23 @@
         "legal_effect": "RESTRICTION"
       }
     ]
+  },
+  {
+    "id": "DT_DELEGATION",
+    "purpose": "Determines if delegation of performance is prohibited or restricted.",
+    "inputs": [
+      "DELEGATION_PROHIBITED"
+    ],
+    "conditions": [
+      {
+        "match": "DELEGATION_PROHIBITED"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_DELEGATION_PROHIBITED",
+        "legal_effect": "RESTRICTION"
+      }
+    ]
   }
 ]

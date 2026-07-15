@@ -1,0 +1,26 @@
+name: Trothix CI
+
+on:
+  push:
+    branches: [ main, master, legal-intelligence-v3 ]
+  pull_request:
+    branches: [ main, master, legal-intelligence-v3 ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run Verification Pipeline
+      run: npm run verify

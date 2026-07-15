@@ -1,0 +1,1005 @@
+{
+  "generatedAt": "2026-07-13T04:43:33.996Z",
+  "total": 36,
+  "rules": [
+    {
+      "id": "RULE_ASSIGNMENT_ALLOWED",
+      "domain": "Assignment",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_ASSIGNMENT"
+      },
+      "then": {
+        "trigger": "AssignmentAllowed",
+        "message": "The contract contains provisions allowing or governing assignment.",
+        "recommendation": "Confirm the assignment clause's consent standard (silent, reasonable, or sole discretion) matches your risk tolerance.",
+        "rationale": "Assignment provisions determine whether either party can transfer the contract to a successor or third party, directly affecting counterparty predictability."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_CONSENT_REQUIRED",
+      "domain": "Assignment",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "type": "conceptExists",
+            "value": "CONCEPT_ASSIGNMENT"
+          },
+          {
+            "type": "conceptExists",
+            "value": "CONCEPT_CONSENT"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "AssignmentConsentRequired",
+        "message": "Assignment requires prior written consent from the other party.",
+        "recommendation": "Verify the consent requirement is mutual, and confirm any change-of-control or affiliate-assignment carve-outs are deliberate, not accidental.",
+        "rationale": "A prior-written-consent requirement is the standard protection against an unwanted counterparty being substituted into the agreement without the other side's agreement."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_NON_DISCLOSURE",
+      "domain": "Confidentiality",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"CONCEPT_NON_DISCLOSURE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"CONCEPT_NON_DISCLOSURE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Risk",
+      "severity": "High",
+      "jurisdiction": "Universal",
+      "rationale": "Requires receiving party to maintain strict confidence.",
+      "recommendation": "Ensure exceptions for legally required disclosures exist.",
+      "legalEffect": "OBLIGATION",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [
+        "TEST_CONF_01",
+        "TEST_CONF_NEG_01"
+      ],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_DEFINITIONS_PRESENT",
+      "domain": "Definitions",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"NOTICE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"NOTICE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "Definitions are properly structured and present.",
+      "recommendation": "Review definitions for consistency with usage.",
+      "legalEffect": "DEFINITION",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [
+        "TEST_DEF_01"
+      ],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_ALIASES_RESOLVED",
+      "domain": "Definitions",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"NOTICE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"NOTICE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "Synonyms are successfully resolved to canonical entities.",
+      "recommendation": "Ensure aliases are consistent throughout the document.",
+      "legalEffect": "ALIAS",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [
+        "TEST_DEF_02"
+      ],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_UNDEFINED_CAPITALIZED_TERM",
+      "domain": "Definitions",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"NOTICE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"NOTICE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": "Universal",
+      "rationale": "Capitalized term is used but not defined in the Definitions section.",
+      "recommendation": "Provide explicit definition for this capitalized term.",
+      "legalEffect": "RISK",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [
+        "TEST_DEF_03"
+      ],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_FORCE_MAJEURE_PRESENT",
+      "domain": "ForceMajeure",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Neutral",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "field": "extractedData.hasForceMajeure",
+        "equals": true
+      },
+      "then": {
+        "trigger": "ForceMajeurePresent",
+        "recommendation": "Confirm the enumerated events and the notice/mitigation obligations are proportionate to the contract's risk profile.",
+        "rationale": "A force majeure clause allocates the risk of extraordinary, uncontrollable events between the parties instead of leaving it to default excuse-of-performance doctrines."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_FORCE_MAJEURE_MISSING",
+      "domain": "ForceMajeure",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "field": "extractedData.hasForceMajeure",
+        "equals": false
+      },
+      "then": {
+        "trigger": "ForceMajeureMissing",
+        "recommendation": "Add a force majeure clause enumerating qualifying events, notice obligations, and a termination right if the event persists beyond a stated period.",
+        "rationale": "Without an express force majeure clause, a party's excuse from performance during extraordinary events depends on uncertain common-law or UCC impracticability doctrine rather than a negotiated standard."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
+      "domain": "ForceMajeure",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "and": [
+          {
+            "field": "extractedData.hasForceMajeure",
+            "equals": true
+          },
+          {
+            "field": "extractedData.forceMajeureDelayDays",
+            "greater_than": 60
+          }
+        ]
+      },
+      "then": {
+        "trigger": "ExcessiveForceMajeureDelay",
+        "recommendation": "Shorten the period before either party may terminate for a continuing force majeure event to a commercially reasonable window (commonly 30-90 days).",
+        "rationale": "An excessively long delay-before-termination threshold can trap a party in a non-performing contract indefinitely."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_FORCE_MAJEURE_NOTICE_REQUIRED",
+      "domain": "ForceMajeure",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Fairness",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "field": "extractedData.requiresForceMajeureNotice",
+        "equals": true
+      },
+      "then": {
+        "trigger": "ForceMajeureNoticeRequired",
+        "recommendation": "Confirm the notice timeline and method for invoking force majeure are workable in practice, and that failure to give timely notice has a stated (not open-ended) consequence.",
+        "rationale": "A notice requirement lets the unaffected party plan around the disruption and creates a documented record of when the event began."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_EXPLICIT_GOVERNING_LAW",
+      "domain": "GoverningLaw",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"GOVERNING_LAW\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"GOVERNING_LAW\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "Governing law is explicitly defined.",
+      "recommendation": "Ensure it aligns with the home jurisdiction of your entity.",
+      "legalEffect": "INTERPRETATION",
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_EXCLUSIVE_VENUE",
+      "domain": "GoverningLaw",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"VENUE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"VENUE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "Exclusive jurisdiction is established.",
+      "recommendation": "Review venue convenience.",
+      "legalEffect": "JURISDICTION",
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_PRESENT",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Neutral",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_INDEMNIFICATION"
+      },
+      "then": {
+        "trigger": "IndemnificationPresent",
+        "message": "The agreement contains provisions addressing indemnification.",
+        "recommendation": "Confirm the indemnification clause's scope (claims covered), triggers, and procedure (notice, defense, settlement control) are complete.",
+        "rationale": "An indemnification clause shifts the financial risk of specified third-party claims from one party to the other, supplementing (or in some cases superseding) default tort and contract remedies."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_MISSING",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "High",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "type": "documentRequiresConcept",
+            "value": "CONCEPT_INDEMNIFICATION"
+          },
+          {
+            "type": "conceptMissing",
+            "value": "CONCEPT_INDEMNIFICATION"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "MissingIndemnification",
+        "message": "The agreement is missing an indemnification clause.",
+        "recommendation": "Add an indemnification clause allocating responsibility for third-party claims arising from breach, negligence, or IP infringement, as appropriate to the deal.",
+        "rationale": "Without an indemnification clause, recovery for third-party claims caused by the other party's conduct depends on separately proving a tort or breach claim, which is slower and less certain."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_RISK",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "High",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_INDEMNIFY_BROAD"
+      },
+      "then": {
+        "trigger": "RiskyIndemnification",
+        "message": "The agreement contains broad/unlimited indemnification obligations (e.g., 'any and all claims'), which increases risk.",
+        "recommendation": "Narrow broad or unlimited indemnification language (e.g., 'any and all claims') to claims proximately caused by the indemnitor's breach, negligence, or willful misconduct, and consider pairing it with a liability cap carve-out.",
+        "rationale": "Unbounded indemnification obligations can expose the indemnitor to liability disproportionate to the value of the contract, and in some states may be unenforceable or restricted by anti-indemnity statutes."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_FAIRNESS",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Fairness",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_INDEMNIFY_RECIPROCAL"
+      },
+      "then": {
+        "trigger": "ReciprocalIndemnification",
+        "message": "Mutual or reciprocal indemnification provisions are present, balancing the risk allocation.",
+        "recommendation": "Confirm the reciprocal indemnification obligations are substantively symmetric, not just labeled 'mutual'.",
+        "rationale": "Mutual indemnification balances risk allocation between the parties rather than placing the full burden on one side."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_POSITIVE",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_INDEMNIFY_DEFEND"
+      },
+      "then": {
+        "trigger": "FavorableIndemnification",
+        "message": "An explicit duty to defend is established, providing coverage for legal defense costs.",
+        "recommendation": "Confirm the duty-to-defend trigger (upon tender vs. upon judgment) and any advancement-of-costs mechanics are workable.",
+        "rationale": "An explicit duty to defend provides coverage for legal defense costs as claims arise, not only reimbursement after a final judgment."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION_NEGOTIATION",
+      "domain": "Indemnification",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Negotiation",
+      "severity": "Neutral",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_INDEMNIFY_EXCLUSION"
+      },
+      "then": {
+        "trigger": "NegotiateIndemnification",
+        "message": "Indemnity exclusions or limitation exceptions are defined, providing clear negotiation boundaries.",
+        "recommendation": "Use the defined exclusions as the starting point for negotiating the indemnity's outer boundary; confirm carve-outs from limitation-of-liability caps are intentional.",
+        "rationale": "Clearly defined exclusions and limitation-of-liability interactions give both sides predictable negotiation anchors instead of open-ended exposure."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED",
+      "domain": "IntellectualProperty",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"OWNERSHIP\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"OWNERSHIP\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "IP ownership is clearly assigned to the creator/Disclosing Party.",
+      "recommendation": "None.",
+      "legalEffect": "OWNERSHIP",
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_OWNERSHIP_UNDEFINED",
+      "domain": "IntellectualProperty",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"OWNERSHIP\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"OWNERSHIP\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Risk",
+      "severity": "High",
+      "jurisdiction": "Universal",
+      "rationale": "No explicit assignment of created IP.",
+      "recommendation": "Ensure IP assignments are clearly written.",
+      "legalEffect": "VOID",
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_PRESENT",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Neutral",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_LIABILITY"
+      },
+      "then": {
+        "trigger": "LiabilityPresent",
+        "message": "The agreement contains provisions addressing limitation of liability.",
+        "recommendation": "Confirm the limitation of liability clause's cap amount, exclusions, and carve-outs are consistent with the deal's risk allocation.",
+        "rationale": "A limitation of liability clause caps or excludes categories of damages, and is one of the most heavily negotiated risk-allocation provisions in commercial contracts."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_MISSING",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "High",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "type": "documentRequiresConcept",
+            "value": "CONCEPT_LIABILITY"
+          },
+          {
+            "type": "conceptMissing",
+            "value": "CONCEPT_LIABILITY"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "MissingLiability",
+        "message": "The agreement is missing a limitation of liability clause.",
+        "recommendation": "Add a limitation of liability clause specifying an aggregate cap and excluding indirect/consequential damages, subject to standard carve-outs.",
+        "rationale": "Without a limitation of liability clause, exposure for breach is bounded only by common-law damages principles (e.g., foreseeability), which can be far larger and less predictable than a negotiated cap."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_RISK",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "High",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "type": "conceptExists",
+            "value": "CONCEPT_LIABILITY"
+          },
+          {
+            "type": "conceptMissing",
+            "value": "CONCEPT_LIABILITY_CAP"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "RiskyLiability",
+        "message": "The agreement contains liability provisions but lacks a clear aggregate liability cap, exposing parties to unlimited liability.",
+        "recommendation": "Add an aggregate liability cap (commonly tied to fees paid in the prior 12 months) rather than leaving liability uncapped.",
+        "rationale": "Liability provisions that exclude certain damages but omit an aggregate cap still leave a party exposed to unlimited direct damages."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_FAIRNESS",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Fairness",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_LIABILITY_EXCLUSION"
+      },
+      "then": {
+        "trigger": "LiabilityExclusionPresent",
+        "message": "Waiver of indirect or consequential damages is present, establishing standard commercial protection.",
+        "recommendation": "Confirm the indirect/consequential damages waiver is mutual and that its interaction with the indemnification clause is deliberate (indemnified claims are often carved out of this waiver).",
+        "rationale": "Waiving indirect and consequential damages is standard commercial practice that keeps liability tied to direct, foreseeable losses."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_POSITIVE",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_LIABILITY_CARVEOUT"
+      },
+      "then": {
+        "trigger": "FavorableLiability",
+        "message": "Cap carve-outs (e.g., gross negligence or willful misconduct) are defined.",
+        "recommendation": "Confirm carve-outs (gross negligence, willful misconduct, IP infringement, confidentiality breach) are the ones your risk profile actually requires, not a boilerplate list.",
+        "rationale": "Cap carve-outs exclude the most serious categories of misconduct from the liability cap, which is standard but changes the deal's real risk exposure."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "CONCEPT_LIABILITY_NEGOTIATION",
+      "domain": "Liability",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Negotiation",
+      "severity": "Neutral",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_LIABILITY_CAP"
+      },
+      "then": {
+        "trigger": "NegotiateLiability",
+        "message": "An aggregate liability cap is defined. Review the cap amount for commercial suitability.",
+        "recommendation": "Benchmark the cap amount (e.g., 12 months' fees, a fixed dollar amount, or unlimited for specified carve-outs) against deal value and industry norms before accepting.",
+        "rationale": "The cap amount is usually the single most negotiated number in the agreement and should be evaluated relative to total contract value, not accepted as boilerplate."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_PROPER_NOTICE_TIMELINE",
+      "domain": "Lifecycle",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"LIFECYCLE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"LIFECYCLE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": "Universal",
+      "rationale": "Notice timeline is strictly followed.",
+      "recommendation": "None.",
+      "legalEffect": "PERMITTED",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_ILLEGAL_STATE_TRANSITION",
+      "domain": "Lifecycle",
+      "status": "failed",
+      "reason": "Compilation would throw: RuleCompiler.compileRule() requires \"when\" and \"then\"; this entry has neither (it's a knowledge-concept entry describing \"LIFECYCLE\", not an executable rule). No \"when\"/\"then\" present in the source rule — this is a knowledge-concept entry (concept: \"LIFECYCLE\"), not an executable condition. Not sent to RuleCompiler: inventing a condition that was never authored would fabricate capability the rule doesn't have. Needs to be authored with real \"when\"/\"then\" logic before it can become compiled-active.",
+      "category": "Risk",
+      "severity": "High",
+      "jurisdiction": "Universal",
+      "rationale": "An illegal contract state transition was detected.",
+      "recommendation": "Ensure state transitions are logically valid.",
+      "legalEffect": "VOID",
+      "targetPrecision": 0.99,
+      "targetRecall": 0.95,
+      "linkedTests": [],
+      "originalSchema": "knowledge-concept-v1",
+      "when": null,
+      "then": null,
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_EMAIL_NOTICE_ALLOWED",
+      "domain": "Notice",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Positive",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_NOTICE_EMAIL"
+      },
+      "then": {
+        "trigger": "EmailNoticeAllowed",
+        "message": "Email notice is explicitly permitted.",
+        "recommendation": "Confirm email notice has a defined deemed-receipt rule (e.g., next business day) to avoid disputes over when notice was effective.",
+        "rationale": "Permitting notice by email speeds communication but, absent a deemed-receipt rule, can create disputes about exactly when a notice period began to run."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_MISSING_NOTICE_ADDRESS",
+      "domain": "Notice",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "type": "conceptExists",
+            "value": "CONCEPT_NOTICE"
+          },
+          {
+            "type": "conceptMissing",
+            "value": "CONCEPT_NOTICE_ADDRESS"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "MissingNoticeAddress",
+        "message": "No explicit notice address was provided.",
+        "recommendation": "Add a specific notice address (or designated contact/method) for each party so formal notices have an unambiguous delivery point.",
+        "rationale": "Without a stated notice address, a party attempting to give formal notice (e.g., of breach or termination) has no contractually agreed delivery point, risking a dispute over whether notice was properly given."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_PAYMENT_DEADLINE_LONG",
+      "domain": "Payment",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "field": "actions[*].verb",
+            "equals": "ACTION_PAY"
+          },
+          {
+            "field": "actions[*].constraints[*].type",
+            "equals": "duration"
+          },
+          {
+            "field": "actions[*].constraints[*].value",
+            "greater_than": 15
+          }
+        ]
+      },
+      "then": {
+        "trigger": "ExtendedPaymentTerms",
+        "message": "Payment terms exceed standard 15 days, impacting cash flow."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_TERMINATION_PRESENT",
+      "domain": "Termination",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Low",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptExists",
+        "value": "CONCEPT_TERMINATION"
+      },
+      "then": {
+        "trigger": "TerminationClausePresent",
+        "message": "The contract contains a termination clause.",
+        "recommendation": "Confirm the termination clause covers both for-cause and for-convenience scenarios, if intended, and that post-termination obligations (data return, final payment) are addressed.",
+        "rationale": "A termination clause establishes when and how either party may end the agreement, which is foundational to managing exit risk."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_TERMINATION_MISSING",
+      "domain": "Termination",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Completeness",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "type": "conceptMissing",
+        "value": "CONCEPT_TERMINATION"
+      },
+      "then": {
+        "trigger": "TerminationClauseMissing",
+        "message": "The contract lacks a termination clause.",
+        "recommendation": "Add a termination clause specifying at minimum a for-cause right (with a cure period) and the effects of termination.",
+        "rationale": "Without an express termination clause, ending the contract early depends on proving a material breach at common law, which is slower and less certain than a negotiated right."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_TERMINATION_NOTICE_SHORT",
+      "domain": "Termination",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "field": "actions[*].verb",
+            "equals": "ACTION_TERMINATE"
+          },
+          {
+            "field": "actions[*].object",
+            "contains": "convenience"
+          },
+          {
+            "field": "actions[*].constraints[*].type",
+            "equals": "duration"
+          },
+          {
+            "field": "actions[*].constraints[*].value",
+            "less_than": 30
+          }
+        ]
+      },
+      "then": {
+        "trigger": "ShortTerminationNotice",
+        "message": "Termination notice period for convenience is less than 30 days, creating operational risk.",
+        "recommendation": "Extend the termination-for-convenience notice period to at least 30 days (longer for complex or service-dependent relationships) to allow for orderly transition.",
+        "rationale": "A short notice period gives the non-terminating party little time to arrange a replacement or wind down dependent operations."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+      "domain": "Termination",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Fairness",
+      "severity": "High",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "field": "actions[*].verb",
+            "equals": "ACTION_TERMINATE"
+          },
+          {
+            "field": "actions[*].object",
+            "contains": "convenience"
+          },
+          {
+            "field": "actions[*].actor",
+            "not_equals": "Either party"
+          }
+        ]
+      },
+      "then": {
+        "trigger": "UnilateralTerminationConvenience",
+        "message": "Termination for convenience is unilateral, which creates unfair leverage.",
+        "recommendation": "Make the termination-for-convenience right mutual, or add compensating protections (e.g., a longer notice period or termination fee) if one-sided termination is commercially necessary.",
+        "rationale": "A one-sided termination-for-convenience right gives one party unilateral leverage to exit at will while binding the other party for the full term."
+      },
+      "provenanceWarnings": []
+    },
+    {
+      "id": "RULE_TERMINATION_CURE_PERIOD_SHORT",
+      "domain": "Termination",
+      "status": "compiled-active",
+      "reason": "All referenced fields are populated by the current pipeline.",
+      "category": "Risk",
+      "severity": "Medium",
+      "jurisdiction": null,
+      "rationale": null,
+      "recommendation": null,
+      "legalEffect": null,
+      "targetPrecision": null,
+      "targetRecall": null,
+      "linkedTests": [],
+      "originalSchema": "executable-v1",
+      "when": {
+        "all": [
+          {
+            "field": "actions[*].verb",
+            "equals": "ACTION_TERMINATE"
+          },
+          {
+            "field": "actions[*].conditions[*]",
+            "contains": "cure"
+          },
+          {
+            "field": "actions[*].constraints[*].type",
+            "equals": "duration"
+          },
+          {
+            "field": "actions[*].constraints[*].value",
+            "less_than": 15
+          }
+        ]
+      },
+      "then": {
+        "trigger": "ShortCurePeriod",
+        "message": "Cure period for breach is less than 15 days, creating risk.",
+        "recommendation": "Extend the cure period for breach to at least 15-30 days, scaled to the complexity of the obligation likely to be breached.",
+        "rationale": "A short cure period increases the risk that an otherwise-remediable, non-material lapse escalates into a contract-ending event."
+      },
+      "provenanceWarnings": []
+    }
+  ]
+}

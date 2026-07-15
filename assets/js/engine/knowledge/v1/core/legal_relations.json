@@ -1,0 +1,94 @@
+[
+  {
+    "id": "REL_PAYMENT_REQUIRES_MONEY",
+    "source": "CONCEPT_PAYMENT",
+    "relation": "requires",
+    "target": "ENTITY_MONEY",
+    "description": "A payment requires a monetary amount.",
+    "status": "production"
+  },
+  {
+    "id": "REL_PAYMENT_REQUIRES_CURRENCY",
+    "source": "CONCEPT_PAYMENT",
+    "relation": "requires",
+    "target": "ENTITY_CURRENCY",
+    "status": "production"
+  },
+  {
+    "id": "REL_PAYMENT_HAS_DEADLINE",
+    "source": "CONCEPT_PAYMENT",
+    "relation": "requires",
+    "target": "ENTITY_DURATION",
+    "status": "production"
+  },
+  {
+    "id": "REL_NOTICE_REQUIRES_ADDRESS",
+    "source": "CONCEPT_NOTICE",
+    "relation": "requires",
+    "target": "ENTITY_ADDRESS",
+    "status": "production"
+  },
+  {
+    "id": "REL_NOTICE_REQUIRES_DATE",
+    "source": "CONCEPT_NOTICE",
+    "relation": "requires",
+    "target": "ENTITY_DATE",
+    "status": "production"
+  },
+  {
+    "id": "REL_TERMINATION_REQUIRES_NOTICE",
+    "source": "CONCEPT_TERMINATION",
+    "relation": "requires",
+    "target": "CONCEPT_NOTICE",
+    "status": "production"
+  },
+  {
+    "id": "REL_CONFIDENTIALITY_PROTECTS_INFORMATION",
+    "source": "CONCEPT_CONFIDENTIALITY",
+    "relation": "protects",
+    "target": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "status": "production"
+  },
+  {
+    "id": "REL_NON_DISCLOSURE_SUPPORTS_CONFIDENTIALITY",
+    "source": "CONCEPT_NON_DISCLOSURE",
+    "relation": "supports",
+    "target": "CONCEPT_CONFIDENTIALITY",
+    "status": "production"
+  },
+  {
+    "id": "REL_INDEMNIFICATION_RELATED_TO_LIABILITY",
+    "source": "CONCEPT_INDEMNIFICATION",
+    "relation": "related_to",
+    "target": "CONCEPT_LIABILITY",
+    "status": "production"
+  },
+  {
+    "id": "REL_ASSIGNMENT_TRANSFERS_RIGHTS",
+    "source": "CONCEPT_ASSIGNMENT",
+    "relation": "affects",
+    "target": "ENTITY_PARTY",
+    "status": "production"
+  },
+  {
+    "id": "REL_SERVICES_REQUIRE_PROVIDER",
+    "source": "CONCEPT_SERVICES",
+    "relation": "requires",
+    "target": "ENTITY_PROVIDER",
+    "status": "production"
+  },
+  {
+    "id": "REL_SERVICES_REQUIRE_CLIENT",
+    "source": "CONCEPT_SERVICES",
+    "relation": "requires",
+    "target": "ENTITY_CLIENT",
+    "status": "production"
+  },
+  {
+    "id": "REL_RETURN_FOLLOWS_TERMINATION",
+    "source": "CONCEPT_RETURN_OF_INFORMATION",
+    "relation": "follows",
+    "target": "CONCEPT_TERMINATION",
+    "status": "production"
+  }
+]

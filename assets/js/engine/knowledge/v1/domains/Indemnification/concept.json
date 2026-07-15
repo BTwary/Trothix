@@ -1,29 +1,66 @@
-{
-  "id": "CONCEPT_INDEMNIFICATION",
-  "name": "Indemnification",
-  "description": "Core concept representing Indemnification.",
-  "category": "Contract Clause",
-  "introduced": "1.0.0",
-  "deprecated": false,
-  "replacedBy": null,
-  "status": "draft",
-  "maturity": "Experimental",
-  "owner": "Trothix",
-  "reviewed": "2026-07-06",
-  "nextReview": "2026-10-04",
-  "actions": [
-    "ACTION_INDEMNIFICATION"
-  ],
-  "phrases": [],
-  "entities": [],
-  "documents": [],
-  "related": [],
-  "rules": [
-    "CONCEPT_INDEMNIFICATION_PRESENT",
-    "CONCEPT_INDEMNIFICATION_MISSING",
-    "CONCEPT_INDEMNIFICATION_RISK",
-    "CONCEPT_INDEMNIFICATION_FAIRNESS",
-    "CONCEPT_INDEMNIFICATION_POSITIVE",
-    "CONCEPT_INDEMNIFICATION_NEGOTIATION"
-  ]
-}
+[
+  {
+    "id": "CONCEPT_INDEMNIFICATION",
+    "name": "Indemnification",
+    "description": "Core concept representing Indemnification.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_INDEMNIFICATION"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [],
+    "rules": [
+      "CONCEPT_INDEMNIFICATION_PRESENT",
+      "CONCEPT_INDEMNIFICATION_MISSING",
+      "CONCEPT_INDEMNIFICATION_RISK",
+      "CONCEPT_INDEMNIFICATION_FAIRNESS",
+      "CONCEPT_INDEMNIFICATION_POSITIVE",
+      "CONCEPT_INDEMNIFICATION_NEGOTIATION"
+    ]
+  },
+  {
+    "id": "CONCEPT_INDEMNIFY_BROAD",
+    "name": "Broad Indemnity",
+    "description": "Broad or unlimited indemnification obligations.",
+    "category": "Risk Allocation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  },
+  {
+    "id": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "name": "Reciprocal Indemnity",
+    "description": "Mutual or reciprocal indemnification provisions.",
+    "category": "Fairness",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  },
+  {
+    "id": "CONCEPT_INDEMNIFY_DEFEND",
+    "name": "Duty to Defend",
+    "description": "Explicit duty of the indemnifying party to defend claims.",
+    "category": "Obligation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  },
+  {
+    "id": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "name": "Indemnity Exclusion",
+    "description": "Exclusions or carve-outs from indemnification liability.",
+    "category": "Risk Mitigation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  }
+]

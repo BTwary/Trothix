@@ -1,7 +1,7 @@
 [
   {
     "id": "RULE_DEFINITIONS_PRESENT",
-    "concept": "NOTICE",
+    "concept": "CONCEPT_DEFINED_TERM",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
@@ -10,14 +10,25 @@
     "legal_effect": "DEFINITION",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
+    "status": "production",
+    "introduced": "1.2.0",
     "linkedTests": [
       "TEST_DEF_01"
-    ]
+    ],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_DEFINED_TERM"
+    },
+    "then": {
+      "trigger": "DefinitionsPresent",
+      "message": "The agreement uses a recognized definitional pattern (e.g. 'shall mean') to expressly define at least one term.",
+      "recommendation": "Confirm every capitalized term used elsewhere in the agreement traces back to a definition like this one.",
+      "rationale": "An express definition displaces the default, more uncertain rules of contract interpretation for the term it covers, reducing the risk of a later dispute over the term's meaning."
+    }
   },
   {
     "id": "RULE_ALIASES_RESOLVED",
-    "concept": "NOTICE",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
@@ -26,14 +37,25 @@
     "legal_effect": "ALIAS",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
+    "status": "production",
+    "introduced": "1.2.0",
     "linkedTests": [
       "TEST_DEF_02"
-    ]
+    ],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_ALIAS_RESOLUTION"
+    },
+    "then": {
+      "trigger": "AliasesResolved",
+      "message": "The agreement resolves a shorthand label or synonym to a single canonical defined term.",
+      "recommendation": "Verify the alias is used consistently and does not silently drift to refer to a different party or concept later in the document.",
+      "rationale": "Resolving synonyms to one canonical term prevents ambiguity about whether two different labels refer to the same thing."
+    }
   },
   {
     "id": "RULE_UNDEFINED_CAPITALIZED_TERM",
-    "concept": "NOTICE",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
     "category": "Risk",
     "severity": "Medium",
     "jurisdiction": "Universal",
@@ -42,9 +64,28 @@
     "legal_effect": "RISK",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
+    "status": "production",
+    "introduced": "1.2.0",
     "linkedTests": [
       "TEST_DEF_03"
-    ]
+    ],
+    "when": {
+      "all": [
+        {
+          "type": "conceptExists",
+          "value": "CONCEPT_DEFINED_TERM_REFERENCE"
+        },
+        {
+          "type": "conceptMissing",
+          "value": "CONCEPT_DEFINED_TERM"
+        }
+      ]
+    },
+    "then": {
+      "trigger": "UndefinedCapitalizedTerm",
+      "message": "The agreement relies on a term as though it were already defined (e.g. 'as defined herein'), but no recognized definitional pattern for that term appears elsewhere in the analyzed text.",
+      "recommendation": "Add an explicit definition for the referenced term, or confirm the definition exists in a section of the document outside the analyzed excerpt.",
+      "rationale": "A defined-term reference without a corresponding definition risks contra proferentem exposure and genuine interpretive disputes over what the term covers."
+    }
   }
 ]

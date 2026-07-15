@@ -1,0 +1,42 @@
+[
+  {
+    "id": "PHRASE_IP_OWNERSHIP_ALL_RIGHT_TITLE",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "text": "shall own all right, title and interest"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_HEREBY_ASSIGNS",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "text": "hereby assigns to"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_ASSIGNS_ALL_RIGHT_TITLE",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "text": "assigns all right, title, and interest"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_WORK_MADE_FOR_HIRE",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "text": "work made for hire"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_OWNED_EXCLUSIVELY_BY",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "text": "owned exclusively by"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_GAP_WORK_PRODUCT",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "text": "work product created under this Agreement"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_GAP_DELIVERABLES",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "text": "deliverables developed hereunder"
+  },
+  {
+    "id": "PHRASE_IP_OWNERSHIP_GAP_INVENTIONS",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "text": "inventions conceived during the term"
+  }
+]

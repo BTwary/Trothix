@@ -1,0 +1,26 @@
+[
+  {
+    "id": "JNOTE_ASSIGNMENT_01",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "jurisdiction": "US-UCC",
+    "note": "Anti-assignment clauses restricting delegation of duties (not assignment of rights) are generally enforceable; the UCC gap-fill default favors assignability."
+  },
+  {
+    "id": "JNOTE_ASSIGNMENT_02",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "jurisdiction": "US-UCC-Article9",
+    "note": "A contractual prohibition on assigning payment rights (accounts) does not defeat a secured party's interest under UCC § 9-406."
+  },
+  {
+    "id": "JNOTE_ASSIGNMENT_UK",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "jurisdiction": "UK",
+    "note": "Under UK LPA 1925 s.136, legal assignments require express written notice to the debtor, otherwise they are only equitable."
+  },
+  {
+    "id": "JNOTE_ASSIGNMENT_IN",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "jurisdiction": "India",
+    "note": "Indian courts hold that contractual rights are assignable, but obligations/duties cannot be delegated without consent."
+  }
+]

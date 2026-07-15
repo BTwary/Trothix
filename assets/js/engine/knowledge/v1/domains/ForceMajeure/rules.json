@@ -11,8 +11,11 @@
       "equals": true
     },
     "then": {
-      "trigger": "ForceMajeurePresent"
-    }
+      "trigger": "ForceMajeurePresent",
+      "recommendation": "Confirm the enumerated events and the notice/mitigation obligations are proportionate to the contract's risk profile.",
+      "rationale": "A force majeure clause allocates the risk of extraordinary, uncontrollable events between the parties instead of leaving it to default excuse-of-performance doctrines."
+    },
+    "concept": "CONCEPT_FORCE_MAJEURE"
   },
   {
     "id": "RULE_FORCE_MAJEURE_MISSING",
@@ -26,8 +29,11 @@
       "equals": false
     },
     "then": {
-      "trigger": "ForceMajeureMissing"
-    }
+      "trigger": "ForceMajeureMissing",
+      "recommendation": "Add a force majeure clause enumerating qualifying events, notice obligations, and a termination right if the event persists beyond a stated period.",
+      "rationale": "Without an express force majeure clause, a party's excuse from performance during extraordinary events depends on uncertain common-law or UCC impracticability doctrine rather than a negotiated standard."
+    },
+    "concept": "CONCEPT_FORCE_MAJEURE"
   },
   {
     "id": "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
@@ -49,8 +55,11 @@
       ]
     },
     "then": {
-      "trigger": "ExcessiveForceMajeureDelay"
-    }
+      "trigger": "ExcessiveForceMajeureDelay",
+      "recommendation": "Shorten the period before either party may terminate for a continuing force majeure event to a commercially reasonable window (commonly 30-90 days).",
+      "rationale": "An excessively long delay-before-termination threshold can trap a party in a non-performing contract indefinitely."
+    },
+    "concept": "CONCEPT_FORCE_MAJEURE"
   },
   {
     "id": "RULE_FORCE_MAJEURE_NOTICE_REQUIRED",
@@ -64,7 +73,48 @@
       "equals": true
     },
     "then": {
-      "trigger": "ForceMajeureNoticeRequired"
-    }
+      "trigger": "ForceMajeureNoticeRequired",
+      "recommendation": "Confirm the notice timeline and method for invoking force majeure are workable in practice, and that failure to give timely notice has a stated (not open-ended) consequence.",
+      "rationale": "A notice requirement lets the unaffected party plan around the disruption and creates a documented record of when the event began."
+    },
+    "concept": "CONCEPT_FORCE_MAJEURE"
+  },
+  {
+    "id": "RULE_FM_MITIGATION_DUTY",
+    "name": "Force Majeure Mitigation Duty",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Obligation",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_FM_MITIGATION"
+    },
+    "then": {
+      "trigger": "ForceMajeureMitigationDuty",
+      "message": "Obligation on the non-performing party to mitigate Force Majeure impact.",
+      "recommendation": "Ensure that the mitigation duty is clearly defined as 'commercially reasonable efforts' to limit business exposure.",
+      "rationale": "Explicit mitigation duties incentivize the affected party to seek alternative supply channels and reduce business down-time."
+    },
+    "concept": "CONCEPT_FM_MITIGATION"
+  },
+  {
+    "id": "RULE_FM_TERMINATION_RIGHT",
+    "name": "Force Majeure Termination Right",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Positive",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_FM_TERMINATION"
+    },
+    "then": {
+      "trigger": "ForceMajeureTerminationRight",
+      "message": "Right to terminate the contract after persistent force majeure.",
+      "recommendation": "Maintain a mutual exit option if force majeure prevents performance for a prolonged period (e.g. 30 to 90 days).",
+      "rationale": "A persistent-excuse termination right prevents one party from being trapped indefinitely in a suspended commercial transaction."
+    },
+    "concept": "CONCEPT_FM_TERMINATION"
   }
 ]

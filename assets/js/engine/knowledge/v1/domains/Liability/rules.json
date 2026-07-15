@@ -5,19 +5,18 @@
     "description": "Checks if Liability is present.",
     "category": "Completeness",
     "severity": "Neutral",
-    "status": "draft",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_LIABILITY"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_LIABILITY"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "LiabilityPresent"
-    }
+      "trigger": "LiabilityPresent",
+      "message": "The agreement contains provisions addressing limitation of liability.",
+      "recommendation": "Confirm the limitation of liability clause's cap amount, exclusions, and carve-outs are consistent with the deal's risk allocation.",
+      "rationale": "A limitation of liability clause caps or excludes categories of damages, and is one of the most heavily negotiated risk-allocation provisions in commercial contracts."
+    },
+    "concept": "CONCEPT_LIABILITY"
   },
   {
     "id": "CONCEPT_LIABILITY_MISSING",
@@ -25,7 +24,7 @@
     "description": "Checks if Liability is unexpectedly missing.",
     "category": "Completeness",
     "severity": "High",
-    "status": "draft",
+    "status": "production",
     "when": {
       "all": [
         {
@@ -39,88 +38,95 @@
       ]
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "MissingLiability"
-    }
+      "trigger": "MissingLiability",
+      "message": "The agreement is missing a limitation of liability clause.",
+      "recommendation": "Add a limitation of liability clause specifying an aggregate cap and excluding indirect/consequential damages, subject to standard carve-outs.",
+      "rationale": "Without a limitation of liability clause, exposure for breach is bounded only by common-law damages principles (e.g., foreseeability), which can be far larger and less predictable than a negotiated cap."
+    },
+    "concept": "CONCEPT_LIABILITY"
   },
   {
     "id": "CONCEPT_LIABILITY_RISK",
-    "name": "Liability Risk",
-    "description": "Checks for risky Liability terms.",
+    "name": "Liability Risk (Unlimited Liability)",
+    "description": "Checks if liability cap is missing, exposing the party to unlimited liability.",
     "category": "Risk",
     "severity": "High",
-    "status": "draft",
+    "status": "production",
     "when": {
       "all": [
         {
           "type": "conceptExists",
           "value": "CONCEPT_LIABILITY"
+        },
+        {
+          "type": "conceptMissing",
+          "value": "CONCEPT_LIABILITY_CAP"
         }
       ]
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "RiskyLiability"
-    }
+      "trigger": "RiskyLiability",
+      "message": "The agreement contains liability provisions but lacks a clear aggregate liability cap, exposing parties to unlimited liability.",
+      "recommendation": "Add an aggregate liability cap (commonly tied to fees paid in the prior 12 months) rather than leaving liability uncapped.",
+      "rationale": "Liability provisions that exclude certain damages but omit an aggregate cap still leave a party exposed to unlimited direct damages."
+    },
+    "concept": "CONCEPT_LIABILITY"
   },
   {
     "id": "CONCEPT_LIABILITY_FAIRNESS",
-    "name": "Liability Fairness",
-    "description": "Checks if Liability is balanced.",
+    "name": "Liability Fairness (Consequential Damages Excluded)",
+    "description": "Checks if standard indirect/consequential damages exclusions are present.",
     "category": "Fairness",
-    "severity": "Medium",
-    "status": "draft",
+    "severity": "Low",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_LIABILITY"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_LIABILITY_EXCLUSION"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "UnfairLiability"
-    }
+      "trigger": "LiabilityExclusionPresent",
+      "message": "Waiver of indirect or consequential damages is present, establishing standard commercial protection.",
+      "recommendation": "Confirm the indirect/consequential damages waiver is mutual and that its interaction with the indemnification clause is deliberate (indemnified claims are often carved out of this waiver).",
+      "rationale": "Waiving indirect and consequential damages is standard commercial practice that keeps liability tied to direct, foreseeable losses."
+    },
+    "concept": "CONCEPT_LIABILITY_EXCLUSION"
   },
   {
     "id": "CONCEPT_LIABILITY_POSITIVE",
-    "name": "Liability Positive",
-    "description": "Checks for highly favorable Liability terms.",
+    "name": "Liability Positive (Carve-outs Present)",
+    "description": "Checks if cap exceptions/carve-outs are present.",
     "category": "Positive",
     "severity": "Low",
-    "status": "draft",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_LIABILITY"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_LIABILITY_CARVEOUT"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "FavorableLiability"
-    }
+      "trigger": "FavorableLiability",
+      "message": "Cap carve-outs (e.g., gross negligence or willful misconduct) are defined.",
+      "recommendation": "Confirm carve-outs (gross negligence, willful misconduct, IP infringement, confidentiality breach) are the ones your risk profile actually requires, not a boilerplate list.",
+      "rationale": "Cap carve-outs exclude the most serious categories of misconduct from the liability cap, which is standard but changes the deal's real risk exposure."
+    },
+    "concept": "CONCEPT_LIABILITY_CARVEOUT"
   },
   {
     "id": "CONCEPT_LIABILITY_NEGOTIATION",
-    "name": "Liability Negotiation",
-    "description": "Identifies standard fallback positions for Liability.",
+    "name": "Liability Negotiation (Cap Size Standard)",
+    "description": "Checks if standard limitation of liability cap is present.",
     "category": "Negotiation",
     "severity": "Neutral",
-    "status": "draft",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_LIABILITY"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_LIABILITY_CAP"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "NegotiateLiability"
-    }
+      "trigger": "NegotiateLiability",
+      "message": "An aggregate liability cap is defined. Review the cap amount for commercial suitability.",
+      "recommendation": "Benchmark the cap amount (e.g., 12 months' fees, a fixed dollar amount, or unlimited for specified carve-outs) against deal value and industry norms before accepting.",
+      "rationale": "The cap amount is usually the single most negotiated number in the agreement and should be evaluated relative to total contract value, not accepted as boilerplate."
+    },
+    "concept": "CONCEPT_LIABILITY_CAP"
   }
 ]

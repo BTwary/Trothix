@@ -71,35 +71,65 @@ check('normalized executable canonical rule compiles via the real RuleCompiler',
 // ---------------------------------------------------------------------
 const report = runRuleDiagnostics(KB_PATH);
 
-check('total rules considered is 31', report.summary.total === 31,
+check('total rules considered is 47', report.summary.total === 47,
   `got ${report.summary.total}`);
 
-check('exactly 1 rule is compiled-active (Payment/RULE_PAYMENT_DEADLINE_LONG)',
-  report.summary.compiledActive === 1,
+// Phase 1 (Rule Coverage Restoration): RuleCompiler now handles
+// conceptExists/conceptMissing/documentRequiresConcept (Liability +
+// Indemnification, 12 rules) via CONCEPT_DETECTION_TABLE, and
+// forceMajeureExtractor.js now populates extractedData.* (ForceMajeure,
+// 4 rules) that RULE_FIELD_REGISTRY previously flagged unverified.
+// 1 (Payment, pre-existing) + 12 (Liability/Indemnification) + 4
+// (ForceMajeure) + 5 (Termination, Phase 3) + 4 (Assignment, Phase 4 enriched) + 3 (Notice, Phase 4 enriched) + 3 (Payment, Phase 4 enriched) = 37.
+//
+// Knowledge Expansion sprint: the remaining 10 rules that were
+// concept-only (Confidentiality 1, Definitions 3, GoverningLaw 2,
+// IntellectualProperty 2, Lifecycle 2) now have real, evidence-backed
+// when/then authored using only already-supported condition types
+// (conceptExists/conceptMissing, some combined via "all"), each backed
+// by real concept.json/phrases.json entries. 37 + 10 = 47, and the
+// previously-failed count drops to 0.
+check('47 rules are compiled-active after the Knowledge Expansion sprint closed the remaining concept-only rules',
+  report.summary.compiledActive === 47,
   `got ${report.summary.compiledActive}`);
 
-check('16 rules are compiled-inert post-routing-fix (Indemnification/Liability CONCEPT_ rules now reach the compiler, but their conceptExists condition shape compiles to an always-false predicate, plus 4 Force Majeure rules using unverified fields)',
-  report.summary.compiledInert === 16,
+check('0 rules are compiled-inert (the previously-inert ForceMajeure/unrecognized-shape rules are now either active or failed, none left in a compiles-but-dead-predicate state)',
+  report.summary.compiledInert === 0,
   `got ${report.summary.compiledInert}`);
 
-check('14 rules are failed (missing when/then knowledge-concept entries, unchanged by the routing fix)',
-  report.summary.failed === 14,
+check('0 rules are failed (Knowledge Expansion sprint authored when/then for the remaining 10 concept-only entries)',
+  report.summary.failed === 0,
   `got ${report.summary.failed}`);
 
-const activeRule = report.rules.find(r => r.status === 'compiled-active');
-check('the one active rule is RULE_PAYMENT_DEADLINE_LONG in the Payment domain',
-  activeRule?.id === 'RULE_PAYMENT_DEADLINE_LONG' && activeRule?.domain === 'Payment');
+const activeRuleIds = report.rules.filter(r => r.status === 'compiled-active').map(r => r.id).sort();
+check('active rules include Payment, all 6 Liability CONCEPT_ rules, all 6 Indemnification CONCEPT_ rules, all 4 ForceMajeure rules, Assignment, Notice, and the 10 rules closed by the Knowledge Expansion sprint',
+  activeRuleIds.includes('RULE_PAYMENT_DEADLINE_LONG') &&
+  activeRuleIds.includes('CONCEPT_LIABILITY_PRESENT') &&
+  activeRuleIds.includes('CONCEPT_INDEMNIFICATION_PRESENT') &&
+  activeRuleIds.includes('RULE_FORCE_MAJEURE_PRESENT') &&
+  activeRuleIds.includes('RULE_ASSIGNMENT_ALLOWED') &&
+  activeRuleIds.includes('RULE_EMAIL_NOTICE_ALLOWED') &&
+  activeRuleIds.includes('RULE_NON_DISCLOSURE') &&
+  activeRuleIds.includes('RULE_DEFINITIONS_PRESENT') &&
+  activeRuleIds.includes('RULE_ALIASES_RESOLVED') &&
+  activeRuleIds.includes('RULE_UNDEFINED_CAPITALIZED_TERM') &&
+  activeRuleIds.includes('RULE_EXPLICIT_GOVERNING_LAW') &&
+  activeRuleIds.includes('RULE_EXCLUSIVE_VENUE') &&
+  activeRuleIds.includes('RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED') &&
+  activeRuleIds.includes('RULE_OWNERSHIP_UNDEFINED') &&
+  activeRuleIds.includes('RULE_PROPER_NOTICE_TIMELINE') &&
+  activeRuleIds.includes('RULE_ILLEGAL_STATE_TRANSITION') &&
+  activeRuleIds.length === 47,
+  `got ${JSON.stringify(activeRuleIds)}`);
 
-const shapeInertRules = report.rules.filter(r => r.status === 'compiled-inert' && r.reason.includes('unrecognized'));
-check('all 12 newly-reachable CONCEPT_ rules are classified compiled-inert for the unrecognized-condition-shape reason, not silently active',
-  shapeInertRules.length === 12,
-  `got ${shapeInertRules.length}`);
-check('all 12 shape-inert rules are in Indemnification or Liability',
-  shapeInertRules.every(r => r.domain === 'Indemnification' || r.domain === 'Liability'));
+const conceptActiveRules = report.rules.filter(r => r.status === 'compiled-active' && (r.domain === 'Indemnification' || r.domain === 'Liability'));
+check('all 12 Liability/Indemnification CONCEPT_ rules are compiled-active (conceptExists/conceptMissing/documentRequiresConcept now recognized)',
+  conceptActiveRules.length === 12,
+  `got ${conceptActiveRules.length}`);
 
 const missingWhenFailures = report.rules.filter(r => r.status === 'failed' && r.reason.includes('Compilation would throw'));
-check('exactly 14 failed rules are the missing-when/then knowledge-concept entries',
-  missingWhenFailures.length === 14,
+check('0 rules remain failed for missing when/then (the Knowledge Expansion sprint authored all 10)',
+  missingWhenFailures.length === 0,
   `got ${missingWhenFailures.length}`);
 
 const neverRoutedFailures = report.rules.filter(r => r.status === 'failed' && r.reason.includes('Never reaches RuleCompiler'));

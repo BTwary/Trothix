@@ -16,6 +16,8 @@
  * concept references are still tracked instead of silently vanishing.
  */
 
+import { RuleSchemaValidator } from '../../rules/RuleSchemaValidator.js';
+
 const Severity = { FATAL: 'FATAL', ERROR: 'ERROR', WARNING: 'WARNING' };
 
 function asItems(data) {
@@ -40,6 +42,11 @@ function validate(data, file) {
       return;
     }
     const id = rule.id || `index ${idx}`;
+    
+    // Call RuleSchemaValidator
+    const validatorResult = RuleSchemaValidator.validateRule(rule);
+    validatorResult.errors.forEach(err => errors.push(`[${Severity.ERROR}] ${file}: ${err}`));
+    validatorResult.warnings.forEach(warn => errors.push(`[${Severity.WARNING}] ${file}: ${warn}`));
     if (!rule.id) {
       errors.push(`[${Severity.ERROR}] ${file}: rule at index ${idx} missing "id"`);
     } else if (typeof rule.id !== 'string') {

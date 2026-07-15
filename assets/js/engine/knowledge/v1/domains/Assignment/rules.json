@@ -1,30 +1,82 @@
 [
   {
     "id": "RULE_ASSIGNMENT_ALLOWED",
-    "concept": "ASSIGNMENT",
+    "status": "production",
+    "introduced": "1.0.0",
     "category": "Positive",
     "severity": "Low",
-    "jurisdiction": "Universal",
-    "rationale": "Assignment is permitted under certain conditions.",
-    "recommendation": "Verify assignee creditworthiness.",
-    "legal_effect": "PERMISSION",
-    "targetPrecision": 0.99,
-    "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": []
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_ASSIGNMENT"
+    },
+    "then": {
+      "trigger": "AssignmentAllowed",
+      "message": "The contract contains provisions allowing or governing assignment.",
+      "recommendation": "Confirm the assignment clause's consent standard (silent, reasonable, or sole discretion) matches your risk tolerance.",
+      "rationale": "Assignment provisions determine whether either party can transfer the contract to a successor or third party, directly affecting counterparty predictability."
+    },
+    "concept": "CONCEPT_ASSIGNMENT"
   },
   {
     "id": "RULE_CONSENT_REQUIRED",
-    "concept": "ASSIGNMENT",
+    "status": "production",
+    "introduced": "1.0.0",
     "category": "Risk",
     "severity": "Medium",
-    "jurisdiction": "Universal",
-    "rationale": "Assignment requires prior written consent from the non-assigning party.",
-    "recommendation": "Request consent in writing prior to any transfer.",
-    "legal_effect": "RESTRICTION",
-    "targetPrecision": 0.99,
-    "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": []
+    "when": {
+      "all": [
+        {
+          "type": "conceptExists",
+          "value": "CONCEPT_ASSIGNMENT"
+        },
+        {
+          "type": "conceptExists",
+          "value": "CONCEPT_CONSENT"
+        }
+      ]
+    },
+    "then": {
+      "trigger": "AssignmentConsentRequired",
+      "message": "Assignment requires prior written consent from the other party.",
+      "recommendation": "Verify the consent requirement is mutual, and confirm any change-of-control or affiliate-assignment carve-outs are deliberate, not accidental.",
+      "rationale": "A prior-written-consent requirement is the standard protection against an unwanted counterparty being substituted into the agreement without the other side's agreement."
+    },
+    "concept": "CONCEPT_ASSIGNMENT"
+  },
+  {
+    "id": "RULE_DELEGATION_PROHIBITED",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_DELEGATION"
+    },
+    "then": {
+      "trigger": "DelegationProhibited",
+      "message": "The contract contains provisions restricting delegation of performance duties.",
+      "recommendation": "Ensure delegation restrictions do not inadvertently block standard subcontractor usage or corporate outsourcing.",
+      "rationale": "Delegation restrictions prevent the delegating party from assigning its active performance obligations to a third party without counterparty approval."
+    },
+    "concept": "CONCEPT_DELEGATION"
+  },
+  {
+    "id": "RULE_CHANGE_OF_CONTROL_RESTRICTED",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Risk",
+    "severity": "High",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_CHANGE_OF_CONTROL"
+    },
+    "then": {
+      "trigger": "ChangeOfControlRestricted",
+      "message": "A change of control event is contractually restricted or deemed an assignment.",
+      "recommendation": "Negotiate exceptions for public listings, internal corporate restructuring, and affiliate mergers.",
+      "rationale": "Deeming change of control as assignment prevents either party from exiting via stock purchase or merger without triggering a breach of the consent clause."
+    },
+    "concept": "CONCEPT_CHANGE_OF_CONTROL"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "id": "ACTION_LIABILITY",
   "name": "Liability",
-  "synonyms": [],
+  "synonyms": ["liable", "limit liability", "limitation of liability"],
   "grammar": {
     "subject": "Party",
     "object": "Information",

@@ -1,34 +1,64 @@
 [
   {
     "id": "RULE_EMAIL_NOTICE_ALLOWED",
-    "concept": "NOTICE_METHOD",
+    "status": "production",
+    "introduced": "1.0.0",
     "category": "Positive",
     "severity": "Low",
-    "jurisdiction": "Universal",
-    "rationale": "Email notice is explicitly permitted.",
-    "recommendation": "Ensure deemed receipt is tied to a business day.",
-    "legal_effect": "PERMISSION",
-    "targetPrecision": 0.99,
-    "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": [
-      "TEST_NOTICE_01"
-    ]
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_NOTICE_EMAIL"
+    },
+    "then": {
+      "trigger": "EmailNoticeAllowed",
+      "message": "Email notice is explicitly permitted.",
+      "recommendation": "Confirm email notice has a defined deemed-receipt rule (e.g., next business day) to avoid disputes over when notice was effective.",
+      "rationale": "Permitting notice by email speeds communication but, absent a deemed-receipt rule, can create disputes about exactly when a notice period began to run."
+    },
+    "concept": "CONCEPT_NOTICE_EMAIL"
   },
   {
     "id": "RULE_MISSING_NOTICE_ADDRESS",
-    "concept": "NOTICE_ADDRESS",
+    "status": "production",
+    "introduced": "1.0.0",
     "category": "Risk",
     "severity": "Medium",
-    "jurisdiction": "Universal",
-    "rationale": "No explicit notice address was provided.",
-    "recommendation": "Add an address block.",
-    "legal_effect": "OBLIGATION",
-    "targetPrecision": 0.99,
-    "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": [
-      "TEST_NOTICE_02"
-    ]
+    "when": {
+      "all": [
+        {
+          "type": "conceptExists",
+          "value": "CONCEPT_NOTICE"
+        },
+        {
+          "type": "conceptMissing",
+          "value": "CONCEPT_NOTICE_ADDRESS"
+        }
+      ]
+    },
+    "then": {
+      "trigger": "MissingNoticeAddress",
+      "message": "No explicit notice address was provided.",
+      "recommendation": "Add a specific notice address (or designated contact/method) for each party so formal notices have an unambiguous delivery point.",
+      "rationale": "Without a stated notice address, a party attempting to give formal notice (e.g., of breach or termination) has no contractually agreed delivery point, risking a dispute over whether notice was properly given."
+    },
+    "concept": "CONCEPT_NOTICE_ADDRESS"
+  },
+  {
+    "id": "RULE_NOTICE_WRITTEN_REQUIRED",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Positive",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_NOTICE_WRITTEN"
+    },
+    "then": {
+      "trigger": "NoticeMustBeWritten",
+      "message": "All formal notices must be in writing.",
+      "recommendation": "Ensure electronic mail is expressly included or excluded from the definition of writing.",
+      "rationale": "Enforcing writing requirements prevents disputes over verbal communications or informal comments."
+    },
+    "concept": "CONCEPT_NOTICE_WRITTEN"
   }
 ]

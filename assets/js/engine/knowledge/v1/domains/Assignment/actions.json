@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ACTION_ASSIGN",
+    "name": "Assign",
+    "description": "Transferring contractual rights or duties.",
+    "synonyms": [
+      "assign"
+    ]
+  },
+  {
+    "id": "ACTION_TRANSFER",
+    "name": "Transfer",
+    "description": "Conveying ownership or rights.",
+    "synonyms": [
+      "transfer"
+    ]
+  },
+  {
+    "id": "ACTION_DELEGATE",
+    "name": "Delegate",
+    "description": "Appointing another person to perform a duty.",
+    "synonyms": [
+      "delegate",
+      "delegates",
+      "delegating",
+      "delegation"
+    ]
+  },
+  {
+    "id": "ACTION_NOVATE",
+    "name": "Novate",
+    "description": "Substituting a new party or contract, extinguishing the original obligation.",
+    "synonyms": [
+      "novate",
+      "novates",
+      "novating",
+      "novation"
+    ]
+  }
+]

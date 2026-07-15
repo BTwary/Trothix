@@ -1,0 +1,59 @@
+[
+  {
+    "id": "CONSTRAINT_PRIOR_NOTICE",
+    "name": "Prior Notice Required",
+    "description": "An action may only occur after notice has been given.",
+    "requiresEvent": "EVENT_NOTICE_SENT",
+    "appliesToConcepts": [
+      "CONCEPT_TERMINATION"
+    ],
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "CONSTRAINT_CURE_PERIOD",
+    "name": "Cure Period Required",
+    "description": "Termination cannot occur until the cure period has expired.",
+    "requiresEvent": "EVENT_CURE_PERIOD_EXPIRED",
+    "appliesToConcepts": [
+      "CONCEPT_TERMINATION"
+    ],
+    "severity": "critical",
+    "status": "production"
+  },
+  {
+    "id": "CONSTRAINT_WRITTEN_FORM",
+    "name": "Written Requirement",
+    "description": "The action must be documented in writing.",
+    "requiresEntity": "ENTITY_DOCUMENT",
+    "appliesToConcepts": [
+      "CONCEPT_NOTICE",
+      "CONCEPT_ASSIGNMENT"
+    ],
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "CONSTRAINT_AUTHORIZED_SIGNATORY",
+    "name": "Authorized Signatory",
+    "description": "Only an authorized representative may perform the action.",
+    "requiresEntity": "ENTITY_SIGNATORY",
+    "appliesToConcepts": [
+      "CONCEPT_ASSIGNMENT",
+      "CONCEPT_SERVICES"
+    ],
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "CONSTRAINT_PAYMENT_DEADLINE",
+    "name": "Payment Deadline",
+    "description": "Payment must occur before the specified due date.",
+    "requiresEvent": "EVENT_PAYMENT_DUE",
+    "appliesToConcepts": [
+      "CONCEPT_PAYMENT"
+    ],
+    "severity": "high",
+    "status": "production"
+  }
+]

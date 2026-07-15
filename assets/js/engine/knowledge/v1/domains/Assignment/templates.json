@@ -19,5 +19,33 @@
         "CONSENT_REQUIRED"
       ]
     ]
+  },
+  {
+    "family": "DELEGATION_PROHIBITED",
+    "templates": [
+      [
+        "PARTY",
+        "MODAL",
+        "INTENT_PROHIBIT",
+        "ACTION_DELEGATE"
+      ]
+    ]
+  },
+  {
+    "family": "CHANGE_OF_CONTROL_RESTRICTED",
+    "templates": [
+      [
+        "ENTITY_AFFILIATE",
+        "MODAL",
+        "INTENT_PROHIBIT",
+        "ACTION_ASSIGN"
+      ],
+      [
+        "ENTITY_SUCCESSOR",
+        "MODAL",
+        "INTENT_PROHIBIT",
+        "ACTION_ASSIGN"
+      ]
+    ]
   }
 ]

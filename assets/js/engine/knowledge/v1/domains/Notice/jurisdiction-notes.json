@@ -1,0 +1,14 @@
+[
+  {
+    "id": "JNOTE_NOTICE_EMAIL_01",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "jurisdiction": "All",
+    "note": "Absent an agreed deemed-receipt rule for email, disputes can arise over exactly when a notice period began to run."
+  },
+  {
+    "id": "JNOTE_NOTICE_ADDRESS_01",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "jurisdiction": "All",
+    "note": "A missing notice address is a common completeness gap that creates disputes over whether formal notices (e.g., of breach or termination) were properly given."
+  }
+]

@@ -1,0 +1,205 @@
+[
+  {
+    "id": "CONCEPT_PAYMENT",
+    "name": "Payment",
+    "category": "financial",
+    "description": "Obligations relating to payment of money.",
+    "actions": [
+      "ACTION_PAY"
+    ],
+    "entities": [
+      "ENTITY_MONEY",
+      "ENTITY_CURRENCY",
+      "ENTITY_DURATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_CONFIDENTIALITY",
+    "name": "Confidentiality",
+    "category": "information",
+    "description": "Protection of confidential information.",
+    "actions": [
+      "ACTION_DISCLOSE"
+    ],
+    "entities": [
+      "ENTITY_CONFIDENTIAL_INFORMATION",
+      "ENTITY_PARTY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_NON_DISCLOSURE",
+    "name": "Non-Disclosure",
+    "category": "information",
+    "description": "Restriction against disclosure.",
+    "actions": [
+      "ACTION_DISCLOSE"
+    ],
+    "entities": [
+      "ENTITY_CONFIDENTIAL_INFORMATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_TERMINATION",
+    "name": "Termination",
+    "category": "lifecycle",
+    "description": "Ending contractual obligations.",
+    "actions": [
+      "ACTION_TERMINATE"
+    ],
+    "entities": [
+      "ENTITY_PARTY",
+      "ENTITY_DURATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_NOTICE",
+    "name": "Notice",
+    "category": "communication",
+    "description": "Formal communication required under the agreement.",
+    "actions": [
+      "ACTION_NOTIFY"
+    ],
+    "entities": [
+      "ENTITY_NOTICE",
+      "ENTITY_ADDRESS",
+      "ENTITY_DATE"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_INDEMNIFICATION",
+    "name": "Indemnification",
+    "category": "risk",
+    "description": "Allocation of legal responsibility for losses.",
+    "actions": [
+      "ACTION_INDEMNIFY",
+      "ACTION_DEFEND"
+    ],
+    "entities": [
+      "ENTITY_PARTY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_LIABILITY",
+    "name": "Liability",
+    "category": "risk",
+    "description": "Responsibility for damages or losses.",
+    "actions": [],
+    "entities": [
+      "ENTITY_PARTY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_ASSIGNMENT",
+    "name": "Assignment",
+    "category": "transfer",
+    "description": "Transfer of contractual rights or obligations.",
+    "actions": [
+      "ACTION_ASSIGN"
+    ],
+    "entities": [
+      "ENTITY_PARTY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_SERVICES",
+    "name": "Services",
+    "category": "performance",
+    "description": "Performance of contractual services.",
+    "actions": [
+      "ACTION_DELIVER"
+    ],
+    "entities": [
+      "ENTITY_PROVIDER",
+      "ENTITY_CLIENT"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_RETURN_OF_INFORMATION",
+    "name": "Return of Information",
+    "category": "information",
+    "description": "Return or destruction of confidential information.",
+    "actions": [
+      "ACTION_RETURN"
+    ],
+    "entities": [
+      "ENTITY_CONFIDENTIAL_INFORMATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_CONSENT",
+    "name": "Consent",
+    "category": "authorization",
+    "description": "Formal permission or approval from a party.",
+    "actions": [],
+    "entities": [],
+    "status": "production"
+  },
+  {
+    "id": "CONCEPT_BREACH",
+    "name": "Breach",
+    "category": "performance",
+    "description": "Failure to perform a contractual obligation.",
+    "actions": [],
+    "entities": [],
+    "status": "production"
+  },
+  {
+    "id": "NOTICE",
+    "name": "Notice (Definitions Reference)",
+    "category": "communication",
+    "description": "Notice concept alias for Definitions rules.",
+    "status": "production"
+  },
+  {
+    "id": "GOVERNING_LAW",
+    "name": "Governing Law",
+    "category": "legal",
+    "description": "The law governing the agreement.",
+    "status": "production"
+  },
+  {
+    "id": "VENUE",
+    "name": "Venue",
+    "category": "legal",
+    "description": "The jurisdiction or court venue for resolving disputes.",
+    "status": "production"
+  },
+  {
+    "id": "OWNERSHIP",
+    "name": "Ownership",
+    "category": "ip",
+    "description": "Intellectual property ownership rights.",
+    "status": "production"
+  },
+  {
+    "id": "LIFECYCLE",
+    "name": "Lifecycle",
+    "category": "lifecycle",
+    "description": "The lifecycle stages of the contract.",
+    "status": "production"
+  },
+  {
+    "id": "Party",
+    "name": "Party Entity Placeholder",
+    "category": "legal",
+    "description": "Ontology placeholder for Party entity reference in relations.",
+    "status": "production"
+  },
+  {
+    "id": "Action",
+    "name": "Action Verb Placeholder",
+    "category": "legal",
+    "description": "Ontology placeholder for Action verb reference in relations.",
+    "status": "production"
+  }
+]

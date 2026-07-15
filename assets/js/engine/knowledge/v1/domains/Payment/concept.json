@@ -1,18 +1,57 @@
-{
-  "id": "CONCEPT_PAYMENT",
-  "name": "Payment",
-  "description": "Obligation to remit funds in exchange for goods or services.",
-  "category": "Financial",
-  "severity": "High",
-  "priority": 10,
-  "introduced": "1.0.0",
-  "deprecated": false,
-  "replacedBy": null,
-  "status": "production",
-  "actions": ["ACTION_PAY"],
-  "phrases": [],
-  "entities": ["ENTITY_MONEY", "ENTITY_DURATION"],
-  "documents": [],
-  "related": [],
-  "rules": ["RULE_PAYMENT_DEADLINE_LONG"]
-}
+[
+  {
+    "id": "CONCEPT_PAYMENT",
+    "name": "Payment",
+    "description": "Obligation to remit funds in exchange for goods or services.",
+    "category": "Financial",
+    "severity": "High",
+    "priority": 10,
+    "introduced": "1.0.0",
+    "deprecated": false,
+    "replacedBy": null,
+    "status": "production",
+    "actions": ["ACTION_PAY"],
+    "phrases": [],
+    "entities": ["ENTITY_MONEY", "ENTITY_DURATION"],
+    "documents": [],
+    "related": [
+      "CONCEPT_LATE_INTEREST",
+      "CONCEPT_DISPUTED_INVOICE"
+    ],
+    "rules": ["RULE_PAYMENT_DEADLINE_LONG"]
+  },
+  {
+    "id": "CONCEPT_LATE_INTEREST",
+    "name": "Late Payment Interest",
+    "description": "Interest penalty applied to overdue invoice balances.",
+    "category": "Financial",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_PAYMENT"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_DISPUTED_INVOICE",
+    "name": "Disputed Invoice",
+    "description": "Right of a party to withhold payment for invoiced amounts disputed in good faith.",
+    "category": "Financial",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_PAYMENT"
+    ],
+    "rules": []
+  }
+]

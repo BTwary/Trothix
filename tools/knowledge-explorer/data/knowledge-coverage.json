@@ -1,0 +1,311 @@
+{
+  "generatedAt": "2026-07-13T04:43:34.002Z",
+  "manifestDomains": [
+    "Confidentiality",
+    "Payment",
+    "Termination",
+    "Liability",
+    "Indemnification",
+    "Notice"
+  ],
+  "totalDomainsObserved": 13,
+  "domains": [
+    {
+      "domain": "Assignment",
+      "inManifest": false,
+      "ontologyNodeCount": 21,
+      "nodeTypeCounts": {
+        "ACTION": 2,
+        "CONCEPT": 1,
+        "CONSENT": 1,
+        "DT": 1,
+        "DELEGATION": 1,
+        "EXAMPLE": 2,
+        "EXCEPTION": 1,
+        "JNOTE": 2,
+        "PHRASE": 6,
+        "RESTRICTION": 1,
+        "SOURCE": 3
+      },
+      "relationEdgeCount": 1,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 2,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 2
+    },
+    {
+      "domain": "Confidentiality",
+      "inManifest": true,
+      "ontologyNodeCount": 12,
+      "nodeTypeCounts": {
+        "CONCEPT": 1,
+        "DT": 1,
+        "EXAMPLE": 2,
+        "INTENT": 2,
+        "JNOTE": 2,
+        "RULE": 1,
+        "SOURCE": 3
+      },
+      "relationEdgeCount": 1,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 1
+      },
+      "totalRules": 1
+    },
+    {
+      "domain": "Core",
+      "inManifest": false,
+      "ontologyNodeCount": 4,
+      "nodeTypeCounts": {
+        "ENTITY": 2,
+        "DOC": 1,
+        "PHRASE": 1
+      },
+      "relationEdgeCount": 3,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 0
+    },
+    {
+      "domain": "Definitions",
+      "inManifest": false,
+      "ontologyNodeCount": 11,
+      "nodeTypeCounts": {
+        "ENTITY": 1,
+        "PARTY": 2,
+        "DT": 2,
+        "INTENT": 2,
+        "OTHER": 1,
+        "RULE": 3
+      },
+      "relationEdgeCount": 1,
+      "definedTermCount": 3,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 3
+      },
+      "totalRules": 3
+    },
+    {
+      "domain": "ForceMajeure",
+      "inManifest": false,
+      "ontologyNodeCount": 22,
+      "nodeTypeCounts": {
+        "ACTION": 1,
+        "CONCEPT": 1,
+        "COV": 1,
+        "EXAMPLE": 2,
+        "JNOTE": 2,
+        "PHRASE": 12,
+        "SOURCE": 3
+      },
+      "relationEdgeCount": 2,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 4,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 4
+    },
+    {
+      "domain": "GoverningLaw",
+      "inManifest": false,
+      "ontologyNodeCount": 6,
+      "nodeTypeCounts": {
+        "COURT": 2,
+        "JURISDICTION": 2,
+        "RULE": 2
+      },
+      "relationEdgeCount": 0,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 2
+      },
+      "totalRules": 2
+    },
+    {
+      "domain": "Indemnification",
+      "inManifest": true,
+      "ontologyNodeCount": 42,
+      "nodeTypeCounts": {
+        "CONCEPT": 5,
+        "ACTION": 1,
+        "ENTITY": 1,
+        "EXAMPLE": 10,
+        "JNOTE": 5,
+        "PHRASE": 15,
+        "SOURCE": 5
+      },
+      "relationEdgeCount": 3,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 6,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 6
+    },
+    {
+      "domain": "IntellectualProperty",
+      "inManifest": false,
+      "ontologyNodeCount": 6,
+      "nodeTypeCounts": {
+        "LICENSE": 2,
+        "OWNER": 2,
+        "RULE": 2
+      },
+      "relationEdgeCount": 0,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 2
+      },
+      "totalRules": 2
+    },
+    {
+      "domain": "Liability",
+      "inManifest": true,
+      "ontologyNodeCount": 35,
+      "nodeTypeCounts": {
+        "CONCEPT": 4,
+        "ACTION": 1,
+        "ENTITY": 1,
+        "EXAMPLE": 8,
+        "JNOTE": 4,
+        "PHRASE": 13,
+        "SOURCE": 4
+      },
+      "relationEdgeCount": 3,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 6,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 6
+    },
+    {
+      "domain": "Lifecycle",
+      "inManifest": false,
+      "ontologyNodeCount": 8,
+      "nodeTypeCounts": {
+        "CONCEPT": 1,
+        "DT": 1,
+        "EXAMPLE": 2,
+        "JNOTE": 1,
+        "RULE": 2,
+        "SOURCE": 1
+      },
+      "relationEdgeCount": 0,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 0,
+        "compiledInert": 0,
+        "failed": 2
+      },
+      "totalRules": 2
+    },
+    {
+      "domain": "Notice",
+      "inManifest": true,
+      "ontologyNodeCount": 30,
+      "nodeTypeCounts": {
+        "ACTION": 1,
+        "CONCEPT": 2,
+        "DT": 2,
+        "EXAMPLE": 4,
+        "INTENT": 2,
+        "JNOTE": 2,
+        "OTHER": 2,
+        "PHRASE": 13,
+        "SOURCE": 2
+      },
+      "relationEdgeCount": 0,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 2,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 2
+    },
+    {
+      "domain": "Payment",
+      "inManifest": true,
+      "ontologyNodeCount": 7,
+      "nodeTypeCounts": {
+        "ACTION": 1,
+        "CONCEPT": 1,
+        "EXAMPLE": 2,
+        "JNOTE": 1,
+        "SOURCE": 2
+      },
+      "relationEdgeCount": 3,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 1,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 1
+    },
+    {
+      "domain": "Termination",
+      "inManifest": true,
+      "ontologyNodeCount": 48,
+      "nodeTypeCounts": {
+        "ACTION": 1,
+        "CONCEPT": 1,
+        "EVENT": 3,
+        "PARTY": 1,
+        "COND": 3,
+        "OTHER": 6,
+        "EXAMPLE": 2,
+        "EXC": 3,
+        "INTENT": 3,
+        "JNOTE": 2,
+        "MOD": 3,
+        "NEG": 3,
+        "PHRASE": 6,
+        "SOURCE": 3,
+        "STATE": 5,
+        "TPL": 3
+      },
+      "relationEdgeCount": 3,
+      "definedTermCount": 0,
+      "rules": {
+        "compiledActive": 5,
+        "compiledInert": 0,
+        "failed": 0
+      },
+      "totalRules": 5
+    }
+  ],
+  "totals": {
+    "ontologyNodes": 317,
+    "relationEdges": 19,
+    "referenceEdges": 52,
+    "definedTerms": 3,
+    "rules": {
+      "total": 36,
+      "compiledActive": 26,
+      "compiledInert": 0,
+      "failed": 10
+    }
+  }
+}

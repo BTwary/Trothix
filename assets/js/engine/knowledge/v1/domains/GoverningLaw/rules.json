@@ -1,22 +1,52 @@
 [
   {
     "id": "RULE_EXPLICIT_GOVERNING_LAW",
-    "concept": "GOVERNING_LAW",
+    "concept": "CONCEPT_GOVERNING_LAW",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
     "rationale": "Governing law is explicitly defined.",
     "recommendation": "Ensure it aligns with the home jurisdiction of your entity.",
-    "legal_effect": "INTERPRETATION"
+    "legal_effect": "INTERPRETATION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_GOVERNING_LAW"
+    },
+    "then": {
+      "trigger": "ExplicitGoverningLaw",
+      "message": "The agreement expressly designates the jurisdiction whose substantive law governs interpretation and enforcement.",
+      "recommendation": "Confirm the chosen jurisdiction aligns with your entity's home jurisdiction or another jurisdiction with a genuine connection to the deal, and check for any mandatory local-law protections (e.g. consumer or employee protections) that survive the choice regardless.",
+      "rationale": "An explicit governing-law clause avoids a separate, often unpredictable choice-of-law analysis if a dispute arises, since parties generally have the freedom to select the law that governs their contract."
+    }
   },
   {
     "id": "RULE_EXCLUSIVE_VENUE",
-    "concept": "VENUE",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
     "rationale": "Exclusive jurisdiction is established.",
     "recommendation": "Review venue convenience.",
-    "legal_effect": "JURISDICTION"
+    "legal_effect": "JURISDICTION",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_EXCLUSIVE_VENUE"
+    },
+    "then": {
+      "trigger": "ExclusiveVenue",
+      "message": "The agreement designates an exclusive forum for resolving disputes.",
+      "recommendation": "Confirm the designated forum is convenient (or at least not unreasonably burdensome) for your side, since courts generally enforce forum-selection clauses absent a strong showing of unreasonableness.",
+      "rationale": "An exclusive venue clause prevents parallel litigation in multiple forums and gives both sides certainty about where a dispute will be heard."
+    }
   }
 ]

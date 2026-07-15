@@ -1,0 +1,44 @@
+[
+  {
+    "id": "VAL-BENCH-ASSIGN-001",
+    "text": "Neither party may assign this Agreement without the prior written consent of the other party.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_ASSIGNMENT", "CONCEPT_CONSENT"],
+      "rules": ["RULE_ASSIGNMENT_ALLOWED", "RULE_CONSENT_REQUIRED"],
+      "recommendations": {
+        "RULE_ASSIGNMENT_ALLOWED": "The contract contains provisions allowing or governing assignment.",
+        "RULE_CONSENT_REQUIRED": "Assignment requires prior written consent from the other party."
+      }
+    },
+    "metadata": {
+      "contractType": "Services Agreement",
+      "jurisdiction": "California, USA",
+      "difficulty": "Easy",
+      "clauseLength": 93,
+      "annotator": "Legal Engineer B",
+      "reviewStatus": "Approved",
+      "tier": "Gold"
+    }
+  },
+  {
+    "id": "VAL-BENCH-NOTICE-001",
+    "text": "Notice shall be deemed received if sent by email, upon confirmation of transmission.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_NOTICE", "CONCEPT_NOTICE_EMAIL"],
+      "rules": ["RULE_EMAIL_NOTICE_ALLOWED", "RULE_MISSING_NOTICE_ADDRESS"],
+      "recommendations": {
+        "RULE_EMAIL_NOTICE_ALLOWED": "Email notice is explicitly permitted.",
+        "RULE_MISSING_NOTICE_ADDRESS": "No explicit notice address was provided."
+      }
+    },
+    "metadata": {
+      "contractType": "Services Agreement",
+      "jurisdiction": "Universal",
+      "difficulty": "Easy",
+      "clauseLength": 84,
+      "annotator": "Legal Engineer B",
+      "reviewStatus": "Approved",
+      "tier": "Gold"
+    }
+  }
+]

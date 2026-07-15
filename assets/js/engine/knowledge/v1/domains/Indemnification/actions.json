@@ -1,7 +1,7 @@
 {
   "id": "ACTION_INDEMNIFICATION",
   "name": "Indemnification",
-  "synonyms": [],
+  "synonyms": ["indemnify", "indemnifies", "indemnification", "hold harmless", "defend and hold harmless"],
   "grammar": {
     "subject": "Party",
     "object": "Information",

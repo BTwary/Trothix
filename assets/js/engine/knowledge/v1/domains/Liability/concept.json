@@ -1,26 +1,56 @@
-{
-  "id": "CONCEPT_LIABILITY",
-  "name": "Liability",
-  "description": "Core concept representing Liability.",
-  "category": "Contract Clause",
-  "introduced": "1.0.0",
-  "deprecated": false,
-  "replacedBy": null,
-  "status": "draft",
-  "maturity": "Experimental",
-  "actions": [
-    "ACTION_LIABILITY"
-  ],
-  "phrases": [],
-  "entities": [],
-  "documents": [],
-  "related": [],
-  "rules": [
-    "CONCEPT_LIABILITY_PRESENT",
-    "CONCEPT_LIABILITY_MISSING",
-    "CONCEPT_LIABILITY_RISK",
-    "CONCEPT_LIABILITY_FAIRNESS",
-    "CONCEPT_LIABILITY_POSITIVE",
-    "CONCEPT_LIABILITY_NEGOTIATION"
-  ]
-}
+[
+  {
+    "id": "CONCEPT_LIABILITY",
+    "name": "Liability",
+    "description": "Core concept representing Liability.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_LIABILITY"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [],
+    "rules": [
+      "CONCEPT_LIABILITY_PRESENT",
+      "CONCEPT_LIABILITY_MISSING",
+      "CONCEPT_LIABILITY_RISK",
+      "CONCEPT_LIABILITY_FAIRNESS",
+      "CONCEPT_LIABILITY_POSITIVE",
+      "CONCEPT_LIABILITY_NEGOTIATION"
+    ]
+  },
+  {
+    "id": "CONCEPT_LIABILITY_CAP",
+    "name": "Liability Cap",
+    "description": "Limitation of liability or aggregate liability cap.",
+    "category": "Risk Mitigation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  },
+  {
+    "id": "CONCEPT_LIABILITY_EXCLUSION",
+    "name": "Liability Exclusion",
+    "description": "Exclusion of consequential, indirect, special, or punitive damages.",
+    "category": "Risk Mitigation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  },
+  {
+    "id": "CONCEPT_LIABILITY_CARVEOUT",
+    "name": "Liability Carve-out",
+    "description": "Carve-outs from liability caps (such as gross negligence, willful misconduct, or indemnity obligations).",
+    "category": "Risk Allocation",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": []
+  }
+]

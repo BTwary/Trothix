@@ -1,0 +1,260 @@
+[
+  {
+    "id": "ENTITY_PARTY",
+    "name": "Party",
+    "category": "actor",
+    "aliases": [
+      "party",
+      "contracting party",
+      "person",
+      "entity"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_CLIENT",
+    "name": "Client",
+    "category": "actor",
+    "aliases": [
+      "client",
+      "customer"
+    ],
+    "parent": "ENTITY_PARTY",
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_PROVIDER",
+    "name": "Service Provider",
+    "category": "actor",
+    "aliases": [
+      "provider",
+      "vendor",
+      "supplier",
+      "contractor"
+    ],
+    "parent": "ENTITY_PARTY",
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_MONEY",
+    "name": "Money",
+    "category": "financial",
+    "aliases": [
+      "money",
+      "amount",
+      "sum",
+      "payment",
+      "fee"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_CURRENCY",
+    "name": "Currency",
+    "category": "financial",
+    "aliases": [
+      "USD",
+      "EUR",
+      "GBP",
+      "INR"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_DATE",
+    "name": "Date",
+    "category": "temporal",
+    "aliases": [
+      "date",
+      "day"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_DURATION",
+    "name": "Duration",
+    "category": "temporal",
+    "aliases": [
+      "term",
+      "period",
+      "duration",
+      "time"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_NOTICE",
+    "name": "Notice",
+    "category": "communication",
+    "aliases": [
+      "notice",
+      "notification"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_ADDRESS",
+    "name": "Address",
+    "category": "communication",
+    "aliases": [
+      "address",
+      "registered office"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_DOCUMENT",
+    "name": "Document",
+    "category": "legal",
+    "aliases": [
+      "agreement",
+      "contract",
+      "document"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_PROPERTY",
+    "name": "Property",
+    "category": "asset",
+    "aliases": [
+      "property",
+      "premises",
+      "facility",
+      "asset"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "name": "Confidential Information",
+    "category": "information",
+    "aliases": [
+      "confidential information",
+      "proprietary information",
+      "trade secret"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_PERSONAL_DATA",
+    "name": "Personal Data",
+    "category": "privacy",
+    "aliases": [
+      "personal data",
+      "personal information",
+      "PII"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_INTELLECTUAL_PROPERTY",
+    "name": "Intellectual Property",
+    "category": "ip",
+    "aliases": [
+      "intellectual property",
+      "IP",
+      "copyright",
+      "patent",
+      "trademark"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_TRADE_SECRET",
+    "name": "Trade Secret",
+    "category": "information",
+    "parent": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "aliases": [
+      "trade secret",
+      "trade secrets",
+      "proprietary trade secret"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_DISCLOSER",
+    "name": "Disclosing Party",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "discloser",
+      "disclosing party",
+      "disclosing parties",
+      "Discloser"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_RECIPIENT",
+    "name": "Receiving Party",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "recipient",
+      "receiving party",
+      "receiving parties",
+      "Recipient"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_REPRESENTATIVE",
+    "name": "Representative",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "representative",
+      "representatives",
+      "agents",
+      "directors",
+      "officers",
+      "employees"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_AFFILIATE",
+    "name": "Affiliate",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "affiliate",
+      "affiliates",
+      "subsidiary",
+      "subsidiaries",
+      "parent company",
+      "parent entities"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_SUCCESSOR",
+    "name": "Successor / Assignee",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "successor",
+      "successors",
+      "permitted assign",
+      "permitted assigns",
+      "assignee",
+      "assignees"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ENTITY_REGULATOR",
+    "name": "Regulator / Court",
+    "category": "actor",
+    "parent": "ENTITY_PARTY",
+    "aliases": [
+      "regulator",
+      "governmental authority",
+      "court",
+      "agency",
+      "administrative body"
+    ],
+    "status": "production"
+  }
+]

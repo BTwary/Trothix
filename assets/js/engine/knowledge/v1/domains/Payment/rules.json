@@ -1,28 +1,69 @@
-{
-  "id": "RULE_PAYMENT_DEADLINE_LONG",
-  "status": "production",
-  "introduced": "1.0.0",
-  "category": "Risk",
-  "severity": "Medium",
-  "requires": [],
-  "when": {
-    "all": [
-      {
-        "field": "actions[*].verb",
-        "equals": "ACTION_PAY"
-      },
-      {
-        "field": "actions[*].constraints[*].type",
-        "equals": "duration"
-      },
-      {
-        "field": "actions[*].constraints[*].value",
-        "greater_than": 15
-      }
-    ]
+[
+  {
+    "id": "RULE_PAYMENT_DEADLINE_LONG",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "requires": [],
+    "when": {
+      "all": [
+        {
+          "field": "actions[*].verb",
+          "equals": "ACTION_PAY"
+        },
+        {
+          "field": "actions[*].constraints[*].type",
+          "equals": "duration"
+        },
+        {
+          "field": "actions[*].constraints[*].value",
+          "greater_than": 15
+        }
+      ]
+    },
+    "then": {
+      "trigger": "ExtendedPaymentTerms",
+      "message": "Payment terms exceed standard 15 days, impacting cash flow.",
+      "recommendation": "Negotiate payment terms down to 15-30 days to optimize working capital cycles.",
+      "rationale": "Extended terms delay receivable collections, increasing collection costs and operational risk."
+    },
+    "concept": "CONCEPT_PAYMENT"
   },
-  "then": {
-    "trigger": "ExtendedPaymentTerms",
-    "message": "Payment terms exceed standard 15 days, impacting cash flow."
+  {
+    "id": "RULE_LATE_INTEREST_PENALTY",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_LATE_INTEREST"
+    },
+    "then": {
+      "trigger": "LateInterestPenalty",
+      "message": "The agreement specifies late payment interest fees on overdue amounts.",
+      "recommendation": "Confirm that interest rates are capped at commercial norms (e.g. 1% per month) and respect legal limits.",
+      "rationale": "Late payment interest compensates vendors for delayed funds while encouraging client invoicing discipline."
+    },
+    "concept": "CONCEPT_LATE_INTEREST"
+  },
+  {
+    "id": "RULE_DISPUTED_INVOICE_WITHHOLDING",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Fairness",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_DISPUTED_INVOICE"
+    },
+    "then": {
+      "trigger": "DisputedInvoiceWithholding",
+      "message": "Client may withhold payment in good faith for disputed invoices.",
+      "recommendation": "Require that client pays undisputed amounts, notifies vendor of dispute details within 10 days, and works to resolve the dispute.",
+      "rationale": "Allowing clients to withhold disputed funds prevents paying for faulty services while safeguarding vendor cash flow on valid deliverables."
+    },
+    "concept": "CONCEPT_DISPUTED_INVOICE"
   }
-}
+]

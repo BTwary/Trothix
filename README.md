@@ -1,16 +1,16 @@
 # Trothix
 
-**Version 2.0** — Plain-language contract, lease, and Terms-of-Service analyzer. The frontend is a single static `index.html`; the AI call is proxied through `/api/analyze.js` so your API keys never touch the browser.
+**Version 1.0** — Deterministic legal-intelligence contract, lease, and Terms-of-Service analyzer. The frontend is a single static `index.html`; document analysis is proxied through `/api/analyze.js`, which runs the deterministic engine (`Trothix.js`/`EngineRegistry`) server-side so API keys and analysis logic never touch the browser.
 
 ---
 
-## What's New in v2.0
+## What's New in v1.0
 
-- **Hybrid Website Intelligence Engine** — Fast, privacy-first local Regex engine runs in a Web Worker in the browser. Instantly parses standard NDAs and Leases locally without sending data to the server.
-- **Multi-model AI Fallback Chain** — If a document is too complex for the local engine, it seamlessly routes to a robust AI chain: Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash.
-- **PDF upload with chunked analysis** — Drag-and-drop a PDF; the app extracts text client-side via PDF.js + Tesseract.js OCR, splits it into sections, analyzes each independently, then synthesizes a single unified report. Handles large documents without hitting per-request token limits.
-- **Robust JSON parsing** — `<think>` block stripping, markdown code-fence unwrapping, and `jsonrepair` as a last-resort recovery step before failing.
-- **Privacy consent UI** — Transparent disclosure that free-tier Gemini requests may be used by Google for model training, with a user-facing notice before analysis.
+- **Deterministic analysis engine** — `api/analyze.js` runs documents through `Trothix.js`, a rule-based Legal IR / Engine-Registry pipeline (parser → plugin engines → rule evaluator → assessment layer). No LLM is called in this path; it's a rule-based pass over the parsed document. The client-side Web Worker ("Hybrid Website Intelligence Engine") that shipped in earlier versions has been retired — `index.html` no longer references a Worker of any kind.
+- **Optional AI fallback/augmentation** — `/api/ai-augment.js` is a separate, clearly-labeled-in-the-UI ("AI-generated — not part of Trothix's deterministic analysis") server-side proxy to a multi-provider chain: Gemini → Groq → Mistral → OpenRouter/DeepSeek. It is not part of the deterministic analysis path.
+- **PDF upload with chunked analysis** — Drag-and-drop a PDF; the app extracts text client-side via PDF.js + OCR, splits it into sections, analyzes each independently, then synthesizes a single unified report. Handles large documents without hitting per-request token limits.
+- **Robust JSON parsing** — `<think>` block stripping, markdown code-fence unwrapping, and `jsonrepair` as a last-resort recovery step before failing (used by the AI-augment path).
+- **Consent UI** — A checkbox notice before analysis confirming the user understands their document text will be sent to the server for processing.
 - **Job-aware rate limiting** — A multi-chunk document counts as one "job" against the per-IP rate limit, not one request per chunk.
 - **Supabase analytics backend** — `/stats.html` dashboard backed by Supabase Postgres (Redis and in-memory fallbacks included).
 - **Full SEO pass** — Canonical tags, Open Graph / Twitter Card meta, JSON-LD schema (SoftwareApplication on index, FAQPage on faq), sitemap.xml, robots.txt.
@@ -41,10 +41,13 @@
 | Variable | Required | Provider |
 |---|---|---|
 | `GEMINI_API_KEY` | Recommended | Google AI Studio |
+| `GROQ_API_KEY` | Optional (AI-augment fallback) | Groq |
+| `MISTRAL_API_KEY` | Optional (AI-augment fallback) | Mistral |
+| `OPENROUTER_API_KEY` | Optional (AI-augment fallback) | OpenRouter |
 | `SUPABASE_URL` | Optional (stats) | Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | Optional (stats) | Supabase |
 
-At least one AI key must be set. The chain skips any provider whose key is absent.
+The deterministic engine (`/api/analyze.js`) needs no API key. The optional `/api/ai-augment.js` path skips any provider whose key is absent; at least one of the four provider keys must be set for that path to work at all.
 
 ---
 
@@ -64,7 +67,7 @@ At least one AI key must be set. The chain skips any provider whose key is absen
 ```bash
 git init
 git add .
-git commit -m "Trothix v2"
+git commit -m "Trothix"
 git branch -M main
 git remote add origin <your-empty-github-repo-url>
 git push -u origin main
@@ -113,14 +116,17 @@ Reads API keys from a `.env` file locally — create one with your keys (don't c
 
 ## Architecture Notes
 
-### AI fallback chain
-`api/analyze.js` walks `MODEL_CHAIN` in order, skipping any provider whose key isn't set. On a 429 or 5xx it moves to the next provider. On a non-quota 4xx it returns immediately (the same error would repeat on every model). The chain is: **Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash**.
+### Deterministic analysis engine
+`api/analyze.js` runs incoming documents through `Trothix.js` (a cached `EngineRegistry`-based pipeline: parser → plugin engines → rule evaluator → assessment layer), not an AI model. A global rate limiter caps requests at 300/min per serverless instance.
+
+### Optional AI-augment fallback
+`api/ai-augment.js` is a separate, clearly-labeled ("AI-generated — not part of Trothix's deterministic analysis") endpoint that walks a `MODEL_CHAIN` in order, skipping any provider whose key isn't set: **Gemini 3.5 Flash → Gemini 2.5 Flash → Gemini 2.0 Flash → Groq (Llama 3.3 70B) → Mistral (Open Mistral Nemo) → OpenRouter (DeepSeek R1, free tier)**. On a 429 or 5xx it moves to the next provider; on a non-quota 4xx it returns immediately (the same error would repeat on every model).
 
 ### PDF chunked analysis
 The client (`assets/js/pdfProcessor.js`) extracts text from the PDF, splits it into ~14,000-character sections, sends each as a `mode: "chunk"` request, merges the per-section findings, then sends one final `mode: "synthesize"` request that combines everything into the same report shape a single-document analysis produces. This keeps per-call token cost bounded regardless of document size.
 
 ### Rate limiting
-Two layers: per-IP job-aware limiting (6 documents/minute, 60 raw sub-requests/minute) and a global soft-throttle (30 requests/minute across all visitors). A chunked document counts as one "job" regardless of how many chunk requests it generates.
+`api/ai-augment.js` uses two layers: per-IP job-aware limiting (6 documents/minute, 60 raw sub-requests/minute) and a global soft-throttle (30 requests/minute across all visitors). A chunked document counts as one "job" regardless of how many chunk requests it generates. `api/analyze.js` (the deterministic path) uses a separate global limiter capped at 300/min per serverless instance.
 
 ### JSON parsing robustness
-Response text goes through: (1) `<think>` block removal for reasoning models, (2) markdown code-fence extraction, (3) `JSON.parse`, (4) `jsonrepair` fallback if strict parse fails.
+Response text from the AI-augment path goes through: (1) `<think>` block removal for reasoning models, (2) markdown code-fence extraction, (3) `JSON.parse`, (4) `jsonrepair` fallback if strict parse fails.

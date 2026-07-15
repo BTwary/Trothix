@@ -59,6 +59,16 @@ export function analyzeConditionShape(whenClause) {
       return;
     }
     if (typeof node.field === 'string') return; // recognized leaf
+    // Phase 1 (Rule Coverage Restoration): RuleCompiler._compileCondition()
+    // now handles `{ "type": "conceptExists" | "conceptMissing" |
+    // "documentRequiresConcept", "value": "..." }` leaves via
+    // CONCEPT_DETECTION_TABLE. Keep this in lockstep with RuleCompiler.js —
+    // if RuleCompiler stops recognizing a type, or a new type is added
+    // there without being added here, this function will silently drift
+    // out of agreement with what actually compiles, which is the exact
+    // failure mode this file exists to prevent.
+    const RECOGNIZED_CONCEPT_TYPES = ['conceptExists', 'conceptMissing', 'documentRequiresConcept'];
+    if (typeof node.type === 'string' && RECOGNIZED_CONCEPT_TYPES.includes(node.type)) return; // recognized leaf
     // Neither a logical combinator nor a field-based leaf: this is the
     // shape RuleCompiler's default fallback silently turns into `false`.
     unrecognizedLeaves.push(node);

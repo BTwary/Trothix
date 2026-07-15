@@ -1,0 +1,48 @@
+[
+  {
+    "id": "CONCEPT_NOTICE_EMAIL",
+    "name": "Notice Email",
+    "description": "Electronic mail transmission method for formal notice.",
+    "category": "Notice Method",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "related": [
+      "CONCEPT_NOTICE"
+    ],
+    "rules": [
+      "RULE_EMAIL_NOTICE_ALLOWED"
+    ]
+  },
+  {
+    "id": "CONCEPT_NOTICE_ADDRESS",
+    "name": "Notice Address",
+    "description": "Physical address block or destination details for formal notice delivery.",
+    "category": "Notice Delivery",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "related": [
+      "CONCEPT_NOTICE"
+    ],
+    "rules": [
+      "RULE_MISSING_NOTICE_ADDRESS"
+    ]
+  },
+  {
+    "id": "CONCEPT_NOTICE_WRITTEN",
+    "name": "Written Notice",
+    "description": "Requirement that all formal notices or communications under the agreement must be in writing.",
+    "category": "Notice Requirement",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "related": [
+      "CONCEPT_NOTICE"
+    ],
+    "rules": []
+  }
+]

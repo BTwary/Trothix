@@ -1,0 +1,26 @@
+[
+  {
+    "id": "EXAMPLE_GOVERNING_LAW_POS_01",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "polarity": "positive",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of laws principles."
+  },
+  {
+    "id": "EXAMPLE_GOVERNING_LAW_NEG_01",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "polarity": "negative",
+    "text": "This Agreement does not specify which jurisdiction's law applies."
+  },
+  {
+    "id": "EXAMPLE_EXCLUSIVE_VENUE_POS_01",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "polarity": "positive",
+    "text": "The parties submit to the exclusive jurisdiction of the courts located in New York County, New York for any dispute arising under this Agreement."
+  },
+  {
+    "id": "EXAMPLE_EXCLUSIVE_VENUE_NEG_01",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "polarity": "negative",
+    "text": "Disputes may be brought in any court of competent jurisdiction."
+  }
+]

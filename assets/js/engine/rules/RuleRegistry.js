@@ -37,4 +37,15 @@ export class RuleRegistry {
   getRules() {
     return this.compiledRules;
   }
+
+  /**
+   * Checks whether a rule with the given id has already been compiled
+   * and registered. Used by KnowledgeProvider for duplicate-id detection
+   * before compiling a new rule.
+   * @param {string} id
+   * @returns {boolean}
+   */
+  hasRule(id) {
+    return this.compiledRules.some(rule => rule.id === id);
+  }
 }

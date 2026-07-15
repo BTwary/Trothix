@@ -35,12 +35,13 @@ An overview of active, draft, helper, and proposed domains:
 ### 2.1 Strengths
 *   `[Repository Evidence]` **Deterministic Execution**: Knowledge execution routes entirely via compiled JSON rules, preventing runtime AI hallucinations.
 *   `[Repository Evidence]` **Graph Traversal**: The KnowledgeProvider maps concepts and relationships as an in-memory directed graph, allowing fast $O(1)$ node lookups.
-*   `[Repository Evidence]` **Comprehensive Benchmark Suite**: Native benchmark script (`run-benchmark.mjs`) tests 13 multi-domain files with 100% accuracy.
+*   `[Repository Evidence]` **Comprehensive Benchmark Suite**: Live benchmark script (`benchmark/run-benchmark-pipelineB.mjs`, via `npm run benchmark`) validates 15 multi-domain files against a checked-in finding-id baseline.
 
 ### 2.2 Weaknesses & Gaps
 *   `[Repository Evidence]` **Hardcoded Values inside JavaScript Rules**: `universalRules.js` contains hardcoded checks (e.g., checking if payment terms exceed 60 days directly in code: `data.paymentTermsDays > 60` or notice check `data.terminationNoticeDays < 15`).
 *   `[Repository Evidence]` **Cross-Domain Reference Defect**: `Definitions/rules.json` references `"concept": "NOTICE"`, violating domain isolation boundaries.
 *   `[Repository Evidence]` **Mocked Testing Traces**: Integration tests print mock console outputs and return hardcoded JSON trace objects.
+*   `[Repository Evidence]` **Known Duplicate Knowledge IDs**: `npm run lint` reports duplicate IDs across core/domain files (e.g. `CONCEPT_LIABILITY`, `CONCEPT_PAYMENT`, `CONCEPT_TERMINATION`, `CONCEPT_INDEMNIFICATION`, `ACTION_PAY`, `ACTION_TERMINATE`, `ACTION_NOTIFY`, `EVENT_BREACH`) and, separately, cross-domain collisions between `Termination` and `Notice` (`PARTY_RECEIVER`, `PARTY_SENDER`, `NOTICE`). These are currently resolved silently at load time by `KnowledgeProvider`'s `DOMAIN_WINS` duplicate policy (core-vs-domain) or "keep first loaded" (domain-vs-domain), which is why the engine still passes all tests today. This is tracked as a real risk, not a bug: adding a new domain that reuses one of these IDs, or changing directory walk order, would silently change which definition wins with only a `console.warn` — no CI failure. Recommend an explicit dedup/rename pass (e.g. centralizing `PARTY_SENDER`/`PARTY_RECEIVER`/`NOTICE` in `Core` instead of duplicating them per-domain) as a follow-up; not done here to avoid changing knowledge-base data or load-order-dependent runtime behavior.
 
 ---
 

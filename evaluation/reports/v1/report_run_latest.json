@@ -1,0 +1,244 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-07-15T07:13:15.423Z",
+  "metrics": {
+    "precision": 1,
+    "recall": 1,
+    "f1": 1,
+    "avgLatency": 47.408950000000004,
+    "stabilityPassed": true
+  },
+  "samples": [
+    {
+      "id": "VAL-REG-PAY-001",
+      "stable": true,
+      "latency": 91.13480000000001,
+      "expectedRules": [
+        "RULE_PAYMENT_DEADLINE_LONG"
+      ],
+      "actualRules": [
+        "RULE_PAYMENT_DEADLINE_LONG"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_PAYMENT"
+      ],
+      "actualConcepts": []
+    },
+    {
+      "id": "VAL-REG-LIAB-001",
+      "stable": true,
+      "latency": 39.067499999999995,
+      "expectedRules": [
+        "CONCEPT_LIABILITY_PRESENT",
+        "CONCEPT_LIABILITY_FAIRNESS",
+        "CONCEPT_LIABILITY_RISK"
+      ],
+      "actualRules": [
+        "CONCEPT_LIABILITY_FAIRNESS",
+        "CONCEPT_LIABILITY_PRESENT",
+        "CONCEPT_LIABILITY_RISK"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_LIABILITY",
+        "CONCEPT_LIABILITY_EXCLUSION"
+      ],
+      "actualConcepts": [
+        "CONCEPT_LIABILITY",
+        "CONCEPT_LIABILITY_EXCLUSION"
+      ]
+    },
+    {
+      "id": "VAL-REG-INDEM-001",
+      "stable": true,
+      "latency": 39.32830000000001,
+      "expectedRules": [
+        "CONCEPT_INDEMNIFICATION_PRESENT",
+        "CONCEPT_INDEMNIFICATION_RISK"
+      ],
+      "actualRules": [
+        "CONCEPT_INDEMNIFICATION_PRESENT",
+        "CONCEPT_INDEMNIFICATION_RISK"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_INDEMNIFICATION",
+        "CONCEPT_INDEMNIFY_BROAD"
+      ],
+      "actualConcepts": [
+        "CONCEPT_INDEMNIFICATION",
+        "CONCEPT_INDEMNIFY_BROAD"
+      ]
+    },
+    {
+      "id": "VAL-BENCH-ASSIGN-001",
+      "stable": true,
+      "latency": 46.09370000000001,
+      "expectedRules": [
+        "RULE_ASSIGNMENT_ALLOWED",
+        "RULE_CONSENT_REQUIRED"
+      ],
+      "actualRules": [
+        "RULE_ASSIGNMENT_ALLOWED",
+        "RULE_CONSENT_REQUIRED"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_ASSIGNMENT",
+        "CONCEPT_CONSENT"
+      ],
+      "actualConcepts": [
+        "CONCEPT_ASSIGNMENT",
+        "CONCEPT_CONSENT"
+      ]
+    },
+    {
+      "id": "VAL-BENCH-NOTICE-001",
+      "stable": true,
+      "latency": 33.09949999999992,
+      "expectedRules": [
+        "RULE_EMAIL_NOTICE_ALLOWED",
+        "RULE_MISSING_NOTICE_ADDRESS"
+      ],
+      "actualRules": [
+        "RULE_EMAIL_NOTICE_ALLOWED",
+        "RULE_MISSING_NOTICE_ADDRESS"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_NOTICE",
+        "CONCEPT_NOTICE_EMAIL"
+      ],
+      "actualConcepts": [
+        "CONCEPT_NOTICE_EMAIL",
+        "CONCEPT_NOTICE"
+      ]
+    },
+    {
+      "id": "VAL-ADV-LIAB-CAP-001",
+      "stable": true,
+      "latency": 35.72990000000004,
+      "expectedRules": [
+        "CONCEPT_LIABILITY_PRESENT",
+        "CONCEPT_LIABILITY_NEGOTIATION"
+      ],
+      "actualRules": [
+        "CONCEPT_LIABILITY_NEGOTIATION",
+        "CONCEPT_LIABILITY_PRESENT"
+      ],
+      "expectedConcepts": [
+        "CONCEPT_LIABILITY",
+        "CONCEPT_LIABILITY_CAP"
+      ],
+      "actualConcepts": [
+        "CONCEPT_LIABILITY",
+        "CONCEPT_LIABILITY_CAP"
+      ]
+    }
+  ],
+  "ruleConfusion": {
+    "RULE_PAYMENT_DEADLINE_LONG": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_PRESENT": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_FAIRNESS": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_RISK": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_INDEMNIFICATION_PRESENT": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_INDEMNIFICATION_RISK": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "RULE_ASSIGNMENT_ALLOWED": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "RULE_CONSENT_REQUIRED": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "RULE_EMAIL_NOTICE_ALLOWED": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "RULE_MISSING_NOTICE_ADDRESS": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_NEGOTIATION": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "conceptConfusion": {
+    "CONCEPT_PAYMENT": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 1
+    },
+    "CONCEPT_LIABILITY": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_EXCLUSION": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_INDEMNIFICATION": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_INDEMNIFY_BROAD": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_ASSIGNMENT": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_CONSENT": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_NOTICE": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_NOTICE_EMAIL": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONCEPT_LIABILITY_CAP": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    }
+  }
+}

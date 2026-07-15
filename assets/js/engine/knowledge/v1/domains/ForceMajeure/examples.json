@@ -1,0 +1,14 @@
+[
+  {
+    "id": "EXAMPLE_FORCE_MAJEURE_POS_01",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "polarity": "positive",
+    "text": "Neither party shall be liable for delay or failure to perform due to acts of God, war, fire, flood, epidemic, or governmental action beyond its reasonable control, provided the affected party gives prompt written notice and uses reasonable efforts to mitigate."
+  },
+  {
+    "id": "EXAMPLE_FORCE_MAJEURE_NEG_01",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "polarity": "negative",
+    "text": "Delays are excused only if approved in advance in writing by the other party."
+  }
+]

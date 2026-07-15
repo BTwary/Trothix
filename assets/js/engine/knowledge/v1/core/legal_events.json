@@ -1,0 +1,297 @@
+[
+  {
+    "id": "EVENT_CONTRACT_EXECUTED",
+    "name": "Contract Executed",
+    "category": "lifecycle",
+    "description": "The agreement has been signed and becomes effective.",
+    "triggers": [
+      "execution",
+      "effective date",
+      "execution date",
+      "signed"
+    ],
+    "relatedConcepts": [],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [],
+      "next": [
+        "EVENT_INVOICE_ISSUED",
+        "EVENT_BREACH",
+        "EVENT_TERMINATION"
+      ]
+    },
+    "severity": "low",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_INVOICE_ISSUED",
+    "name": "Invoice Issued",
+    "category": "financial",
+    "description": "An invoice has been delivered.",
+    "triggers": [
+      "invoice",
+      "invoice issued",
+      "billing"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_PAYMENT"
+    ],
+    "relatedActions": [
+      "ACTION_PAY"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_CONTRACT_EXECUTED"
+      ],
+      "next": [
+        "EVENT_PAYMENT_DUE"
+      ]
+    },
+    "severity": "low",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_PAYMENT_DUE",
+    "name": "Payment Due",
+    "category": "financial",
+    "description": "A payment obligation becomes due.",
+    "triggers": [
+      "payment due",
+      "due date",
+      "pay within"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_PAYMENT"
+    ],
+    "relatedActions": [
+      "ACTION_PAY"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_INVOICE_ISSUED"
+      ],
+      "next": [
+        "EVENT_PAYMENT_RECEIVED",
+        "EVENT_BREACH"
+      ]
+    },
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_PAYMENT_RECEIVED",
+    "name": "Payment Received",
+    "category": "financial",
+    "description": "Payment has been completed.",
+    "triggers": [
+      "payment received",
+      "paid",
+      "receipt of payment"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_PAYMENT"
+    ],
+    "relatedActions": [
+      "ACTION_PAY"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_PAYMENT_DUE"
+      ],
+      "next": []
+    },
+    "severity": "low",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_BREACH",
+    "name": "Breach",
+    "category": "compliance",
+    "description": "A contractual obligation has been breached.",
+    "triggers": [
+      "breach",
+      "default",
+      "failure to comply"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_TERMINATION",
+      "CONCEPT_NOTICE"
+    ],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [
+        "EVENT_CONTRACT_EXECUTED"
+      ],
+      "next": [
+        "EVENT_NOTICE_SENT",
+        "EVENT_CURE_PERIOD_STARTED"
+      ]
+    },
+    "severity": "critical",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_NOTICE_SENT",
+    "name": "Notice Sent",
+    "category": "communication",
+    "description": "Formal contractual notice delivered.",
+    "triggers": [
+      "written notice",
+      "notice given",
+      "notify"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_NOTICE"
+    ],
+    "relatedActions": [
+      "ACTION_NOTIFY"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_BREACH"
+      ],
+      "next": [
+        "EVENT_CURE_PERIOD_STARTED"
+      ]
+    },
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_CURE_PERIOD_STARTED",
+    "name": "Cure Period Started",
+    "category": "lifecycle",
+    "description": "The period to remedy a breach has started.",
+    "triggers": [
+      "cure period",
+      "remedy period"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_TERMINATION"
+    ],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [
+        "EVENT_NOTICE_SENT"
+      ],
+      "next": [
+        "EVENT_CURE_PERIOD_EXPIRED"
+      ]
+    },
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_CURE_PERIOD_EXPIRED",
+    "name": "Cure Period Expired",
+    "category": "lifecycle",
+    "description": "The opportunity to cure has expired.",
+    "triggers": [
+      "fails to cure",
+      "not cured"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_TERMINATION"
+    ],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [
+        "EVENT_CURE_PERIOD_STARTED"
+      ],
+      "next": [
+        "EVENT_TERMINATION"
+      ]
+    },
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_TERMINATION",
+    "name": "Termination",
+    "category": "lifecycle",
+    "description": "The agreement has been terminated.",
+    "triggers": [
+      "terminate",
+      "termination",
+      "expires"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_TERMINATION"
+    ],
+    "relatedActions": [
+      "ACTION_TERMINATE"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_CURE_PERIOD_EXPIRED",
+        "EVENT_CONTRACT_EXECUTED"
+      ],
+      "next": [
+        "EVENT_RETURN_OF_INFORMATION"
+      ]
+    },
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_RETURN_OF_INFORMATION",
+    "name": "Return of Information",
+    "category": "confidentiality",
+    "description": "Confidential information must be returned or destroyed.",
+    "triggers": [
+      "return confidential information",
+      "destroy confidential information"
+    ],
+    "relatedConcepts": [
+      "CONCEPT_CONFIDENTIALITY"
+    ],
+    "relatedActions": [
+      "ACTION_RETURN"
+    ],
+    "transitions": {
+      "previous": [
+        "EVENT_TERMINATION"
+      ],
+      "next": []
+    },
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_DISPUTE",
+    "name": "Dispute",
+    "category": "legal",
+    "description": "A contractual dispute has arisen.",
+    "triggers": [
+      "dispute",
+      "claim",
+      "controversy"
+    ],
+    "relatedConcepts": [],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [],
+      "next": []
+    },
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "EVENT_FORCE_MAJEURE",
+    "name": "Force Majeure",
+    "category": "exception",
+    "description": "Performance is excused due to extraordinary events.",
+    "triggers": [
+      "force majeure",
+      "act of god"
+    ],
+    "relatedConcepts": [],
+    "relatedActions": [],
+    "transitions": {
+      "previous": [],
+      "next": []
+    },
+    "severity": "medium",
+    "status": "production"
+  }
+]

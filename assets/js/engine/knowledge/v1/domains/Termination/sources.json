@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SOURCE_TERMINATION_01",
+    "concept": "CONCEPT_TERMINATION",
+    "citation": "Restatement (Second) of Contracts § 237",
+    "type": "restatement",
+    "note": "Reasonableness of cure periods and notice windows is assessed under general contract and good-faith principles."
+  },
+  {
+    "id": "SOURCE_TERMINATION_02",
+    "concept": "CONCEPT_TERMINATION",
+    "citation": "11 U.S.C. § 365(e)",
+    "type": "statute",
+    "note": "Ipso facto clauses that terminate a contract solely due to bankruptcy filing may be unenforceable."
+  },
+  {
+    "id": "SOURCE_TERMINATION_03",
+    "concept": "CONCEPT_TERMINATION",
+    "citation": "FAR 52.249",
+    "type": "regulation",
+    "note": "Federal government contracts generally include a standard termination-for-convenience right with settlement-cost recovery, distinct from commercial norms."
+  }
+]

@@ -5,9 +5,19 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "benchmark": "node benchmark/run-benchmark.mjs",
-    "test": "node benchmark/run-benchmark.mjs",
-    "rule-diagnostics": "node test_ruleDiagnostics.mjs"
+    "benchmark": "node benchmark/run-benchmark-pipelineB.mjs",
+    "benchmark:update-baseline": "node benchmark/run-benchmark-pipelineB.mjs --update-baseline",
+    "test": "node tests/regression/run-regression.mjs",
+    "test:integration": "node tests/run-integration.mjs",
+    "test:regression": "node tests/regression/run-regression.mjs",
+    "test:phase1": "node test_phase1_restoration.mjs",
+    "test:unit": "node tests/run-unit.mjs",
+    "lint": "node test_linter.js",
+    "rule-diagnostics": "node test_ruleDiagnostics.mjs",
+    "explorer:build": "node tools/knowledge-explorer/build-explorer-data.mjs",
+    "knowledge-audit": "node tools/knowledge-audit/index.js",
+    "test:knowledge-audit": "node tools/knowledge-audit/tests/run-tests.mjs",
+    "verify": "npm run knowledge-audit && npm run test:knowledge-audit && npm run lint && npm run rule-diagnostics && npm run test:phase1 && npm run test:unit && npm run test:integration && npm run test:regression && npm run benchmark && node evaluation/run-evaluation.mjs"
   },
   "dependencies": {
     "jsdom": "^29.1.1",

@@ -10,10 +10,93 @@
     "legal_effect": "OBLIGATION",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
+    "status": "production",
+    "introduced": "1.2.0",
     "linkedTests": [
       "TEST_CONF_01",
       "TEST_CONF_NEG_01"
-    ]
+    ],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_NON_DISCLOSURE"
+    },
+    "then": {
+      "trigger": "NonDisclosureObligation",
+      "message": "The agreement imposes a confidentiality/non-disclosure obligation on the receiving party.",
+      "recommendation": "Ensure exceptions for legally required disclosures (with prior notice) and a defined duration are present.",
+      "rationale": "A non-disclosure obligation is the baseline mechanism by which confidential information receives contractual protection, distinct from and supplementing whatever statutory trade-secret protection may independently apply."
+    }
+  },
+  {
+    "id": "RULE_TRADE_SECRETS_PROTECTED",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Positive",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_TRADE_SECRET"
+    },
+    "then": {
+      "trigger": "TradeSecretsProtected",
+      "message": "Specific trade secret protection measures are specified in the contract.",
+      "recommendation": "Ensure that the trade secret duration is perpetual (surviving standard confidentiality term expiration) to protect statutory rights under the DTSA.",
+      "rationale": "Contractual trade secret clauses protect proprietary assets that derive economic value from secrecy, ensuring they survive standard term limits."
+    },
+    "concept": "CONCEPT_TRADE_SECRET"
+  },
+  {
+    "id": "RULE_RESIDUALS_RESTRICTED",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_RESIDUAL_KNOWLEDGE"
+    },
+    "then": {
+      "trigger": "ResidualsRestricted",
+      "message": "A residuals memory clause is present, allowing personnel to reuse unaided memories.",
+      "recommendation": "Confirm that the residuals right is qualified by 'unaided memory' and does not grant patent or copyright licenses.",
+      "rationale": "Residuals clauses allow developers to reuse general concepts and ideas retained in memory, reducing post-contract copyright disputes."
+    },
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE"
+  },
+  {
+    "id": "RULE_COMPELLED_DISCLOSURE_NOTICE",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Fairness",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_COMPELLED_DISCLOSURE"
+    },
+    "then": {
+      "trigger": "CompelledDisclosureNotice",
+      "message": "Exceptions exist for legally compelled disclosures subject to notice requirements.",
+      "recommendation": "Verify the receiving party must provide prompt notice and cooperate with the discloser's protective order efforts.",
+      "rationale": "A compelled disclosure clause allows compliance with court orders without breach of contract, while giving the discloser a chance to protect its data."
+    },
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE"
+  },
+  {
+    "id": "RULE_RETURN_DESTROY_CERTIFICATION",
+    "status": "production",
+    "introduced": "1.1.0",
+    "category": "Positive",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_RETURN_DESTROY"
+    },
+    "then": {
+      "trigger": "ReturnDestroyCertification",
+      "message": "The contract obligates the returning/destruction of information and certification thereof.",
+      "recommendation": "Ensure a clear deadline (e.g. 10-30 days) is defined for completing destruction and providing written certification.",
+      "rationale": "Enforcing physical or digital cleanup and formal certification ensures the receiving party cannot retain copies in local storage."
+    },
+    "concept": "CONCEPT_RETURN_DESTROY"
   }
 ]

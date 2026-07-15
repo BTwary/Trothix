@@ -48,10 +48,10 @@ Factual status of the deterministic rule pipeline as of Enterprise Hardening Spr
 ## 4. Benchmark Live Accuracy
 
 > [!NOTE]
-> **Static Snapshot Notification**: The benchmark metrics listed below represent a validated snapshot of the repository state as of **July 8, 2026**. Future modifications or addition of new files will change these results. To run the benchmark suite and obtain the current accuracy metrics:
+> **Static Snapshot Notification**: The benchmark metrics listed below represent a validated snapshot of the repository state as of **July 8, 2026**, taken with the since-retired Pipeline C harness (`archive/benchmark/run-benchmark.mjs`, formerly `benchmark/run-benchmark.mjs`). Future modifications or addition of new files will change these results, and the live benchmark now uses a different scoring model — see `benchmark/README.md`. To run the current benchmark suite and obtain up-to-date metrics:
 > 
 > ```bash
-> node benchmark/run-benchmark.mjs
+> npm run benchmark
 > ```
 
 ### Historical Snapshot (July 8, 2026)

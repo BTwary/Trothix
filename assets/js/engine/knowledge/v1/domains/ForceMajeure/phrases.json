@@ -1,23 +1,87 @@
 [
   {
-    "id": "PHRASE_FORCE_MAJEURE_INCIDENT",
-    "text": "act of God fire flood earthquake strikes epidemic war riots governmental action",
-    "intent": "Incident",
-    "strength": "High",
-    "concept": "CONCEPT_FORCE_MAJEURE"
+    "id": "PHRASE_FM_ACT_OF_GOD",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "act of God"
   },
   {
-    "id": "PHRASE_FORCE_MAJEURE_DELAY_LIMIT",
-    "text": "exceeds thirty days delay of more than sixty days",
-    "intent": "Limit",
-    "strength": "Medium",
-    "concept": "CONCEPT_FORCE_MAJEURE"
+    "id": "PHRASE_FM_NATURAL_DIS",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "natural disaster"
   },
   {
-    "id": "PHRASE_FORCE_MAJEURE_NOTICE",
-    "text": "promptly notify the other party in writing",
-    "intent": "Notice",
-    "strength": "High",
-    "concept": "CONCEPT_FORCE_MAJEURE"
+    "id": "PHRASE_FM_GOVT_ACTION",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "governmental action"
+  },
+  {
+    "id": "PHRASE_FM_LABOR_STRIKE",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "strikes or labor disputes"
+  },
+  {
+    "id": "PHRASE_FM_WAR_RIOT",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "war or riots"
+  },
+  {
+    "id": "PHRASE_FM_EPIDEMIC",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "epidemic or pandemic"
+  },
+  {
+    "id": "PHRASE_FM_UNFORESEEABLE",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "unforeseeable events"
+  },
+  {
+    "id": "PHRASE_FM_DELAY_EXCEED",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "delay exceeds"
+  },
+  {
+    "id": "PHRASE_FM_30_DAYS",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "thirty (30) days"
+  },
+  {
+    "id": "PHRASE_FM_60_DAYS",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "sixty (60) days"
+  },
+  {
+    "id": "PHRASE_FM_NOTICE_WRITING",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "prompt notice in writing"
+  },
+  {
+    "id": "PHRASE_FM_PREVENT_PERF",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "prevented from performing"
+  },
+  {
+    "id": "PHRASE_FM_CYBERATTACK",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "cyberattacks or cyber warfare"
+  },
+  {
+    "id": "PHRASE_FM_SUPPLY_CHAIN",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "text": "supply chain disruptions or failures"
+  },
+  {
+    "id": "PHRASE_FM_MITIGATE_DUTY",
+    "concept": "CONCEPT_FM_MITIGATION",
+    "text": "commercially reasonable efforts to mitigate"
+  },
+  {
+    "id": "PHRASE_FM_RESUME_PERFORMANCE",
+    "concept": "CONCEPT_FM_MITIGATION",
+    "text": "resume performance as soon as possible"
+  },
+  {
+    "id": "PHRASE_FM_TERMINATE_RIGHT",
+    "concept": "CONCEPT_FM_TERMINATION",
+    "text": "right to terminate this Agreement if the force majeure persists"
   }
 ]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "SOURCE_INDEMNIFICATION_01",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "citation": "Restatement (Third) of Torts: Apportionment of Liability § 22",
+    "type": "restatement",
+    "note": "General framework for contractual indemnity between parties."
+  },
+  {
+    "id": "SOURCE_INDEMNIFY_BROAD_01",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "citation": "California Civil Code § 2782",
+    "type": "statute",
+    "note": "Limits indemnification for a party's own negligence in construction contracts, a common target of overly broad indemnity language."
+  },
+  {
+    "id": "SOURCE_INDEMNIFY_RECIPROCAL_01",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "citation": "Restatement (Third) of Torts: Apportionment of Liability § 22 cmt. b",
+    "type": "restatement",
+    "note": "Reciprocal indemnities are a common risk-balancing mechanism."
+  },
+  {
+    "id": "SOURCE_INDEMNIFY_DEFEND_01",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "citation": "Crawford v. Weather Shield Mfg., Inc., 44 Cal. 4th 541 (2008)",
+    "type": "case_law",
+    "note": "California case establishing that a duty to defend can be immediate upon tender of a claim, independent of the duty to indemnify."
+  },
+  {
+    "id": "SOURCE_INDEMNIFY_EXCLUSION_01",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "citation": "Restatement (Second) of Contracts § 195",
+    "type": "restatement",
+    "note": "Public policy limits on terms exempting a party from liability, relevant when drafting indemnity exclusions."
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "JNOTE_TERMINATION_01",
+    "concept": "CONCEPT_TERMINATION",
+    "jurisdiction": "US-Federal",
+    "note": "FAR-governed contracts follow a different termination-for-convenience and settlement framework than commercial agreements."
+  },
+  {
+    "id": "JNOTE_TERMINATION_02",
+    "concept": "CONCEPT_TERMINATION",
+    "jurisdiction": "US-Bankruptcy",
+    "note": "Ipso facto termination-on-bankruptcy clauses are frequently unenforceable in a bankruptcy proceeding under 11 U.S.C. § 365(e)."
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "JNOTE_GOVERNING_LAW_EU",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "jurisdiction": "EU",
+    "note": "Rome I Regulation (EC) No 593/2008, Article 6, prevents a choice-of-law clause from depriving a consumer of the protections of the law of their habitual residence, regardless of the law chosen."
+  },
+  {
+    "id": "JNOTE_GOVERNING_LAW_CA_EMPLOYMENT",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "jurisdiction": "US-California",
+    "note": "California Labor Code § 925 voids clauses requiring a California employee to litigate or arbitrate employment disputes outside California, or under another state's law, as a condition of employment (with a narrow carve-out for individually-negotiated agreements with counsel)."
+  },
+  {
+    "id": "JNOTE_EXCLUSIVE_VENUE_CA_EMPLOYMENT",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "jurisdiction": "US-California",
+    "note": "The same California Labor Code § 925 restriction applies to exclusive-venue clauses in employment agreements, not just choice-of-law clauses."
+  }
+]

@@ -41,5 +41,15 @@
         "TIME_UPON_CONFIRMATION"
       ]
     ]
+  },
+  {
+    "family": "NOTICE_WRITTEN_REQ",
+    "templates": [
+      [
+        "OBJECT",
+        "MANDATORY",
+        "CONCEPT_NOTICE_WRITTEN"
+      ]
+    ]
   }
 ]

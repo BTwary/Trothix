@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SOURCE_DEFINED_TERM_01",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "citation": "Restatement (Second) of Contracts § 202",
+    "type": "restatement",
+    "note": "General rules of interpretation for contract language, including that words are given their generally prevailing meaning absent a controlling definition supplied by the parties."
+  },
+  {
+    "id": "SOURCE_ALIAS_RESOLUTION_01",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "citation": "Restatement (Second) of Contracts § 200",
+    "type": "restatement",
+    "note": "Interpretation of a promise or agreement is the ascertainment of its meaning; consistent use of an alias for a defined party or term supports a single, ascertainable meaning."
+  },
+  {
+    "id": "SOURCE_DEFINED_TERM_REFERENCE_01",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "citation": "Restatement (Second) of Contracts § 206",
+    "type": "restatement",
+    "note": "Where a term's meaning is genuinely uncertain, ambiguity is generally interpreted against the drafting party (contra proferentem) — a risk that increases when a term is referenced as though defined but no controlling definition is actually supplied."
+  }
+]

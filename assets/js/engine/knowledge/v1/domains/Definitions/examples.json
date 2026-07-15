@@ -1,0 +1,39 @@
+[
+  {
+    "id": "EXAMPLE_DEFINED_TERM_POS_01",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "polarity": "positive",
+    "text": "\"Confidential Information\" shall mean any non-public information disclosed by either party, whether orally or in writing."
+  },
+  {
+    "id": "EXAMPLE_DEFINED_TERM_NEG_01",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "polarity": "negative",
+    "text": "The parties will treat certain information as confidential where appropriate."
+  },
+  {
+    "id": "EXAMPLE_ALIAS_RESOLUTION_POS_01",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "polarity": "positive",
+    "text": "ABC Corp. and XYZ Inc. are hereinafter referred to as the \"Parties.\""
+  },
+  {
+    "id": "EXAMPLE_ALIAS_RESOLUTION_NEG_01",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "polarity": "negative",
+    "text": "ABC Corp. and XYZ Inc. are parties to this Agreement."
+  },
+  {
+    "id": "EXAMPLE_DEFINED_TERM_REFERENCE_POS_01",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "polarity": "positive",
+    "text": "The Receiving Party shall use the Confidential Information, as defined herein, solely for the Permitted Purpose.",
+    "note": "Positive example means the reference pattern is present; whether it is actually risky depends on whether a matching definition exists elsewhere, which is what RULE_UNDEFINED_CAPITALIZED_TERM checks for."
+  },
+  {
+    "id": "EXAMPLE_DEFINED_TERM_REFERENCE_NEG_01",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "polarity": "negative",
+    "text": "The Receiving Party shall use the confidential information solely for the stated business purpose."
+  }
+]

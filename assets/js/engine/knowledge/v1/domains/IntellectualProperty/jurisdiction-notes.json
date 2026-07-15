@@ -1,0 +1,14 @@
+[
+  {
+    "id": "JNOTE_IP_OWNERSHIP_CA",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "jurisdiction": "US-California",
+    "note": "California Labor Code § 2870 prevents an invention-assignment clause from reaching an employee invention developed entirely on the employee's own time, without company resources, and unrelated to the employer's business — such assignment language is unenforceable to that extent regardless of how it is drafted."
+  },
+  {
+    "id": "JNOTE_IP_OWNERSHIP_GAP_US_FEDERAL",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "jurisdiction": "US-Federal",
+    "note": "Because inventorship rights vest in the individual by default, agreements with independent contractors that reference inventions or work product without an assignment clause commonly result in disputes over ownership of resulting patents or copyrights."
+  }
+]

@@ -1,0 +1,267 @@
+{
+  "irSchemaVersion": "1.0.0",
+  "manifestVersion": "1.0.0",
+  "ontologyVersion": "3.0",
+  "generatedAt": "2026-07-15T07:12:57.863Z",
+  "totalNodes": 377,
+  "totalEdges": 352,
+  "density": 0.0024832101134375528,
+  "connectedComponents": 97,
+  "largestComponentSize": 232,
+  "avgDegree": 1.8673740053050398,
+  "maxDepth": 5,
+  "avgRuleFanOut": 1.3125,
+  "avgConceptFanIn": 5.75,
+  "topHubs": [
+    {
+      "id": "CONCEPT_TERMINATION",
+      "type": "concept",
+      "domain": "core",
+      "degree": 29,
+      "in": 25,
+      "out": 4
+    },
+    {
+      "id": "CONCEPT_NOTICE",
+      "type": "concept",
+      "domain": "core",
+      "degree": 24,
+      "in": 18,
+      "out": 6
+    },
+    {
+      "id": "CONCEPT_PAYMENT",
+      "type": "concept",
+      "domain": "core",
+      "degree": 21,
+      "in": 14,
+      "out": 7
+    },
+    {
+      "id": "CONCEPT_NON_DISCLOSURE",
+      "type": "concept",
+      "domain": "core",
+      "degree": 19,
+      "in": 16,
+      "out": 3
+    },
+    {
+      "id": "CONCEPT_LIABILITY",
+      "type": "concept",
+      "domain": "core",
+      "degree": 16,
+      "in": 13,
+      "out": 3
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION",
+      "type": "concept",
+      "domain": "core",
+      "degree": 13,
+      "in": 8,
+      "out": 5
+    },
+    {
+      "id": "CONCEPT_RESIDUAL_KNOWLEDGE",
+      "type": "concept",
+      "domain": "Confidentiality",
+      "degree": 11,
+      "in": 10,
+      "out": 1
+    },
+    {
+      "id": "CONCEPT_LIABILITY_CAP",
+      "type": "concept",
+      "domain": "Liability",
+      "degree": 11,
+      "in": 11,
+      "out": 0
+    },
+    {
+      "id": "CONCEPT_LIABILITY_EXCLUSION",
+      "type": "concept",
+      "domain": "Liability",
+      "degree": 11,
+      "in": 11,
+      "out": 0
+    },
+    {
+      "id": "ENTITY_PARTY",
+      "type": "entity",
+      "domain": "core",
+      "degree": 10,
+      "in": 10,
+      "out": 0
+    }
+  ],
+  "avgRuleComplexity": 2,
+  "topComplexRules": [
+    {
+      "id": "RULE_TERMINATION_NOTICE_SHORT",
+      "domain": "Termination",
+      "score": 5,
+      "status": "production"
+    },
+    {
+      "id": "RULE_TERMINATION_CURE_PERIOD_SHORT",
+      "domain": "Termination",
+      "score": 5,
+      "status": "production"
+    },
+    {
+      "id": "RULE_PAYMENT_DEADLINE_LONG",
+      "domain": "Payment",
+      "score": 4,
+      "status": "production"
+    },
+    {
+      "id": "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+      "domain": "Termination",
+      "score": 4,
+      "status": "production"
+    },
+    {
+      "id": "RULE_MISSING_NOTICE_ADDRESS",
+      "domain": "Notice",
+      "score": 3,
+      "status": "production"
+    },
+    {
+      "id": "RULE_NON_DISCLOSURE",
+      "domain": "Confidentiality",
+      "score": 1,
+      "status": "production"
+    },
+    {
+      "id": "RULE_TRADE_SECRETS_PROTECTED",
+      "domain": "Confidentiality",
+      "score": 1,
+      "status": "production"
+    },
+    {
+      "id": "RULE_RESIDUALS_RESTRICTED",
+      "domain": "Confidentiality",
+      "score": 1,
+      "status": "production"
+    },
+    {
+      "id": "RULE_COMPELLED_DISCLOSURE_NOTICE",
+      "domain": "Confidentiality",
+      "score": 1,
+      "status": "production"
+    },
+    {
+      "id": "RULE_RETURN_DESTROY_CERTIFICATION",
+      "domain": "Confidentiality",
+      "score": 1,
+      "status": "production"
+    }
+  ],
+  "domainComplexity": [
+    {
+      "name": "core",
+      "nodes": 96,
+      "edges": 102,
+      "concepts": 12,
+      "rules": 0,
+      "decisionTables": 0,
+      "templates": 0,
+      "entities": 21,
+      "actions": 13,
+      "sources": 0,
+      "examples": 0,
+      "exceptions": 5,
+      "index": 197
+    },
+    {
+      "name": "Confidentiality",
+      "nodes": 62,
+      "edges": 73,
+      "concepts": 4,
+      "rules": 5,
+      "decisionTables": 3,
+      "templates": 6,
+      "entities": 0,
+      "actions": 0,
+      "sources": 7,
+      "examples": 11,
+      "exceptions": 0,
+      "index": 133
+    },
+    {
+      "name": "Liability",
+      "nodes": 52,
+      "edges": 41,
+      "concepts": 9,
+      "rules": 0,
+      "decisionTables": 0,
+      "templates": 0,
+      "entities": 1,
+      "actions": 1,
+      "sources": 6,
+      "examples": 12,
+      "exceptions": 0,
+      "index": 95
+    },
+    {
+      "name": "Notice",
+      "nodes": 43,
+      "edges": 51,
+      "concepts": 3,
+      "rules": 3,
+      "decisionTables": 2,
+      "templates": 3,
+      "entities": 1,
+      "actions": 0,
+      "sources": 4,
+      "examples": 8,
+      "exceptions": 0,
+      "index": 92
+    },
+    {
+      "name": "Indemnification",
+      "nodes": 47,
+      "edges": 35,
+      "concepts": 10,
+      "rules": 0,
+      "decisionTables": 0,
+      "templates": 0,
+      "entities": 1,
+      "actions": 1,
+      "sources": 5,
+      "examples": 10,
+      "exceptions": 0,
+      "index": 84
+    },
+    {
+      "name": "Termination",
+      "nodes": 52,
+      "edges": 24,
+      "concepts": 0,
+      "rules": 5,
+      "decisionTables": 0,
+      "templates": 3,
+      "entities": 2,
+      "actions": 0,
+      "sources": 3,
+      "examples": 2,
+      "exceptions": 3,
+      "index": 82
+    },
+    {
+      "name": "Payment",
+      "nodes": 25,
+      "edges": 26,
+      "concepts": 2,
+      "rules": 3,
+      "decisionTables": 0,
+      "templates": 0,
+      "entities": 0,
+      "actions": 0,
+      "sources": 4,
+      "examples": 6,
+      "exceptions": 0,
+      "index": 51
+    }
+  ]
+}

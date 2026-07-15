@@ -1,7 +1,7 @@
 export class VerdictEngine {
   evaluate(scores, findings) {
     let verdict = "Standard Risk";
-    let confidence = 0.95;
+    let confidence = scores.confidenceRecord ? scores.confidenceRecord.finalScore : 0.95;
     const reasons = [];
 
     if (scores.overallScore < 50) {

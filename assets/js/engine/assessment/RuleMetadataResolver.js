@@ -23,7 +23,7 @@ export class RuleMetadataResolver {
     if (ruleMeta) {
       return {
         id: ruleMeta.id,
-        concept: ruleMeta.concept || "General",
+        concept: ruleMeta.concept || null,
         category: ruleMeta.category || finding.category || "General",
         severity: ruleMeta.severity || finding.severity || "Medium",
         rationale: ruleMeta.rationale || (ruleMeta.then ? ruleMeta.then.message : ""),
@@ -36,7 +36,7 @@ export class RuleMetadataResolver {
     // Default metadata fallback if the rule is not registered/compiled
     return {
       id: ruleId,
-      concept: finding.category || "General",
+      concept: finding.category || null,
       category: finding.category || "General",
       severity: finding.severity || "Medium",
       rationale: finding.message || `Rule ${ruleId} was triggered.`,

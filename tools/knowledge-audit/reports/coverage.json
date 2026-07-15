@@ -1,0 +1,613 @@
+{
+  "irSchemaVersion": "1.0.0",
+  "manifestVersion": "1.0.0",
+  "ontologyVersion": "3.0",
+  "generatedAt": "2026-07-15T07:12:57.863Z",
+  "score": 33,
+  "totalConcepts": 40,
+  "passedConcepts": 13,
+  "details": [
+    {
+      "conceptId": "CONCEPT_PAYMENT",
+      "label": "Payment",
+      "domain": "core",
+      "status": "PASS",
+      "phrases": [
+        "shall pay",
+        "invoiced amounts",
+        "days of receipt"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_PAYMENT_DEADLINE_LONG",
+          "finding": "ExtendedPaymentTerms",
+          "recommendation": "Negotiate payment terms down to 15-30 days to optimize working capital cycles.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_PAYMENT ──▶ Rule: RULE_PAYMENT_DEADLINE_LONG ──▶ Finding: ExtendedPaymentTerms ──▶ Rec: \"Negotiate payment terms down to 15-30 da...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_CONFIDENTIALITY",
+      "label": "Confidentiality",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_NON_DISCLOSURE",
+      "label": "Non-Disclosure",
+      "domain": "core",
+      "status": "PASS",
+      "phrases": [
+        "hold in strict confidence",
+        "maintain the confidentiality",
+        "shall not disclose",
+        "keep confidential"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_NON_DISCLOSURE",
+          "finding": "NonDisclosureObligation",
+          "recommendation": "Ensure exceptions for legally required disclosures (with prior notice) and a defined duration are present.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_NON_DISCLOSURE ──▶ Rule: RULE_NON_DISCLOSURE ──▶ Finding: NonDisclosureObligation ──▶ Rec: \"Ensure exceptions for legally required d...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_TERMINATION",
+      "label": "Termination",
+      "domain": "core",
+      "status": "PASS",
+      "phrases": [
+        "terminate",
+        "termination",
+        "cancel",
+        "cancellation",
+        "expiration",
+        "expires"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TERMINATION_PRESENT",
+          "finding": "TerminationClausePresent",
+          "recommendation": "Confirm the termination clause covers both for-cause and for-convenience scenarios, if intended, and that post-termination obligations (data return, final payment) are addressed.",
+          "section": "Completeness",
+          "active": true,
+          "path": "CONCEPT_TERMINATION ──▶ Rule: RULE_TERMINATION_PRESENT ──▶ Finding: TerminationClausePresent ──▶ Rec: \"Confirm the termination clause covers bo...\" ──▶ Section: Completeness"
+        },
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TERMINATION_MISSING",
+          "finding": "TerminationClauseMissing",
+          "recommendation": "Add a termination clause specifying at minimum a for-cause right (with a cure period) and the effects of termination.",
+          "section": "Completeness",
+          "active": true,
+          "path": "CONCEPT_TERMINATION ──▶ Rule: RULE_TERMINATION_MISSING ──▶ Finding: TerminationClauseMissing ──▶ Rec: \"Add a termination clause specifying at m...\" ──▶ Section: Completeness"
+        },
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TERMINATION_NOTICE_SHORT",
+          "finding": "ShortTerminationNotice",
+          "recommendation": "Extend the termination-for-convenience notice period to at least 30 days (longer for complex or service-dependent relationships) to allow for orderly transition.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_TERMINATION ──▶ Rule: RULE_TERMINATION_NOTICE_SHORT ──▶ Finding: ShortTerminationNotice ──▶ Rec: \"Extend the termination-for-convenience n...\" ──▶ Section: Risk"
+        },
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+          "finding": "UnilateralTerminationConvenience",
+          "recommendation": "Make the termination-for-convenience right mutual, or add compensating protections (e.g., a longer notice period or termination fee) if one-sided termination is commercially necessary.",
+          "section": "Fairness",
+          "active": true,
+          "path": "CONCEPT_TERMINATION ──▶ Rule: RULE_TERMINATION_CONVENIENCE_UNILATERAL ──▶ Finding: UnilateralTerminationConvenience ──▶ Rec: \"Make the termination-for-convenience rig...\" ──▶ Section: Fairness"
+        },
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TERMINATION_CURE_PERIOD_SHORT",
+          "finding": "ShortCurePeriod",
+          "recommendation": "Extend the cure period for breach to at least 15-30 days, scaled to the complexity of the obligation likely to be breached.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_TERMINATION ──▶ Rule: RULE_TERMINATION_CURE_PERIOD_SHORT ──▶ Finding: ShortCurePeriod ──▶ Rec: \"Extend the cure period for breach to at ...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_NOTICE",
+      "label": "Notice",
+      "domain": "core",
+      "status": "PASS",
+      "phrases": [
+        "Notice",
+        "notice",
+        "notify",
+        "written notice",
+        "give notice",
+        "notices under this Agreement"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_MISSING_NOTICE_ADDRESS",
+          "finding": "MissingNoticeAddress",
+          "recommendation": "Add a specific notice address (or designated contact/method) for each party so formal notices have an unambiguous delivery point.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_NOTICE ──▶ Rule: RULE_MISSING_NOTICE_ADDRESS ──▶ Finding: MissingNoticeAddress ──▶ Rec: \"Add a specific notice address (or design...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION",
+      "label": "Indemnification",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [
+        "indemnify",
+        "indemnification",
+        "hold harmless"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY",
+      "label": "Liability",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [
+        "limitation of liability",
+        "shall not be liable",
+        "liable for any",
+        "aggregate liability",
+        "total liability"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_ASSIGNMENT",
+      "label": "Assignment",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_SERVICES",
+      "label": "Services",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_RETURN_OF_INFORMATION",
+      "label": "Return of Information",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_CONSENT",
+      "label": "Consent",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_BREACH",
+      "label": "Breach",
+      "domain": "core",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_TRADE_SECRET",
+      "label": "Trade Secret",
+      "domain": "Confidentiality",
+      "status": "PASS",
+      "phrases": [
+        "trade secret",
+        "reasonable security measures",
+        "physical access restrictions and electronic encryption"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_TRADE_SECRETS_PROTECTED",
+          "finding": "TradeSecretsProtected",
+          "recommendation": "Ensure that the trade secret duration is perpetual (surviving standard confidentiality term expiration) to protect statutory rights under the DTSA.",
+          "section": "Positive",
+          "active": true,
+          "path": "CONCEPT_TRADE_SECRET ──▶ Rule: RULE_TRADE_SECRETS_PROTECTED ──▶ Finding: TradeSecretsProtected ──▶ Rec: \"Ensure that the trade secret duration is...\" ──▶ Section: Positive"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_RESIDUAL_KNOWLEDGE",
+      "label": "Residual Knowledge",
+      "domain": "Confidentiality",
+      "status": "PASS",
+      "phrases": [
+        "residuals",
+        "retained in the unaided memory",
+        "general knowledge, skills, or experience"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_RESIDUALS_RESTRICTED",
+          "finding": "ResidualsRestricted",
+          "recommendation": "Confirm that the residuals right is qualified by 'unaided memory' and does not grant patent or copyright licenses.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_RESIDUAL_KNOWLEDGE ──▶ Rule: RULE_RESIDUALS_RESTRICTED ──▶ Finding: ResidualsRestricted ──▶ Rec: \"Confirm that the residuals right is qual...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_COMPELLED_DISCLOSURE",
+      "label": "Compelled Disclosure",
+      "domain": "Confidentiality",
+      "status": "PASS",
+      "phrases": [
+        "required by law or judicial process",
+        "prompt written notice of such requirement",
+        "subpoena or court order"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_COMPELLED_DISCLOSURE_NOTICE",
+          "finding": "CompelledDisclosureNotice",
+          "recommendation": "Verify the receiving party must provide prompt notice and cooperate with the discloser's protective order efforts.",
+          "section": "Fairness",
+          "active": true,
+          "path": "CONCEPT_COMPELLED_DISCLOSURE ──▶ Rule: RULE_COMPELLED_DISCLOSURE_NOTICE ──▶ Finding: CompelledDisclosureNotice ──▶ Rec: \"Verify the receiving party must provide ...\" ──▶ Section: Fairness"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_RETURN_DESTROY",
+      "label": "Return or Destruction of Information",
+      "domain": "Confidentiality",
+      "status": "PASS",
+      "phrases": [
+        "return or destroy",
+        "upon termination or expiration",
+        "certify in writing"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_RETURN_DESTROY_CERTIFICATION",
+          "finding": "ReturnDestroyCertification",
+          "recommendation": "Ensure a clear deadline (e.g. 10-30 days) is defined for completing destruction and providing written certification.",
+          "section": "Positive",
+          "active": true,
+          "path": "CONCEPT_RETURN_DESTROY ──▶ Rule: RULE_RETURN_DESTROY_CERTIFICATION ──▶ Finding: ReturnDestroyCertification ──▶ Rec: \"Ensure a clear deadline (e.g. 10-30 days...\" ──▶ Section: Positive"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_LATE_INTEREST",
+      "label": "Late Payment Interest",
+      "domain": "Payment",
+      "status": "PASS",
+      "phrases": [
+        "interest accruing on late payments",
+        "per month",
+        "late payment penalty"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_LATE_INTEREST_PENALTY",
+          "finding": "LateInterestPenalty",
+          "recommendation": "Confirm that interest rates are capped at commercial norms (e.g. 1% per month) and respect legal limits.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_LATE_INTEREST ──▶ Rule: RULE_LATE_INTEREST_PENALTY ──▶ Finding: LateInterestPenalty ──▶ Rec: \"Confirm that interest rates are capped a...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_DISPUTED_INVOICE",
+      "label": "Disputed Invoice",
+      "domain": "Payment",
+      "status": "PASS",
+      "phrases": [
+        "withhold payment",
+        "disputed in good faith",
+        "disputed invoiced amounts"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_DISPUTED_INVOICE_WITHHOLDING",
+          "finding": "DisputedInvoiceWithholding",
+          "recommendation": "Require that client pays undisputed amounts, notifies vendor of dispute details within 10 days, and works to resolve the dispute.",
+          "section": "Fairness",
+          "active": true,
+          "path": "CONCEPT_DISPUTED_INVOICE ──▶ Rule: RULE_DISPUTED_INVOICE_WITHHOLDING ──▶ Finding: DisputedInvoiceWithholding ──▶ Rec: \"Require that client pays undisputed amou...\" ──▶ Section: Fairness"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_CAP",
+      "label": "Liability Cap",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [
+        "limit of liability",
+        "maximum liability",
+        "aggregate liability",
+        "total liability"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_EXCLUSION",
+      "label": "Liability Exclusion",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [
+        "consequential damages",
+        "indirect damages",
+        "punitive damages",
+        "special damages"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_CARVEOUT",
+      "label": "Liability Carve-out",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [
+        "willful misconduct",
+        "gross negligence",
+        "indemnification obligations"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_PRESENT",
+      "label": "Liability Present",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_MISSING",
+      "label": "Missing Liability",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_RISK",
+      "label": "Liability Risk (Unlimited Liability)",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_FAIRNESS",
+      "label": "Liability Fairness (Consequential Damages Excluded)",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_POSITIVE",
+      "label": "Liability Positive (Carve-outs Present)",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_LIABILITY_NEGOTIATION",
+      "label": "Liability Negotiation (Cap Size Standard)",
+      "domain": "Liability",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFY_BROAD",
+      "label": "Broad Indemnity",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [
+        "any and all claims",
+        "all liabilities, losses",
+        "arising out of or relating to"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFY_RECIPROCAL",
+      "label": "Reciprocal Indemnity",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [
+        "each party shall indemnify",
+        "indemnify the other party",
+        "mutual indemnification"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFY_DEFEND",
+      "label": "Duty to Defend",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [
+        "duty to defend",
+        "defend, indemnify",
+        "defend at its expense"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFY_EXCLUSION",
+      "label": "Indemnity Exclusion",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [
+        "except to the extent",
+        "indemnification exclusions",
+        "indemnity shall not apply"
+      ],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_PRESENT",
+      "label": "Indemnification Present",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_MISSING",
+      "label": "Indemnification Missing",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_RISK",
+      "label": "Broad Indemnification Risk",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_FAIRNESS",
+      "label": "Reciprocal Indemnification",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_POSITIVE",
+      "label": "Duty to Defend Present",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_INDEMNIFICATION_NEGOTIATION",
+      "label": "Indemnity Exclusions Present",
+      "domain": "Indemnification",
+      "status": "INACTIVE",
+      "phrases": [],
+      "paths": []
+    },
+    {
+      "conceptId": "CONCEPT_NOTICE_EMAIL",
+      "label": "Notice Email",
+      "domain": "Notice",
+      "status": "PASS",
+      "phrases": [
+        "sent by email",
+        "electronic mail",
+        "email transmission"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_EMAIL_NOTICE_ALLOWED",
+          "finding": "EmailNoticeAllowed",
+          "recommendation": "Confirm email notice has a defined deemed-receipt rule (e.g., next business day) to avoid disputes over when notice was effective.",
+          "section": "Positive",
+          "active": true,
+          "path": "CONCEPT_NOTICE_EMAIL ──▶ Rule: RULE_EMAIL_NOTICE_ALLOWED ──▶ Finding: EmailNoticeAllowed ──▶ Rec: \"Confirm email notice has a defined deeme...\" ──▶ Section: Positive"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_NOTICE_ADDRESS",
+      "label": "Notice Address",
+      "domain": "Notice",
+      "status": "PASS",
+      "phrases": [
+        "address set forth below",
+        "shall be sent to the address",
+        "physical address",
+        "delivery to the following address"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_MISSING_NOTICE_ADDRESS",
+          "finding": "MissingNoticeAddress",
+          "recommendation": "Add a specific notice address (or designated contact/method) for each party so formal notices have an unambiguous delivery point.",
+          "section": "Risk",
+          "active": true,
+          "path": "CONCEPT_NOTICE_ADDRESS ──▶ Rule: RULE_MISSING_NOTICE_ADDRESS ──▶ Finding: MissingNoticeAddress ──▶ Rec: \"Add a specific notice address (or design...\" ──▶ Section: Risk"
+        }
+      ]
+    },
+    {
+      "conceptId": "CONCEPT_NOTICE_WRITTEN",
+      "label": "Written Notice",
+      "domain": "Notice",
+      "status": "PASS",
+      "phrases": [
+        "notices must be in writing",
+        "shall be in writing"
+      ],
+      "paths": [
+        {
+          "template": "None (Standalone)",
+          "decisionTable": "None (Standalone)",
+          "rule": "RULE_NOTICE_WRITTEN_REQUIRED",
+          "finding": "NoticeMustBeWritten",
+          "recommendation": "Ensure electronic mail is expressly included or excluded from the definition of writing.",
+          "section": "Positive",
+          "active": true,
+          "path": "CONCEPT_NOTICE_WRITTEN ──▶ Rule: RULE_NOTICE_WRITTEN_REQUIRED ──▶ Finding: NoticeMustBeWritten ──▶ Rec: \"Ensure electronic mail is expressly incl...\" ──▶ Section: Positive"
+        }
+      ]
+    }
+  ]
+}

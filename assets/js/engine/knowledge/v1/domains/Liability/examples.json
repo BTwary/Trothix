@@ -1,0 +1,74 @@
+[
+  {
+    "id": "EXAMPLE_LIABILITY_POS_01",
+    "concept": "CONCEPT_LIABILITY",
+    "polarity": "positive",
+    "text": "IN NO EVENT SHALL EITHER PARTY'S AGGREGATE LIABILITY UNDER THIS AGREEMENT EXCEED THE FEES PAID IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_NEG_01",
+    "concept": "CONCEPT_LIABILITY",
+    "polarity": "negative",
+    "text": "The parties' liability under this Agreement shall be as provided by applicable law, without further limitation."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_CAP_POS_01",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "polarity": "positive",
+    "text": "Each party's total liability shall not exceed the total fees paid under this Agreement in the preceding twelve months."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_CAP_NEG_01",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "polarity": "negative",
+    "text": "No liability cap applies to either party under this Agreement."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_EXCLUSION_POS_01",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "polarity": "positive",
+    "text": "Neither party shall be liable for any indirect, incidental, special, or consequential damages, including lost profits, even if advised of the possibility of such damages."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_EXCLUSION_NEG_01",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "polarity": "negative",
+    "text": "Both parties remain liable for all direct and indirect damages without limitation."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_CARVEOUT_POS_01",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "polarity": "positive",
+    "text": "The foregoing limitation of liability shall not apply to damages arising from a party's gross negligence, willful misconduct, or breach of confidentiality obligations."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_CARVEOUT_NEG_01",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "polarity": "negative",
+    "text": "The liability cap applies to all claims without exception, including gross negligence."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_DIRECT_PROFIT_PARADOX",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "polarity": "borderline",
+    "text": "Neither party shall be liable for loss of profits, even if such losses are direct damages arising in the ordinary course of events."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_ZERO_FEE_TRAP",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "polarity": "negative",
+    "text": "Each party's aggregate liability under this free pilot agreement shall be capped at the fees paid or payable in the preceding twelve months (which is zero)."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_AGGREGATE_VS_PER_EVENT",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "polarity": "borderline",
+    "text": "Each party's liability for any single event shall not exceed $10,000, and in no event shall a party's total aggregate liability exceed $5,000."
+  },
+  {
+    "id": "EXAMPLE_LIABILITY_TORT_BYPASS",
+    "concept": "CONCEPT_LIABILITY",
+    "polarity": "borderline",
+    "text": "The limitations set forth in this Section shall apply to all claims sounding in contract, but shall not apply to claims sounding in tort or statutory negligence."
+  }
+]

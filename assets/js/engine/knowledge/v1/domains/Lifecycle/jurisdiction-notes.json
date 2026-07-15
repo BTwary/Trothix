@@ -1,0 +1,20 @@
+[
+  {
+    "id": "JNOTE_LIFECYCLE_01",
+    "concept": "CONCEPT_LIFECYCLE",
+    "jurisdiction": "US-State",
+    "note": "Several states impose specific notice and disclosure requirements on automatic (evergreen) renewal clauses in consumer and some commercial contracts."
+  },
+  {
+    "id": "JNOTE_NOTICE_TIMELINE_01",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "jurisdiction": "US-State",
+    "note": "Several states (e.g. auto-renewal statutes in California and New York) impose minimum notice-period floors before a non-renewal or termination notice becomes effective, independent of what the contract specifies."
+  },
+  {
+    "id": "JNOTE_ILLEGAL_STATE_TRANSITION_01",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "jurisdiction": "US-Federal",
+    "note": "Retroactive termination or revival language can raise separate issues under bankruptcy law (ipso facto clauses) if attempted around a counterparty's insolvency."
+  }
+]

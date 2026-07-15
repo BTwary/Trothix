@@ -47,7 +47,7 @@ Every rule, concept, and domain progresses through five lifecycle stages:
 
 ### 2.4 Benchmark Passed
 *   `[Repository Evidence]` Extraction accuracy exceeds threshold.
-*   *Verification*: `run-benchmark.mjs` returns 100% accuracy.
+*   *Verification*: `npm run benchmark` (`run-benchmark-pipelineB.mjs`) passes against the checked-in baseline.
 
 ### 2.5 Production
 *   `[Repository Evidence]` Merged to master and compiled into main assets.

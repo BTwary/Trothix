@@ -1,0 +1,13 @@
+{
+  "gates": {
+    "overall": {
+      "minPrecision": 0.90,
+      "minRecall": 0.90,
+      "minF1": 0.90,
+      "maxLatencyMs": 50.0
+    },
+    "regression": {
+      "allowFailures": false
+    }
+  }
+}

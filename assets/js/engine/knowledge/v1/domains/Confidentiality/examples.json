@@ -1,0 +1,68 @@
+[
+  {
+    "id": "EXAMPLE_NON_DISCLOSURE_POS_01",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "polarity": "positive",
+    "text": "The Receiving Party shall hold the Disclosing Party's Confidential Information in strict confidence and shall not disclose it to any third party except as required by law, with prompt notice to the Disclosing Party to allow it to seek a protective order."
+  },
+  {
+    "id": "EXAMPLE_NON_DISCLOSURE_NEG_01",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "polarity": "negative",
+    "text": "The Receiving Party may use and share the Confidential Information at its discretion."
+  },
+  {
+    "id": "EXAMPLE_TRADE_SECRET_POS_01",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "polarity": "positive",
+    "text": "Each party shall implement reasonable security measures, including physical access restrictions and electronic encryption, to protect trade secrets and prevent unauthorized disclosure."
+  },
+  {
+    "id": "EXAMPLE_TRADE_SECRET_NEG_01",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "polarity": "negative",
+    "text": "The parties will have no obligation to secure or encrypt any proprietary or trade secret information."
+  },
+  {
+    "id": "EXAMPLE_RESIDUALS_POS_01",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "polarity": "positive",
+    "text": "The Receiving Party may use residuals resulting from access to the Disclosing Party's Confidential Information, provided that such residuals are retained in the unaided memory of employees without reference to any written materials."
+  },
+  {
+    "id": "EXAMPLE_RESIDUALS_NEG_01",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "polarity": "negative",
+    "text": "Neither party shall use any ideas, concepts, or know-how retained in the memories of its employees."
+  },
+  {
+    "id": "EXAMPLE_RESIDUALS_ADVERSARIAL_01",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "polarity": "borderline",
+    "text": "Nothing in this Agreement shall restrict a party from utilizing any general knowledge, skills, or experience, including residuals, retained in the memory of its personnel."
+  },
+  {
+    "id": "EXAMPLE_COMPELLED_POS_01",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "polarity": "positive",
+    "text": "If the Receiving Party is required by law or judicial process to disclose any Confidential Information, it shall provide the Disclosing Party with prompt written notice to enable it to seek a protective order."
+  },
+  {
+    "id": "EXAMPLE_COMPELLED_NEG_01",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "polarity": "negative",
+    "text": "The Receiving Party shall not disclose Confidential Information even if requested or subpoenaed by a court of law."
+  },
+  {
+    "id": "EXAMPLE_RETURN_DESTROY_POS_01",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "polarity": "positive",
+    "text": "Within thirty (30) days of termination, the Receiving Party shall, at the Disclosing Party's option, return or destroy all Confidential Information and provide written certification of such destruction."
+  },
+  {
+    "id": "EXAMPLE_RETURN_DESTROY_NEG_01",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "polarity": "negative",
+    "text": "Upon termination, the Receiving Party may retain copies of all confidential files indefinitely for its own records."
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "id": "PHRASE_ASSIGN_VERB",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "text": "assign this Agreement"
+  },
+  {
+    "id": "PHRASE_ASSIGN_NOUN",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "text": "assignment of rights"
+  },
+  {
+    "id": "PHRASE_TRANSFER_VERB",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "text": "transfer this Agreement"
+  },
+  {
+    "id": "PHRASE_CONSENT_WRITTEN",
+    "concept": "CONCEPT_CONSENT",
+    "text": "prior written consent"
+  },
+  {
+    "id": "PHRASE_CONSENT_PARTY",
+    "concept": "CONCEPT_CONSENT",
+    "text": "consent of the other party"
+  },
+  {
+    "id": "PHRASE_CONSENT_GENERAL",
+    "concept": "CONCEPT_CONSENT",
+    "text": "consent in writing"
+  },
+  {
+    "id": "PHRASE_DELEGATE_VERB",
+    "concept": "CONCEPT_DELEGATION",
+    "text": "delegate its obligations"
+  },
+  {
+    "id": "PHRASE_DELEGATE_DUTIES",
+    "concept": "CONCEPT_DELEGATION",
+    "text": "delegate its duties"
+  },
+  {
+    "id": "PHRASE_DELEGATE_PERFORMANCE",
+    "concept": "CONCEPT_DELEGATION",
+    "text": "delegate any performance"
+  },
+  {
+    "id": "PHRASE_NOVATE_VERB",
+    "concept": "CONCEPT_NOVATION",
+    "text": "novate this Agreement"
+  },
+  {
+    "id": "PHRASE_NOVATE_NOUN",
+    "concept": "CONCEPT_NOVATION",
+    "text": "novation of this Agreement"
+  },
+  {
+    "id": "PHRASE_CHANGE_OF_CONTROL_NOUN",
+    "concept": "CONCEPT_CHANGE_OF_CONTROL",
+    "text": "change of control"
+  },
+  {
+    "id": "PHRASE_CHANGE_IN_CONTROL_NOUN",
+    "concept": "CONCEPT_CHANGE_OF_CONTROL",
+    "text": "change in control"
+  },
+  {
+    "id": "PHRASE_EQUITABLE_ASSIGNMENT_NOUN",
+    "concept": "CONCEPT_EQUITABLE_ASSIGNMENT",
+    "text": "equitable assignment"
+  },
+  {
+    "id": "PHRASE_LEGAL_ASSIGNMENT_NOUN",
+    "concept": "CONCEPT_LEGAL_ASSIGNMENT",
+    "text": "legal assignment"
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ACTION_NOTIFY",
+    "name": "Notify",
+    "description": "Sending formal notice under the contract.",
+    "synonyms": [
+      "notify",
+      "notice",
+      "send notice",
+      "give notice"
+    ]
+  }
+]

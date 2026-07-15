@@ -1,0 +1,62 @@
+[
+  {
+    "id": "CONCEPT_DEFINED_TERM",
+    "name": "Defined Term",
+    "description": "A term given an express meaning in the agreement using a recognized definitional pattern (e.g. 'shall mean', 'is defined as'), rather than left to inference from context.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [
+      "ENTITY_CONFIDENTIAL_INFORMATION"
+    ],
+    "documents": [],
+    "related": [
+      "CONCEPT_ALIAS_RESOLUTION",
+      "CONCEPT_DEFINED_TERM_REFERENCE"
+    ],
+    "rules": [
+      "RULE_DEFINITIONS_PRESENT"
+    ]
+  },
+  {
+    "id": "CONCEPT_ALIAS_RESOLUTION",
+    "name": "Alias Resolution",
+    "description": "Contract language that resolves a synonym or shorthand label (e.g. 'collectively referred to as') to a single canonical defined term.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_DEFINED_TERM"
+    ],
+    "rules": [
+      "RULE_ALIASES_RESOLVED"
+    ]
+  },
+  {
+    "id": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "name": "Defined-Term Reference",
+    "description": "Contract language that relies on a term as though it were already defined (e.g. 'as defined herein', 'as defined above'), signaling reliance on a definition that must exist elsewhere in the document.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_DEFINED_TERM"
+    ],
+    "rules": [
+      "RULE_UNDEFINED_CAPITALIZED_TERM"
+    ]
+  }
+]

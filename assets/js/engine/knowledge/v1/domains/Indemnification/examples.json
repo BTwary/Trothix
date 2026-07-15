@@ -1,0 +1,62 @@
+[
+  {
+    "id": "EXAMPLE_INDEMNIFICATION_POS_01",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "polarity": "positive",
+    "text": "The Vendor shall indemnify, defend, and hold harmless the Client from and against any third-party claims arising from the Vendor's breach of this Agreement or negligent acts."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFICATION_NEG_01",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "polarity": "negative",
+    "text": "The parties shall be responsible for their own losses in all circumstances."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_BROAD_POS_01",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "polarity": "positive",
+    "text": "The Contractor shall indemnify the Owner against any and all claims, losses, and damages of any kind whatsoever, without limitation."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_BROAD_NEG_01",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "polarity": "negative",
+    "text": "The Contractor shall indemnify the Owner for claims proximately caused by the Contractor's negligent acts or omissions."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_RECIPROCAL_POS_01",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "polarity": "positive",
+    "text": "Each party shall indemnify the other against third-party claims arising from its own breach of this Agreement."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_RECIPROCAL_NEG_01",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "polarity": "negative",
+    "text": "Only the Client shall provide indemnification under this Agreement."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_DEFEND_POS_01",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "polarity": "positive",
+    "text": "The Indemnitor shall defend the Indemnitee against any covered claim at the Indemnitor's own expense, using counsel reasonably acceptable to the Indemnitee."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_DEFEND_NEG_01",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "polarity": "negative",
+    "text": "The Indemnitor shall reimburse the Indemnitee's defense costs only after a final, non-appealable judgment."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_EXCLUSION_POS_01",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "polarity": "positive",
+    "text": "This indemnity does not apply to claims arising from the Indemnitee's own gross negligence or willful misconduct."
+  },
+  {
+    "id": "EXAMPLE_INDEMNIFY_EXCLUSION_NEG_01",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "polarity": "negative",
+    "text": "This indemnity applies without exception, regardless of cause."
+  }
+]

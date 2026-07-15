@@ -1,56 +1,97 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+/**
+ * Definitions — real runtime integration test.
+ *
+ * Previously this file defined a local evaluateClause() that returned a
+ * hardcoded { finding: "RULE_DEFINITIONS_PRESENT", resolvedTerm: "ENTITY_
+ * CONFIDENTIAL_INFORMATION" } literal regardless of the clause text. This
+ * version calls the real engine.
+ *
+ * Updated by the Knowledge Expansion sprint: RULE_DEFINITIONS_PRESENT,
+ * RULE_ALIASES_RESOLVED, and RULE_UNDEFINED_CAPITALIZED_TERM were
+ * previously concept-only (no when/then), confirmed compiled-failed by
+ * test_ruleDiagnostics.mjs. They now have real when/then, backed by real
+ * CONCEPT_DEFINED_TERM / CONCEPT_ALIAS_RESOLUTION / CONCEPT_DEFINED_TERM_
+ * REFERENCE concepts and phrases.json entries, and fire correctly against
+ * the real engine (verified below, not assumed).
+ *
+ * A separate, genuinely-authored rule (DEFINITION_WITHOUT_USE, reported
+ * on the finding's `ruleId` field rather than `rule` — a real shape
+ * inconsistency worth tracking) also fires, because the term defined in
+ * this clause is never used again in the same snippet.
+ */
+import { check, summarize, analyzeAndGetFindingIds } from './_lib.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..', '..');
-const bundlePath = path.join(rootDir, 'knowledge', 'compiled', 'knowledge.bundle.json');
+async function run() {
+  const clause = "\"Confidential Information\" means all non-public, confidential or proprietary information disclosed by the Disclosing Party to the Receiving Party.";
 
-console.log("Loading compiled knowledge bundle...");
-const bundle = JSON.parse(fs.readFileSync(bundlePath));
+  const findingIds = await analyzeAndGetFindingIds(clause);
 
-const clause = "\"Confidential Information\" means all non-public, confidential or proprietary information disclosed by the Disclosing Party to the Receiving Party.";
+  check(
+    'Definitions: DEFINITION_WITHOUT_USE fires for a defined term with no further use in the text (real, currently-active logic)',
+    findingIds.includes('DEFINITION_WITHOUT_USE'),
+    `got findings: ${JSON.stringify(findingIds)}`
+  );
 
-const evaluateClause = (clauseText) => {
-    console.log("\\n[1] Lexer: Tokenizing...");
-    console.log("[2] Parser: Extracting defined term and target body...");
-    console.log("[3] Legal IR: DEFINED_TERM(Confidential Information) -> INTENT_DEFINE(means) -> DEFINITION_BODY");
-    console.log("[4] Global Definition Registry: Registering term...");
-    console.log("    -> Resolved: 'Confidential Information' => ENTITY_CONFIDENTIAL_INFORMATION");
-    console.log("    -> Resolved: 'Receiving Party' => PARTY_RECEIVER");
-    console.log("    -> Resolved: 'Disclosing Party' => PARTY_SENDER");
-    console.log("[5] Decision Table: Matching Logic (DT_DEFINED_TERM)");
-    console.log("[6] Rule: Emitting Finding...");
-    
-    return {
-        finding: "RULE_DEFINITIONS_PRESENT",
-        trace: {
-            decisionTable: "DT_DEFINED_TERM",
-            rule: "RULE_DEFINITIONS_PRESENT",
-            template: "DEFINE_TERM",
-            intent: "INTENT_DEFINE",
-            evidence: [clauseText],
-            resolvedTerm: "ENTITY_CONFIDENTIAL_INFORMATION",
-            knowledgeVersion: "1.0",
-            knowledgeFingerprint: "def0192837465ab"
-        }
-    };
-};
+  check(
+    'Definitions: RULE_DEFINITIONS_PRESENT fires now that CONCEPT_DEFINED_TERM has real phrases and when/then (Knowledge Expansion sprint)',
+    findingIds.includes('RULE_DEFINITIONS_PRESENT'),
+    `got findings: ${JSON.stringify(findingIds)}`
+  );
 
-console.log("───────────────────────────────");
-console.log("REAL RUNTIME TRACE VALIDATION");
-console.log("───────────────────────────────");
-console.log("Input Clause: " + clause);
+  check(
+    'Definitions: RULE_ALIASES_RESOLVED does not fire on a "means" clause (no alias language like "hereinafter referred to as" present)',
+    !findingIds.includes('RULE_ALIASES_RESOLVED'),
+    `got findings: ${JSON.stringify(findingIds)}`
+  );
 
-const result = evaluateClause(clause);
-console.log("[7] Assessment: Final Result\\n");
-console.log(JSON.stringify(result, null, 2));
+  // Alias resolution has its own dedicated positive control, since the
+  // primary clause above only exercises the "means" definitional pattern.
+  const aliasClause = "ABC Corp. and XYZ Inc. are hereinafter referred to as the \"Parties.\"";
+  const aliasFindingIds = await analyzeAndGetFindingIds(aliasClause);
+  check(
+    'Definitions: RULE_ALIASES_RESOLVED fires for real alias language (Knowledge Expansion sprint)',
+    aliasFindingIds.includes('RULE_ALIASES_RESOLVED'),
+    `got findings: ${JSON.stringify(aliasFindingIds)}`
+  );
 
-if (result.finding === "RULE_DEFINITIONS_PRESENT" && result.trace.resolvedTerm === "ENTITY_CONFIDENTIAL_INFORMATION") {
-    console.log("\\n✅ PASS: Real Definitions clause correctly registered and resolved globally.");
-    process.exit(0);
-} else {
-    console.log("\\n❌ FAIL: Could not trace or resolve term.");
-    process.exit(1);
+  // RULE_UNDEFINED_CAPITALIZED_TERM: fires when a defined-term reference
+  // ("as defined herein") appears with no definitional pattern anywhere
+  // in the analyzed text, and does NOT fire once a definition is present.
+  const undefinedRefClause = "The Receiving Party shall use the Confidential Information, as defined herein, solely for the Permitted Purpose.";
+  const undefinedRefFindingIds = await analyzeAndGetFindingIds(undefinedRefClause);
+  check(
+    'Definitions: RULE_UNDEFINED_CAPITALIZED_TERM fires when a defined-term reference has no matching definition (Knowledge Expansion sprint)',
+    undefinedRefFindingIds.includes('RULE_UNDEFINED_CAPITALIZED_TERM'),
+    `got findings: ${JSON.stringify(undefinedRefFindingIds)}`
+  );
+
+  const definedThenReferencedClause = "\"Confidential Information\" shall mean any non-public information. The Receiving Party shall use the Confidential Information, as defined herein, solely for the Permitted Purpose.";
+  const definedThenReferencedFindingIds = await analyzeAndGetFindingIds(definedThenReferencedClause);
+  check(
+    'Definitions: RULE_UNDEFINED_CAPITALIZED_TERM does NOT fire once a real definitional pattern is present in the same text',
+    !definedThenReferencedFindingIds.includes('RULE_UNDEFINED_CAPITALIZED_TERM'),
+    `got findings: ${JSON.stringify(definedThenReferencedFindingIds)}`
+  );
+
+  // Positive control: DEFINITION_WITHOUT_USE keys off IR-level node
+  // references, not raw substring reuse of the term in the surrounding
+  // text — a single reused sentence did NOT clear it when this test was
+  // first written (that surprising result is exactly the kind of thing a
+  // mocked test would never have surfaced). The multi-sentence pattern
+  // below (from benchmark/nda/nda_02.txt, a document confirmed via the
+  // Pipeline B regression benchmark to define AND reuse "Confidential
+  // Information" across three sentences without tripping the flag) is
+  // used here as the real, verified positive control instead of a
+  // synthetic one-liner.
+  const usedClause = "2. Confidential Information. Confidential Information means any non-public business, financial, or technical information disclosed by either Party. 3. Obligations. Each Party agrees to protect the other's Confidential Information with the same degree of care it uses for its own confidential information, and not to disclose it to third parties.";
+  const usedFindingIds = await analyzeAndGetFindingIds(usedClause);
+  check(
+    'Definitions: DEFINITION_WITHOUT_USE does NOT fire on a real multi-sentence define-then-reuse pattern (positive control, sourced from the benchmark corpus)',
+    !usedFindingIds.includes('DEFINITION_WITHOUT_USE'),
+    `got findings: ${JSON.stringify(usedFindingIds)}`
+  );
+
+  summarize('definitions_runtime.test.js');
 }
+
+run();

@@ -1,17 +1,60 @@
-{
-  "id": "CONCEPT_LIFECYCLE",
-  "name": "Lifecycle",
-  "description": "Core concept representing contract lifecycle.",
-  "category": "Contract Clause",
-  "introduced": "1.0.0",
-  "deprecated": false,
-  "replacedBy": null,
-  "status": "draft",
-  "maturity": "Experimental",
-  "actions": [],
-  "phrases": [],
-  "entities": [],
-  "documents": [],
-  "related": [],
-  "rules": []
-}
+[
+  {
+    "id": "CONCEPT_LIFECYCLE",
+    "name": "Lifecycle",
+    "description": "Core concept representing contract lifecycle: the sequence of states (draft, active, notice-pending, cure, terminated, surviving) a contract passes through from formation to discharge.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "deprecated": false,
+    "replacedBy": null,
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_NOTICE_TIMELINE",
+      "CONCEPT_ILLEGAL_STATE_TRANSITION"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_NOTICE_TIMELINE",
+    "name": "Notice Timeline",
+    "description": "An express notice period governing termination, non-renewal, or cure, expressed as a defined number of days and a delivery requirement.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_LIFECYCLE"
+    ],
+    "rules": [
+      "RULE_PROPER_NOTICE_TIMELINE"
+    ]
+  },
+  {
+    "id": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "name": "Illegal Lifecycle State Transition",
+    "description": "Contract language attempting to move the agreement between lifecycle states in a legally invalid sequence, such as reinstating or reviving a terminated agreement, or terminating it retroactively, without a new agreement or novation.",
+    "category": "Legal Doctrine",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_LIFECYCLE"
+    ],
+    "rules": [
+      "RULE_ILLEGAL_STATE_TRANSITION"
+    ]
+  }
+]

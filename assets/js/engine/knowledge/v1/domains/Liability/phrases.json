@@ -1,9 +1,82 @@
 [
   {
-    "id": "PHRASE_LIABILITY_MARKER",
-    "text": "sample liability phrase",
-    "intent": "Obligation",
-    "strength": "High",
-    "concept": "CONCEPT_LIABILITY"
+    "id": "PHRASE_LIABILITY_ROOT_1",
+    "concept": "CONCEPT_LIABILITY",
+    "text": "limitation of liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_ROOT_2",
+    "concept": "CONCEPT_LIABILITY",
+    "text": "shall not be liable"
+  },
+  {
+    "id": "PHRASE_LIABILITY_ROOT_3",
+    "concept": "CONCEPT_LIABILITY",
+    "text": "liable for any"
+  },
+  {
+    "id": "PHRASE_LIABILITY_ROOT_4",
+    "concept": "CONCEPT_LIABILITY",
+    "text": "aggregate liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_ROOT_5",
+    "concept": "CONCEPT_LIABILITY",
+    "text": "total liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CAP_1",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "text": "limit of liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CAP_2",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "text": "maximum liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CAP_3",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "text": "aggregate liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CAP_4",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "text": "total liability"
+  },
+  {
+    "id": "PHRASE_LIABILITY_EXCL_1",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "text": "consequential damages"
+  },
+  {
+    "id": "PHRASE_LIABILITY_EXCL_2",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "text": "indirect damages"
+  },
+  {
+    "id": "PHRASE_LIABILITY_EXCL_3",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "text": "punitive damages"
+  },
+  {
+    "id": "PHRASE_LIABILITY_EXCL_4",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "text": "special damages"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CARVE_1",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "text": "willful misconduct"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CARVE_2",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "text": "gross negligence"
+  },
+  {
+    "id": "PHRASE_LIABILITY_CARVE_3",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "text": "indemnification obligations"
   }
 ]

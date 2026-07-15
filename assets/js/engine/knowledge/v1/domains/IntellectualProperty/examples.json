@@ -1,0 +1,27 @@
+[
+  {
+    "id": "EXAMPLE_IP_OWNERSHIP_POS_01",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "polarity": "positive",
+    "text": "Contractor hereby assigns to Company all right, title and interest in and to any work product created under this Agreement."
+  },
+  {
+    "id": "EXAMPLE_IP_OWNERSHIP_NEG_01",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "polarity": "negative",
+    "text": "The parties will discuss ownership of any resulting work product at a later date."
+  },
+  {
+    "id": "EXAMPLE_IP_OWNERSHIP_GAP_POS_01",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "polarity": "positive",
+    "text": "Contractor will develop deliverables developed hereunder for Company's internal use.",
+    "note": "Positive example means the IP-generating-activity signal is present; whether it is actually a risk depends on whether an ownership assignment exists elsewhere, which is what RULE_OWNERSHIP_UNDEFINED checks for."
+  },
+  {
+    "id": "EXAMPLE_IP_OWNERSHIP_GAP_NEG_01",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "polarity": "negative",
+    "text": "Contractor will provide monthly status reports to Company."
+  }
+]

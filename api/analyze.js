@@ -1,5 +1,6 @@
 import path from 'path';
 import { recordEvent } from "./_stats.js";
+import { isRateLimited } from "./_rateLimiter.js";
 import { Trothix } from "../assets/js/engine/Trothix.js";
 
 // Cache the engine globally across serverless invocations
@@ -7,18 +8,6 @@ let globalEngine = null;
 
 const RATE_WINDOW_MS = 60 * 1000;
 const GLOBAL_LIMIT_PER_MIN = 300; // Raised because it's deterministic now!
-let globalWindowStart = Date.now();
-let globalWindowCount = 0;
-
-function isGloballyThrottled() {
-  const now = Date.now();
-  if (now - globalWindowStart > RATE_WINDOW_MS) {
-    globalWindowStart = now;
-    globalWindowCount = 0;
-  }
-  globalWindowCount++;
-  return globalWindowCount > GLOBAL_LIMIT_PER_MIN;
-}
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -28,7 +17,7 @@ export default async function handler(req, res) {
 
   await recordEvent("request");
 
-  if (isGloballyThrottled()) {
+  if (await isRateLimited("analyze_global", GLOBAL_LIMIT_PER_MIN, RATE_WINDOW_MS)) {
     await recordEvent("rate_limited");
     return res.status(429).json({
       error: "Trothix is getting a lot of traffic right now. Please try again in a moment.",
@@ -36,7 +25,7 @@ export default async function handler(req, res) {
     });
   }
 
-  let { documentText, userCountry, userRole, mode, findings } = req.body || {};
+  let { documentText, userCountry, userRole, mode, findings, includeTelemetry, debug } = req.body || {};
 
   // Legacy fallback for UI chunking: if it sends "synthesize", we just return the merged findings it sent us.
   // We don't actually need to re-analyze it if it's already done.
@@ -76,7 +65,9 @@ export default async function handler(req, res) {
 
     const metadata = { 
       jurisdiction: userCountry || "Not specified", 
-      role: userRole || "Not specified" 
+      role: userRole || "Not specified",
+      includeTelemetry: includeTelemetry === true,
+      debug: debug === true
     };
 
     const report = await globalEngine.analyze(documentText, metadata);

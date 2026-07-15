@@ -1,0 +1,30 @@
+[
+  {
+    "id": "SOURCE_PAYMENT_01",
+    "concept": "CONCEPT_PAYMENT",
+    "citation": "UCC § 2-310",
+    "type": "uniform_code",
+    "note": "Default payment timing rules for goods contracts absent contrary agreement."
+  },
+  {
+    "id": "SOURCE_PAYMENT_02",
+    "concept": "CONCEPT_PAYMENT",
+    "citation": "Prompt Payment Act, 31 U.S.C. § 3901 et seq.",
+    "type": "statute",
+    "note": "Prompt payment requirements applicable to certain federal government contracts and subcontracts."
+  },
+  {
+    "id": "SOURCE_LATE_INTEREST_01",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "citation": "UCC § 2-709",
+    "type": "uniform_code",
+    "note": "Recognizes a seller's right to the contract price, informing common contractual interest-on-arrears provisions absent a governing statutory rate."
+  },
+  {
+    "id": "SOURCE_DISPUTED_INVOICE_01",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "citation": "Restatement (Second) of Contracts § 234",
+    "type": "restatement",
+    "note": "Good-faith withholding of a disputed portion of performance (here, payment) while tendering the undisputed balance is consistent with substantial-performance principles."
+  }
+]

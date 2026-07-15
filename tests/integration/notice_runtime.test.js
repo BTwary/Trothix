@@ -1,52 +1,60 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+/**
+ * Notice — real runtime integration test.
+ * Verifies that the compiled rules in the Notice domain
+ * evaluate correctly against raw clause text using the real Trothix engine.
+ */
+import { check, summarize, analyzeAndGetFindingIds } from './_lib.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..', '..');
-const bundlePath = path.join(rootDir, 'knowledge', 'compiled', 'knowledge.bundle.json');
+async function run() {
+  // Scenario 1: Email notice without address details (happy path for email, triggers missing address)
+  const clauseEmailOnly = "Notice shall be deemed received if sent by email, upon confirmation of transmission.";
+  const findingsEmailOnly = await analyzeAndGetFindingIds(clauseEmailOnly);
 
-console.log("Loading compiled knowledge bundle...");
-const bundle = JSON.parse(fs.readFileSync(bundlePath));
+  check(
+    'Notice (email only): RULE_EMAIL_NOTICE_ALLOWED fires',
+    findingsEmailOnly.includes('RULE_EMAIL_NOTICE_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsEmailOnly)}`
+  );
 
-const clause = "Notice shall be deemed received (iv) if sent by email, upon confirmation of transmission.";
+  check(
+    'Notice (email only): RULE_MISSING_NOTICE_ADDRESS fires because no physical address is provided',
+    findingsEmailOnly.includes('RULE_MISSING_NOTICE_ADDRESS'),
+    `got findings: ${JSON.stringify(findingsEmailOnly)}`
+  );
 
-const evaluateClause = (clauseText) => {
-    console.log("\\n[1] Lexer: Tokenizing...");
-    console.log("[2] Parser: Extracting Entities...");
-    console.log("[3] Legal IR: NOTICE -> MODAL -> INTENT_DEEMED_RECEIVED -> DELIVERY_EMAIL -> TIME_UPON_CONFIRMATION");
-    console.log("[4] Action Builder: Assembling Templates (NOTICE_DEEMED_DELIVERY)");
-    console.log("[5] Decision Table: Matching Logic (DT_NOTICE_METHOD)");
-    console.log("[6] Rule: Emitting Finding...");
-    
-    return {
-        finding: "RULE_EMAIL_NOTICE_ALLOWED",
-        trace: {
-            decisionTable: "DT_NOTICE_METHOD",
-            rule: "RULE_EMAIL_NOTICE_ALLOWED",
-            template: "NOTICE_DEEMED_DELIVERY",
-            intent: "INTENT_DEEMED_RECEIVED",
-            evidence: [clauseText],
-            knowledgeVersion: "1.0",
-            knowledgeFingerprint: "abcdf0192837465"
-        }
-    };
-};
+  // Scenario 2: Physical notice address present (does not trigger missing address)
+  const clauseAddressPresent = "Notices under this Agreement shall be sent to the address set forth below: 123 Main Street, Tech City.";
+  const findingsAddressPresent = await analyzeAndGetFindingIds(clauseAddressPresent);
 
-console.log("───────────────────────────────");
-console.log("REAL RUNTIME TRACE VALIDATION");
-console.log("───────────────────────────────");
-console.log("Input Clause: " + clause);
+  check(
+    'Notice (address present): RULE_EMAIL_NOTICE_ALLOWED does not fire',
+    !findingsAddressPresent.includes('RULE_EMAIL_NOTICE_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsAddressPresent)}`
+  );
 
-const result = evaluateClause(clause);
-console.log("[7] Assessment: Final Result\\n");
-console.log(JSON.stringify(result, null, 2));
+  check(
+    'Notice (address present): RULE_MISSING_NOTICE_ADDRESS does not fire when address is provided',
+    !findingsAddressPresent.includes('RULE_MISSING_NOTICE_ADDRESS'),
+    `got findings: ${JSON.stringify(findingsAddressPresent)}`
+  );
 
-if (result.finding === "RULE_EMAIL_NOTICE_ALLOWED") {
-    console.log("\\n✅ PASS: Real Notice clause correctly processed through runtime trace.");
-    process.exit(0);
-} else {
-    console.log("\\n❌ FAIL: Could not trace decision.");
-    process.exit(1);
+  // Scenario 3: Unrelated clause
+  const clauseUnrelated = "The Receiving Party shall keep the Information confidential.";
+  const findingsUnrelated = await analyzeAndGetFindingIds(clauseUnrelated);
+
+  check(
+    'Notice (unrelated): RULE_EMAIL_NOTICE_ALLOWED does not fire',
+    !findingsUnrelated.includes('RULE_EMAIL_NOTICE_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsUnrelated)}`
+  );
+
+  check(
+    'Notice (unrelated): RULE_MISSING_NOTICE_ADDRESS does not fire',
+    !findingsUnrelated.includes('RULE_MISSING_NOTICE_ADDRESS'),
+    `got findings: ${JSON.stringify(findingsUnrelated)}`
+  );
+
+  summarize('notice_runtime.test.js');
 }
+
+run();

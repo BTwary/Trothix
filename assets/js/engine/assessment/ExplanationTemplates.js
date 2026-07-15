@@ -70,13 +70,21 @@ export const templates = {
     recommendation: "Add reciprocal liability limits and exclude indirect/consequential damages.",
     negotiationTip: "Propose a mutual cap of a multiple of the contract value (e.g., 1x or 2x) and carve out only wilful misconduct or IP infringement."
   },
-  "UnfairLiability": {
-    title: "Unbalanced Liability Allocation",
-    summary: "Liability limitations are heavily one-sided.",
-    businessImpact: "One-sided liability terms could result in substantial uninsured losses and harm your company's financial stability.",
-    legalImpact: "These provisions may eliminate or severely cap the counterparty's liability while leaving your business fully exposed, potentially violating principles of fairness and possibly being challenged as unconscionable.",
-    recommendation: "Request mutual liability caps to balance exposure between both parties.",
-    negotiationTip: "Include standard exclusions for wilful misconduct, fraud, and breach of confidentiality to maintain protection for key risks."
+  "CONCEPT_LIABILITY_FAIRNESS": {
+    title: "Standard Damages Exclusion",
+    summary: "The agreement waives liability for indirect, consequential, or punitive damages — a standard commercial protection found in most well-drafted contracts.",
+    businessImpact: "This exclusion limits exposure to hard-to-predict, potentially disproportionate damages (e.g., lost profits, reputational harm), which is generally favorable to both parties rather than one-sided.",
+    legalImpact: "Consequential/indirect damages waivers are enforceable in most commercial contexts and are considered market-standard; their presence alone does not indicate an unbalanced allocation of risk.",
+    recommendation: "Confirm the exclusion applies mutually to both parties, not just one, and that it doesn't inadvertently exclude damages types you'd want to preserve (e.g., breach of confidentiality).",
+    negotiationTip: "If the exclusion currently applies to only one party, negotiate for it to apply mutually."
+  },
+  "LiabilityExclusionPresent": {
+    title: "Standard Damages Exclusion",
+    summary: "The agreement waives liability for indirect, consequential, or punitive damages — a standard commercial protection found in most well-drafted contracts.",
+    businessImpact: "This exclusion limits exposure to hard-to-predict, potentially disproportionate damages (e.g., lost profits, reputational harm), which is generally favorable to both parties rather than one-sided.",
+    legalImpact: "Consequential/indirect damages waivers are enforceable in most commercial contexts and are considered market-standard; their presence alone does not indicate an unbalanced allocation of risk.",
+    recommendation: "Confirm the exclusion applies mutually to both parties, not just one, and that it doesn't inadvertently exclude damages types you'd want to preserve (e.g., breach of confidentiality).",
+    negotiationTip: "If the exclusion currently applies to only one party, negotiate for it to apply mutually."
   },
 
   // Positive (Category: Positive)
@@ -161,6 +169,125 @@ export const templates = {
     legalImpact: "Under default rules, a party may be liable for all direct, indirect, and consequential damages without any upper limit, creating significant legal risk.",
     recommendation: "Insert a standard limitation of liability clause with a reciprocal cap.",
     negotiationTip: "Propose a cap tied to a multiple of the contract value, and exclude only damages arising from wilful misconduct or IP infringement."
+  },
+
+  "CONCEPT_LIABILITY_NEGOTIATION": {
+    title: "Aggregate Liability Cap Defined",
+    summary: "An aggregate liability cap is defined, setting a ceiling on each party's total financial exposure under this Agreement.",
+    businessImpact: "A defined cap creates predictable, bounded financial exposure, which is useful for budgeting, insurance, and risk assessment purposes.",
+    legalImpact: "Liability caps are generally enforceable in commercial agreements and are a standard risk-allocation mechanism; the specific amount, not the presence of a cap itself, is typically the point of negotiation.",
+    recommendation: "Review the cap amount against the contract value, your potential exposure, and industry norms to confirm it's commercially suitable.",
+    negotiationTip: "Common benchmarks are 1x–2x the fees paid in the prior 12 months; a much lower cap may be worth pushing back on depending on the risk profile of the engagement."
+  },
+  "NegotiateLiability": {
+    title: "Aggregate Liability Cap Defined",
+    summary: "An aggregate liability cap is defined, setting a ceiling on each party's total financial exposure under this Agreement.",
+    businessImpact: "A defined cap creates predictable, bounded financial exposure, which is useful for budgeting, insurance, and risk assessment purposes.",
+    legalImpact: "Liability caps are generally enforceable in commercial agreements and are a standard risk-allocation mechanism; the specific amount, not the presence of a cap itself, is typically the point of negotiation.",
+    recommendation: "Review the cap amount against the contract value, your potential exposure, and industry norms to confirm it's commercially suitable.",
+    negotiationTip: "Common benchmarks are 1x–2x the fees paid in the prior 12 months; a much lower cap may be worth pushing back on depending on the risk profile of the engagement."
+  },
+
+  // Indemnification (Category: varies — Completeness/Risk/Fairness/Positive/Negotiation)
+  // Previously had zero templates of any kind; every Indemnification finding
+  // fell back to generic filler (e.g. "This finding may increase
+  // contractual or operational risk.") regardless of whether the finding
+  // was actually a risk, a neutral completeness note, or a favorable term.
+  "CONCEPT_INDEMNIFICATION_PRESENT": {
+    title: "Indemnification Clause Present",
+    summary: "The agreement contains provisions addressing indemnification obligations between the parties.",
+    businessImpact: "Confirms the parties have allocated responsibility for third-party claims, which is standard practice in commercial agreements.",
+    legalImpact: "Establishes a contractual basis for one party to compensate the other for specified losses, rather than relying solely on default statutory or common-law remedies.",
+    recommendation: "Review the scope, caps, and procedural requirements (notice, control of defense) of the indemnification clause to confirm they meet your risk tolerance.",
+    negotiationTip: null
+  },
+  "IndemnificationPresent": {
+    title: "Indemnification Clause Present",
+    summary: "The agreement contains provisions addressing indemnification obligations between the parties.",
+    businessImpact: "Confirms the parties have allocated responsibility for third-party claims, which is standard practice in commercial agreements.",
+    legalImpact: "Establishes a contractual basis for one party to compensate the other for specified losses, rather than relying solely on default statutory or common-law remedies.",
+    recommendation: "Review the scope, caps, and procedural requirements (notice, control of defense) of the indemnification clause to confirm they meet your risk tolerance.",
+    negotiationTip: null
+  },
+  "CONCEPT_INDEMNIFICATION_MISSING": {
+    title: "Missing Indemnification Clause",
+    summary: "The agreement does not appear to contain an indemnification clause, despite being a document type that typically includes one.",
+    businessImpact: "Without an indemnification clause, the business may have to rely on costlier and less predictable common-law or statutory remedies to recover losses caused by the counterparty, including third-party claims.",
+    legalImpact: "Absent an express indemnification obligation, recovery for losses caused by a counterparty's acts (e.g., IP infringement, negligence, breach) may depend on proving common-law claims such as breach of contract or negligence, which can be harder to establish and may not cover consequential losses.",
+    recommendation: "Add an indemnification clause allocating responsibility for third-party claims arising from each party's acts, breaches, or products/services.",
+    negotiationTip: "Start from a mutual indemnification structure and negotiate scope, caps, and procedural requirements from there."
+  },
+  "MissingIndemnification": {
+    title: "Missing Indemnification Clause",
+    summary: "The agreement does not appear to contain an indemnification clause, despite being a document type that typically includes one.",
+    businessImpact: "Without an indemnification clause, the business may have to rely on costlier and less predictable common-law or statutory remedies to recover losses caused by the counterparty, including third-party claims.",
+    legalImpact: "Absent an express indemnification obligation, recovery for losses caused by a counterparty's acts (e.g., IP infringement, negligence, breach) may depend on proving common-law claims such as breach of contract or negligence, which can be harder to establish and may not cover consequential losses.",
+    recommendation: "Add an indemnification clause allocating responsibility for third-party claims arising from each party's acts, breaches, or products/services.",
+    negotiationTip: "Start from a mutual indemnification structure and negotiate scope, caps, and procedural requirements from there."
+  },
+  "CONCEPT_INDEMNIFICATION_RISK": {
+    title: "Broad Indemnification Obligation",
+    summary: "The indemnification clause uses broad, essentially unlimited language (e.g., 'any and all claims'), which can extend liability well beyond typical commercial risk allocation.",
+    businessImpact: "Broad indemnification obligations can expose the business to open-ended financial liability for claims that go beyond the counterparty's own fault, including claims only tangentially related to the agreement.",
+    legalImpact: "Language such as 'any and all claims arising out of or relating to' this Agreement is frequently interpreted broadly, potentially requiring indemnification even for claims not primarily caused by the indemnifying party.",
+    recommendation: "Narrow the scope to claims 'arising from' (not merely 'relating to') the indemnifying party's negligence, breach, or willful misconduct, and consider adding a cap.",
+    negotiationTip: "Propose limiting indemnification to third-party claims directly caused by the indemnifying party's acts or omissions, and tie it to the liability cap where one exists."
+  },
+  "RiskyIndemnification": {
+    title: "Broad Indemnification Obligation",
+    summary: "The indemnification clause uses broad, essentially unlimited language (e.g., 'any and all claims'), which can extend liability well beyond typical commercial risk allocation.",
+    businessImpact: "Broad indemnification obligations can expose the business to open-ended financial liability for claims that go beyond the counterparty's own fault, including claims only tangentially related to the agreement.",
+    legalImpact: "Language such as 'any and all claims arising out of or relating to' this Agreement is frequently interpreted broadly, potentially requiring indemnification even for claims not primarily caused by the indemnifying party.",
+    recommendation: "Narrow the scope to claims 'arising from' (not merely 'relating to') the indemnifying party's negligence, breach, or willful misconduct, and consider adding a cap.",
+    negotiationTip: "Propose limiting indemnification to third-party claims directly caused by the indemnifying party's acts or omissions, and tie it to the liability cap where one exists."
+  },
+  "CONCEPT_INDEMNIFICATION_FAIRNESS": {
+    title: "Reciprocal Indemnification",
+    summary: "The indemnification obligation is mutual — both parties indemnify each other rather than only one party bearing the obligation.",
+    businessImpact: "Mutual indemnification distributes third-party claim risk more evenly between the parties, which is generally considered a balanced, market-standard allocation of risk.",
+    legalImpact: "Reciprocal obligations reduce the likelihood that the clause will later be challenged as one-sided, and generally align with common negotiating norms for commercial agreements.",
+    recommendation: "Confirm both parties' obligations are genuinely symmetric in scope, caps, and procedural requirements (notice, control of defense) — reciprocal wording alone doesn't guarantee reciprocal substance.",
+    negotiationTip: null
+  },
+  "ReciprocalIndemnification": {
+    title: "Reciprocal Indemnification",
+    summary: "The indemnification obligation is mutual — both parties indemnify each other rather than only one party bearing the obligation.",
+    businessImpact: "Mutual indemnification distributes third-party claim risk more evenly between the parties, which is generally considered a balanced, market-standard allocation of risk.",
+    legalImpact: "Reciprocal obligations reduce the likelihood that the clause will later be challenged as one-sided, and generally align with common negotiating norms for commercial agreements.",
+    recommendation: "Confirm both parties' obligations are genuinely symmetric in scope, caps, and procedural requirements (notice, control of defense) — reciprocal wording alone doesn't guarantee reciprocal substance.",
+    negotiationTip: null
+  },
+  "CONCEPT_INDEMNIFICATION_POSITIVE": {
+    title: "Duty to Defend Established",
+    summary: "The clause includes an explicit duty to defend, not just to indemnify, meaning the indemnifying party must cover legal defense costs as claims arise.",
+    businessImpact: "An explicit duty to defend can meaningfully reduce upfront litigation costs, since the indemnifying party is responsible for defense from the outset rather than only reimbursing damages after the fact.",
+    legalImpact: "Many jurisdictions distinguish a duty to defend (an immediate, ongoing obligation) from a duty to indemnify (a reimbursement obligation that may only crystallize after liability is determined); having both provides broader protection.",
+    recommendation: "Preserve this provision; confirm it specifies who controls the defense and whether defense costs are subject to the liability cap.",
+    negotiationTip: "If defense costs are currently subject to the liability cap, consider negotiating for them to be excluded so the cap is reserved for damages."
+  },
+  "FavorableIndemnification": {
+    title: "Duty to Defend Established",
+    summary: "The clause includes an explicit duty to defend, not just to indemnify, meaning the indemnifying party must cover legal defense costs as claims arise.",
+    businessImpact: "An explicit duty to defend can meaningfully reduce upfront litigation costs, since the indemnifying party is responsible for defense from the outset rather than only reimbursing damages after the fact.",
+    legalImpact: "Many jurisdictions distinguish a duty to defend (an immediate, ongoing obligation) from a duty to indemnify (a reimbursement obligation that may only crystallize after liability is determined); having both provides broader protection.",
+    recommendation: "Preserve this provision; confirm it specifies who controls the defense and whether defense costs are subject to the liability cap.",
+    negotiationTip: "If defense costs are currently subject to the liability cap, consider negotiating for them to be excluded so the cap is reserved for damages."
+  },
+  "CONCEPT_INDEMNIFICATION_NEGOTIATION": {
+    title: "Indemnification Exclusions Defined",
+    summary: "The clause defines specific exclusions or limitations to the indemnification obligation (e.g., 'except to the extent caused by the other party').",
+    businessImpact: "Clearly defined exclusions create predictable boundaries for when indemnification applies, reducing the chance of disputes over the clause's scope.",
+    legalImpact: "Exclusion language allocates fault-based responsibility between the parties, which can affect how a court apportions liability between co-defendants in a third-party claim.",
+    recommendation: "Review the specific exclusions to confirm they reflect an acceptable allocation of risk for your role in the transaction.",
+    negotiationTip: "Use the existing exclusion language as a reference point for negotiating comparable exclusions elsewhere in the agreement (e.g., in the liability cap's carve-outs)."
+  },
+  "NegotiateIndemnification": {
+    title: "Indemnification Exclusions Defined",
+    summary: "The clause defines specific exclusions or limitations to the indemnification obligation (e.g., 'except to the extent caused by the other party').",
+    businessImpact: "Clearly defined exclusions create predictable boundaries for when indemnification applies, reducing the chance of disputes over the clause's scope.",
+    legalImpact: "Exclusion language allocates fault-based responsibility between the parties, which can affect how a court apportions liability between co-defendants in a third-party claim.",
+    recommendation: "Review the specific exclusions to confirm they reflect an acceptable allocation of risk for your role in the transaction.",
+    negotiationTip: "Use the existing exclusion language as a reference point for negotiating comparable exclusions elsewhere in the agreement (e.g., in the liability cap's carve-outs)."
   },
 
   // Fallbacks

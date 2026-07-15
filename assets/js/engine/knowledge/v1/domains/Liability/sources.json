@@ -1,0 +1,44 @@
+[
+  {
+    "id": "SOURCE_LIABILITY_01",
+    "concept": "CONCEPT_LIABILITY",
+    "citation": "UCC § 2-719",
+    "type": "uniform_code",
+    "note": "Governs contractual modification or limitation of remedy, including liability caps and exclusions."
+  },
+  {
+    "id": "SOURCE_LIABILITY_CAP_01",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "citation": "UCC § 2-719(1)(a)",
+    "type": "uniform_code",
+    "note": "Confirms parties may agree to limit remedies, including by dollar cap, as long as the limitation does not fail of its essential purpose."
+  },
+  {
+    "id": "SOURCE_LIABILITY_EXCLUSION_01",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "citation": "Restatement (Second) of Contracts § 351",
+    "type": "restatement",
+    "note": "Limits recovery of unforeseeable damages, the doctrinal basis consequential-damages waivers reinforce by contract."
+  },
+  {
+    "id": "SOURCE_LIABILITY_CARVEOUT_01",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "citation": "Restatement (Second) of Contracts § 195",
+    "type": "restatement",
+    "note": "A term exempting a party from liability for harm caused intentionally or recklessly is unenforceable on public policy grounds, which is why carve-outs for gross negligence/willful misconduct are standard."
+  },
+  {
+    "id": "SOURCE_LIABILITY_HADLEY",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "citation": "Hadley v Baxendale (1854) 9 Exch 341",
+    "type": "case_law",
+    "note": "Established the two-limb test for recovery of contract damages (direct vs. consequential)."
+  },
+  {
+    "id": "SOURCE_LIABILITY_TRANSFIELD",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "citation": "Transfield Shipping Inc v Mercator Shipping Inc (The Achilleas) [2008] UKHL 48",
+    "type": "case_law",
+    "note": "Refined Hadley test in the UK, linking damages liability to assumption of risk."
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "PHRASE_NOTICE_TIMELINE_DAYS_NOTICE",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "text": "days' notice of non-renewal"
+  },
+  {
+    "id": "PHRASE_NOTICE_TIMELINE_ADVANCE_WRITTEN",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "text": "advance written notice"
+  },
+  {
+    "id": "PHRASE_NOTICE_TIMELINE_PRIOR_WRITTEN",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "text": "prior written notice of termination"
+  },
+  {
+    "id": "PHRASE_NOTICE_TIMELINE_NOTICE_PERIOD",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "text": "notice period of"
+  },
+  {
+    "id": "PHRASE_ILLEGAL_STATE_TRANSITION_REINSTATE",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "text": "reinstate this Agreement following termination"
+  },
+  {
+    "id": "PHRASE_ILLEGAL_STATE_TRANSITION_REVIVE",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "text": "revive this Agreement after termination"
+  },
+  {
+    "id": "PHRASE_ILLEGAL_STATE_TRANSITION_RETROACTIVE",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "text": "retroactively terminate"
+  },
+  {
+    "id": "PHRASE_ILLEGAL_STATE_TRANSITION_DEEMED_RETROACTIVE",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "text": "deemed terminated retroactively"
+  }
+]

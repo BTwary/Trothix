@@ -1,0 +1,40 @@
+[
+  {
+    "id": "CONCEPT_IP_OWNERSHIP",
+    "name": "IP Ownership Assignment",
+    "description": "Contract language that expressly assigns ownership of intellectual property created under the agreement (e.g. work product, inventions, deliverables) to a named party.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_IP_OWNERSHIP_GAP"
+    ],
+    "rules": [
+      "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED"
+    ]
+  },
+  {
+    "id": "CONCEPT_IP_OWNERSHIP_GAP",
+    "name": "IP Ownership Gap Signal",
+    "description": "Contract language that discusses IP-generating activity (e.g. work product, inventions, deliverables) without an accompanying express ownership assignment.",
+    "category": "Legal Doctrine",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_IP_OWNERSHIP"
+    ],
+    "rules": [
+      "RULE_OWNERSHIP_UNDEFINED"
+    ]
+  }
+]

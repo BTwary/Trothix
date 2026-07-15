@@ -18,13 +18,30 @@
  */
 const Severity = { FATAL: 'FATAL', ERROR: 'ERROR', WARNING: 'WARNING' };
 
+/**
+ * Fix: same repository-wide convention as ActionsSchema/RulesSchema — the
+ * compiler feeds one flattened event item (a bare string, per
+ * Lifecycle/events.json's shape, or a single {id, trigger} object, per
+ * Termination/events.json's shape) rather than the whole events.json
+ * array. Wraps either a bare string or a single object as a one-item
+ * list so validate/idExtractor behave identically whether called by
+ * KnowledgeLinter (whole-file) or the compiler (single entry).
+ */
+function asItems(data) {
+  if (Array.isArray(data)) return data;
+  if (typeof data === 'string') return [data];
+  if (data && typeof data === 'object') return [data];
+  return null;
+}
+
 function validate(data, file) {
   const errors = [];
-  if (!Array.isArray(data)) {
-    errors.push(`[${Severity.ERROR}] ${file}: events must be an array`);
+  const items = asItems(data);
+  if (items === null) {
+    errors.push(`[${Severity.ERROR}] ${file}: events must be an array, or a single event (string id or object)`);
     return errors;
   }
-  data.forEach((item, idx) => {
+  items.forEach((item, idx) => {
     if (typeof item === 'string') {
       // Bare event id string (Lifecycle/events.json shape) — valid.
     } else if (item && typeof item === 'object') {
@@ -39,9 +56,10 @@ function validate(data, file) {
 }
 
 function idExtractor(data) {
-  if (!Array.isArray(data)) return [];
+  const items = asItems(data);
+  if (!items) return [];
   const ids = [];
-  for (const item of data) {
+  for (const item of items) {
     if (typeof item === 'string') {
       ids.push(item);
     } else if (item && typeof item === 'object' && item.id) {
@@ -57,7 +75,7 @@ function getReferences() {
 
 export default {
   name: 'events',
-  filenamePattern: 'events.json',
+  filenamePattern: ['events.json', 'legal_events.json'],
   fallbackBaseName: null,
   priority: 180,
   fingerprint: () => true,

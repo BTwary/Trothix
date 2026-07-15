@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import { ConfidenceResolver } from './ConfidenceResolver.js';
 
 export class ScoringEngine {
   constructor(weightsPath) {
     if (!weightsPath) {
       throw new Error("[ScoringEngine] weightsPath is required to initialize ScoringEngine.");
     }
+    this.weightsPath = weightsPath;
 
     try {
       const riskRaw = fs.readFileSync(path.join(weightsPath, 'risk.json'), 'utf-8');
@@ -40,7 +42,7 @@ export class ScoringEngine {
     // Example synthetic overall base score (starting at 100, subtracting points)
     const overallScore = Math.max(0, 100 - (riskScore + fairnessScore + completenessScore));
 
-    return {
+    const result = {
       riskScore,
       fairnessScore,
       completenessScore,
@@ -48,5 +50,10 @@ export class ScoringEngine {
       negotiabilityScore: Math.max(0, 100 - (fairnessScore * 1.5)),
       enforceabilityScore: Math.max(0, 100 - (completenessScore * 2))
     };
+
+    const resolver = new ConfidenceResolver({ weightsPath: this.weightsPath });
+    result.confidenceRecord = resolver.resolve(assessments, findings);
+
+    return result;
   }
 }

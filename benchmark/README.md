@@ -4,16 +4,24 @@ Regression suite for the local heuristics parser engine. Run it after any
 change to a parser, rule file, or `definitions.js` -- it should be part of
 the normal workflow, not a one-off check.
 
+> **Status note:** `npm run benchmark` runs `run-benchmark-pipelineB.mjs`
+> against the real production engine (`Trothix.js`), using a
+> snapshot-baseline + coverage-sanity model — see that file's own header
+> comment for how it actually scores a run. The per-field `expected.json`
+> model documented below (id/purpose/origin/difficulty/status/introduced/
+> docType/expected/requiresAIFallback) belonged to `run-benchmark.mjs`,
+> the retired Pipeline C harness, which has been moved to
+> `archive/benchmark/run-benchmark.mjs` and is no longer wired into any
+> npm script (the old `benchmark:legacy` script was removed). Both scripts
+> read the same `benchmark/{nda,lease,tos}/*.txt` documents, so the
+> "Adding a new test case" / "Documenting known gaps" guidance below about
+> the `.txt` fixtures still applies; the `expected.json` scoring mechanics
+> do not currently apply to the live command.
+
 ## Run it
 
 ```
 npm run benchmark
-```
-
-or directly:
-
-```
-node benchmark/run-benchmark.mjs
 ```
 
 ## Structure
@@ -29,8 +37,14 @@ benchmark/
   tos/
     tos_01.txt ... tos_04.txt
     expected.json
-  run-benchmark.mjs
+  run-benchmark-pipelineB.mjs  (live -- what `npm run benchmark` runs)
+  pipeline-b-baseline.json     (snapshot baseline for the live runner)
 ```
+
+The retired Pipeline C harness (`run-benchmark.mjs`) lives at
+`archive/benchmark/run-benchmark.mjs` for historical reference — it is not
+runnable (it imports a root `core/router.js` that no longer exists) and is
+not part of the `benchmark/` directory or any npm script.
 
 Each `expected.json` maps a filename to:
 - `id` -- a stable identifier (e.g. `LEASE-003`), assigned once and never

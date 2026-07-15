@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SOURCE_IP_OWNERSHIP_01",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "citation": "17 U.S.C. § 201(b)",
+    "type": "statute",
+    "note": "Under the Copyright Act, the employer or commissioning party is considered the author (and owner) of a work made for hire, unless the parties expressly agree otherwise in a signed writing."
+  },
+  {
+    "id": "SOURCE_IP_OWNERSHIP_02",
+    "concept": "CONCEPT_IP_OWNERSHIP",
+    "citation": "Community for Creative Non-Violence v. Reid, 490 U.S. 730 (1989)",
+    "type": "case_law",
+    "note": "Established the multi-factor test for whether a work qualifies as a 'work made for hire' when created by an independent contractor rather than an employee, making an express assignment clause important whenever work-for-hire status is uncertain."
+  },
+  {
+    "id": "SOURCE_IP_OWNERSHIP_GAP_01",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
+    "citation": "Stanford University v. Roche Molecular Systems, Inc., 563 U.S. 776 (2011)",
+    "type": "case_law",
+    "note": "Confirmed that under U.S. patent law, rights in an invention vest initially in the individual inventor, not their employer, absent an express assignment; a contract that discusses inventions without an assignment clause leaves ownership with the inventor by default."
+  }
+]

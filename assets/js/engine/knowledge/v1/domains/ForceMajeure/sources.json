@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SOURCE_FORCE_MAJEURE_01",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "citation": "CISG Article 79",
+    "type": "treaty",
+    "note": "Excuses a party from damages for a failure due to an impediment beyond its control that could not reasonably have been foreseen."
+  },
+  {
+    "id": "SOURCE_FORCE_MAJEURE_02",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "citation": "UCC § 2-615",
+    "type": "uniform_code",
+    "note": "Excuses timely delivery of goods where performance has been made impracticable by an unforeseen contingency."
+  },
+  {
+    "id": "SOURCE_FORCE_MAJEURE_03",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "citation": "Restatement (Second) of Contracts § 261",
+    "type": "restatement",
+    "note": "Discharge by supervening impracticability."
+  }
+]

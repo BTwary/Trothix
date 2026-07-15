@@ -1,0 +1,30 @@
+[
+  {
+    "id": "SOURCE_NOTICE_EMAIL_01",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "citation": "Restatement (Second) of Contracts § 68",
+    "type": "restatement",
+    "note": "General principles on when notice is treated as given/received, which contracts commonly adapt for electronic delivery."
+  },
+  {
+    "id": "SOURCE_NOTICE_GENERAL_01",
+    "concept": "CONCEPT_NOTICE",
+    "citation": "Restatement (Second) of Contracts § 68",
+    "type": "restatement",
+    "note": "Baseline common-law principles on how and when notice under a contract is treated as effectively given, which a notice clause typically displaces or supplements."
+  },
+  {
+    "id": "SOURCE_NOTICE_WRITTEN_01",
+    "concept": "CONCEPT_NOTICE_WRITTEN",
+    "citation": "Restatement (Second) of Contracts § 133",
+    "type": "restatement",
+    "note": "General principles distinguishing written from oral communications, which contractual writing requirements for notice are typically drafted to formalize and make enforceable."
+  },
+  {
+    "id": "SOURCE_NOTICE_ADDRESS_01",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "citation": "Restatement (Second) of Contracts § 68",
+    "type": "restatement",
+    "note": "Actual-receipt principles govern notice absent contrary agreement; a stated address removes ambiguity about where notice must be sent."
+  }
+]

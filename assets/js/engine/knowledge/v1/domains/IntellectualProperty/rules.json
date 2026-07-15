@@ -1,22 +1,60 @@
 [
   {
     "id": "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED",
-    "concept": "OWNERSHIP",
+    "concept": "CONCEPT_IP_OWNERSHIP",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
     "rationale": "IP ownership is clearly assigned to the creator/Disclosing Party.",
     "recommendation": "None.",
-    "legal_effect": "OWNERSHIP"
+    "legal_effect": "OWNERSHIP",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_IP_OWNERSHIP"
+    },
+    "then": {
+      "trigger": "IPOwnershipClearlyAssigned",
+      "message": "The agreement expressly assigns ownership of intellectual property created under it to a named party.",
+      "recommendation": "Confirm the assignment covers all relevant IP types (copyright, patent, trade secret) and, for contractor relationships, does not rely solely on 'work made for hire' language, which may not apply to every category of work.",
+      "rationale": "Absent an express assignment, rights in copyrightable work product or patentable inventions generally vest by default in the individual creator or inventor, not the commissioning party, so an explicit assignment clause is what actually secures ownership."
+    }
   },
   {
     "id": "RULE_OWNERSHIP_UNDEFINED",
-    "concept": "OWNERSHIP",
+    "concept": "CONCEPT_IP_OWNERSHIP_GAP",
     "category": "Risk",
     "severity": "High",
     "jurisdiction": "Universal",
     "rationale": "No explicit assignment of created IP.",
     "recommendation": "Ensure IP assignments are clearly written.",
-    "legal_effect": "VOID"
+    "legal_effect": "VOID",
+    "targetPrecision": 0.99,
+    "targetRecall": 0.95,
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "all": [
+        {
+          "type": "conceptExists",
+          "value": "CONCEPT_IP_OWNERSHIP_GAP"
+        },
+        {
+          "type": "conceptMissing",
+          "value": "CONCEPT_IP_OWNERSHIP"
+        }
+      ]
+    },
+    "then": {
+      "trigger": "OwnershipUndefined",
+      "message": "The agreement discusses IP-generating activity (work product, deliverables, or inventions) without an accompanying express ownership assignment.",
+      "recommendation": "Add an explicit assignment clause (or confirm one exists elsewhere in the full document) stating that the commissioning party owns all right, title, and interest in the resulting work product or inventions.",
+      "rationale": "Because rights in copyrightable work and patentable inventions vest by default in the individual creator absent an express assignment, IP-generating language with no assignment clause creates real ownership uncertainty rather than a merely theoretical gap."
+    }
   }
 ]

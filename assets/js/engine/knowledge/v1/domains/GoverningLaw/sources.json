@@ -1,0 +1,16 @@
+[
+  {
+    "id": "SOURCE_GOVERNING_LAW_01",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "citation": "Restatement (Second) of Conflict of Laws § 187",
+    "type": "restatement",
+    "note": "Recognizes party autonomy to select the law governing their contract, subject to limited exceptions (e.g. no substantial relationship and no reasonable basis for the choice, or violation of a fundamental policy of a state with a materially greater interest)."
+  },
+  {
+    "id": "SOURCE_EXCLUSIVE_VENUE_01",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "citation": "M/S Bremen v. Zapata Off-Shore Co., 407 U.S. 1 (1972)",
+    "type": "case_law",
+    "note": "Established that forum-selection clauses are prima facie valid and enforceable in U.S. federal courts absent a strong showing that enforcement would be unreasonable."
+  }
+]

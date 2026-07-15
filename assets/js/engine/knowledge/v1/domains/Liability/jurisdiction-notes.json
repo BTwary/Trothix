@@ -1,0 +1,44 @@
+[
+  {
+    "id": "JNOTE_LIABILITY_01",
+    "concept": "CONCEPT_LIABILITY",
+    "jurisdiction": "UK",
+    "note": "The Unfair Contract Terms Act 1977 restricts exclusion of liability for negligence and imposes a reasonableness test on limitation clauses in the UK."
+  },
+  {
+    "id": "JNOTE_LIABILITY_CAP_01",
+    "concept": "CONCEPT_LIABILITY_CAP",
+    "jurisdiction": "US-UCC",
+    "note": "UCC § 2-719(2) invalidates a limited remedy that fails of its essential purpose, which can defeat an otherwise-enforceable cap in extreme cases."
+  },
+  {
+    "id": "JNOTE_LIABILITY_EXCLUSION_01",
+    "concept": "CONCEPT_LIABILITY_EXCLUSION",
+    "jurisdiction": "All",
+    "note": "Waivers of indirect/consequential damages are standard and generally enforceable, but are often carved back for confidentiality breaches or indemnified claims."
+  },
+  {
+    "id": "JNOTE_LIABILITY_CARVEOUT_01",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "jurisdiction": "All",
+    "note": "Most jurisdictions will not enforce a liability cap as applied to a party's own gross negligence or willful misconduct even if the clause purports to cover it."
+  },
+  {
+    "id": "JNOTE_LIABILITY_UCTA",
+    "concept": "CONCEPT_LIABILITY",
+    "jurisdiction": "UK",
+    "note": "UK Unfair Contract Terms Act 1977 prohibits exclusion of liability for death/personal injury from negligence, and subjects other caps to reasonableness."
+  },
+  {
+    "id": "JNOTE_LIABILITY_CHINA",
+    "concept": "CONCEPT_LIABILITY_CARVEOUT",
+    "jurisdiction": "China",
+    "note": "China Civil Code Article 506 voids exclusions for personal injury or property damage caused by intentional misconduct or gross negligence."
+  },
+  {
+    "id": "JNOTE_LIABILITY_AUS",
+    "concept": "CONCEPT_LIABILITY",
+    "jurisdiction": "Australia",
+    "note": "Australian Consumer Law voids any exclusion of statutory non-excludable consumer guarantees."
+  }
+]

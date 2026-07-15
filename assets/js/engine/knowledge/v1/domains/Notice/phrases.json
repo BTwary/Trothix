@@ -1,0 +1,77 @@
+[
+  {
+    "id": "PHRASE_NOTICE_GENERAL_CAP",
+    "concept": "CONCEPT_NOTICE",
+    "text": "Notice"
+  },
+  {
+    "id": "PHRASE_NOTICE_GENERAL_LOW",
+    "concept": "CONCEPT_NOTICE",
+    "text": "notice"
+  },
+  {
+    "id": "PHRASE_NOTICE_NOTIFY",
+    "concept": "CONCEPT_NOTICE",
+    "text": "notify"
+  },
+  {
+    "id": "PHRASE_NOTICE_PARENT",
+    "concept": "CONCEPT_NOTICE",
+    "text": "written notice"
+  },
+  {
+    "id": "PHRASE_NOTICE_GIVE",
+    "concept": "CONCEPT_NOTICE",
+    "text": "give notice"
+  },
+  {
+    "id": "PHRASE_NOTICE_UNDER",
+    "concept": "CONCEPT_NOTICE",
+    "text": "notices under this Agreement"
+  },
+  {
+    "id": "PHRASE_NOTICE_EMAIL_VERB",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "text": "sent by email"
+  },
+  {
+    "id": "PHRASE_NOTICE_EMAIL_ELECTRONIC",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "text": "electronic mail"
+  },
+  {
+    "id": "PHRASE_NOTICE_EMAIL_TRANS",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "text": "email transmission"
+  },
+  {
+    "id": "PHRASE_NOTICE_ADDRESS_SET",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "text": "address set forth below"
+  },
+  {
+    "id": "PHRASE_NOTICE_ADDRESS_SENT",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "text": "shall be sent to the address"
+  },
+  {
+    "id": "PHRASE_NOTICE_ADDRESS_PHYS",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "text": "physical address"
+  },
+  {
+    "id": "PHRASE_NOTICE_ADDRESS_DELIV",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "text": "delivery to the following address"
+  },
+  {
+    "id": "PHRASE_NOTICE_WRITTEN_REQ",
+    "concept": "CONCEPT_NOTICE_WRITTEN",
+    "text": "notices must be in writing"
+  },
+  {
+    "id": "PHRASE_NOTICE_WRITTEN_SHALL",
+    "concept": "CONCEPT_NOTICE_WRITTEN",
+    "text": "shall be in writing"
+  }
+]

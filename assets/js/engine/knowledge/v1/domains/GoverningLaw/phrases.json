@@ -1,0 +1,32 @@
+[
+  {
+    "id": "PHRASE_GOVERNING_LAW_GOVERNED_BY_LAWS",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "text": "governed by and construed in accordance with the laws of"
+  },
+  {
+    "id": "PHRASE_GOVERNING_LAW_SHALL_BE_GOVERNED",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "text": "shall be governed by the laws of"
+  },
+  {
+    "id": "PHRASE_GOVERNING_LAW_GOVERNING_LAW_SHALL_BE",
+    "concept": "CONCEPT_GOVERNING_LAW",
+    "text": "governing law shall be"
+  },
+  {
+    "id": "PHRASE_EXCLUSIVE_VENUE_EXCLUSIVE_JURISDICTION",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "text": "exclusive jurisdiction"
+  },
+  {
+    "id": "PHRASE_EXCLUSIVE_VENUE_EXCLUSIVE_VENUE",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "text": "exclusive venue"
+  },
+  {
+    "id": "PHRASE_EXCLUSIVE_VENUE_SUBMIT_TO_COURTS",
+    "concept": "CONCEPT_EXCLUSIVE_VENUE",
+    "text": "submit to the exclusive jurisdiction of the courts"
+  }
+]

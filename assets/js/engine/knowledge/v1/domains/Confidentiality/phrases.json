@@ -1,0 +1,82 @@
+[
+  {
+    "id": "PHRASE_NON_DISCLOSURE_STRICT_CONFIDENCE",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "text": "hold in strict confidence"
+  },
+  {
+    "id": "PHRASE_NON_DISCLOSURE_MAINTAIN_CONFIDENTIALITY",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "text": "maintain the confidentiality"
+  },
+  {
+    "id": "PHRASE_NON_DISCLOSURE_SHALL_NOT_DISCLOSE",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "text": "shall not disclose"
+  },
+  {
+    "id": "PHRASE_NON_DISCLOSURE_KEEP_CONFIDENTIAL",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "text": "keep confidential"
+  },
+  {
+    "id": "PHRASE_TRADE_SECRET_NOUN",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "text": "trade secret"
+  },
+  {
+    "id": "PHRASE_TRADE_SECRET_REASONABLE_SECURITY",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "text": "reasonable security measures"
+  },
+  {
+    "id": "PHRASE_TRADE_SECRET_ENCRYPTION",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "text": "physical access restrictions and electronic encryption"
+  },
+  {
+    "id": "PHRASE_RESIDUALS_NOUN",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "text": "residuals"
+  },
+  {
+    "id": "PHRASE_RESIDUALS_UNAIDED_MEMORY",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "text": "retained in the unaided memory"
+  },
+  {
+    "id": "PHRASE_RESIDUALS_GENERAL_KNOWLEDGE",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "text": "general knowledge, skills, or experience"
+  },
+  {
+    "id": "PHRASE_COMPELLED_DISCLOSURE_REQUIRED_BY_LAW",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "text": "required by law or judicial process"
+  },
+  {
+    "id": "PHRASE_COMPELLED_DISCLOSURE_PROMPT_NOTICE",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "text": "prompt written notice of such requirement"
+  },
+  {
+    "id": "PHRASE_COMPELLED_DISCLOSURE_SUBPOENA",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "text": "subpoena or court order"
+  },
+  {
+    "id": "PHRASE_RETURN_DESTROY_RETURN_OR_DESTROY",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "text": "return or destroy"
+  },
+  {
+    "id": "PHRASE_RETURN_DESTROY_UPON_TERMINATION",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "text": "upon termination or expiration"
+  },
+  {
+    "id": "PHRASE_RETURN_DESTROY_CERTIFY",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "text": "certify in writing"
+  }
+]

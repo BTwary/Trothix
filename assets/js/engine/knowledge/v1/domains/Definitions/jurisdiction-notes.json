@@ -1,0 +1,14 @@
+[
+  {
+    "id": "JNOTE_DEFINED_TERM_REFERENCE_CA",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "jurisdiction": "US-California",
+    "note": "California Civil Code § 1654 codifies contra proferentem: language of a contract is construed most strongly against the party who caused the uncertainty to exist, most often the drafter."
+  },
+  {
+    "id": "JNOTE_DEFINED_TERM_UK",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "jurisdiction": "UK",
+    "note": "English courts (Investors Compensation Scheme Ltd v West Bromwich Building Society) construe contract terms in light of their commercial context, but an express definitions clause still displaces that default interpretive exercise for the terms it covers."
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "VAL-REG-PAY-001",
+    "text": "The Company shall make payment of USD 50,000 within 30 days, provided that the Client has accepted delivery.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_PAYMENT"],
+      "rules": ["RULE_PAYMENT_DEADLINE_LONG"],
+      "recommendations": {
+        "RULE_PAYMENT_DEADLINE_LONG": "Review the payment terms."
+      }
+    },
+    "metadata": {
+      "contractType": "Mutual NDA",
+      "jurisdiction": "Universal",
+      "difficulty": "Easy",
+      "clauseLength": 108,
+      "annotator": "Legal Engineer A",
+      "reviewStatus": "Approved",
+      "tier": "Gold"
+    }
+  },
+  {
+    "id": "VAL-REG-LIAB-001",
+    "text": "In no event shall either party be liable for any indirect, incidental, or consequential damages arising out of this Agreement.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_LIABILITY", "CONCEPT_LIABILITY_EXCLUSION"],
+      "rules": ["CONCEPT_LIABILITY_PRESENT", "CONCEPT_LIABILITY_FAIRNESS", "CONCEPT_LIABILITY_RISK"],
+      "recommendations": {
+        "CONCEPT_LIABILITY_PRESENT": "The agreement contains provisions addressing limitation of liability.",
+        "CONCEPT_LIABILITY_FAIRNESS": "Waiver of indirect or consequential damages is present, establishing standard commercial protection.",
+        "CONCEPT_LIABILITY_RISK": "The agreement contains liability provisions but lacks a clear aggregate liability cap, exposing parties to unlimited liability."
+      }
+    },
+    "metadata": {
+      "contractType": "Services Agreement",
+      "jurisdiction": "New York, USA",
+      "difficulty": "Medium",
+      "clauseLength": 126,
+      "annotator": "Legal Engineer A",
+      "reviewStatus": "Approved",
+      "tier": "Gold"
+    }
+  },
+  {
+    "id": "VAL-REG-INDEM-001",
+    "text": "The Vendor shall indemnify the Client against all liabilities, losses, and claims arising out of or relating to this Agreement.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_INDEMNIFICATION", "CONCEPT_INDEMNIFY_BROAD"],
+      "rules": ["CONCEPT_INDEMNIFICATION_PRESENT", "CONCEPT_INDEMNIFICATION_RISK"],
+      "recommendations": {
+        "CONCEPT_INDEMNIFICATION_PRESENT": "The agreement contains provisions addressing indemnification.",
+        "CONCEPT_INDEMNIFICATION_RISK": "The agreement contains broad/unlimited indemnification obligations (e.g., 'any and all claims'), which increases risk."
+      }
+    },
+    "metadata": {
+      "contractType": "Services Agreement",
+      "jurisdiction": "Delaware, USA",
+      "difficulty": "Medium",
+      "clauseLength": 124,
+      "annotator": "Legal Engineer A",
+      "reviewStatus": "Approved",
+      "tier": "Gold"
+    }
+  }
+]

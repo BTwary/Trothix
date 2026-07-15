@@ -17,5 +17,41 @@
         "legal_effect": "OBLIGATION"
       }
     ]
+  },
+  {
+    "id": "DT_TRADE_SECRETS",
+    "purpose": "Determines if specific trade secret protection controls exist.",
+    "inputs": [
+      "TRADE_SECRETS_PROTECTION"
+    ],
+    "conditions": [
+      {
+        "match": "TRADE_SECRETS_PROTECTION"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_TRADE_SECRETS_PROTECTED",
+        "legal_effect": "OBLIGATION"
+      }
+    ]
+  },
+  {
+    "id": "DT_RESIDUALS",
+    "purpose": "Determines if residuals memory clauses are present.",
+    "inputs": [
+      "RESIDUALS_MEMORY_CLAUSE"
+    ],
+    "conditions": [
+      {
+        "match": "RESIDUALS_MEMORY_CLAUSE"
+      }
+    ],
+    "outputs": [
+      {
+        "finding": "RULE_RESIDUALS_RESTRICTED",
+        "legal_effect": "EXCEPTION"
+      }
+    ]
   }
 ]

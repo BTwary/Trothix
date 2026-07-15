@@ -10,6 +10,7 @@ export class RuleContext {
   constructor(ir) {
     this.ir = ir;
     this.cache = new Map();
+    this.scope = null; // Add dynamic scope property for local evaluation
   }
 
   /**
@@ -34,7 +35,8 @@ export class RuleContext {
    * @returns {any[]} Array of resolved values
    */
   resolveField(field, scope = null) {
-    const data = scope || this.ir;
+    const activeScope = scope || this.scope;
+    const data = activeScope || this.ir;
 
     if (field.startsWith('category')) {
        // Mock category access
@@ -46,7 +48,7 @@ export class RuleContext {
     
     let current = [data];
     if (parts[0] === 'actions[*]') {
-       current = this.getAllActions();
+       current = activeScope ? (activeScope.actions || []) : this.getAllActions();
        parts.shift(); // Remove the first part
     } else if (parts[0] === 'nodes[*]') {
        current = data.nodes || [];

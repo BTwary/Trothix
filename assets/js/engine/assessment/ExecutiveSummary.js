@@ -1,9 +1,11 @@
 import { NarrativeFormatter } from './NarrativeFormatter.js';
+import { CrossFindingSynthesizer } from './CrossFindingSynthesizer.js';
 
 export class ExecutiveSummary {
 
-  constructor(formatter = new NarrativeFormatter()) {
+  constructor(formatter = new NarrativeFormatter(), synthesizer = new CrossFindingSynthesizer()) {
     this.formatter = formatter;
+    this.synthesizer = synthesizer;
   }
 
   /**
@@ -62,16 +64,26 @@ export class ExecutiveSummary {
     const docType = ir.metadata?.category || "Agreement";
     const parties = ir.metadata?.parties || [];
 
+    // Recurring-theme headline (e.g. "3 findings cluster around Payment &
+    // Cash Flow") — pure grouping over findings/narratives that already
+    // exist; see CrossFindingSynthesizer for the deterministic rules.
+    const themes = this.synthesizer.groupThemes(findings, narratives);
+    const themeHeadline = this.synthesizer.headline(themes);
+
     const executiveSummary = this.formatter.formatExecutiveSummary(
       docType,
       parties,
       riskNarratives,
-      positiveNarratives
+      positiveNarratives,
+      stats.findingCounts,
+      themeHeadline
     );
 
     return {
       stats,
-      executiveSummary
+      executiveSummary,
+      themes,
+      themeHeadline
     };
   }
 }

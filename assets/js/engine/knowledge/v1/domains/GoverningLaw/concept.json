@@ -1,0 +1,40 @@
+[
+  {
+    "id": "CONCEPT_GOVERNING_LAW",
+    "name": "Governing Law",
+    "description": "A choice-of-law clause designating which jurisdiction's substantive law governs the interpretation and enforcement of the agreement.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_EXCLUSIVE_VENUE"
+    ],
+    "rules": [
+      "RULE_EXPLICIT_GOVERNING_LAW"
+    ]
+  },
+  {
+    "id": "CONCEPT_EXCLUSIVE_VENUE",
+    "name": "Exclusive Venue",
+    "description": "A forum-selection clause designating a specific court or courts as the exclusive venue for disputes arising under the agreement.",
+    "category": "Contract Clause",
+    "introduced": "1.2.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_GOVERNING_LAW"
+    ],
+    "rules": [
+      "RULE_EXCLUSIVE_VENUE"
+    ]
+  }
+]

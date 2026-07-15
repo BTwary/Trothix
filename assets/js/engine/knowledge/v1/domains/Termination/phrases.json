@@ -1,0 +1,44 @@
+[
+  {
+    "id": "PHRASE_TERMINATE",
+    "text": "terminate",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "PHRASE_TERMINATION",
+    "text": "termination",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "PHRASE_CANCEL",
+    "text": "cancel",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "PHRASE_CANCELLATION",
+    "text": "cancellation",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "PHRASE_EXPIRATION",
+    "text": "expiration",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "PHRASE_EXPIRES",
+    "text": "expires",
+    "intent": "Right",
+    "strength": "High",
+    "concept": "CONCEPT_TERMINATION"
+  }
+]

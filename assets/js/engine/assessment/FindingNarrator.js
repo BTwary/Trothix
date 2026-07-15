@@ -103,6 +103,17 @@ export class FindingNarrator {
       variables
     );
 
+    const negotiationTip = template.negotiationTip
+      ? this.fillTemplate(template.negotiationTip, variables)
+      : null;
+
+    // Single-field impact: combines the business and legal lenses into one
+    // fluent string for consumers (executive summary, risk/positive roll-ups)
+    // that need one impact sentence rather than the two separate ones.
+    const impact = [businessImpact, legalImpact]
+      .filter(Boolean)
+      .join(" ");
+
     const evidence = {
       clause: variables.clause ?? null,
       extractedText: variables.extractedText ?? null,
@@ -125,7 +136,11 @@ export class FindingNarrator {
 
       legalImpact,
 
+      impact,
+
       recommendation,
+
+      negotiationTip,
 
       rationale: metadata.rationale ?? null,
 

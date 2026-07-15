@@ -1,0 +1,57 @@
+[
+  {
+    "id": "OBLIGATION_PAYMENT",
+    "name": "Payment Obligation",
+    "modal": "MODAL_OBLIGATION",
+    "action": "ACTION_PAY",
+    "concept": "CONCEPT_PAYMENT",
+    "actor": "ENTITY_PARTY",
+    "object": "ENTITY_MONEY",
+    "triggerEvent": "EVENT_PAYMENT_DUE",
+    "exceptions": [
+      "EXCEPTION_FORCE_MAJEURE"
+    ],
+    "severity": "high",
+    "status": "production"
+  },
+  {
+    "id": "OBLIGATION_CONFIDENTIALITY",
+    "name": "Confidentiality Obligation",
+    "modal": "MODAL_OBLIGATION",
+    "action": "ACTION_DISCLOSE",
+    "concept": "CONCEPT_CONFIDENTIALITY",
+    "actor": "ENTITY_PARTY",
+    "object": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "prohibited": true,
+    "exceptions": [
+      "EXCEPTION_LEGAL_REQUIREMENT",
+      "EXCEPTION_PRIOR_CONSENT"
+    ],
+    "severity": "critical",
+    "status": "production"
+  },
+  {
+    "id": "OBLIGATION_NOTICE",
+    "name": "Notice Obligation",
+    "modal": "MODAL_OBLIGATION",
+    "action": "ACTION_NOTIFY",
+    "concept": "CONCEPT_NOTICE",
+    "actor": "ENTITY_PARTY",
+    "triggerEvent": "EVENT_BREACH",
+    "deadline": "TIME_WITHIN_PERIOD",
+    "severity": "medium",
+    "status": "production"
+  },
+  {
+    "id": "OBLIGATION_RETURN_INFORMATION",
+    "name": "Return Confidential Information",
+    "modal": "MODAL_OBLIGATION",
+    "action": "ACTION_RETURN",
+    "concept": "CONCEPT_RETURN_OF_INFORMATION",
+    "actor": "ENTITY_PARTY",
+    "triggerEvent": "EVENT_TERMINATION",
+    "object": "ENTITY_CONFIDENTIAL_INFORMATION",
+    "severity": "high",
+    "status": "production"
+  }
+]

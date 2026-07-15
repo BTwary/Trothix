@@ -1,0 +1,86 @@
+{
+  "irSchemaVersion": "1.0.0",
+  "manifestVersion": "1.0.0",
+  "ontologyVersion": "3.0",
+  "generatedAt": "2026-07-15T07:12:57.863Z",
+  "errors": [
+    {
+      "file": "domains\\Confidentiality\\concept.json",
+      "id": "CONCEPT_NON_DISCLOSURE",
+      "error": "Duplicate ID 'CONCEPT_NON_DISCLOSURE' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Payment\\actions.json",
+      "id": "ACTION_PAY",
+      "error": "Duplicate ID 'ACTION_PAY' (first defined in core\\legal_actions.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Payment\\concept.json",
+      "id": "CONCEPT_PAYMENT",
+      "error": "Duplicate ID 'CONCEPT_PAYMENT' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Termination\\actions.json",
+      "id": "ACTION_TERMINATE",
+      "error": "Duplicate ID 'ACTION_TERMINATE' (first defined in core\\legal_actions.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Termination\\concept.json",
+      "id": "CONCEPT_TERMINATION",
+      "error": "Duplicate ID 'CONCEPT_TERMINATION' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Termination\\events.json",
+      "id": "EVENT_BREACH",
+      "error": "Duplicate ID 'EVENT_BREACH' (first defined in core\\legal_events.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Termination\\objects.json",
+      "id": "NOTICE",
+      "error": "Duplicate ID 'NOTICE' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Liability\\concept.json",
+      "id": "CONCEPT_LIABILITY",
+      "error": "Duplicate ID 'CONCEPT_LIABILITY' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Indemnification\\concept.json",
+      "id": "CONCEPT_INDEMNIFICATION",
+      "error": "Duplicate ID 'CONCEPT_INDEMNIFICATION' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Notice\\actions.json",
+      "id": "ACTION_NOTIFY",
+      "error": "Duplicate ID 'ACTION_NOTIFY' (first defined in core\\legal_actions.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Notice\\actors.json",
+      "id": "PARTY_SENDER",
+      "error": "Duplicate ID 'PARTY_SENDER' (first defined in domains\\Termination\\actors.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Notice\\actors.json",
+      "id": "PARTY_RECEIVER",
+      "error": "Duplicate ID 'PARTY_RECEIVER' (first defined in domains\\Termination\\actors.json)",
+      "severity": "warning"
+    },
+    {
+      "file": "domains\\Notice\\objects.json",
+      "id": "NOTICE",
+      "error": "Duplicate ID 'NOTICE' (first defined in core\\legal_concepts.json)",
+      "severity": "warning"
+    }
+  ]
+}

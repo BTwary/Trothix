@@ -1,0 +1,15 @@
+These IDs should eventually become shared vocabulary.
+
+PARTY_RECEIVER
+
+PARTY_SENDER
+
+OBLIGATION
+
+PERMISSION
+
+NEG_NOT
+
+NOTICE
+
+EXC_CONSENT

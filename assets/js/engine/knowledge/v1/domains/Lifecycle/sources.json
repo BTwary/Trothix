@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SOURCE_LIFECYCLE_01",
+    "concept": "CONCEPT_LIFECYCLE",
+    "citation": "Restatement (Second) of Contracts § 1",
+    "type": "restatement",
+    "note": "General definition of a contract and its lifecycle from formation through discharge."
+  },
+  {
+    "id": "SOURCE_NOTICE_TIMELINE_01",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "citation": "Restatement (Second) of Contracts § 231",
+    "type": "restatement",
+    "note": "Standards for the timing and adequacy of notice as a condition of a party's duty to perform or as a trigger for termination rights."
+  },
+  {
+    "id": "SOURCE_ILLEGAL_STATE_TRANSITION_01",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "citation": "Restatement (Second) of Contracts § 283",
+    "type": "restatement",
+    "note": "Discharge of contractual duties upon termination; obligations generally do not survive termination absent an express survival clause or a new agreement."
+  }
+]

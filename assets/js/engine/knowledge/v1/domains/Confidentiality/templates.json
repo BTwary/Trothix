@@ -24,5 +24,55 @@
         "ACTOR"
       ]
     ]
+  },
+  {
+    "family": "TRADE_SECRETS_PROTECTION",
+    "templates": [
+      [
+        "ENTITY_RECIPIENT",
+        "MODAL",
+        "INTENT_KEEP_SECRET",
+        "ENTITY_TRADE_SECRET"
+      ]
+    ]
+  },
+  {
+    "family": "RESIDUALS_MEMORY_CLAUSE",
+    "templates": [
+      [
+        "ENTITY_RECIPIENT",
+        "MODAL",
+        "ACTION_USE",
+        "CONCEPT_RESIDUAL_KNOWLEDGE"
+      ]
+    ]
+  },
+  {
+    "family": "COMPELLED_DISCLOSURE",
+    "templates": [
+      [
+        "ENTITY_RECIPIENT",
+        "MODAL",
+        "ACTION_DISCLOSE",
+        "INTENT_COMPELLED_DISCLOSURE"
+      ]
+    ]
+  },
+  {
+    "family": "RETURN_DESTROY",
+    "templates": [
+      [
+        "ENTITY_RECIPIENT",
+        "MODAL",
+        "ACTION_RETURN",
+        "ENTITY_CONFIDENTIAL_INFORMATION"
+      ],
+      [
+        "ENTITY_RECIPIENT",
+        "MODAL",
+        "ACTION_DESTROY",
+        "ENTITY_CONFIDENTIAL_INFORMATION"
+      ]
+    ]
   }
 ]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "SOURCE_ASSIGNMENT_01",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "citation": "UCC § 2-210",
+    "type": "uniform_code",
+    "note": "Permits assignment of rights and delegation of duties absent contrary agreement, subject to material-change-of-risk limits."
+  },
+  {
+    "id": "SOURCE_ASSIGNMENT_02",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "citation": "UCC § 9-406",
+    "type": "uniform_code",
+    "note": "Renders certain anti-assignment restrictions on payment rights (accounts) ineffective against a security interest holder."
+  },
+  {
+    "id": "SOURCE_ASSIGNMENT_03",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "citation": "Restatement (Second) of Contracts § 317",
+    "type": "restatement",
+    "note": "General rule on assignability of contract rights."
+  },
+  {
+    "id": "SOURCE_ASSIGNMENT_04",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "citation": "Law of Property Act 1925, Section 136",
+    "type": "statute",
+    "note": "Under UK law, absolute assignments must be in writing, signed under hand, with express written notice given to the debtor."
+  },
+  {
+    "id": "SOURCE_ASSIGNMENT_05",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "citation": "Indian Contract Act, 1872 Section 37",
+    "type": "statute",
+    "note": "Governs assignability of contract performance, establishing that obligations cannot be delegated without consent."
+  }
+]

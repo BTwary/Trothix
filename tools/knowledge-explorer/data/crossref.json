@@ -1,0 +1,1986 @@
+{
+  "generatedAt": "2026-07-13T04:43:33.954Z",
+  "nodes": [
+    {
+      "id": "DOC_TYPE_NDA",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_SERVICE_AGREEMENT",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_EMPLOYMENT",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_SAAS",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_MSA",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_DPA",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_LEASE",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "DOC_TYPE_PURCHASE",
+      "type": "DOC",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_PAY",
+      "type": "ACTION",
+      "domain": "Payment"
+    },
+    {
+      "id": "ACTION_TERMINATE",
+      "type": "ACTION",
+      "domain": "Termination"
+    },
+    {
+      "id": "ACTION_NOTIFY",
+      "type": "ACTION",
+      "domain": "Notice"
+    },
+    {
+      "id": "ACTION_DISCLOSE",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_INDEMNIFY",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_DEFEND",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_ASSIGN",
+      "type": "ACTION",
+      "domain": "Assignment"
+    },
+    {
+      "id": "ACTION_DELIVER",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_RETURN",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_REPAIR",
+      "type": "ACTION",
+      "domain": "core"
+    },
+    {
+      "id": "PATTERN_PAYMENT",
+      "type": "PATTERN",
+      "domain": "core"
+    },
+    {
+      "id": "PATTERN_CONFIDENTIALITY",
+      "type": "PATTERN",
+      "domain": "core"
+    },
+    {
+      "id": "PATTERN_NOTICE",
+      "type": "PATTERN",
+      "domain": "core"
+    },
+    {
+      "id": "PATTERN_TERMINATION",
+      "type": "PATTERN",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_PAYMENT",
+      "type": "CONCEPT",
+      "domain": "Payment"
+    },
+    {
+      "id": "CONCEPT_CONFIDENTIALITY",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_NON_DISCLOSURE",
+      "type": "CONCEPT",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "CONCEPT_TERMINATION",
+      "type": "CONCEPT",
+      "domain": "Termination"
+    },
+    {
+      "id": "CONCEPT_NOTICE",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_INDEMNIFICATION",
+      "type": "CONCEPT",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "CONCEPT_LIABILITY",
+      "type": "CONCEPT",
+      "domain": "Liability"
+    },
+    {
+      "id": "CONCEPT_ASSIGNMENT",
+      "type": "CONCEPT",
+      "domain": "Assignment"
+    },
+    {
+      "id": "CONCEPT_SERVICES",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_RETURN_OF_INFORMATION",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_CONSENT",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONCEPT_BREACH",
+      "type": "CONCEPT",
+      "domain": "core"
+    },
+    {
+      "id": "CONSTRAINT_PRIOR_NOTICE",
+      "type": "CONSTRAINT",
+      "domain": "core"
+    },
+    {
+      "id": "CONSTRAINT_CURE_PERIOD",
+      "type": "CONSTRAINT",
+      "domain": "core"
+    },
+    {
+      "id": "CONSTRAINT_WRITTEN_FORM",
+      "type": "CONSTRAINT",
+      "domain": "core"
+    },
+    {
+      "id": "CONSTRAINT_AUTHORIZED_SIGNATORY",
+      "type": "CONSTRAINT",
+      "domain": "core"
+    },
+    {
+      "id": "CONSTRAINT_PAYMENT_DEADLINE",
+      "type": "CONSTRAINT",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_PARTY",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_CLIENT",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_PROVIDER",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_MONEY",
+      "type": "ENTITY",
+      "domain": "Core"
+    },
+    {
+      "id": "ENTITY_CURRENCY",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_DATE",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_DURATION",
+      "type": "ENTITY",
+      "domain": "Core"
+    },
+    {
+      "id": "ENTITY_NOTICE",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_ADDRESS",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_DOCUMENT",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_PROPERTY",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_CONFIDENTIAL_INFORMATION",
+      "type": "ENTITY",
+      "domain": "Definitions"
+    },
+    {
+      "id": "ENTITY_PERSONAL_DATA",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "ENTITY_INTELLECTUAL_PROPERTY",
+      "type": "ENTITY",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_CONTRACT_EXECUTED",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_INVOICE_ISSUED",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_PAYMENT_DUE",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_PAYMENT_RECEIVED",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_BREACH",
+      "type": "EVENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "EVENT_NOTICE_SENT",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_CURE_PERIOD_STARTED",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_CURE_PERIOD_EXPIRED",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_TERMINATION",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_RETURN_OF_INFORMATION",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_DISPUTE",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EVENT_FORCE_MAJEURE",
+      "type": "EVENT",
+      "domain": "core"
+    },
+    {
+      "id": "EXCEPTION_FORCE_MAJEURE",
+      "type": "EXCEPTION",
+      "domain": "core"
+    },
+    {
+      "id": "EXCEPTION_MUTUAL_CONSENT",
+      "type": "EXCEPTION",
+      "domain": "core"
+    },
+    {
+      "id": "EXCEPTION_LEGAL_REQUIREMENT",
+      "type": "EXCEPTION",
+      "domain": "core"
+    },
+    {
+      "id": "EXCEPTION_PRIOR_CONSENT",
+      "type": "EXCEPTION",
+      "domain": "core"
+    },
+    {
+      "id": "EXCEPTION_PUBLIC_INFORMATION",
+      "type": "EXCEPTION",
+      "domain": "core"
+    },
+    {
+      "id": "MODAL_OBLIGATION",
+      "type": "MODAL",
+      "domain": "core"
+    },
+    {
+      "id": "MODAL_PERMISSION",
+      "type": "MODAL",
+      "domain": "core"
+    },
+    {
+      "id": "MODAL_PROHIBITION",
+      "type": "MODAL",
+      "domain": "core"
+    },
+    {
+      "id": "MODAL_DISCRETION",
+      "type": "MODAL",
+      "domain": "core"
+    },
+    {
+      "id": "MODAL_CONDITIONAL",
+      "type": "MODAL",
+      "domain": "core"
+    },
+    {
+      "id": "OBLIGATION_PAYMENT",
+      "type": "OBLIGATION",
+      "domain": "core"
+    },
+    {
+      "id": "OBLIGATION_CONFIDENTIALITY",
+      "type": "OBLIGATION",
+      "domain": "core"
+    },
+    {
+      "id": "OBLIGATION_NOTICE",
+      "type": "OBLIGATION",
+      "domain": "core"
+    },
+    {
+      "id": "OBLIGATION_RETURN_INFORMATION",
+      "type": "OBLIGATION",
+      "domain": "core"
+    },
+    {
+      "id": "ACTION_TRANSFER",
+      "type": "ACTION",
+      "domain": "Assignment"
+    },
+    {
+      "id": "CONSENT_REQUIRED",
+      "type": "CONSENT",
+      "domain": "Assignment"
+    },
+    {
+      "id": "DT_ASSIGNMENT",
+      "type": "DT",
+      "domain": "Assignment"
+    },
+    {
+      "id": "DELEGATION_PROHIBITED",
+      "type": "DELEGATION",
+      "domain": "Assignment"
+    },
+    {
+      "id": "EXAMPLE_ASSIGNMENT_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "EXAMPLE_ASSIGNMENT_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "EXCEPTION_MERGER",
+      "type": "EXCEPTION",
+      "domain": "Assignment"
+    },
+    {
+      "id": "JNOTE_ASSIGNMENT_01",
+      "type": "JNOTE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "JNOTE_ASSIGNMENT_02",
+      "type": "JNOTE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_ASSIGN_VERB",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_ASSIGN_NOUN",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_TRANSFER_VERB",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_CONSENT_WRITTEN",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_CONSENT_PARTY",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "PHRASE_CONSENT_GENERAL",
+      "type": "PHRASE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "RESTRICTION_AFFILIATE_ONLY",
+      "type": "RESTRICTION",
+      "domain": "Assignment"
+    },
+    {
+      "id": "SOURCE_ASSIGNMENT_01",
+      "type": "SOURCE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "SOURCE_ASSIGNMENT_02",
+      "type": "SOURCE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "SOURCE_ASSIGNMENT_03",
+      "type": "SOURCE",
+      "domain": "Assignment"
+    },
+    {
+      "id": "DT_CONFIDENTIALITY",
+      "type": "DT",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "EXAMPLE_NON_DISCLOSURE_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "EXAMPLE_NON_DISCLOSURE_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "INTENT_KEEP_SECRET",
+      "type": "INTENT",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "INTENT_DISCLOSE",
+      "type": "INTENT",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "JNOTE_NON_DISCLOSURE_01",
+      "type": "JNOTE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "JNOTE_NON_DISCLOSURE_02",
+      "type": "JNOTE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "RULE_NON_DISCLOSURE",
+      "type": "RULE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "SOURCE_NON_DISCLOSURE_01",
+      "type": "SOURCE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "SOURCE_NON_DISCLOSURE_02",
+      "type": "SOURCE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "SOURCE_NON_DISCLOSURE_03",
+      "type": "SOURCE",
+      "domain": "Confidentiality"
+    },
+    {
+      "id": "DOC_NDA",
+      "type": "DOC",
+      "domain": "Core"
+    },
+    {
+      "id": "PHRASE_PROVIDED_THAT",
+      "type": "PHRASE",
+      "domain": "Core"
+    },
+    {
+      "id": "PARTY_SENDER",
+      "type": "PARTY",
+      "domain": "Definitions"
+    },
+    {
+      "id": "PARTY_RECEIVER",
+      "type": "PARTY",
+      "domain": "Definitions"
+    },
+    {
+      "id": "DT_DEFINED_TERM",
+      "type": "DT",
+      "domain": "Definitions"
+    },
+    {
+      "id": "DT_ALIAS",
+      "type": "DT",
+      "domain": "Definitions"
+    },
+    {
+      "id": "INTENT_DEFINE",
+      "type": "INTENT",
+      "domain": "Definitions"
+    },
+    {
+      "id": "INTENT_ALIAS",
+      "type": "INTENT",
+      "domain": "Definitions"
+    },
+    {
+      "id": "DEFINITION",
+      "type": "OTHER",
+      "domain": "Definitions"
+    },
+    {
+      "id": "RULE_DEFINITIONS_PRESENT",
+      "type": "RULE",
+      "domain": "Definitions"
+    },
+    {
+      "id": "RULE_ALIASES_RESOLVED",
+      "type": "RULE",
+      "domain": "Definitions"
+    },
+    {
+      "id": "RULE_UNDEFINED_CAPITALIZED_TERM",
+      "type": "RULE",
+      "domain": "Definitions"
+    },
+    {
+      "id": "ACTION_SUSPEND",
+      "type": "ACTION",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "CONCEPT_FORCE_MAJEURE",
+      "type": "CONCEPT",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "COV_FORCE_MAJEURE",
+      "type": "COV",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "EXAMPLE_FORCE_MAJEURE_POS_01",
+      "type": "EXAMPLE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "EXAMPLE_FORCE_MAJEURE_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "JNOTE_FORCE_MAJEURE_01",
+      "type": "JNOTE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "JNOTE_FORCE_MAJEURE_02",
+      "type": "JNOTE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_ACT_OF_GOD",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_NATURAL_DIS",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_GOVT_ACTION",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_LABOR_STRIKE",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_WAR_RIOT",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_EPIDEMIC",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_UNFORESEEABLE",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_DELAY_EXCEED",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_30_DAYS",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_60_DAYS",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_NOTICE_WRITING",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "PHRASE_FM_PREVENT_PERF",
+      "type": "PHRASE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "SOURCE_FORCE_MAJEURE_01",
+      "type": "SOURCE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "SOURCE_FORCE_MAJEURE_02",
+      "type": "SOURCE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "SOURCE_FORCE_MAJEURE_03",
+      "type": "SOURCE",
+      "domain": "ForceMajeure"
+    },
+    {
+      "id": "COURT_STATE",
+      "type": "COURT",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "COURT_FEDERAL",
+      "type": "COURT",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "JURISDICTION_NEW_YORK",
+      "type": "JURISDICTION",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "JURISDICTION_ENGLAND",
+      "type": "JURISDICTION",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "RULE_EXPLICIT_GOVERNING_LAW",
+      "type": "RULE",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "RULE_EXCLUSIVE_VENUE",
+      "type": "RULE",
+      "domain": "GoverningLaw"
+    },
+    {
+      "id": "ACTION_INDEMNIFICATION",
+      "type": "ACTION",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "CONCEPT_INDEMNIFY_BROAD",
+      "type": "CONCEPT",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "CONCEPT_INDEMNIFY_RECIPROCAL",
+      "type": "CONCEPT",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "CONCEPT_INDEMNIFY_DEFEND",
+      "type": "CONCEPT",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "CONCEPT_INDEMNIFY_EXCLUSION",
+      "type": "CONCEPT",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "ENTITY_INDEMNIFICATION_TERM",
+      "type": "ENTITY",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFICATION_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFICATION_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_BROAD_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_BROAD_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_RECIPROCAL_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_RECIPROCAL_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_DEFEND_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_DEFEND_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_EXCLUSION_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "EXAMPLE_INDEMNIFY_EXCLUSION_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "JNOTE_INDEMNIFICATION_01",
+      "type": "JNOTE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "JNOTE_INDEMNIFY_BROAD_01",
+      "type": "JNOTE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "JNOTE_INDEMNIFY_RECIPROCAL_01",
+      "type": "JNOTE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "JNOTE_INDEMNIFY_DEFEND_01",
+      "type": "JNOTE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "JNOTE_INDEMNIFY_EXCLUSION_01",
+      "type": "JNOTE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_ROOT_1",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_ROOT_2",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_HOLD_HARMLESS",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_BROAD_1",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_BROAD_2",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_BROAD_3",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_RECIP_1",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_RECIP_2",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_RECIP_3",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_DEFEND_1",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_DEFEND_2",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_DEFEND_3",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_EXCL_1",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_EXCL_2",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "PHRASE_INDEMNIFY_EXCL_3",
+      "type": "PHRASE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "SOURCE_INDEMNIFICATION_01",
+      "type": "SOURCE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "SOURCE_INDEMNIFY_BROAD_01",
+      "type": "SOURCE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "SOURCE_INDEMNIFY_RECIPROCAL_01",
+      "type": "SOURCE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "SOURCE_INDEMNIFY_DEFEND_01",
+      "type": "SOURCE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "SOURCE_INDEMNIFY_EXCLUSION_01",
+      "type": "SOURCE",
+      "domain": "Indemnification"
+    },
+    {
+      "id": "LICENSE_NON_EXCLUSIVE",
+      "type": "LICENSE",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "LICENSE_ROYALTY_FREE",
+      "type": "LICENSE",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "OWNER_DISCLOSING_PARTY",
+      "type": "OWNER",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "OWNER_RECEIVING_PARTY",
+      "type": "OWNER",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED",
+      "type": "RULE",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "RULE_OWNERSHIP_UNDEFINED",
+      "type": "RULE",
+      "domain": "IntellectualProperty"
+    },
+    {
+      "id": "ACTION_LIABILITY",
+      "type": "ACTION",
+      "domain": "Liability"
+    },
+    {
+      "id": "CONCEPT_LIABILITY_CAP",
+      "type": "CONCEPT",
+      "domain": "Liability"
+    },
+    {
+      "id": "CONCEPT_LIABILITY_EXCLUSION",
+      "type": "CONCEPT",
+      "domain": "Liability"
+    },
+    {
+      "id": "CONCEPT_LIABILITY_CARVEOUT",
+      "type": "CONCEPT",
+      "domain": "Liability"
+    },
+    {
+      "id": "ENTITY_LIABILITY_TERM",
+      "type": "ENTITY",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_CAP_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_CAP_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_EXCLUSION_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_EXCLUSION_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_CARVEOUT_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "EXAMPLE_LIABILITY_CARVEOUT_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Liability"
+    },
+    {
+      "id": "JNOTE_LIABILITY_01",
+      "type": "JNOTE",
+      "domain": "Liability"
+    },
+    {
+      "id": "JNOTE_LIABILITY_CAP_01",
+      "type": "JNOTE",
+      "domain": "Liability"
+    },
+    {
+      "id": "JNOTE_LIABILITY_EXCLUSION_01",
+      "type": "JNOTE",
+      "domain": "Liability"
+    },
+    {
+      "id": "JNOTE_LIABILITY_CARVEOUT_01",
+      "type": "JNOTE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_ROOT_1",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_ROOT_2",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_ROOT_3",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CAP_1",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CAP_2",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CAP_3",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_EXCL_1",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_EXCL_2",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_EXCL_3",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_EXCL_4",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CARVE_1",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CARVE_2",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "PHRASE_LIABILITY_CARVE_3",
+      "type": "PHRASE",
+      "domain": "Liability"
+    },
+    {
+      "id": "SOURCE_LIABILITY_01",
+      "type": "SOURCE",
+      "domain": "Liability"
+    },
+    {
+      "id": "SOURCE_LIABILITY_CAP_01",
+      "type": "SOURCE",
+      "domain": "Liability"
+    },
+    {
+      "id": "SOURCE_LIABILITY_EXCLUSION_01",
+      "type": "SOURCE",
+      "domain": "Liability"
+    },
+    {
+      "id": "SOURCE_LIABILITY_CARVEOUT_01",
+      "type": "SOURCE",
+      "domain": "Liability"
+    },
+    {
+      "id": "CONCEPT_LIFECYCLE",
+      "type": "CONCEPT",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "DT_LIFECYCLE",
+      "type": "DT",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "EXAMPLE_LIFECYCLE_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "EXAMPLE_LIFECYCLE_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "JNOTE_LIFECYCLE_01",
+      "type": "JNOTE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "RULE_PROPER_NOTICE_TIMELINE",
+      "type": "RULE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "RULE_ILLEGAL_STATE_TRANSITION",
+      "type": "RULE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "SOURCE_LIFECYCLE_01",
+      "type": "SOURCE",
+      "domain": "Lifecycle"
+    },
+    {
+      "id": "CONCEPT_NOTICE_EMAIL",
+      "type": "CONCEPT",
+      "domain": "Notice"
+    },
+    {
+      "id": "CONCEPT_NOTICE_ADDRESS",
+      "type": "CONCEPT",
+      "domain": "Notice"
+    },
+    {
+      "id": "DT_NOTICE_METHOD",
+      "type": "DT",
+      "domain": "Notice"
+    },
+    {
+      "id": "DT_NOTICE_ADDRESS",
+      "type": "DT",
+      "domain": "Notice"
+    },
+    {
+      "id": "EXAMPLE_NOTICE_EMAIL_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Notice"
+    },
+    {
+      "id": "EXAMPLE_NOTICE_EMAIL_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Notice"
+    },
+    {
+      "id": "EXAMPLE_NOTICE_ADDRESS_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Notice"
+    },
+    {
+      "id": "EXAMPLE_NOTICE_ADDRESS_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Notice"
+    },
+    {
+      "id": "INTENT_DEEMED_RECEIVED",
+      "type": "INTENT",
+      "domain": "Notice"
+    },
+    {
+      "id": "INTENT_REQUIRE_WRITTEN",
+      "type": "INTENT",
+      "domain": "Notice"
+    },
+    {
+      "id": "JNOTE_NOTICE_EMAIL_01",
+      "type": "JNOTE",
+      "domain": "Notice"
+    },
+    {
+      "id": "JNOTE_NOTICE_ADDRESS_01",
+      "type": "JNOTE",
+      "domain": "Notice"
+    },
+    {
+      "id": "NOTICE",
+      "type": "OTHER",
+      "domain": "Notice"
+    },
+    {
+      "id": "COMMUNICATION",
+      "type": "OTHER",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_GENERAL_CAP",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_GENERAL_LOW",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_NOTIFY",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_PARENT",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_GIVE",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_UNDER",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_EMAIL_VERB",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_EMAIL_ELECTRONIC",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_EMAIL_TRANS",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_ADDRESS_SET",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_ADDRESS_SENT",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_ADDRESS_PHYS",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "PHRASE_NOTICE_ADDRESS_DELIV",
+      "type": "PHRASE",
+      "domain": "Notice"
+    },
+    {
+      "id": "SOURCE_NOTICE_EMAIL_01",
+      "type": "SOURCE",
+      "domain": "Notice"
+    },
+    {
+      "id": "SOURCE_NOTICE_ADDRESS_01",
+      "type": "SOURCE",
+      "domain": "Notice"
+    },
+    {
+      "id": "EXAMPLE_PAYMENT_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Payment"
+    },
+    {
+      "id": "EXAMPLE_PAYMENT_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Payment"
+    },
+    {
+      "id": "JNOTE_PAYMENT_01",
+      "type": "JNOTE",
+      "domain": "Payment"
+    },
+    {
+      "id": "SOURCE_PAYMENT_01",
+      "type": "SOURCE",
+      "domain": "Payment"
+    },
+    {
+      "id": "SOURCE_PAYMENT_02",
+      "type": "SOURCE",
+      "domain": "Payment"
+    },
+    {
+      "id": "PARTY_ANY",
+      "type": "PARTY",
+      "domain": "Termination"
+    },
+    {
+      "id": "COND_BREACH",
+      "type": "COND",
+      "domain": "Termination"
+    },
+    {
+      "id": "COND_NOTICE",
+      "type": "COND",
+      "domain": "Termination"
+    },
+    {
+      "id": "COND_CURE",
+      "type": "COND",
+      "domain": "Termination"
+    },
+    {
+      "id": "TIME",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "MONEY",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "EVENT_NOTICE",
+      "type": "EVENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "EVENT_TIME_ELAPSED",
+      "type": "EVENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "EXAMPLE_TERMINATION_POS_01",
+      "type": "EXAMPLE",
+      "domain": "Termination"
+    },
+    {
+      "id": "EXAMPLE_TERMINATION_NEG_01",
+      "type": "EXAMPLE",
+      "domain": "Termination"
+    },
+    {
+      "id": "EXC_LAW",
+      "type": "EXC",
+      "domain": "Termination"
+    },
+    {
+      "id": "EXC_CONSENT",
+      "type": "EXC",
+      "domain": "Termination"
+    },
+    {
+      "id": "EXC_FRAUD",
+      "type": "EXC",
+      "domain": "Termination"
+    },
+    {
+      "id": "INTENT_END_CONTRACT",
+      "type": "INTENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "INTENT_CURE",
+      "type": "INTENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "INTENT_RENEW",
+      "type": "INTENT",
+      "domain": "Termination"
+    },
+    {
+      "id": "JNOTE_TERMINATION_01",
+      "type": "JNOTE",
+      "domain": "Termination"
+    },
+    {
+      "id": "JNOTE_TERMINATION_02",
+      "type": "JNOTE",
+      "domain": "Termination"
+    },
+    {
+      "id": "OBLIGATION",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "PERMISSION",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "MOD_IMMEDIATE",
+      "type": "MOD",
+      "domain": "Termination"
+    },
+    {
+      "id": "MOD_MATERIAL",
+      "type": "MOD",
+      "domain": "Termination"
+    },
+    {
+      "id": "MOD_REASONABLE",
+      "type": "MOD",
+      "domain": "Termination"
+    },
+    {
+      "id": "NEG_NOT",
+      "type": "NEG",
+      "domain": "Termination"
+    },
+    {
+      "id": "NEG_EXCEPT",
+      "type": "NEG",
+      "domain": "Termination"
+    },
+    {
+      "id": "NEG_PROHIBITED",
+      "type": "NEG",
+      "domain": "Termination"
+    },
+    {
+      "id": "AGREEMENT",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "BREACH",
+      "type": "OTHER",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_TERMINATE",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_TERMINATION",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_CANCEL",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_CANCELLATION",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_EXPIRATION",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "PHRASE_EXPIRES",
+      "type": "PHRASE",
+      "domain": "Termination"
+    },
+    {
+      "id": "SOURCE_TERMINATION_01",
+      "type": "SOURCE",
+      "domain": "Termination"
+    },
+    {
+      "id": "SOURCE_TERMINATION_02",
+      "type": "SOURCE",
+      "domain": "Termination"
+    },
+    {
+      "id": "SOURCE_TERMINATION_03",
+      "type": "SOURCE",
+      "domain": "Termination"
+    },
+    {
+      "id": "STATE_ACTIVE",
+      "type": "STATE",
+      "domain": "Termination"
+    },
+    {
+      "id": "STATE_NOTICE_PENDING",
+      "type": "STATE",
+      "domain": "Termination"
+    },
+    {
+      "id": "STATE_CURE_PENDING",
+      "type": "STATE",
+      "domain": "Termination"
+    },
+    {
+      "id": "STATE_TERMINATED",
+      "type": "STATE",
+      "domain": "Termination"
+    },
+    {
+      "id": "STATE_EXPIRED",
+      "type": "STATE",
+      "domain": "Termination"
+    },
+    {
+      "id": "TPL_TERMINATION_FOR_CONVENIENCE",
+      "type": "TPL",
+      "domain": "Termination"
+    },
+    {
+      "id": "TPL_TERMINATION_FOR_CAUSE",
+      "type": "TPL",
+      "domain": "Termination"
+    },
+    {
+      "id": "TPL_AUTOMATIC_EXPIRATION",
+      "type": "TPL",
+      "domain": "Termination"
+    }
+  ],
+  "relationEdges": [
+    {
+      "id": "REL_PAYMENT_REQUIRES_MONEY",
+      "source": "CONCEPT_PAYMENT",
+      "target": "ENTITY_MONEY",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_PAYMENT_REQUIRES_CURRENCY",
+      "source": "CONCEPT_PAYMENT",
+      "target": "ENTITY_CURRENCY",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_PAYMENT_HAS_DEADLINE",
+      "source": "CONCEPT_PAYMENT",
+      "target": "ENTITY_DURATION",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_NOTICE_REQUIRES_ADDRESS",
+      "source": "CONCEPT_NOTICE",
+      "target": "ENTITY_ADDRESS",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_NOTICE_REQUIRES_DATE",
+      "source": "CONCEPT_NOTICE",
+      "target": "ENTITY_DATE",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_TERMINATION_REQUIRES_NOTICE",
+      "source": "CONCEPT_TERMINATION",
+      "target": "CONCEPT_NOTICE",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_CONFIDENTIALITY_PROTECTS_INFORMATION",
+      "source": "CONCEPT_CONFIDENTIALITY",
+      "target": "ENTITY_CONFIDENTIAL_INFORMATION",
+      "relation": "protects",
+      "strength": null
+    },
+    {
+      "id": "REL_NON_DISCLOSURE_SUPPORTS_CONFIDENTIALITY",
+      "source": "CONCEPT_NON_DISCLOSURE",
+      "target": "CONCEPT_CONFIDENTIALITY",
+      "relation": "supports",
+      "strength": null
+    },
+    {
+      "id": "REL_INDEMNIFICATION_RELATED_TO_LIABILITY",
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_LIABILITY",
+      "relation": "related_to",
+      "strength": null
+    },
+    {
+      "id": "REL_ASSIGNMENT_TRANSFERS_RIGHTS",
+      "source": "CONCEPT_ASSIGNMENT",
+      "target": "ENTITY_PARTY",
+      "relation": "affects",
+      "strength": null
+    },
+    {
+      "id": "REL_SERVICES_REQUIRE_PROVIDER",
+      "source": "CONCEPT_SERVICES",
+      "target": "ENTITY_PROVIDER",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_SERVICES_REQUIRE_CLIENT",
+      "source": "CONCEPT_SERVICES",
+      "target": "ENTITY_CLIENT",
+      "relation": "requires",
+      "strength": null
+    },
+    {
+      "id": "REL_RETURN_FOLLOWS_TERMINATION",
+      "source": "CONCEPT_RETURN_OF_INFORMATION",
+      "target": "CONCEPT_TERMINATION",
+      "relation": "follows",
+      "strength": null
+    },
+    {
+      "id": "REL_PARTY_OBLIGATION",
+      "source": "Party",
+      "target": "Action",
+      "strength": null
+    },
+    {
+      "id": "REL_FORCE_MAJEURE_TRIGGERS_TERMINATION",
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "CONCEPT_TERMINATION",
+      "relation": "triggers",
+      "strength": "recommended"
+    },
+    {
+      "id": "REL_FORCE_MAJEURE_MEASURED_BY_DURATION",
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "ENTITY_DURATION",
+      "relation": "measured_by",
+      "strength": "recommended"
+    },
+    {
+      "id": "REL_INDEMNIFICATION_REQUIRES_NOTICE",
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_NOTICE",
+      "relation": "requires",
+      "strength": "required"
+    },
+    {
+      "id": "REL_LIABILITY_REFERENCES_INDEMNIFICATION",
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_INDEMNIFICATION",
+      "relation": "references",
+      "strength": "required"
+    },
+    {
+      "id": "REL_LIABILITY_LIMITED_BY_CAP",
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_CAP",
+      "relation": "limits",
+      "strength": "required"
+    }
+  ],
+  "referenceEdges": [
+    {
+      "source": "CONCEPT_PAYMENT",
+      "target": "ACTION_PAY",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_PAYMENT",
+      "target": "ENTITY_MONEY",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_PAYMENT",
+      "target": "ENTITY_DURATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_PAYMENT",
+      "target": "RULE_PAYMENT_DEADLINE_LONG",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_CONFIDENTIALITY",
+      "target": "ACTION_DISCLOSE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_CONFIDENTIALITY",
+      "target": "ENTITY_CONFIDENTIAL_INFORMATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_RETURN_OF_INFORMATION",
+      "target": "ENTITY_CONFIDENTIAL_INFORMATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_CONFIDENTIALITY",
+      "target": "ENTITY_PARTY",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NON_DISCLOSURE",
+      "target": "RULE_NON_DISCLOSURE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "ACTION_TERMINATE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "RULE_TERMINATION_PRESENT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "RULE_TERMINATION_MISSING",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "RULE_TERMINATION_NOTICE_SHORT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_TERMINATION",
+      "target": "RULE_TERMINATION_CURE_PERIOD_SHORT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE",
+      "target": "ACTION_NOTIFY",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE",
+      "target": "ENTITY_NOTICE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE",
+      "target": "ENTITY_ADDRESS",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE",
+      "target": "ENTITY_DATE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "ACTION_INDEMNIFICATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_PRESENT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_MISSING",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_RISK",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_FAIRNESS",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_POSITIVE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_INDEMNIFICATION",
+      "target": "CONCEPT_INDEMNIFICATION_NEGOTIATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "ACTION_LIABILITY",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_PRESENT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_MISSING",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_RISK",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_FAIRNESS",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_POSITIVE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_LIABILITY",
+      "target": "CONCEPT_LIABILITY_NEGOTIATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_ASSIGNMENT",
+      "target": "ACTION_ASSIGN",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_ASSIGNMENT",
+      "target": "ACTION_TRANSFER",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_ASSIGNMENT",
+      "target": "RULE_ASSIGNMENT_ALLOWED",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_ASSIGNMENT",
+      "target": "RULE_CONSENT_REQUIRED",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_SERVICES",
+      "target": "ACTION_DELIVER",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_SERVICES",
+      "target": "ENTITY_PROVIDER",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_SERVICES",
+      "target": "ENTITY_CLIENT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_RETURN_OF_INFORMATION",
+      "target": "ACTION_RETURN",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "ACTION_SUSPEND",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "CONCEPT_TERMINATION",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "CONCEPT_LIFECYCLE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "RULE_FORCE_MAJEURE_PRESENT",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "RULE_FORCE_MAJEURE_MISSING",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_FORCE_MAJEURE",
+      "target": "RULE_FORCE_MAJEURE_NOTICE_REQUIRED",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE_EMAIL",
+      "target": "CONCEPT_NOTICE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE_ADDRESS",
+      "target": "CONCEPT_NOTICE",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE_EMAIL",
+      "target": "RULE_EMAIL_NOTICE_ALLOWED",
+      "relation": "references"
+    },
+    {
+      "source": "CONCEPT_NOTICE_ADDRESS",
+      "target": "RULE_MISSING_NOTICE_ADDRESS",
+      "relation": "references"
+    }
+  ]
+}

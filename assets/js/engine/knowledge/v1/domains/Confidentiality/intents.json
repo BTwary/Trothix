@@ -4,13 +4,51 @@
     "terms": [
       "hold in strict confidence",
       "maintain confidentiality",
-      "protect proprietary information"
+      "protect proprietary information",
+      "keep secret",
+      "maintain the secrecy"
     ]
   },
   {
     "id": "INTENT_DISCLOSE",
     "terms": [
-      "disclose"
+      "disclose",
+      "disclosure",
+      "disclosing",
+      "reveal",
+      "make available"
+    ]
+  },
+  {
+    "id": "INTENT_RESTRICT_USE",
+    "terms": [
+      "use only for the permitted purpose",
+      "not use for any other purpose",
+      "restrict the use of"
+    ]
+  },
+  {
+    "id": "INTENT_TRADE_SECRET",
+    "terms": [
+      "trade secret",
+      "trade secrets",
+      "proprietary trade secret"
+    ]
+  },
+  {
+    "id": "INTENT_COMPELLED_DISCLOSURE",
+    "terms": [
+      "compelled by law",
+      "legally required to disclose",
+      "required by court order or subpoena"
+    ]
+  },
+  {
+    "id": "INTENT_RETURN_DESTROY",
+    "terms": [
+      "return or destroy",
+      "promptly return or delete",
+      "destroy or return"
     ]
   }
 ]

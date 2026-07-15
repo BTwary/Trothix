@@ -1,47 +1,30 @@
 [
   {
     "id": "CONCEPT_INDEMNIFICATION_PRESENT",
-    "concept": "CONCEPT_INDEMNIFICATION",
     "name": "Indemnification Present",
     "category": "Completeness",
     "severity": "Neutral",
-    "rationale": "TODO: Add rationale for why Indemnification present matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "present_positive.test.js",
-      "present_negative.test.js",
-      "present_edge.test.js"
-    ],
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_INDEMNIFICATION"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_INDEMNIFICATION"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "IndemnificationPresent"
-    }
+      "trigger": "IndemnificationPresent",
+      "message": "The agreement contains provisions addressing indemnification.",
+      "recommendation": "Confirm the indemnification clause's scope (claims covered), triggers, and procedure (notice, defense, settlement control) are complete.",
+      "rationale": "An indemnification clause shifts the financial risk of specified third-party claims from one party to the other, supplementing (or in some cases superseding) default tort and contract remedies."
+    },
+    "concept": "CONCEPT_INDEMNIFICATION"
   },
   {
     "id": "CONCEPT_INDEMNIFICATION_MISSING",
-    "concept": "CONCEPT_INDEMNIFICATION",
     "name": "Indemnification Missing",
     "category": "Completeness",
     "severity": "High",
-    "rationale": "TODO: Add rationale for why Indemnification missing matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "missing_positive.test.js",
-      "missing_negative.test.js",
-      "missing_edge.test.js"
-    ],
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
       "all": [
         {
@@ -55,120 +38,87 @@
       ]
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "MissingIndemnification"
-    }
+      "trigger": "MissingIndemnification",
+      "message": "The agreement is missing an indemnification clause.",
+      "recommendation": "Add an indemnification clause allocating responsibility for third-party claims arising from breach, negligence, or IP infringement, as appropriate to the deal.",
+      "rationale": "Without an indemnification clause, recovery for third-party claims caused by the other party's conduct depends on separately proving a tort or breach claim, which is slower and less certain."
+    },
+    "concept": "CONCEPT_INDEMNIFICATION"
   },
   {
     "id": "CONCEPT_INDEMNIFICATION_RISK",
-    "concept": "CONCEPT_INDEMNIFICATION",
-    "name": "Indemnification Risk",
+    "name": "Broad Indemnification Risk",
     "category": "Risk",
     "severity": "High",
-    "rationale": "TODO: Add rationale for why Indemnification risk matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "risk_positive.test.js",
-      "risk_negative.test.js",
-      "risk_edge.test.js"
-    ],
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_INDEMNIFICATION"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_INDEMNIFY_BROAD"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "RiskyIndemnification"
-    }
+      "trigger": "RiskyIndemnification",
+      "message": "The agreement contains broad/unlimited indemnification obligations (e.g., 'any and all claims'), which increases risk.",
+      "recommendation": "Narrow broad or unlimited indemnification language (e.g., 'any and all claims') to claims proximately caused by the indemnitor's breach, negligence, or willful misconduct, and consider pairing it with a liability cap carve-out.",
+      "rationale": "Unbounded indemnification obligations can expose the indemnitor to liability disproportionate to the value of the contract, and in some states may be unenforceable or restricted by anti-indemnity statutes."
+    },
+    "concept": "CONCEPT_INDEMNIFY_BROAD"
   },
   {
     "id": "CONCEPT_INDEMNIFICATION_FAIRNESS",
-    "concept": "CONCEPT_INDEMNIFICATION",
-    "name": "Indemnification Fairness",
+    "name": "Reciprocal Indemnification",
     "category": "Fairness",
-    "severity": "Medium",
-    "rationale": "TODO: Add rationale for why Indemnification fairness matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "fairness_positive.test.js",
-      "fairness_negative.test.js",
-      "fairness_edge.test.js"
-    ],
+    "severity": "Low",
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_INDEMNIFICATION"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_INDEMNIFY_RECIPROCAL"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "UnfairIndemnification"
-    }
+      "trigger": "ReciprocalIndemnification",
+      "message": "Mutual or reciprocal indemnification provisions are present, balancing the risk allocation.",
+      "recommendation": "Confirm the reciprocal indemnification obligations are substantively symmetric, not just labeled 'mutual'.",
+      "rationale": "Mutual indemnification balances risk allocation between the parties rather than placing the full burden on one side."
+    },
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL"
   },
   {
     "id": "CONCEPT_INDEMNIFICATION_POSITIVE",
-    "concept": "CONCEPT_INDEMNIFICATION",
-    "name": "Indemnification Positive",
+    "name": "Duty to Defend Present",
     "category": "Positive",
     "severity": "Low",
-    "rationale": "TODO: Add rationale for why Indemnification positive matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "positive_positive.test.js",
-      "positive_negative.test.js",
-      "positive_edge.test.js"
-    ],
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_INDEMNIFICATION"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_INDEMNIFY_DEFEND"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "FavorableIndemnification"
-    }
+      "trigger": "FavorableIndemnification",
+      "message": "An explicit duty to defend is established, providing coverage for legal defense costs.",
+      "recommendation": "Confirm the duty-to-defend trigger (upon tender vs. upon judgment) and any advancement-of-costs mechanics are workable.",
+      "rationale": "An explicit duty to defend provides coverage for legal defense costs as claims arise, not only reimbursement after a final judgment."
+    },
+    "concept": "CONCEPT_INDEMNIFY_DEFEND"
   },
   {
     "id": "CONCEPT_INDEMNIFICATION_NEGOTIATION",
-    "concept": "CONCEPT_INDEMNIFICATION",
-    "name": "Indemnification Negotiation",
+    "name": "Indemnity Exclusions Present",
     "category": "Negotiation",
     "severity": "Neutral",
-    "rationale": "TODO: Add rationale for why Indemnification negotiation matters.",
-    "evidence": "TODO: Add evidence pattern.",
-    "tests": [
-      "negotiation_positive.test.js",
-      "negotiation_negative.test.js",
-      "negotiation_edge.test.js"
-    ],
     "introduced": "1.0.0",
-    "status": "Experimental",
+    "status": "production",
     "when": {
-      "all": [
-        {
-          "type": "conceptExists",
-          "value": "CONCEPT_INDEMNIFICATION"
-        }
-      ]
+      "type": "conceptExists",
+      "value": "CONCEPT_INDEMNIFY_EXCLUSION"
     },
     "then": {
-      "type": "createFinding",
-      "findingType": "NegotiateIndemnification"
-    }
+      "trigger": "NegotiateIndemnification",
+      "message": "Indemnity exclusions or limitation exceptions are defined, providing clear negotiation boundaries.",
+      "recommendation": "Use the defined exclusions as the starting point for negotiating the indemnity's outer boundary; confirm carve-outs from limitation-of-liability caps are intentional.",
+      "rationale": "Clearly defined exclusions and limitation-of-liability interactions give both sides predictable negotiation anchors instead of open-ended exposure."
+    },
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION"
   }
 ]

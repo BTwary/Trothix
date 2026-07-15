@@ -1,0 +1,105 @@
+[
+  {
+    "id": "CONCEPT_NON_DISCLOSURE",
+    "name": "Non-Disclosure / Confidentiality",
+    "description": "Obligation on the receiving party to maintain the secrecy of Confidential Information and use it only for the permitted purpose.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_DISCLOSE",
+      "ACTION_USE",
+      "ACTION_RETURN",
+      "ACTION_DESTROY",
+      "ACTION_REVERSE_ENGINEER"
+    ],
+    "phrases": [],
+    "entities": [
+      "ENTITY_TRADE_SECRET",
+      "ENTITY_DISCLOSER",
+      "ENTITY_RECIPIENT"
+    ],
+    "documents": [],
+    "related": [
+      "CONCEPT_TRADE_SECRET",
+      "CONCEPT_RESIDUAL_KNOWLEDGE",
+      "CONCEPT_COMPELLED_DISCLOSURE",
+      "CONCEPT_RETURN_DESTROY"
+    ],
+    "rules": [
+      "RULE_NON_DISCLOSURE"
+    ]
+  },
+  {
+    "id": "CONCEPT_TRADE_SECRET",
+    "name": "Trade Secret",
+    "description": "Information that derives independent economic value from not being generally known and is subject to reasonable efforts to maintain secrecy.",
+    "category": "Legal Doctrine",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_NON_DISCLOSURE"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "name": "Residual Knowledge",
+    "description": "Information retained in the unaided memory of representatives who have had access to confidential information.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_NON_DISCLOSURE"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_COMPELLED_DISCLOSURE",
+    "name": "Compelled Disclosure",
+    "description": "Exception to confidentiality obligations for disclosures required by legal process or governmental order, subject to notice requirements.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_NON_DISCLOSURE"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_RETURN_DESTROY",
+    "name": "Return or Destruction of Information",
+    "description": "Obligation to return or destroy confidential materials upon expiration or request of the disclosing party.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_RETURN",
+      "ACTION_DESTROY"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_NON_DISCLOSURE"
+    ],
+    "rules": []
+  }
+]

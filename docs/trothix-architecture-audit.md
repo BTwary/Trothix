@@ -1,5 +1,42 @@
 # Trothix Architecture Audit
 
+> **Status update (current session):** this document is a historical audit
+> record. Re-verified against the repository as it exists today:
+> - **Pipeline D** (orphaned root API-duplicate layer — root `analyze.js`,
+>   `contact.js`, `feedback.js`, `stats.js`, `track.js`, `visit.js`,
+>   `waitlist.js`, `_stats.js`, `_supabase.js`, root `telemetry.js`) — **no
+>   longer present**. None of these files exist at repo root anymore.
+> - **Pipeline E** (orphaned knowledge-authoring pipeline — root
+>   `knowledge/source`, `knowledge/build`, `knowledge/compiled`, plus
+>   `tools/knowledge-compiler/` and `tools/ontology-builder/`) — **no
+>   longer present**. Only `tools/knowledge-generator/` remains.
+> - **Pipeline C** (root `core/router.js` + `parsers/*` + `rules/*`,
+>   exercised by `benchmark/run-benchmark.mjs`) — root `core/router.js`,
+>   `parsers/`, and `rules/` **no longer exist**. As a direct consequence,
+>   `benchmark/run-benchmark.mjs` (the `benchmark:legacy` npm script) is
+>   now broken (`ERR_MODULE_NOT_FOUND`) — see the status banner at the top
+>   of that file and `benchmark/README.md`. It was left in place rather
+>   than deleted since multiple other docs still reference it by name;
+>   consolidating those references is a separate follow-up, not done here.
+> - **Pipeline A** (client-side Web Worker pipeline — `worker.js` →
+>   `core/legacy/router.js` → `pipeline.js`/`rules/fairness.js`/
+>   `rules/riskEngine.js`, described below as **LIVE**) — **no longer
+>   live**. `index.html` currently contains zero references to a `Worker`
+>   or `worker.js` of any kind — verified by direct grep. The only
+>   `worker.js` remaining in the repository is `archive/core/worker.js`,
+>   which itself imports a path (`./core/legacy/router.js` relative to
+>   `archive/core/`) that does not exist, so it was already unreachable
+>   independent of anything below. `core/legacy/pipeline.js`,
+>   `rules/fairness.js`, and `rules/riskEngine.js` (the only files that
+>   imported them) have since been removed as confirmed dead code.
+> - **Pipeline B** (`api/analyze.js` → `Trothix.js` → `EngineRegistry`) is
+>   still the live, current production path; no change to that finding.
+>
+> The section below is preserved as-written for historical context (it
+> documents real work that was done); treat any claim of something being
+> "LIVE" or "current" in the body text below as describing the repository
+> state *at the time this audit was written*, not today's state.
+
 Scope: every parsing pipeline, execution path, shared component, duplicated logic, and dead code in the repository. Verified by tracing imports from each real entry point, not by reading file names or folder structure.
 
 ---

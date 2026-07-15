@@ -5,6 +5,7 @@
 
 import { LegalIRBuilder } from './core/ir/legalIRBuilder.js';
 import { EngineRegistry } from './core/ir/engineRegistry.js';
+import crypto from 'crypto';
 
 // Knowledge
 import { KnowledgeProvider } from './knowledge/KnowledgeProvider.js';
@@ -20,6 +21,7 @@ import referenceResolver from './plugins/referenceResolver.js';
 import constraintEngine from './plugins/constraintEngine.js';
 import actionNormalizer from './plugins/actionNormalizer.js';
 import deadlineNormalizer from './plugins/deadlineNormalizer.js';
+import forceMajeureExtractor from './plugins/forceMajeureExtractor.js';
 import findingEngine from './plugins/findingEngine.js';
 
 // Assessment Layer
@@ -34,6 +36,8 @@ import { ReportAssembler } from './assessment/ReportAssembler.js';
 
 // Telemetry
 import { DeveloperInspector } from './core/inspector.js';
+import { TelemetryBus } from './telemetry/TelemetryBus.js';
+import { ConsoleProvider } from './telemetry/ConsoleProvider.js';
 
 // Narrative Helpers
 import { RuleMetadataResolver } from './assessment/RuleMetadataResolver.js';
@@ -53,6 +57,10 @@ export class Trothix {
     this.evidenceResolver = null;
     this.findingNarrator = null;
     this.narrativeFormatter = null;
+
+    // Centralized Observability & Telemetry Bus
+    this.telemetryBus = new TelemetryBus();
+    this.telemetryBus.registerProvider(new ConsoleProvider());
   }
 
   /**
@@ -74,20 +82,73 @@ export class Trothix {
    * @param {Object} metadata Metadata such as category, parties, etc.
    */
   async analyze(text, metadata = {}) {
+    const startAnalysis = performance.now();
+    const analysisId = 'analysis_' + crypto.randomUUID().substring(0, 8);
+    
+    // Telemetry calls should never block execution of the engine (best effort)
+    this.telemetryBus.logAnalysisStarted(analysisId, metadata).catch(() => {});
+
     // 1. IR Builder
+    const startParser = performance.now();
     const irBuilder = new LegalIRBuilder();
     irBuilder.buildFromText(text);
+    const parserLatency = performance.now() - startParser;
     
     // Fallback if ir doesn't expose metadata normally
     if (irBuilder.document) {
        irBuilder.document.metadata = metadata;
+       irBuilder.document.knowledgeProvider = this.knowledgeProvider;
     } else {
        irBuilder.ir.metadata = metadata;
+       irBuilder.ir.knowledgeProvider = this.knowledgeProvider;
     }
 
     // 2. Engine Registry (Compiler Pipeline)
     const registry = new EngineRegistry(irBuilder, this.knowledgeProvider);
     const inspector = new DeveloperInspector(registry);
+
+    // Collect engine/rule failures as they occur so a partially-broken run
+    // is never reported as if it succeeded cleanly.
+    const pipelineErrors = [];
+
+    // Per-engine diagnostics (warnings/statistics/duration) are already
+    // computed by every engine on each run (result.diagnostics.warnings,
+    // result.diagnostics.statistics, result.duration) but were previously
+    // discarded here — only errors were kept. This mirrors DeveloperInspector's
+    // engineStats bookkeeping so it can be surfaced through the report instead
+    // of only a console printout. Populated unconditionally (cheap, in-memory)
+    // but only included in the response when telemetry is requested, below.
+    const engineDiagnostics = [];
+
+    // Wire up telemetry execution events to TelemetryBus (non-blocking)
+    registry.on('engine:end', (e) => {
+       this.telemetryBus.logEngineRun(analysisId, e.engine, e.result).catch(() => {});
+       if (e.result && Array.isArray(e.result.diagnostics?.errors) && e.result.diagnostics.errors.length > 0) {
+          e.result.diagnostics.errors.forEach(msg => {
+             pipelineErrors.push(`[${e.engine}] ${msg}`);
+          });
+       }
+       if (e.result) {
+          const warnings = e.result.diagnostics?.warnings || [];
+          const statistics = e.result.diagnostics?.statistics || {};
+          if (warnings.length > 0 || Object.keys(statistics).length > 0) {
+             engineDiagnostics.push({
+                engine: e.engine,
+                duration: typeof e.result.duration === 'number' ? parseFloat(e.result.duration.toFixed(2)) : e.result.duration,
+                warnings,
+                statistics
+             });
+          }
+       }
+    });
+    registry.on('engine:error', (e) => {
+       pipelineErrors.push(`[${e.engine}] Engine failed: ${e.error?.message || e.error}`);
+    });
+    registry.on('findings:emitted', (e) => {
+       if (Array.isArray(e.findings)) {
+          e.findings.forEach(f => this.telemetryBus.logFinding(analysisId, f).catch(() => {}));
+       }
+    });
 
     // Register all core engines
     registry.register(partyResolver);
@@ -100,12 +161,15 @@ export class Trothix {
     registry.register(constraintEngine);
     registry.register(actionNormalizer);
     registry.register(deadlineNormalizer);
+    registry.register(forceMajeureExtractor);
 
     // Inject Finding Engine
     registry.register(findingEngine);
 
     // Execute Pipeline
+    const startRules = performance.now();
     await registry.run();
+    const ruleEvaluationTime = performance.now() - startRules;
 
     // 4. Extract Findings from Inspector Timeline
     const findings = [];
@@ -123,15 +187,45 @@ export class Trothix {
        const narrated = this.findingNarrator.narrate(f, resolvedMetadata, variables);
        const fullNarrativeText = this.narrativeFormatter.formatFinding(narrated);
        
+       // Expose enterprise traceability metadata directly on the finding object
+       f.concept = resolvedMetadata.concept;
+       f.ontologyNode = f.node ? f.node.type : null;
+
+       // Enterprise KB enrichment: sources, jurisdiction notes, exceptions,
+       // examples, and matched alias/phrase surface forms — all resolved
+       // from KnowledgeProvider's new accessors, keyed off f.concept.
+       // Every call is defensive (returns [] rather than throwing) so a
+       // concept with no authored enrichment yet degrades to empty arrays
+       // instead of breaking the finding.
+       const conceptRecord = f.concept ? this.knowledgeProvider.getConcept(f.concept) : null;
+       const matchedText = f.node && typeof f.node.text === 'string' ? f.node.text : (variables.message || '');
+       const surfaceForms = f.concept ? this.knowledgeProvider.getMatchedSurfaceForms(f.concept, matchedText) : { matchedAliases: [], matchedPhrases: [] };
+
+       f.evidence = {
+         matchedText,
+         matchedPhrases: surfaceForms.matchedPhrases,
+         span: f.span || null
+       };
+       f.conceptRecord = conceptRecord ? { id: conceptRecord.id, name: conceptRecord.name, description: conceptRecord.description } : null;
+       f.recommendationDetail = this.knowledgeProvider.getRecommendation(f.rule);
+       f.sources = f.concept ? this.knowledgeProvider.getSources(f.concept) : [];
+       f.jurisdictionNotes = f.concept ? this.knowledgeProvider.getJurisdictionNotes(f.concept) : [];
+       f.exceptions = f.concept ? this.knowledgeProvider.getExceptions(f.concept) : [];
+       f.examples = f.concept ? this.knowledgeProvider.getExamples(f.concept) : [];
+       f.matchedAliases = surfaceForms.matchedAliases;
+
        narratives.push({
           findingId: f.id,
           title: narrated.title,
           summary: narrated.summary,
+          businessImpact: narrated.businessImpact,
+          legalImpact: narrated.legalImpact,
           impact: narrated.impact,
           recommendation: narrated.recommendation,
+          negotiationTip: narrated.negotiationTip,
           narrative: fullNarrativeText
        });
-    });
+     });
 
     // 5. Assessment Layer
     const riskA = new RiskAssessment();
@@ -165,8 +259,64 @@ export class Trothix {
     const verdict = verdictEngine.evaluate(scores, findings);
 
     // 7. Report Assembler
+    const startAssembly = performance.now();
     const assembler = new ReportAssembler();
-    const finalReport = assembler.assemble(irBuilder.document, actions, findings, assessments, scores, verdict, narratives);
+    // The DeveloperInspector timeline is already fully captured above (used
+    // to extract findings) — this just serializes it into a compact,
+    // JSON-safe trace for the Reasoning Timeline UI instead of discarding it.
+    const pipelineTrace = inspector.timeline.map(ev => {
+      const base = {
+        type: ev.type,
+        engine: ev.engine,
+        offsetMs: Math.max(0, ev.time - inspector.startTime)
+      };
+      if (ev.type === 'START') {
+        base.iteration = ev.iteration;
+      } else if (ev.type === 'PATCH') {
+        base.patchCount = ev.count;
+      } else if (ev.type === 'END') {
+        base.duration = typeof ev.result?.duration === 'number'
+          ? parseFloat(ev.result.duration.toFixed(2))
+          : ev.result?.duration ?? null;
+        base.findingsEmitted = Array.isArray(ev.result?.findings) ? ev.result.findings.length : 0;
+        base.warnings = ev.result?.diagnostics?.warnings || [];
+        base.statistics = ev.result?.diagnostics?.statistics || {};
+      }
+      return base;
+    });
+    const finalReport = assembler.assemble(irBuilder.document, actions, findings, assessments, scores, verdict, narratives, pipelineTrace, this.knowledgeProvider);
+    const reportAssemblyTime = performance.now() - startAssembly;
+
+    const analysisLatency = performance.now() - startAnalysis;
+    this.telemetryBus.logAnalysisCompleted(analysisId, { duration: analysisLatency }).catch(() => {});
+
+    if (finalReport) {
+      if (Array.isArray(finalReport.findings)) {
+        finalReport.findings.forEach(f => {
+          if (f.rule && !f.ruleId) {
+            f.ruleId = f.rule;
+          }
+        });
+      }
+
+      // Expose telemetry performance baseline metrics under engineMetadata ONLY if requested via includeTelemetry or debug
+      if (!finalReport.engineMetadata) finalReport.engineMetadata = {};
+
+      // Unlike metrics, errors are always surfaced — a partially-broken run
+      // must never look identical to a clean one.
+      finalReport.engineMetadata.errors = pipelineErrors;
+
+      const includeTelemetry = metadata.includeTelemetry === true || metadata.debug === true;
+      if (includeTelemetry) {
+        finalReport.engineMetadata.metrics = {
+           analysisLatency: parseFloat(analysisLatency.toFixed(2)),
+           parserLatency: parseFloat(parserLatency.toFixed(2)),
+           ruleEvaluationTime: parseFloat(ruleEvaluationTime.toFixed(2)),
+           reportAssemblyTime: parseFloat(reportAssemblyTime.toFixed(2))
+        };
+        finalReport.engineMetadata.diagnostics = engineDiagnostics;
+      }
+    }
 
     return finalReport;
   }

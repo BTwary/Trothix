@@ -320,7 +320,7 @@ Domains move through five progressive promotion levels:
 | **Draft** | Initial files created; concept and metadata JSON templates defined. | Git commit to local feature branch. |
 | **Validated** | 100% syntax compliance; no missing fields or schema errors. | `KnowledgeLinter` run returns 0 errors. |
 | **Regression Passed** | Domain-level mutation tests and mock integration tests pass. | Test suite execution via local test command. |
-| **Benchmark Passed** | Extraction accuracy exceeds threshold on benchmark files. | `run-benchmark.mjs` returns 100% accuracy. |
+| **Benchmark Passed** | Extraction accuracy exceeds threshold on benchmark files. | `npm run benchmark` (`run-benchmark-pipelineB.mjs`) passes against the checked-in baseline. |
 | **Production** | Code review approved; compiled into main bundle asset. | Merge to master; `knowledge.bundle.json` compiled. |
 
 ---

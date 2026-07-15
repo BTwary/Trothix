@@ -1,0 +1,61 @@
+[
+  {
+    "id": "EXCEPTION_FORCE_MAJEURE",
+    "name": "Force Majeure",
+    "description": "Performance is excused because of extraordinary events beyond a party's control.",
+    "triggers": [
+      "force majeure",
+      "act of god",
+      "beyond reasonable control"
+    ],
+    "affects": [
+      "CONCEPT_PAYMENT",
+      "CONCEPT_SERVICES",
+      "CONCEPT_DELIVERY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "EXCEPTION_MUTUAL_CONSENT",
+    "name": "Mutual Consent",
+    "description": "Both parties agree to waive or modify an obligation.",
+    "triggers": [
+      "mutual consent",
+      "agreed in writing",
+      "written agreement"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "EXCEPTION_LEGAL_REQUIREMENT",
+    "name": "Legal Requirement",
+    "description": "Disclosure or action required by applicable law.",
+    "triggers": [
+      "required by law",
+      "court order",
+      "government authority"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "EXCEPTION_PRIOR_CONSENT",
+    "name": "Prior Written Consent",
+    "description": "Action allowed only after prior written approval.",
+    "triggers": [
+      "prior written consent",
+      "written consent",
+      "approval"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "EXCEPTION_PUBLIC_INFORMATION",
+    "name": "Public Information",
+    "description": "Information already publicly available.",
+    "triggers": [
+      "publicly available",
+      "public domain"
+    ],
+    "status": "production"
+  }
+]

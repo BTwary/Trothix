@@ -1,0 +1,62 @@
+[
+  {
+    "id": "EXAMPLE_ASSIGNMENT_POS_01",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "polarity": "positive",
+    "text": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a merger, acquisition, or sale of substantially all assets."
+  },
+  {
+    "id": "EXAMPLE_ASSIGNMENT_NEG_01",
+    "concept": "CONCEPT_ASSIGNMENT",
+    "polarity": "negative",
+    "text": "Either party may freely assign this Agreement to any third party without notice or consent."
+  },
+  {
+    "id": "EXAMPLE_DELEGATION_POS_01",
+    "concept": "CONCEPT_DELEGATION",
+    "polarity": "positive",
+    "text": "Neither party may delegate its duties or performance under this Agreement without the prior written consent of the other party."
+  },
+  {
+    "id": "EXAMPLE_DELEGATION_NEG_01",
+    "concept": "CONCEPT_DELEGATION",
+    "polarity": "negative",
+    "text": "Either party may delegate any or all of its performance obligations under this Agreement to third-party subcontractors without consent."
+  },
+  {
+    "id": "EXAMPLE_NOVATION_POS_01",
+    "concept": "CONCEPT_NOVATION",
+    "polarity": "positive",
+    "text": "Any assignment of rights or delegation of duties under this Agreement shall be effected solely by way of a tripartite novation agreement signed by both parties and the assignee."
+  },
+  {
+    "id": "EXAMPLE_NOVATION_NEG_01",
+    "concept": "CONCEPT_NOVATION",
+    "polarity": "negative",
+    "text": "A party may assign its rights and delegate its duties by giving notice, without need for a formal novation agreement."
+  },
+  {
+    "id": "EXAMPLE_COC_POS_01",
+    "concept": "CONCEPT_CHANGE_OF_CONTROL",
+    "polarity": "positive",
+    "text": "A change of control of either party, including by merger, stock sale, or reorganization, shall be deemed a prohibited assignment under this Section."
+  },
+  {
+    "id": "EXAMPLE_COC_NEG_01",
+    "concept": "CONCEPT_CHANGE_OF_CONTROL",
+    "polarity": "negative",
+    "text": "A change of control, merger, or acquisition of a party shall not constitute an assignment or transfer under this Agreement."
+  },
+  {
+    "id": "EXAMPLE_EQUITABLE_POS_01",
+    "concept": "CONCEPT_EQUITABLE_ASSIGNMENT",
+    "polarity": "positive",
+    "text": "The Supplier hereby assigns by way of charge all of its future receivables to the Lender, operating as an equitable assignment of such future rights."
+  },
+  {
+    "id": "EXAMPLE_LEGAL_POS_01",
+    "concept": "CONCEPT_LEGAL_ASSIGNMENT",
+    "polarity": "positive",
+    "text": "This Agreement constitutes an absolute assignment under hand in writing, signed by the assignor, of all rights and benefits due to the Client."
+  }
+]

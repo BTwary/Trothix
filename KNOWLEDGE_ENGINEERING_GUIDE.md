@@ -118,7 +118,7 @@ The authoring pipeline moves knowledge through fifteen progressive stages from r
 *   *Output*: Verification logs.
 *   *Human Involvement*: Resolving trace errors.
 *   *Automation Potential*: Automated test runs.
-*   *Repository Evidence*: `node benchmark/run-benchmark.mjs`.
+*   *Repository Evidence*: `npm run benchmark` (`node benchmark/run-benchmark-pipelineB.mjs`).
 
 ### 1.15 Capability Activation
 *   `[Repository Evidence]` Enforces runtime analysis coverage.
@@ -189,9 +189,9 @@ Health metrics taxonomy of platform scale and quality checks:
 
 ### 3.2 Benchmark Accuracy
 *   `[Repository Evidence]` *Taxonomy*: `Already measurable`.
-*   *Definition*: Correct extraction percentage on benchmark contracts.
-*   *How calculated*: `(Passed fields) / (Total target fields)` in tests.
-*   *Current repository support*: Emitted by `run-benchmark.mjs` final totals.
+*   *Definition*: Whether a document's finding-id list matches the checked-in snapshot baseline, plus a zero-findings coverage check.
+*   *How calculated*: `run-benchmark-pipelineB.mjs` diffs each document's sorted finding-id list against `benchmark/pipeline-b-baseline.json`.
+*   *Current repository support*: Emitted by `run-benchmark-pipelineB.mjs` (`npm run benchmark`) final totals. (The older `run-benchmark.mjs` per-field extraction-percentage model is retired — see `archive/benchmark/run-benchmark.mjs`.)
 *   *Future automation*: Integrate into CI pipeline to block failing PRs.
 
 ### 3.3 Rule density

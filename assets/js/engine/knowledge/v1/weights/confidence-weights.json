@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "weights": {
+    "extraction": 0.3,
+    "evidence": 0.2,
+    "coverage": 0.2,
+    "contradiction": 0.3
+  }
+}

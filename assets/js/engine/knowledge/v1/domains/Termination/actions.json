@@ -1,0 +1,11 @@
+{
+  "id": "ACTION_TERMINATE",
+  "name": "Terminate",
+  "synonyms": ["terminate", "terminates", "terminated", "termination", "cancel", "cancels", "canceled", "cancelled", "cancellation", "expiration", "expire", "expires"],
+  "grammar": {
+    "subject": "Party",
+    "object": "Contract",
+    "recipient": "Party",
+    "constraints": []
+  }
+}

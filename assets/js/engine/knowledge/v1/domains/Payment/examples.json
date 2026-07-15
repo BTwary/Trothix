@@ -1,0 +1,38 @@
+[
+  {
+    "id": "EXAMPLE_PAYMENT_POS_01",
+    "concept": "CONCEPT_PAYMENT",
+    "polarity": "positive",
+    "text": "The Company shall pay all undisputed invoiced amounts within thirty (30) days of receipt, with interest accruing on late payments at 1.5% per month."
+  },
+  {
+    "id": "EXAMPLE_PAYMENT_NEG_01",
+    "concept": "CONCEPT_PAYMENT",
+    "polarity": "negative",
+    "text": "Payment shall be made whenever convenient for the paying party."
+  },
+  {
+    "id": "EXAMPLE_LATE_INTEREST_POS_01",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "polarity": "positive",
+    "text": "Any invoiced amount not paid when due shall accrue interest at 1.5% per month, or the maximum rate permitted by law, until paid in full."
+  },
+  {
+    "id": "EXAMPLE_LATE_INTEREST_NEG_01",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "polarity": "negative",
+    "text": "The agreement specifies a payment deadline but is silent on any penalty or interest for late payment."
+  },
+  {
+    "id": "EXAMPLE_DISPUTED_INVOICE_POS_01",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "polarity": "positive",
+    "text": "Client may withhold payment of any invoiced amount disputed in good faith, provided it pays all undisputed amounts and notifies the Company of the basis for the dispute within fifteen (15) days."
+  },
+  {
+    "id": "EXAMPLE_DISPUTED_INVOICE_NEG_01",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "polarity": "negative",
+    "text": "Client shall pay all invoiced amounts in full regardless of any good-faith dispute over the charges."
+  }
+]

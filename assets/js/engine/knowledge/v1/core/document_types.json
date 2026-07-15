@@ -1,0 +1,125 @@
+[
+  {
+    "id": "DOC_TYPE_NDA",
+    "name": "Non-Disclosure Agreement",
+    "aliases": [
+      "NDA",
+      "Confidentiality Agreement",
+      "Mutual NDA",
+      "Unilateral NDA"
+    ],
+    "description": "Agreement governing confidentiality obligations.",
+    "coreConcepts": [
+      "CONCEPT_CONFIDENTIALITY",
+      "CONCEPT_NON_DISCLOSURE",
+      "CONCEPT_RETURN_OF_INFORMATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_SERVICE_AGREEMENT",
+    "name": "Service Agreement",
+    "aliases": [
+      "Services Agreement",
+      "Professional Services Agreement"
+    ],
+    "description": "Agreement governing the provision of services.",
+    "coreConcepts": [
+      "CONCEPT_PAYMENT",
+      "CONCEPT_SERVICES",
+      "CONCEPT_TERMINATION",
+      "CONCEPT_LIABILITY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_EMPLOYMENT",
+    "name": "Employment Agreement",
+    "aliases": [
+      "Employment Contract",
+      "Employment Letter"
+    ],
+    "description": "Agreement between employer and employee.",
+    "coreConcepts": [
+      "CONCEPT_COMPENSATION",
+      "CONCEPT_CONFIDENTIALITY",
+      "CONCEPT_TERMINATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_SAAS",
+    "name": "Software as a Service Agreement",
+    "aliases": [
+      "SaaS Agreement",
+      "Subscription Agreement"
+    ],
+    "description": "Agreement governing software subscription services.",
+    "coreConcepts": [
+      "CONCEPT_LICENSE",
+      "CONCEPT_DATA_PROTECTION",
+      "CONCEPT_SERVICE_LEVEL",
+      "CONCEPT_TERMINATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_MSA",
+    "name": "Master Services Agreement",
+    "aliases": [
+      "MSA"
+    ],
+    "description": "Framework agreement governing future statements of work.",
+    "coreConcepts": [
+      "CONCEPT_SERVICES",
+      "CONCEPT_PAYMENT",
+      "CONCEPT_LIABILITY",
+      "CONCEPT_DISPUTE_RESOLUTION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_DPA",
+    "name": "Data Processing Agreement",
+    "aliases": [
+      "Data Processing Addendum"
+    ],
+    "description": "Agreement governing processing of personal data.",
+    "coreConcepts": [
+      "CONCEPT_DATA_PROTECTION",
+      "CONCEPT_PRIVACY",
+      "CONCEPT_SECURITY"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_LEASE",
+    "name": "Lease Agreement",
+    "aliases": [
+      "Lease",
+      "Rental Agreement"
+    ],
+    "description": "Agreement governing the lease of property.",
+    "coreConcepts": [
+      "CONCEPT_PROPERTY",
+      "CONCEPT_PAYMENT",
+      "CONCEPT_TERMINATION"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "DOC_TYPE_PURCHASE",
+    "name": "Purchase Agreement",
+    "aliases": [
+      "Sales Agreement",
+      "Purchase Contract"
+    ],
+    "description": "Agreement governing the purchase and sale of goods or assets.",
+    "coreConcepts": [
+      "CONCEPT_PAYMENT",
+      "CONCEPT_WARRANTY",
+      "CONCEPT_TRANSFER_OF_OWNERSHIP"
+    ],
+    "status": "production"
+  }
+]

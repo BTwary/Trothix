@@ -1,22 +1,33 @@
 /**
  * @fileoverview RelationsSchema.js
  * Ported verbatim from KnowledgeLinter._validateRelations / _extractIds('relations')
- * / _getReferences('relations'). No behavior changes.
+ * / _getReferences('relations'). No behavior changes to the per-relation checks.
+ *
+ * Fix: same repository-wide convention as ActionsSchema/RulesSchema — the
+ * compiler feeds one flattened relation object at a time rather than the
+ * whole relations.json array; asItems() normalizes either shape so
+ * validate/idExtractor/getReferences behave identically whether called by
+ * KnowledgeLinter (whole-file) or the compiler (single entry).
  */
 
 const Severity = { FATAL: 'FATAL', ERROR: 'ERROR', WARNING: 'WARNING' };
 
+function asItems(data) {
+  return Array.isArray(data) ? data : (data && typeof data === 'object' ? [data] : null);
+}
+
 function validate(data, file) {
   const errors = [];
-  if (!Array.isArray(data)) {
-    errors.push(`[${Severity.ERROR}] ${file}: relations must be an array`);
+  const items = asItems(data);
+  if (items === null) {
+    errors.push(`[${Severity.ERROR}] ${file}: relations must be an array, or a single relation object`);
     return errors;
   }
-  if (data.length === 0) {
+  if (items.length === 0) {
     errors.push(`[${Severity.ERROR}] ${file}: relations array cannot be empty`);
     return errors;
   }
-  data.forEach((rel, idx) => {
+  items.forEach((rel, idx) => {
     if (!rel || typeof rel !== 'object') {
       errors.push(`[${Severity.ERROR}] ${file}: relation at index ${idx} is not an object`);
       return;
@@ -37,13 +48,15 @@ function validate(data, file) {
 }
 
 function idExtractor(data) {
-  return Array.isArray(data) ? data.map(r => r.id).filter(Boolean) : [];
+  const items = asItems(data);
+  return items ? items.map(r => r.id).filter(Boolean) : [];
 }
 
 function getReferences(data) {
   const refs = [];
-  if (!Array.isArray(data)) return refs;
-  for (const rel of data) {
+  const items = asItems(data);
+  if (!items) return refs;
+  for (const rel of items) {
     if (rel.source && typeof rel.source === 'string') {
       refs.push({ id: rel.source, path: 'relations[*].source', targetType: 'any' });
     }
@@ -56,7 +69,7 @@ function getReferences(data) {
 
 export default {
   name: 'relations',
-  filenamePattern: 'relations.json',
+  filenamePattern: ['relations.json', 'legal_relations.json'],
   fallbackBaseName: null,
   priority: 30,
   fingerprint: () => true,

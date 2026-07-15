@@ -1,0 +1,103 @@
+[
+  {
+    "id": "PATTERN_PAYMENT",
+    "concept": "CONCEPT_PAYMENT",
+
+    "required": [
+      "ACTION_PAY",
+      "ENTITY_MONEY"
+    ],
+
+    "recommended": [
+      "ENTITY_DURATION",
+      "ENTITY_CURRENCY"
+    ],
+
+    "optional": [
+      "ENTITY_INTEREST"
+    ],
+
+    "riskIfMissing": [
+      "ENTITY_DURATION"
+    ],
+
+    "severity": "medium",
+
+    "status": "production"
+  },
+  {
+    "id": "PATTERN_CONFIDENTIALITY",
+    "concept": "CONCEPT_CONFIDENTIALITY",
+
+    "required": [
+      "ENTITY_CONFIDENTIAL_INFORMATION",
+      "MODAL_PROHIBITION"
+    ],
+
+    "recommended": [
+      "EXCEPTION_LEGAL_REQUIREMENT",
+      "EXCEPTION_PRIOR_CONSENT"
+    ],
+
+    "optional": [
+      "EVENT_RETURN_OF_INFORMATION"
+    ],
+
+    "riskIfMissing": [
+      "EVENT_RETURN_OF_INFORMATION"
+    ],
+
+    "severity": "high",
+
+    "status": "production"
+  },
+  {
+    "id": "PATTERN_NOTICE",
+    "concept": "CONCEPT_NOTICE",
+
+    "required": [
+      "ENTITY_ADDRESS",
+      "ENTITY_DATE"
+    ],
+
+    "recommended": [
+      "ACTION_NOTIFY"
+    ],
+
+    "optional": [
+      "TIME_WITHIN_PERIOD"
+    ],
+
+    "riskIfMissing": [
+      "ENTITY_ADDRESS"
+    ],
+
+    "severity": "medium",
+
+    "status": "production"
+  },
+  {
+    "id": "PATTERN_TERMINATION",
+    "concept": "CONCEPT_TERMINATION",
+
+    "required": [
+      "EVENT_NOTICE_SENT"
+    ],
+
+    "recommended": [
+      "EVENT_CURE_PERIOD_EXPIRED"
+    ],
+
+    "optional": [
+      "CONCEPT_RETURN_OF_INFORMATION"
+    ],
+
+    "riskIfMissing": [
+      "EVENT_NOTICE_SENT"
+    ],
+
+    "severity": "critical",
+
+    "status": "production"
+  }
+]

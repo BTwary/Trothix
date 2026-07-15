@@ -6,12 +6,20 @@
   "introduced": "1.0.0",
   "deprecated": false,
   "replacedBy": null,
-  "status": "draft",
-  "maturity": "Experimental",
-  "actions": [],
+  "status": "production",
+  "maturity": "Production",
+  "actions": [
+    "ACTION_TERMINATE"
+  ],
   "phrases": [],
   "entities": [],
   "documents": [],
   "related": [],
-  "rules": []
+  "rules": [
+    "RULE_TERMINATION_PRESENT",
+    "RULE_TERMINATION_MISSING",
+    "RULE_TERMINATION_NOTICE_SHORT",
+    "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+    "RULE_TERMINATION_CURE_PERIOD_SHORT"
+  ]
 }

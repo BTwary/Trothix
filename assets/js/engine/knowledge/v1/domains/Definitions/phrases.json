@@ -1,0 +1,77 @@
+[
+  {
+    "id": "PHRASE_DEFINED_TERM_MEANS_ALL",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "means all"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_MEANS_ANY",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "means any"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_MEANS_THE",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "means the"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_MEANS_EACH",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "means each"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_SHALL_MEAN",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "shall mean"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_SHALL_HAVE_MEANING",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "shall have the meaning set forth"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_MEANS_FOLLOWING",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "means the following"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_IS_DEFINED_AS",
+    "concept": "CONCEPT_DEFINED_TERM",
+    "text": "is defined as"
+  },
+  {
+    "id": "PHRASE_ALIAS_COLLECTIVELY_REFERRED_TO",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "text": "collectively referred to as"
+  },
+  {
+    "id": "PHRASE_ALIAS_HEREINAFTER_REFERRED_TO",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "text": "hereinafter referred to as"
+  },
+  {
+    "id": "PHRASE_ALIAS_ALSO_KNOWN_AS",
+    "concept": "CONCEPT_ALIAS_RESOLUTION",
+    "text": "also known as"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_REFERENCE_AS_DEFINED_HEREIN",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "text": "as defined herein"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_REFERENCE_AS_DEFINED_ABOVE",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "text": "as defined above"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_REFERENCE_AS_DEFINED_IN_AGREEMENT",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "text": "as defined in this Agreement"
+  },
+  {
+    "id": "PHRASE_DEFINED_TERM_REFERENCE_AS_DEFINED_BELOW",
+    "concept": "CONCEPT_DEFINED_TERM_REFERENCE",
+    "text": "as defined below"
+  }
+]

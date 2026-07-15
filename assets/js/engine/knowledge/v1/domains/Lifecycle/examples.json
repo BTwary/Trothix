@@ -1,0 +1,39 @@
+[
+  {
+    "id": "EXAMPLE_LIFECYCLE_POS_01",
+    "concept": "CONCEPT_LIFECYCLE",
+    "polarity": "positive",
+    "text": "This Agreement shall commence on the Effective Date and continue for an initial term of one (1) year, automatically renewing for successive one-year terms unless either party provides sixty (60) days' notice of non-renewal."
+  },
+  {
+    "id": "EXAMPLE_LIFECYCLE_NEG_01",
+    "concept": "CONCEPT_LIFECYCLE",
+    "polarity": "negative",
+    "text": "This Agreement has no defined term or renewal mechanism."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_TIMELINE_POS_01",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "polarity": "positive",
+    "text": "Either party may terminate this Agreement for convenience upon sixty (60) days' notice of non-renewal delivered in writing to the other party."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_TIMELINE_NEG_01",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
+    "polarity": "negative",
+    "text": "This Agreement may be terminated at any time without prior notice."
+  },
+  {
+    "id": "EXAMPLE_ILLEGAL_STATE_TRANSITION_POS_01",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "polarity": "positive",
+    "text": "Upon written request by either party, the parties may reinstate this Agreement following termination without executing a new agreement.",
+    "note": "Positive example here means the risk pattern is present in the text, not that the clause is good drafting."
+  },
+  {
+    "id": "EXAMPLE_ILLEGAL_STATE_TRANSITION_NEG_01",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
+    "polarity": "negative",
+    "text": "Termination of this Agreement is final; any resumption of the relationship shall require execution of a new agreement between the parties."
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "JNOTE_NON_DISCLOSURE_01",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "jurisdiction": "US-Federal",
+    "note": "Trade secret claims may be brought under the DTSA alongside state law claims."
+  },
+  {
+    "id": "JNOTE_NON_DISCLOSURE_02",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "jurisdiction": "EU",
+    "note": "GDPR may independently apply where the confidential information includes personal data, in addition to trade-secret law."
+  },
+  {
+    "id": "JNOTE_TRADE_SECRET_CA",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "jurisdiction": "US-California",
+    "note": "California rejects inevitable disclosure claims, requiring proof of actual or threatened misappropriation."
+  },
+  {
+    "id": "JNOTE_RESIDUALS_CA",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "jurisdiction": "US-California",
+    "note": "California courts scrutinize residuals clauses to ensure they do not convey an uncompensated IP license."
+  }
+]

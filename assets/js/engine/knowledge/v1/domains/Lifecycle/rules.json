@@ -1,7 +1,7 @@
 [
   {
     "id": "RULE_PROPER_NOTICE_TIMELINE",
-    "concept": "LIFECYCLE",
+    "concept": "CONCEPT_NOTICE_TIMELINE",
     "category": "Positive",
     "severity": "Low",
     "jurisdiction": "Universal",
@@ -10,12 +10,23 @@
     "legal_effect": "PERMITTED",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": []
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_NOTICE_TIMELINE"
+    },
+    "then": {
+      "trigger": "ProperNoticeTimeline",
+      "message": "The agreement defines an express notice period for termination, non-renewal, or cure.",
+      "recommendation": "Confirm the notice period is long enough to allow the recipient to act, and that the required delivery method (e.g. written notice) is unambiguous.",
+      "rationale": "A defined notice timeline gives both parties a predictable, enforceable window to act before a lifecycle transition (termination, non-renewal, cure) takes effect, reducing disputes over whether adequate notice was given."
+    }
   },
   {
     "id": "RULE_ILLEGAL_STATE_TRANSITION",
-    "concept": "LIFECYCLE",
+    "concept": "CONCEPT_ILLEGAL_STATE_TRANSITION",
     "category": "Risk",
     "severity": "High",
     "jurisdiction": "Universal",
@@ -24,7 +35,18 @@
     "legal_effect": "VOID",
     "targetPrecision": 0.99,
     "targetRecall": 0.95,
-    "status": "Verified",
-    "linkedTests": []
+    "status": "production",
+    "introduced": "1.2.0",
+    "linkedTests": [],
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_ILLEGAL_STATE_TRANSITION"
+    },
+    "then": {
+      "trigger": "IllegalStateTransition",
+      "message": "The agreement contains language attempting to reinstate, revive, or retroactively alter the effect of termination without a new agreement or novation.",
+      "recommendation": "Replace reinstatement/revival/retroactive-termination language with an express novation or a newly executed agreement; a terminated contract generally cannot be unilaterally revived by reference alone.",
+      "rationale": "Once a contract is terminated, its obligations generally lapse (subject to any surviving clauses); attempting to reinstate, revive, or retroactively terminate it by contract language alone, rather than through a new agreement or novation, creates enforceability uncertainty."
+    }
   }
 ]

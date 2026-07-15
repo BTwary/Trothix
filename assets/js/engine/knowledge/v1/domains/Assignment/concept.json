@@ -1,0 +1,117 @@
+[
+  {
+    "id": "CONCEPT_ASSIGNMENT",
+    "name": "Assignment",
+    "description": "Transfer of contractual rights or obligations.",
+    "category": "Contract Clause",
+    "introduced": "1.0.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_ASSIGN",
+      "ACTION_TRANSFER"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_DELEGATION",
+      "CONCEPT_NOVATION",
+      "CONCEPT_CHANGE_OF_CONTROL"
+    ],
+    "rules": [
+      "RULE_ASSIGNMENT_ALLOWED",
+      "RULE_CONSENT_REQUIRED"
+    ]
+  },
+  {
+    "id": "CONCEPT_DELEGATION",
+    "name": "Delegation",
+    "description": "Transfer of contractual duties or performance obligations to a third party.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_DELEGATE"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_ASSIGNMENT"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_NOVATION",
+    "name": "Novation",
+    "description": "The substitution of a new contract or party in place of an existing one, extinguishing the original obligation.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [
+      "ACTION_NOVATE"
+    ],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_ASSIGNMENT",
+      "CONCEPT_DELEGATION"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_CHANGE_OF_CONTROL",
+    "name": "Change of Control",
+    "description": "Transfer of ownership, voting control, or substantial assets of a contracting party, often contractually deemed an assignment.",
+    "category": "Contract Clause",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_ASSIGNMENT"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_EQUITABLE_ASSIGNMENT",
+    "name": "Equitable Assignment",
+    "description": "An assignment of rights that is recognized in equity even if it does not satisfy the statutory requirements of a legal assignment.",
+    "category": "Legal Doctrine",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_ASSIGNMENT"
+    ],
+    "rules": []
+  },
+  {
+    "id": "CONCEPT_LEGAL_ASSIGNMENT",
+    "name": "Legal Assignment",
+    "description": "A statutory assignment of rights (e.g. under UK Law of Property Act s.136) which must be absolute, in writing, and signed.",
+    "category": "Legal Doctrine",
+    "introduced": "1.1.0",
+    "status": "production",
+    "maturity": "Production",
+    "actions": [],
+    "phrases": [],
+    "entities": [],
+    "documents": [],
+    "related": [
+      "CONCEPT_ASSIGNMENT"
+    ],
+    "rules": []
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "JNOTE_INDEMNIFICATION_01",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "jurisdiction": "US-State",
+    "note": "Anti-indemnity statutes (e.g., Texas Civ. Prac. & Rem. Code § 151, California Civil Code § 2782) void or limit indemnities for a party's own negligence, especially in construction contracts."
+  },
+  {
+    "id": "JNOTE_INDEMNIFY_BROAD_01",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "jurisdiction": "US-State",
+    "note": "The express negligence doctrine (notably in Texas) requires indemnification of a party's own negligence to be stated in conspicuous, specific language to be enforceable."
+  },
+  {
+    "id": "JNOTE_INDEMNIFY_RECIPROCAL_01",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "jurisdiction": "All",
+    "note": "Courts generally enforce mutual indemnities the same as one-sided ones, provided the obligations are genuinely symmetric."
+  },
+  {
+    "id": "JNOTE_INDEMNIFY_DEFEND_01",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "jurisdiction": "US-State",
+    "note": "Whether 'defend' creates an immediate duty (upon tender) or only a reimbursement duty (after judgment) varies by state and by the clause's precise wording."
+  },
+  {
+    "id": "JNOTE_INDEMNIFY_EXCLUSION_01",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "jurisdiction": "All",
+    "note": "Exclusions typically carve out claims arising from the indemnitee's own gross negligence or willful misconduct, and often interact with the liability cap."
+  }
+]

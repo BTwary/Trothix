@@ -1,0 +1,51 @@
+[
+  {
+    "id": "SOURCE_NON_DISCLOSURE_01",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "citation": "Defend Trade Secrets Act, 18 U.S.C. § 1839",
+    "type": "statute",
+    "note": "Federal trade secret protection that can run alongside a contractual confidentiality clause."
+  },
+  {
+    "id": "SOURCE_NON_DISCLOSURE_02",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "citation": "Uniform Trade Secrets Act (UTSA)",
+    "type": "uniform_code",
+    "note": "Adopted, with variation, by most U.S. states as the baseline for trade secret definitions and remedies."
+  },
+  {
+    "id": "SOURCE_NON_DISCLOSURE_03",
+    "concept": "CONCEPT_NON_DISCLOSURE",
+    "citation": "EU Trade Secrets Directive (2016/943)",
+    "type": "regulation",
+    "note": "Harmonized EU baseline for trade secret protection."
+  },
+  {
+    "id": "SOURCE_TRADE_SECRET_01",
+    "concept": "CONCEPT_TRADE_SECRET",
+    "citation": "PepsiCo, Inc. v. Redmond, 54 F.3d 1262 (7th Cir. 1995)",
+    "type": "case_law",
+    "note": "Established the inevitable disclosure doctrine under Illinois Trade Secrets Act."
+  },
+  {
+    "id": "SOURCE_RESIDUALS_01",
+    "concept": "CONCEPT_RESIDUAL_KNOWLEDGE",
+    "citation": "Restatement (Third) of Unfair Competition § 42",
+    "type": "restatement",
+    "note": "Delineates the limits of trade secret protection against an employee's general memory."
+  },
+  {
+    "id": "SOURCE_COMPELLED_DISCLOSURE_01",
+    "concept": "CONCEPT_COMPELLED_DISCLOSURE",
+    "citation": "Uniform Trade Secrets Act § 1 cmt.",
+    "type": "uniform_code",
+    "note": "Disclosure compelled by legal process (e.g., subpoena, court order) is a recognized limit on confidentiality duties, commonly conditioned on prior notice to the disclosing party."
+  },
+  {
+    "id": "SOURCE_RETURN_DESTROY_01",
+    "concept": "CONCEPT_RETURN_DESTROY",
+    "citation": "Restatement (Third) of Unfair Competition § 42 cmt. c",
+    "type": "restatement",
+    "note": "Post-relationship return/destruction obligations for confidential materials are a standard feature of confidentiality doctrine to prevent continued unauthorized use after the relationship ends."
+  }
+]

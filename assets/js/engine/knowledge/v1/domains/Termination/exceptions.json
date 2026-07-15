@@ -5,14 +5,16 @@
       "unless prohibited",
       "except by law",
       "required by law"
-    ]
+    ],
+    "concept": "CONCEPT_TERMINATION"
   },
   {
     "id": "EXC_CONSENT",
     "terms": [
       "except with consent",
       "without prior written consent"
-    ]
+    ],
+    "concept": "CONCEPT_TERMINATION"
   },
   {
     "id": "EXC_FRAUD",
@@ -20,6 +22,7 @@
       "except fraud",
       "except willful misconduct",
       "gross negligence"
-    ]
+    ],
+    "concept": "CONCEPT_TERMINATION"
   }
 ]

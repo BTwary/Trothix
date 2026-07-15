@@ -42,7 +42,7 @@ function getReferences() {
 
 export default {
   name: 'entities',
-  filenamePattern: 'entities.json',
+  filenamePattern: ['entities.json', 'legal_entities.json'],
   fallbackBaseName: null,
   priority: 80,
   fingerprint: () => true,

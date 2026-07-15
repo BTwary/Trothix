@@ -1,0 +1,151 @@
+[
+  {
+    "id": "ACTION_PAY",
+    "name": "Pay",
+    "category": "financial",
+    "synonyms": [
+      "pay",
+      "payment",
+      "remit",
+      "transfer",
+      "deposit"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_TERMINATE",
+    "name": "Terminate",
+    "category": "lifecycle",
+    "synonyms": [
+      "terminate",
+      "end",
+      "cancel",
+      "cease"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_NOTIFY",
+    "name": "Notify",
+    "category": "communication",
+    "synonyms": [
+      "notify",
+      "inform",
+      "give notice",
+      "serve notice"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_DISCLOSE",
+    "name": "Disclose",
+    "category": "information",
+    "synonyms": [
+      "disclose",
+      "reveal",
+      "provide information"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_INDEMNIFY",
+    "name": "Indemnify",
+    "category": "risk",
+    "synonyms": [
+      "indemnify",
+      "hold harmless"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_DEFEND",
+    "name": "Defend",
+    "category": "risk",
+    "synonyms": [
+      "defend"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_ASSIGN",
+    "name": "Assign",
+    "category": "transfer",
+    "synonyms": [
+      "assign",
+      "transfer",
+      "delegate"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_DELIVER",
+    "name": "Deliver",
+    "category": "performance",
+    "synonyms": [
+      "deliver",
+      "provide",
+      "supply",
+      "furnish"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_RETURN",
+    "name": "Return",
+    "category": "performance",
+    "synonyms": [
+      "return",
+      "give back",
+      "restore"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_REPAIR",
+    "name": "Repair",
+    "category": "performance",
+    "synonyms": [
+      "repair",
+      "fix",
+      "replace"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_USE",
+    "name": "Use",
+    "category": "performance",
+    "synonyms": [
+      "use",
+      "utilize",
+      "exploit",
+      "employ"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_DESTROY",
+    "name": "Destroy",
+    "category": "performance",
+    "synonyms": [
+      "destroy",
+      "destruction",
+      "delete",
+      "erase",
+      "purge"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "ACTION_REVERSE_ENGINEER",
+    "name": "Reverse Engineer",
+    "category": "performance",
+    "synonyms": [
+      "reverse engineer",
+      "decompile",
+      "disassemble",
+      "reverse engineering"
+    ],
+    "status": "production"
+  }
+]

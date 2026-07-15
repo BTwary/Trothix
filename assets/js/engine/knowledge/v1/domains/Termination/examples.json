@@ -1,0 +1,14 @@
+[
+  {
+    "id": "EXAMPLE_TERMINATION_POS_01",
+    "concept": "CONCEPT_TERMINATION",
+    "polarity": "positive",
+    "text": "Either party may terminate this Agreement for cause upon thirty (30) days' written notice if the other party materially breaches this Agreement and fails to cure within such period."
+  },
+  {
+    "id": "EXAMPLE_TERMINATION_NEG_01",
+    "concept": "CONCEPT_TERMINATION",
+    "polarity": "negative",
+    "text": "This Agreement may not be terminated by either party under any circumstances."
+  }
+]

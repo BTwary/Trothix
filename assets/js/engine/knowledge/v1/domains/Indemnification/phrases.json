@@ -1,9 +1,77 @@
 [
   {
-    "id": "PHRASE_INDEMNIFICATION_MARKER",
-    "text": "sample indemnification phrase",
-    "intent": "Obligation",
-    "strength": "High",
-    "concept": "CONCEPT_INDEMNIFICATION"
+    "id": "PHRASE_INDEMNIFY_ROOT_1",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "text": "indemnify"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_ROOT_2",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "text": "indemnification"
+  },
+  {
+    "id": "PHRASE_HOLD_HARMLESS",
+    "concept": "CONCEPT_INDEMNIFICATION",
+    "text": "hold harmless"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_BROAD_1",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "text": "any and all claims"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_BROAD_2",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "text": "all liabilities, losses"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_BROAD_3",
+    "concept": "CONCEPT_INDEMNIFY_BROAD",
+    "text": "arising out of or relating to"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_RECIP_1",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "text": "each party shall indemnify"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_RECIP_2",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "text": "indemnify the other party"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_RECIP_3",
+    "concept": "CONCEPT_INDEMNIFY_RECIPROCAL",
+    "text": "mutual indemnification"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_DEFEND_1",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "text": "duty to defend"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_DEFEND_2",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "text": "defend, indemnify"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_DEFEND_3",
+    "concept": "CONCEPT_INDEMNIFY_DEFEND",
+    "text": "defend at its expense"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_EXCL_1",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "text": "except to the extent"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_EXCL_2",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "text": "indemnification exclusions"
+  },
+  {
+    "id": "PHRASE_INDEMNIFY_EXCL_3",
+    "concept": "CONCEPT_INDEMNIFY_EXCLUSION",
+    "text": "indemnity shall not apply"
   }
 ]

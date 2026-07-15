@@ -1,0 +1,50 @@
+[
+  {
+    "id": "EXAMPLE_NOTICE_EMAIL_POS_01",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "polarity": "positive",
+    "text": "Notice may be given by email to the address specified below and shall be deemed received on the next business day following transmission."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_EMAIL_NEG_01",
+    "concept": "CONCEPT_NOTICE_EMAIL",
+    "polarity": "negative",
+    "text": "Notice by email is permitted with no further terms specified."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_ADDRESS_POS_01",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "polarity": "positive",
+    "text": "All notices shall be sent to the addresses set forth on the signature page, or to such other address as a party may designate by notice."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_GENERAL_POS_01",
+    "concept": "CONCEPT_NOTICE",
+    "polarity": "positive",
+    "text": "Any notice required or permitted under this Agreement shall be given in writing and shall be deemed effective upon actual receipt by the party to whom it is directed."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_GENERAL_NEG_01",
+    "concept": "CONCEPT_NOTICE",
+    "polarity": "negative",
+    "text": "The Agreement does not describe any procedure for how the parties are to notify each other of matters arising under it."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_WRITTEN_POS_01",
+    "concept": "CONCEPT_NOTICE_WRITTEN",
+    "polarity": "positive",
+    "text": "All notices under this Agreement must be in writing and shall be deemed given only when delivered in accordance with this Section."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_WRITTEN_NEG_01",
+    "concept": "CONCEPT_NOTICE_WRITTEN",
+    "polarity": "negative",
+    "text": "Notice may be given orally or by any other means the notifying party considers appropriate."
+  },
+  {
+    "id": "EXAMPLE_NOTICE_ADDRESS_NEG_01",
+    "concept": "CONCEPT_NOTICE_ADDRESS",
+    "polarity": "negative",
+    "text": "Notices shall be given as the parties see fit."
+  }
+]

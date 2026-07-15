@@ -1,0 +1,23 @@
+[
+  {
+    "id": "VAL-ADV-LIAB-CAP-001",
+    "text": "The maximum aggregate liability of the Consultant under this Agreement shall not exceed USD 100.",
+    "groundTruth": {
+      "concepts": ["CONCEPT_LIABILITY", "CONCEPT_LIABILITY_CAP"],
+      "rules": ["CONCEPT_LIABILITY_PRESENT", "CONCEPT_LIABILITY_NEGOTIATION"],
+      "recommendations": {
+        "CONCEPT_LIABILITY_PRESENT": "The agreement contains provisions addressing limitation of liability.",
+        "CONCEPT_LIABILITY_NEGOTIATION": "An aggregate liability cap is defined. Review the cap amount for commercial suitability."
+      }
+    },
+    "metadata": {
+      "contractType": "Consulting Agreement",
+      "jurisdiction": "Universal",
+      "difficulty": "Hard",
+      "clauseLength": 98,
+      "annotator": "Legal Engineer C",
+      "reviewStatus": "Draft",
+      "tier": "Silver"
+    }
+  }
+]

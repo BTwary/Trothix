@@ -2,7 +2,29 @@
   {
     "id": "EXCEPTION_MERGER",
     "terms": [
-      "in connection with a merger"
-    ]
+      "in connection with a merger",
+      "acquisition",
+      "sale of substantially all assets",
+      "corporate reorganization"
+    ],
+    "concept": "CONCEPT_ASSIGNMENT"
+  },
+  {
+    "id": "EXCEPTION_AFFILIATE",
+    "terms": [
+      "except to an affiliate",
+      "to any affiliate",
+      "without consent to an affiliate"
+    ],
+    "concept": "CONCEPT_ASSIGNMENT"
+  },
+  {
+    "id": "EXCEPTION_FINANCING",
+    "terms": [
+      "collateral assignment to a lender",
+      "pledge to a financing institution",
+      "security interest to financing sources"
+    ],
+    "concept": "CONCEPT_ASSIGNMENT"
   }
 ]

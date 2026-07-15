@@ -74,11 +74,51 @@ export class KnowledgeLinter {
     }
 
     // ------------------------------------------------------------------
-    // 1. Walk all domains and collect all JSON files with their data
+    // 1. Walk all core/domains and collect all JSON files with their data
     // ------------------------------------------------------------------
     const fileEntries = [];
     const idOccurrences = {};
 
+    // 1a. Load Core Ontology files first
+    const coreRoot = path.join(this.basePath, "core");
+    let hasCore = false;
+    try {
+      await fs.access(coreRoot);
+      hasCore = true;
+    } catch (e) {}
+
+    if (hasCore) {
+      let coreFiles = [];
+      try {
+        coreFiles = await this._walkDir(coreRoot, "");
+      } catch (e) {
+        issues.push(`[${Severity.WARNING}] Core directory failed to walk: ${e.message}`);
+      }
+      for (const file of coreFiles) {
+        if (!file.endsWith('.json')) continue;
+        const fullPath = path.join(coreRoot, file);
+        const relPath = path.join("core", file);
+        let raw;
+        try {
+          raw = await fs.readFile(fullPath, 'utf-8');
+        } catch (e) {
+          issues.push(`[${Severity.ERROR}] Cannot read file ${relPath}: ${e.message}`);
+          continue;
+        }
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          issues.push(`[${Severity.ERROR}] Invalid JSON in ${relPath}: ${e.message}`);
+          continue;
+        }
+        const schema = Detector.detect(file);
+        if (!schema) continue;
+        fileEntries.push({ domain: "core", relPath, data, schema, type: schema.name });
+      }
+    }
+
+    // 1b. Load Domain files
     const domainsRoot = path.join(this.basePath, "domains");
 
     for (const domain of manifest.domains) {
@@ -159,7 +199,7 @@ export class KnowledgeLinter {
     for (const [id, occ] of Object.entries(idOccurrences)) {
       if (occ.files.length > 1) {
         const fileList = occ.files.join(', ');
-        issues.push(`[${Severity.ERROR}] Duplicate ID "${id}" found in multiple files: ${fileList}`);
+        issues.push(`[${Severity.WARNING}] Duplicate ID "${id}" found in multiple files: ${fileList}`);
       }
     }
 

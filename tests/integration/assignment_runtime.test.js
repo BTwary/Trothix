@@ -1,52 +1,60 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+/**
+ * Assignment — real runtime integration test.
+ * Verifies that the compiled rules in the Assignment domain
+ * evaluate correctly against raw clause text using the real Trothix engine.
+ */
+import { check, summarize, analyzeAndGetFindingIds } from './_lib.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..', '..');
-const bundlePath = path.join(rootDir, 'knowledge', 'compiled', 'knowledge.bundle.json');
+async function run() {
+  // Scenario 1: Assignment permitted with consent
+  const clauseConsent = "Neither party may assign this Agreement without the prior written consent of the other party.";
+  const findingsConsent = await analyzeAndGetFindingIds(clauseConsent);
 
-console.log("Loading compiled knowledge bundle...");
-const bundle = JSON.parse(fs.readFileSync(bundlePath));
+  check(
+    'Assignment (with consent): RULE_ASSIGNMENT_ALLOWED fires',
+    findingsConsent.includes('RULE_ASSIGNMENT_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsConsent)}`
+  );
 
-const clause = "Neither party may assign this Agreement without the prior written consent of the other party.";
+  check(
+    'Assignment (with consent): RULE_CONSENT_REQUIRED fires',
+    findingsConsent.includes('RULE_CONSENT_REQUIRED'),
+    `got findings: ${JSON.stringify(findingsConsent)}`
+  );
 
-const evaluateClause = (clauseText) => {
-    console.log("\\n[1] Lexer: Tokenizing...");
-    console.log("[2] Parser: Extracting Entities...");
-    console.log("[3] Legal IR: PARTY -> MODAL -> INTENT_PROHIBIT -> ASSIGNMENT -> CONSENT_REQUIRED");
-    console.log("[4] Action Builder: Assembling Templates (CONSENT_REQUIRED)");
-    console.log("[5] Decision Table: Matching Logic (DT_ASSIGNMENT)");
-    console.log("[6] Rule: Emitting Finding...");
-    
-    return {
-        finding: "RULE_CONSENT_REQUIRED",
-        trace: {
-            decisionTable: "DT_ASSIGNMENT",
-            rule: "RULE_CONSENT_REQUIRED",
-            template: "CONSENT_REQUIRED",
-            intent: "CONSENT_REQUIRED",
-            evidence: [clauseText],
-            knowledgeVersion: "1.0",
-            knowledgeFingerprint: "assignment0192837465"
-        }
-    };
-};
+  // Scenario 2: Assignment permitted without consent (wording uses assign, but lacks consent)
+  const clauseUnconditional = "Either party may assign this Agreement to any of its affiliates.";
+  const findingsUnconditional = await analyzeAndGetFindingIds(clauseUnconditional);
 
-console.log("───────────────────────────────");
-console.log("REAL RUNTIME TRACE VALIDATION");
-console.log("───────────────────────────────");
-console.log("Input Clause: " + clause);
+  check(
+    'Assignment (unconditional): RULE_ASSIGNMENT_ALLOWED fires',
+    findingsUnconditional.includes('RULE_ASSIGNMENT_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsUnconditional)}`
+  );
 
-const result = evaluateClause(clause);
-console.log("[7] Assessment: Final Result\\n");
-console.log(JSON.stringify(result, null, 2));
+  check(
+    'Assignment (unconditional): RULE_CONSENT_REQUIRED does NOT fire when consent is not mentioned',
+    !findingsUnconditional.includes('RULE_CONSENT_REQUIRED'),
+    `got findings: ${JSON.stringify(findingsUnconditional)}`
+  );
 
-if (result.finding === "RULE_CONSENT_REQUIRED") {
-    console.log("\\n✅ PASS: Real Assignment clause correctly evaluated and traced.");
-    process.exit(0);
-} else {
-    console.log("\\n❌ FAIL: Could not trace decision.");
-    process.exit(1);
+  // Scenario 3: Unrelated clause
+  const clauseUnrelated = "Notice shall be sent by email.";
+  const findingsUnrelated = await analyzeAndGetFindingIds(clauseUnrelated);
+
+  check(
+    'Assignment (unrelated): RULE_ASSIGNMENT_ALLOWED does not fire',
+    !findingsUnrelated.includes('RULE_ASSIGNMENT_ALLOWED'),
+    `got findings: ${JSON.stringify(findingsUnrelated)}`
+  );
+
+  check(
+    'Assignment (unrelated): RULE_CONSENT_REQUIRED does not fire',
+    !findingsUnrelated.includes('RULE_CONSENT_REQUIRED'),
+    `got findings: ${JSON.stringify(findingsUnrelated)}`
+  );
+
+  summarize('assignment_runtime.test.js');
 }
+
+run();

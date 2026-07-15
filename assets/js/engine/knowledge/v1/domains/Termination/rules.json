@@ -1,0 +1,136 @@
+[
+  {
+    "id": "RULE_TERMINATION_PRESENT",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Completeness",
+    "severity": "Low",
+    "when": {
+      "type": "conceptExists",
+      "value": "CONCEPT_TERMINATION"
+    },
+    "then": {
+      "trigger": "TerminationClausePresent",
+      "message": "The contract contains a termination clause.",
+      "recommendation": "Confirm the termination clause covers both for-cause and for-convenience scenarios, if intended, and that post-termination obligations (data return, final payment) are addressed.",
+      "rationale": "A termination clause establishes when and how either party may end the agreement, which is foundational to managing exit risk."
+    },
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "RULE_TERMINATION_MISSING",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Completeness",
+    "severity": "Medium",
+    "when": {
+      "type": "conceptMissing",
+      "value": "CONCEPT_TERMINATION"
+    },
+    "then": {
+      "trigger": "TerminationClauseMissing",
+      "message": "The contract lacks a termination clause.",
+      "recommendation": "Add a termination clause specifying at minimum a for-cause right (with a cure period) and the effects of termination.",
+      "rationale": "Without an express termination clause, ending the contract early depends on proving a material breach at common law, which is slower and less certain than a negotiated right."
+    },
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "RULE_TERMINATION_NOTICE_SHORT",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "when": {
+      "all": [
+        {
+          "field": "actions[*].verb",
+          "equals": "ACTION_TERMINATE"
+        },
+        {
+          "field": "actions[*].object",
+          "contains": "convenience"
+        },
+        {
+          "field": "actions[*].constraints[*].type",
+          "equals": "duration"
+        },
+        {
+          "field": "actions[*].constraints[*].value",
+          "less_than": 30
+        }
+      ]
+    },
+    "then": {
+      "trigger": "ShortTerminationNotice",
+      "message": "Termination notice period for convenience is less than 30 days, creating operational risk.",
+      "recommendation": "Extend the termination-for-convenience notice period to at least 30 days (longer for complex or service-dependent relationships) to allow for orderly transition.",
+      "rationale": "A short notice period gives the non-terminating party little time to arrange a replacement or wind down dependent operations."
+    },
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "RULE_TERMINATION_CONVENIENCE_UNILATERAL",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Fairness",
+    "severity": "High",
+    "when": {
+      "all": [
+        {
+          "field": "actions[*].verb",
+          "equals": "ACTION_TERMINATE"
+        },
+        {
+          "field": "actions[*].object",
+          "contains": "convenience"
+        },
+        {
+          "field": "actions[*].actor",
+          "not_equals": "Either party"
+        }
+      ]
+    },
+    "then": {
+      "trigger": "UnilateralTerminationConvenience",
+      "message": "Termination for convenience is unilateral, which creates unfair leverage.",
+      "recommendation": "Make the termination-for-convenience right mutual, or add compensating protections (e.g., a longer notice period or termination fee) if one-sided termination is commercially necessary.",
+      "rationale": "A one-sided termination-for-convenience right gives one party unilateral leverage to exit at will while binding the other party for the full term."
+    },
+    "concept": "CONCEPT_TERMINATION"
+  },
+  {
+    "id": "RULE_TERMINATION_CURE_PERIOD_SHORT",
+    "status": "production",
+    "introduced": "1.0.0",
+    "category": "Risk",
+    "severity": "Medium",
+    "when": {
+      "all": [
+        {
+          "field": "actions[*].verb",
+          "equals": "ACTION_TERMINATE"
+        },
+        {
+          "field": "actions[*].conditions[*]",
+          "contains": "cure"
+        },
+        {
+          "field": "actions[*].constraints[*].type",
+          "equals": "duration"
+        },
+        {
+          "field": "actions[*].constraints[*].value",
+          "less_than": 15
+        }
+      ]
+    },
+    "then": {
+      "trigger": "ShortCurePeriod",
+      "message": "Cure period for breach is less than 15 days, creating risk.",
+      "recommendation": "Extend the cure period for breach to at least 15-30 days, scaled to the complexity of the obligation likely to be breached.",
+      "rationale": "A short cure period increases the risk that an otherwise-remediable, non-material lapse escalates into a contract-ending event."
+    },
+    "concept": "CONCEPT_TERMINATION"
+  }
+]

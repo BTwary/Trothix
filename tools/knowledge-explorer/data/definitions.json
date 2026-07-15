@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-07-13T04:43:33.963Z",
+  "totalTerms": 3,
+  "definitions": [
+    {
+      "term": "Confidential Information",
+      "canonicalId": "ENTITY_CONFIDENTIAL_INFORMATION",
+      "domain": "Definitions",
+      "resolvesToKnownNode": true,
+      "referencedByCount": 2,
+      "referencedBy": [
+        "CONCEPT_CONFIDENTIALITY",
+        "CONCEPT_RETURN_OF_INFORMATION"
+      ],
+      "relatedEdges": [
+        {
+          "id": "REL_CONFIDENTIALITY_PROTECTS_INFORMATION",
+          "source": "CONCEPT_CONFIDENTIALITY",
+          "target": "ENTITY_CONFIDENTIAL_INFORMATION",
+          "relation": "protects",
+          "strength": null
+        }
+      ]
+    },
+    {
+      "term": "Receiving Party",
+      "canonicalId": "PARTY_RECEIVER",
+      "domain": "Definitions",
+      "resolvesToKnownNode": true,
+      "referencedByCount": 0,
+      "referencedBy": [],
+      "relatedEdges": []
+    },
+    {
+      "term": "Disclosing Party",
+      "canonicalId": "PARTY_SENDER",
+      "domain": "Definitions",
+      "resolvesToKnownNode": true,
+      "referencedByCount": 0,
+      "referencedBy": [],
+      "relatedEdges": []
+    }
+  ]
+}

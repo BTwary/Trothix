@@ -5,6 +5,12 @@ async function test() {
   const issues = await linter.lint();
   console.log("LINTER OUTPUT:");
   console.log(issues.length === 0 ? "No issues found! KB is pristine." : issues.join('\n'));
+
+  const blocking = issues.filter(i => i.startsWith('[ERROR]') || i.startsWith('[FATAL]'));
+  if (blocking.length > 0) {
+    console.error(`\n${blocking.length} blocking issue(s) found (ERROR/FATAL). Failing build.`);
+    process.exit(1);
+  }
 }
 
 test();

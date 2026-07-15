@@ -1,0 +1,244 @@
+[
+  {
+    "id": "REGR-PAYMENT-001",
+    "domain": "Payment",
+    "status": "active",
+    "text": "The Company shall make payment of USD 50,000 within 30 days, provided that the Client has accepted delivery.",
+    "category": "Mutual NDA",
+    "mustInclude": [
+      "RULE_PAYMENT_DEADLINE_LONG"
+    ],
+    "mustExclude": [],
+    "note": "Original, always-active rule. Baseline regression guard: if this stops firing, something broke in the core pipeline, not just a domain."
+  },
+  {
+    "id": "REGR-INDEMNIFICATION-001",
+    "domain": "Indemnification",
+    "status": "active",
+    "text": "The Vendor shall indemnify the Client against all third party claims arising from the Vendor's breach of this Agreement.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "CONCEPT_INDEMNIFICATION_PRESENT"
+    ],
+    "mustExclude": [
+      "CONCEPT_INDEMNIFICATION_RISK",
+      "CONCEPT_INDEMNIFICATION_FAIRNESS",
+      "CONCEPT_INDEMNIFICATION_POSITIVE",
+      "CONCEPT_INDEMNIFICATION_NEGOTIATION"
+    ],
+    "note": "Reactivated in Phase 1 and updated in Phase 5.1 to reflect logic-based rules."
+  },
+  {
+    "id": "REGR-LIABILITY-001",
+    "domain": "Liability",
+    "status": "active",
+    "text": "In no event shall either party be liable for any indirect, incidental, or consequential damages arising out of this Agreement.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "CONCEPT_LIABILITY_PRESENT"
+    ],
+    "mustExclude": [],
+    "note": "Reactivated in Phase 1. Fires via phrase fallback since the lexer does not tokenize 'liable' as a distinct token."
+  },
+  {
+    "id": "REGR-FORCEMAJEURE-001",
+    "domain": "ForceMajeure",
+    "status": "active",
+    "text": "Neither party shall be liable for delay caused by force majeure, including act of God, flood, or war. If the force majeure event exceeds sixty days, either party may terminate. The affected party shall promptly notify the other party in writing of any force majeure event.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_FORCE_MAJEURE_PRESENT",
+      "RULE_FORCE_MAJEURE_NOTICE_REQUIRED"
+    ],
+    "mustExclude": [],
+    "note": "Reactivated in Phase 1 by adding the 3 missing parser fields. Presence + notice-required fire together on this exact clause pattern; termination-cap-excessive does not (the 'exceeds sixty days' phrasing is the threshold text itself, not a >60 value)."
+  },
+  {
+    "id": "REGR-FORCEMAJEURE-001B",
+    "domain": "ForceMajeure",
+    "status": "active",
+    "text": "Neither party shall be liable for delay caused by force majeure, including act of God, flood, or war, for a period of 90 days. The affected party shall promptly notify the other party in writing.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_FORCE_MAJEURE_PRESENT",
+      "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE"
+    ],
+    "mustExclude": [],
+    "note": "Explicit 90-day duration correctly exceeds the 60-day threshold. Notice-required does not co-fire on this exact phrasing (only verified to co-fire alongside RULE_FORCE_MAJEURE_PRESENT on the REGR-FORCEMAJEURE-001 clause pattern) \u2014 do not assume it generalizes without re-running the engine."
+  },
+  {
+    "id": "REGR-FORCEMAJEURE-002",
+    "domain": "ForceMajeure",
+    "status": "active",
+    "text": "The Company shall make payment of USD 1,000 within 5 days.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_FORCE_MAJEURE_MISSING"
+    ],
+    "mustExclude": [
+      "RULE_FORCE_MAJEURE_PRESENT",
+      "RULE_FORCE_MAJEURE_NOTICE_REQUIRED",
+      "RULE_FORCE_MAJEURE_TERMINATION_CAP_EXCESSIVE"
+    ],
+    "note": "Negative control: a document with no force-majeure language should report it missing, not fabricate presence."
+  },
+  {
+    "id": "REGR-DEFINITIONS-001",
+    "domain": "Definitions",
+    "status": "active",
+    "text": "\"Confidential Information\" means all non-public, confidential or proprietary information disclosed by the Disclosing Party to the Receiving Party.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "DEFINITION_WITHOUT_USE",
+      "RULE_DEFINITIONS_PRESENT"
+    ],
+    "mustExclude": [
+      "RULE_ALIASES_RESOLVED"
+    ],
+    "note": "Knowledge Expansion sprint: real when/then authored for RULE_DEFINITIONS_PRESENT, backed by CONCEPT_DEFINED_TERM phrases.json entries. RULE_ALIASES_RESOLVED correctly still excluded since this clause has no alias language (e.g. 'hereinafter referred to as'). DEFINITION_WITHOUT_USE is a separate, pre-existing, genuinely-authored check."
+  },
+  {
+    "id": "REGR-ASSIGNMENT-001",
+    "domain": "Assignment",
+    "status": "active",
+    "text": "Neither party may assign this Agreement without the prior written consent of the other party.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_ASSIGNMENT_ALLOWED",
+      "RULE_CONSENT_REQUIRED"
+    ],
+    "mustExclude": [],
+    "note": "Assignment with prior written consent rule checks."
+  },
+  {
+    "id": "REGR-NOTICE-001",
+    "domain": "Notice",
+    "status": "active",
+    "text": "Notice shall be deemed received if sent by email, upon confirmation of transmission.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_EMAIL_NOTICE_ALLOWED",
+      "RULE_MISSING_NOTICE_ADDRESS"
+    ],
+    "mustExclude": [],
+    "note": "Notice by email without address details."
+  },
+  {
+    "id": "REGR-CONFIDENTIALITY-001",
+    "domain": "Confidentiality",
+    "status": "active",
+    "text": "The Receiving Party shall hold all Confidential Information in strict confidence and shall not disclose such Confidential Information to any third party without the prior written consent of the Disclosing Party.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_NON_DISCLOSURE"
+    ],
+    "mustExclude": [],
+    "note": "Knowledge Expansion sprint: real when/then authored for RULE_NON_DISCLOSURE, backed by CONCEPT_NON_DISCLOSURE phrases.json entries."
+  },
+  {
+    "id": "REGR-GOVERNINGLAW-001",
+    "domain": "GoverningLaw",
+    "status": "active",
+    "text": "This Agreement shall be governed by the laws of the State of Delaware, and the parties consent to the exclusive jurisdiction of its courts.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_EXPLICIT_GOVERNING_LAW",
+      "RULE_EXCLUSIVE_VENUE"
+    ],
+    "mustExclude": [],
+    "note": "Knowledge Expansion sprint: real CONCEPT_GOVERNING_LAW/CONCEPT_EXCLUSIVE_VENUE concepts, phrases, and when/then authored (previously no concept.json existed for this domain at all)."
+  },
+  {
+    "id": "REGR-INTELLECTUALPROPERTY-001",
+    "domain": "IntellectualProperty",
+    "status": "active",
+    "text": "All work product, inventions, and intellectual property created under this Agreement shall be owned exclusively by the Client.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_IP_OWNERSHIP_CLEARLY_ASSIGNED"
+    ],
+    "mustExclude": [
+      "RULE_OWNERSHIP_UNDEFINED"
+    ],
+    "note": "Knowledge Expansion sprint: real CONCEPT_IP_OWNERSHIP/CONCEPT_IP_OWNERSHIP_GAP concepts, phrases, and when/then authored (previously no concept.json existed for this domain at all)."
+  },
+  {
+    "id": "REGR-TERMINATION-001",
+    "domain": "Termination",
+    "status": "active",
+    "text": "Either party may terminate this Agreement for convenience upon 10 days notice. In the event of a material breach, the non-breaching party may terminate this Agreement if the breaching party fails to cure such breach within 5 days.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_TERMINATION_PRESENT",
+      "RULE_TERMINATION_NOTICE_SHORT",
+      "RULE_TERMINATION_CURE_PERIOD_SHORT"
+    ],
+    "mustExclude": [
+      "RULE_TERMINATION_MISSING",
+      "RULE_TERMINATION_CONVENIENCE_UNILATERAL"
+    ],
+    "note": "Mutual termination convenience with short notice and breach cure period."
+  },
+  {
+    "id": "REGR-TERMINATION-002",
+    "domain": "Termination",
+    "status": "active",
+    "text": "Client may terminate this Agreement for convenience upon 30 days notice.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_TERMINATION_PRESENT",
+      "RULE_TERMINATION_CONVENIENCE_UNILATERAL"
+    ],
+    "mustExclude": [
+      "RULE_TERMINATION_MISSING",
+      "RULE_TERMINATION_NOTICE_SHORT",
+      "RULE_TERMINATION_CURE_PERIOD_SHORT"
+    ],
+    "note": "Unilateral termination convenience with standard notice period."
+  },
+  {
+    "id": "REGR-TERMINATION-003",
+    "domain": "Termination",
+    "status": "active",
+    "text": "The Company shall make payment of USD 1,000 within 5 days.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_TERMINATION_MISSING"
+    ],
+    "mustExclude": [
+      "RULE_TERMINATION_PRESENT",
+      "RULE_TERMINATION_NOTICE_SHORT",
+      "RULE_TERMINATION_CURE_PERIOD_SHORT",
+      "RULE_TERMINATION_CONVENIENCE_UNILATERAL"
+    ],
+    "note": "Negative control: no termination clause present."
+  },
+  {
+    "id": "REGR-LIFECYCLE-001",
+    "domain": "Lifecycle",
+    "status": "active",
+    "text": "Either party may terminate this Agreement for convenience upon sixty (60) days' notice of non-renewal delivered in writing to the other party.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_PROPER_NOTICE_TIMELINE"
+    ],
+    "mustExclude": [
+      "RULE_ILLEGAL_STATE_TRANSITION"
+    ],
+    "note": "Knowledge Expansion sprint: real CONCEPT_NOTICE_TIMELINE concept, phrases, and when/then authored (previously rules.json referenced a bare, unresolved 'LIFECYCLE' concept string)."
+  },
+  {
+    "id": "REGR-LIFECYCLE-002",
+    "domain": "Lifecycle",
+    "status": "active",
+    "text": "Upon written request by either party, the parties may reinstate this Agreement following termination without executing a new agreement.",
+    "category": "Services Agreement",
+    "mustInclude": [
+      "RULE_ILLEGAL_STATE_TRANSITION"
+    ],
+    "mustExclude": [
+      "RULE_PROPER_NOTICE_TIMELINE"
+    ],
+    "note": "Knowledge Expansion sprint: real CONCEPT_ILLEGAL_STATE_TRANSITION concept, phrases, and when/then authored for reinstatement-after-termination language."
+  }
+]

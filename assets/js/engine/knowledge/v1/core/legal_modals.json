@@ -1,0 +1,61 @@
+[
+  {
+    "id": "MODAL_OBLIGATION",
+    "name": "Obligation",
+    "strength": "mandatory",
+    "terms": [
+      "shall",
+      "must",
+      "is required to",
+      "agrees to",
+      "undertakes to"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "MODAL_PERMISSION",
+    "name": "Permission",
+    "strength": "optional",
+    "terms": [
+      "may",
+      "is permitted to",
+      "has the right to"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "MODAL_PROHIBITION",
+    "name": "Prohibition",
+    "strength": "forbidden",
+    "terms": [
+      "shall not",
+      "must not",
+      "may not",
+      "is prohibited from"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "MODAL_DISCRETION",
+    "name": "Discretion",
+    "strength": "discretionary",
+    "terms": [
+      "at its sole discretion",
+      "in its discretion",
+      "may elect to"
+    ],
+    "status": "production"
+  },
+  {
+    "id": "MODAL_CONDITIONAL",
+    "name": "Conditional",
+    "strength": "conditional",
+    "terms": [
+      "provided that",
+      "subject to",
+      "if",
+      "unless"
+    ],
+    "status": "production"
+  }
+]

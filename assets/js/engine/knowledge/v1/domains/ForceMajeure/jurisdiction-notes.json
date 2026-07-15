@@ -1,0 +1,14 @@
+[
+  {
+    "id": "JNOTE_FORCE_MAJEURE_01",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "jurisdiction": "International",
+    "note": "Parties trading under the CISG should confirm whether Article 79 is excluded in favor of a bespoke force majeure clause."
+  },
+  {
+    "id": "JNOTE_FORCE_MAJEURE_02",
+    "concept": "CONCEPT_FORCE_MAJEURE",
+    "jurisdiction": "US-UCC",
+    "note": "Absent an express clause, excuse for goods contracts depends on the commercial-impracticability standard of UCC § 2-615, a materially higher bar than most negotiated force majeure clauses."
+  }
+]

@@ -18,7 +18,7 @@ export function runRuleDiagnostics(basePath) {
   const provider = new KnowledgeProvider(basePath);
   
   // Execute loading and graph validation using production methods
-  provider._loadDomains();
+  provider._loadKnowledge();
   provider._validateAndResolveGraph();
 
   const compiler = new RuleCompiler();

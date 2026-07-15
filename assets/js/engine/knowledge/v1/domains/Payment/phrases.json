@@ -1,0 +1,47 @@
+[
+  {
+    "id": "PHRASE_PAYMENT_SHALL_PAY",
+    "concept": "CONCEPT_PAYMENT",
+    "text": "shall pay"
+  },
+  {
+    "id": "PHRASE_PAYMENT_INVOICED_AMOUNTS",
+    "concept": "CONCEPT_PAYMENT",
+    "text": "invoiced amounts"
+  },
+  {
+    "id": "PHRASE_PAYMENT_DAYS_OF_RECEIPT",
+    "concept": "CONCEPT_PAYMENT",
+    "text": "days of receipt"
+  },
+  {
+    "id": "PHRASE_LATE_INTEREST_ACCRUING",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "text": "interest accruing on late payments"
+  },
+  {
+    "id": "PHRASE_LATE_INTEREST_PER_MONTH",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "text": "per month"
+  },
+  {
+    "id": "PHRASE_LATE_INTEREST_PENALTY",
+    "concept": "CONCEPT_LATE_INTEREST",
+    "text": "late payment penalty"
+  },
+  {
+    "id": "PHRASE_DISPUTED_INVOICE_WITHHOLD",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "text": "withhold payment"
+  },
+  {
+    "id": "PHRASE_DISPUTED_INVOICE_GOOD_FAITH",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "text": "disputed in good faith"
+  },
+  {
+    "id": "PHRASE_DISPUTED_INVOICE_AMOUNTS",
+    "concept": "CONCEPT_DISPUTED_INVOICE",
+    "text": "disputed invoiced amounts"
+  }
+]
