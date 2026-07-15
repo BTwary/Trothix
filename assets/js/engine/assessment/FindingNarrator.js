@@ -69,11 +69,10 @@ export class FindingNarrator {
         metadata.trigger
       ) || {};
 
-    const title =
-      template.title ??
+    const title = template.title ??
       metadata.trigger ??
       finding.type ??
-      "Contractual Finding";
+      null;
 
     const summary = this.fillTemplate(
       template.summary ??
@@ -84,43 +83,28 @@ export class FindingNarrator {
     );
 
     const businessImpact = this.fillTemplate(
-      template.businessImpact ??
-      template.impact ??
-      "This finding may increase contractual or operational risk.",
+      template.businessImpact ?? null,
       variables
     );
 
     const legalImpact = this.fillTemplate(
-      template.legalImpact ??
-      "This finding may affect legal rights, obligations, or enforceability.",
+      template.legalImpact ?? null,
       variables
     );
 
     const recommendation = this.fillTemplate(
       template.recommendation ??
       metadata.recommendation ??
-      "Review this provision.",
+      null,
       variables
     );
-
-    const negotiationTip = template.negotiationTip
-      ? this.fillTemplate(template.negotiationTip, variables)
-      : null;
-
-    // Single-field impact: combines the business and legal lenses into one
-    // fluent string for consumers (executive summary, risk/positive roll-ups)
-    // that need one impact sentence rather than the two separate ones.
-    const impact = [businessImpact, legalImpact]
-      .filter(Boolean)
-      .join(" ");
 
     const evidence = {
       clause: variables.clause ?? null,
       extractedText: variables.extractedText ?? null,
       source: variables.source ?? "IR",
-      confidence: variables.confidence ?? "High"
+      confidence: variables.confidence ?? null
     };
-
     return Object.freeze({
       findingId: finding.id,
 
