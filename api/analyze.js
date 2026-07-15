@@ -3,6 +3,14 @@ import { recordEvent } from "./_stats.js";
 import { isRateLimited } from "./_rateLimiter.js";
 import { Trothix } from "../assets/js/engine/Trothix.js";
 
+const ENABLE_ANALYTICS =
+  String(process.env.TROTHIX_ENABLE_ANALYTICS).toLowerCase() === "true";
+
+async function safeRecordEvent(event, payload) {
+  if (!ENABLE_ANALYTICS) return;
+  return recordEvent(event, payload);
+}
+
 // Cache the engine globally across serverless invocations
 let globalEngine = null;
 
@@ -15,10 +23,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  await recordEvent("request");
+  await safeRecordEvent("request");
 
   if (await isRateLimited("analyze_global", GLOBAL_LIMIT_PER_MIN, RATE_WINDOW_MS)) {
-    await recordEvent("rate_limited");
+    await safeRecordEvent("rate_limited");
     return res.status(429).json({
       error: "Trothix is getting a lot of traffic right now. Please try again in a moment.",
       retryAfterSeconds: 60,
@@ -30,18 +38,21 @@ export default async function handler(req, res) {
   // Legacy fallback for UI chunking: if it sends "synthesize", we just return the merged findings it sent us.
   // We don't actually need to re-analyze it if it's already done.
   if (mode === "synthesize") {
-    await recordEvent("completed", { documentType: findings?.documentType || "Unknown", provider: "deterministic" });
+    await safeRecordEvent("completed", { 
+      documentType: findings?.documentType || "Unknown", 
+      provider: "deterministic" 
+    });
     return res.status(200).json(findings);
   }
 
   // The new deterministic engine doesn't care about chunk size!
   if (!documentText || typeof documentText !== "string" || !documentText.trim()) {
-    await recordEvent("error", { reason: "missing_document" });
+    await safeRecordEvent("error", { reason: "missing_document" });
     return res.status(400).json({ error: "No document text was provided." });
   }
 
   if (documentText.trim().length < 100) {
-    await recordEvent("error", { reason: "too_short" });
+    await safeRecordEvent("error", { reason: "too_short" });
     return res.status(400).json({ error: "That's too short to be a real document — paste at least a few sentences." });
   }
 
@@ -75,7 +86,7 @@ export default async function handler(req, res) {
     // Standardize output for the frontend
     report.isDocument = true;
 
-    await recordEvent("completed", {
+    await safeRecordEvent("completed", {
       documentType: report.documentType || "Unknown",
       documentLength: documentText.length,
       provider: "deterministic",
@@ -86,7 +97,7 @@ export default async function handler(req, res) {
     return res.status(200).json(report);
   } catch (err) {
     console.error(`[analyze] engine error: ${err?.stack || err}`);
-    await recordEvent("error", { reason: "engine_crash" });
+    await safeRecordEvent("error", { reason: "engine_crash" });
     return res.status(500).json({ error: "Something went wrong in the legal engine. Try again in a moment." });
   }
 }
